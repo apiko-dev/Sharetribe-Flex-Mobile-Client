@@ -14,4 +14,8 @@ const AuthScreen = ({
   </View>
 );
 
+AuthScreen.navigationOptions = () => ({
+  title: 'Auth',
+});
+
 export default AuthScreen;

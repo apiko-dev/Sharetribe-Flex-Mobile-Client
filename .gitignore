@@ -1,10 +1,13 @@
 # OSX
 #
 .DS_Store
-
+**/.DS_Store
 # Xcode
 #
+builds/
+ios/Pods
 build/
+ios/build/
 *.pbxuser
 !default.pbxuser
 *.mode1v3
@@ -21,7 +24,6 @@ DerivedData
 *.ipa
 *.xcuserstate
 project.xcworkspace
-
 # Android/IntelliJ
 #
 build/
@@ -29,28 +31,25 @@ build/
 .gradle
 local.properties
 *.iml
-
 # node.js
 #
 node_modules/
 npm-debug.log
 yarn-error.log
-
 # BUCK
 buck-out/
 \.buckd/
 *.keystore
-
 # fastlane
 #
 # It is recommended to not store the screenshots in the git repo. Instead, use fastlane to re-generate the
 # screenshots whenever they are needed.
 # For more information about the recommended setup visit:
-# https://docs.fastlane.tools/best-practices/source-control/
-
-*/fastlane/report.xml
-*/fastlane/Preview.html
-*/fastlane/screenshots
-
-# Bundle artifact
-*.jsbundle
+# https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Gitignore.md
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+app/local.js
+ios/letapp.xcworkspace/xcuserdata/terry.xcuserdatad/UserInterfaceState.xcuserstate
+.vscode
+*.hprof

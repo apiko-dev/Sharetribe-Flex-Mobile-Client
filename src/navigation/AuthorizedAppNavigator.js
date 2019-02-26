@@ -1,9 +1,9 @@
 import { createStackNavigator } from 'react-navigation';
 import screens from './screens';
-import HomeNavigator from './HomeNavigator';
+import HomeScreen from '../screens/Home/HomeScreenContainer';
 
 export default createStackNavigator({
-  [screens.Home]: HomeNavigator,
+  [screens.Home]: HomeScreen,
 }, {
   initialRouteKey: screens.Home,
 });

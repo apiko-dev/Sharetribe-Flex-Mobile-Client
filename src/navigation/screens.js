@@ -1,10 +1,7 @@
 export default {
-  // App status
+  // Authorized
   AuthorizedApp: 'AuthorizedApp',
   UnauthorizedApp: 'UnauthorizedApp',
-
-  // Initialization
-  Init: 'Init',
 
   // Auth
   Auth: 'Auth',

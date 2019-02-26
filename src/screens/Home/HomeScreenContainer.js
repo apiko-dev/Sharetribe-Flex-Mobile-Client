@@ -1,4 +1,9 @@
-import { compose } from 'recompose';
-import HomeScreenComponent from './HomeScreenComponent';
+import { compose, hoistStatics } from 'recompose';
+import { inject } from 'mobx-react';
+import HomeScreenComponent from './HomeScreenView';
 
-export default compose()(HomeScreenComponent);
+export default hoistStatics(
+  compose(
+    inject('store'),
+  ),
+)(HomeScreenComponent);

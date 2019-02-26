@@ -12,6 +12,7 @@
     "mobx-state-tree": "^3.10.2",
     "react": "16.6.3",
     "react-native": "0.58.5",
+    "react-native-gesture-handler": "^1.0.16",
     "react-navigation": "^3.3.0",
     "recompose": "^0.30.0"
   },
@@ -26,6 +27,8 @@
     "eslint-plugin-react": "^7.12.4",
     "jest": "24.1.0",
     "metro-react-native-babel-preset": "0.52.0",
+    "mobx-devtools": "^0.9.20",
+    "mobx-devtools-mst": "^0.9.18",
     "react-test-renderer": "16.6.3"
   },
   "jest": {
