@@ -5,7 +5,7 @@
   "env": {
     "jest": true
   },
-  "plugins": ["react", "react-native"],
+  "plugins": ["react", "react-native", "prettier"],
   "settings": {
     "import/resolver": {
       "node": {
@@ -14,6 +14,7 @@
     }
   },
   "rules": {
+    "prettier/prettier": "error",
     "jsx-a11y/href-no-hash": "off",
     "max-len": [2, 100, 2],
     "import/no-extraneous-dependencies": [
