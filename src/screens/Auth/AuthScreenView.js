@@ -17,3 +17,5 @@ AuthScreen.navigationOptions = () => ({
 });
 
 export default AuthScreen;
+
+// git fix test 2
