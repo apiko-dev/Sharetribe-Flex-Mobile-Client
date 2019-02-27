@@ -1,3 +1,5 @@
+import screens from '../navigation/screens';
+
 class NavigationService {
   navigation = null;
 
@@ -7,11 +9,20 @@ class NavigationService {
   }
 
   navigate(screen, params) {
-    const route = typeof params !== 'object'
-      ? screen
-      : { routeName: screen, params };
+    const route =
+      typeof params !== 'object'
+        ? screen
+        : { routeName: screen, params };
 
     this.navigation.navigate(route);
+  }
+
+  navigateToUnauthorizedApp(props) {
+    this.navigate(screens.UnauthorizedApp, props);
+  }
+
+  navigateToAuthorizedApp(props) {
+    this.navigate(screens.AuthorizedApp, props);
   }
 }
 

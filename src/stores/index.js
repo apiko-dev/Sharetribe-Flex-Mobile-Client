@@ -1,22 +1,25 @@
+import { AsyncStorage } from 'react-native';
 import makeInspectable from 'mobx-devtools-mst';
 import { connectToDevTools } from 'mobx-devtools/lib/mobxDevtoolsBackend';
-import persist from './persist/createPersist'
+import createPersist from './persist/createPersist';
 import RootStore from './RootStore';
 
 connectToDevTools({ host: 'localhost', port: 8098 });
 
-const createStore = (initState) => {
-  const store = RootStore.create({ ...initState });
-
-  makeInspectable(store);
+const createStore = (initialState = {}) => {
+  const store = RootStore.create(initialState, {
+    storage: AsyncStorage,
+  });
 
   const persist = createPersist(RootStore, {
-    whitelist: ['viewer', 'recentSearches'],
+    whitelist: ['viewer'],
   });
 
   persist.rehydrate();
 
-  persist.purge();
+  // persist.purge();
+
+  makeInspectable(store);
 
   return store;
 };

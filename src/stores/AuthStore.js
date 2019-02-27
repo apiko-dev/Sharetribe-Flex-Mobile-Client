@@ -1,55 +1,25 @@
-import { types } from 'mobx-state-tree';
+import { types, getRoot, getEnv } from 'mobx-state-tree';
+import { NavigationService } from '../services';
 
-export const User = types.model({
-  id: '',
-  firstName: '',
-  lastName: '',
-  email: '',
-}).actions(store => ({
-  editUser: ({
-    id, firstName, lastName, email,
-  }) => {
-    store.id = id;
-    store.firstName = firstName;
-    store.lastName = lastName;
-    store.email = email;
-  },
-}));
+const AuthStore = types
+  .model({
+    isAuthenticated: false,
+    isSigningIn: false,
+    isSigningUp: false,
+  })
+  .actions((store) => ({
+    login(userData) {
+      getRoot(store).viewer.setUser(userData);
 
-export const AuthStore = types.model({
-  isAuthenticated: false,
-  isSigningIn: false,
-  isSigningUp: false,
-  user: types.optional(User, {}),
-}).actions(store => ({
-  singIn: ({
-    id, firstName, lastName, email,
-  }) => {
-    store.user = {
-      id,
-      firstName,
-      lastName,
-      email,
-    };
+      getEnv(store).storage.setItem('token', 'token');
 
-    store.isAuthenticated = true;
-  },
+      NavigationService.navigateToAuthorizedApp();
+    },
+    logout() {
+      getEnv(store).storage.removeItem('token');
 
-  addUser: ({
-    id, firstName, lastName, email,
-  }) => {
-    store.user = {
-      id,
-      firstName,
-      lastName,
-      email,
-    };
-  },
-
-  removeUser: () => {
-    store.user = {};
-  },
-
-}));
+      NavigationService.navigateToUnauthorizedApp();
+    },
+  }));
 
 export default AuthStore;

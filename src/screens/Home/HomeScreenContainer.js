@@ -1,9 +1,19 @@
-import { compose, hoistStatics } from 'recompose';
+import { compose, hoistStatics, withHandlers } from 'recompose';
 import { inject } from 'mobx-react';
 import HomeScreenComponent from './HomeScreenView';
+import { NavigationService } from '../../services';
 
 export default hoistStatics(
   compose(
-    inject('store'),
+    inject((stores) => ({
+      user: stores.viewer.user,
+      auth: stores.auth,
+    })),
+    withHandlers({
+      singOut: (props) => () => {
+        props.auth.logout();
+        NavigationService.navigateToUnauthorizedApp();
+      },
+    }),
   ),
 )(HomeScreenComponent);
