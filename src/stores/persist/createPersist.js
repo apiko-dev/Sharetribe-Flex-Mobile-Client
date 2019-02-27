@@ -83,7 +83,6 @@ const createPersist = (stores, config = {}) => {
   }
 
   attachSnapshotListeners(entries, storage);
-
   const rehydrate = createRehydrate(entries, storage);
   const purge = createPurge(entries, storage);
 

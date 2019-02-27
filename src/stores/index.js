@@ -11,15 +11,14 @@ const createStore = (initialState = {}) => {
     storage: AsyncStorage,
   });
 
-  const persist = createPersist(RootStore, {
+  const persist = createPersist(store, {
     whitelist: ['viewer'],
   });
+  makeInspectable(store);
 
   persist.rehydrate();
 
   // persist.purge();
-
-  makeInspectable(store);
 
   return store;
 };
