@@ -1,10 +1,29 @@
-import { compose, withHandlers, hoistStatics } from 'recompose';
+import {
+  compose,
+  withHandlers,
+  hoistStatics,
+  withStateHandlers,
+} from 'recompose';
 import { inject } from 'mobx-react';
 import AuthScreenView from './AuthScreenView';
 
 export default hoistStatics(
   compose(
     inject('auth'),
+    withStateHandlers(
+      {
+        tabIndex: 0,
+        tabRoutes: [
+          { key: 'signIn', title: 'Sign In' },
+          { key: 'signUp', title: 'Sign Up' },
+        ],
+      },
+      {
+        onChangeTabIndex: () => (index) => ({
+          tabIndex: index,
+        }),
+      },
+    ),
     withHandlers({
       singIn: (props) => () => {
         props.auth.login({

@@ -13,6 +13,7 @@ import java.util.List;
 
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
+import com.swmansion.reanimated.ReanimatedPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -27,7 +28,8 @@ public class MainApplication extends Application implements ReactApplication {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
           new RNGestureHandlerPackage(),
-          new SplashScreenReactPackage()
+          new SplashScreenReactPackage(),
+          new ReanimatedPackage()
       );
     }
 
