@@ -1,4 +1,5 @@
 import React from 'react';
+import SplashScreen from 'react-native-splash-screen';
 import { Provider } from 'mobx-react/native';
 import { lifecycle } from 'recompose';
 import RootNavigation from './navigation/RootNavigation';
@@ -15,6 +16,8 @@ const InitApp = () => (
 const enhancer = lifecycle({
   async componentDidMount() {
     await store.bootstrap();
+
+    SplashScreen.hide();
   },
 });
 
