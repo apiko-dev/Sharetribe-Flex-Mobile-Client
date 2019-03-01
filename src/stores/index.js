@@ -11,7 +11,7 @@ const createStore = (initialState = {}) => {
     storage: AsyncStorage,
   });
 
-  const persist = createPersist(RootStore, {
+  const persist = createPersist(store, {
     whitelist: ['viewer'],
   });
 

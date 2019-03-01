@@ -4,10 +4,11 @@ import T from 'prop-types';
 import s from './styles';
 import { Touchable } from '../../components';
 
-const HomeScreen = ({ singOut }) => (
+const HomeScreen = ({ singOut, user }) => (
   <View style={s.container}>
     <Text>Home Screen</Text>
     <Text>There is a token</Text>
+    <Text>{user && user.firstName}</Text>
     <Touchable>
       <Text onPress={singOut}>LOGOUT</Text>
     </Touchable>
@@ -20,6 +21,7 @@ HomeScreen.navigationOptions = () => ({
 
 HomeScreen.propTypes = {
   singOut: T.func.isRequired,
+  user: T.object.isRequired,
 };
 
 export default HomeScreen;
