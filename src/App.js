@@ -1,4 +1,5 @@
 import React from 'react';
+import { Dimensions } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import { Provider } from 'mobx-react/native';
 import { lifecycle } from 'recompose';

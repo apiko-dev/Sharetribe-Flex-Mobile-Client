@@ -3,18 +3,18 @@ import colors from '../../styles/colors';
 
 export default StyleSheet.create({
   container: {},
-  inputContainer: {
+  animatedContainer: {
     height: 46,
     borderWidth: 1,
     borderRadius: 10,
     borderColor: colors.input.borderColor,
   },
-  inputTitle: {
+  inputLabel: {
     position: 'absolute',
     left: 14,
-    top: -8,
-    color: colors.input.titleColor,
-    backgroundColor: colors.input.titleBackgroundColor,
+    top: 15,
+    color: colors.input.labelColor,
+    backgroundColor: colors.input.labelBackgroundColor,
     paddingHorizontal: 4,
   },
   input: {
@@ -24,5 +24,11 @@ export default StyleSheet.create({
     paddingLeft: 16,
     paddingTop: 13,
     paddingBottom: 13,
+  },
+  activeContainer: {
+    borderColor: colors.input.activeBorderColor,
+  },
+  activeLabel: {
+    color: colors.input.activeLabelColor,
   },
 });

@@ -3,9 +3,11 @@ import {
   withHandlers,
   hoistStatics,
   withStateHandlers,
+  withPropsOnChange,
 } from 'recompose';
 import { inject } from 'mobx-react';
 import AuthScreenView from './AuthScreenView';
+import screens from '../../navigation/screens';
 
 export default hoistStatics(
   compose(
@@ -14,13 +16,29 @@ export default hoistStatics(
       {
         tabIndex: 0,
         tabRoutes: [
-          { key: 'signIn', title: 'Sign In' },
-          { key: 'signUp', title: 'Sign Up' },
+          { key: screens.TabViews.Auth.SingIn, title: 'Sign In' },
+          { key: screens.TabViews.Auth.SingUp, title: 'Sign Up' },
         ],
       },
       {
         onChangeTabIndex: () => (index) => ({
           tabIndex: index,
+        }),
+      },
+    ),
+    withStateHandlers(
+      {
+        emailSignIn: '',
+        passwordSignIn: '',
+        emailSignUp: '',
+        passwordSignUp: '',
+        firstName: '',
+        lastName: '',
+        activeField: '',
+      },
+      {
+        onChange: () => (field, value) => ({
+          [field]: value,
         }),
       },
     ),
@@ -34,5 +52,16 @@ export default hoistStatics(
         });
       },
     }),
+    withPropsOnChange(
+      [
+        'emailSignIn',
+        'passwordSignIn',
+        'emailSignUp',
+        'passwordSignUp',
+        'firstName',
+        'lastName',
+      ],
+      () => {},
+    ),
   ),
 )(AuthScreenView);

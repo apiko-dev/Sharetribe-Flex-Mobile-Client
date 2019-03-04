@@ -16,9 +16,15 @@ const SignUpForm = () => (
         secureTextEntry
       />
     </View>
+    <View>
+      <Text>By signing up you accept the terms and conditions</Text>
+    </View>
     <Touchable>
-      <Text>reate account</Text>
+      <Text>Create account</Text>
     </Touchable>
+    <View>
+      <Text>Already have an account? Sign in</Text>
+    </View>
   </View>
 );
 

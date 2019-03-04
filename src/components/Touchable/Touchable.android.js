@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   Platform,
 } from 'react-native';
+import T from 'prop-types';
 
 const Touchable = ({
   style,
@@ -28,16 +29,26 @@ const Touchable = ({
       {...props}
       useForeground={Platform.Version >= 23 && useForeground}
       delayPressIn={0}
-      background={backgroundType
-        ? TouchableNativeFeedback.Ripple[backgroundType]()
-        : TouchableNativeFeedback.Ripple(rippleColor, borderless)
+      background={
+        backgroundType
+          ? TouchableNativeFeedback.Ripple[backgroundType]()
+          : TouchableNativeFeedback.Ripple(rippleColor, borderless)
       }
     >
-      <View style={style}>
-        {children}
-      </View>
+      <View style={style}>{children}</View>
     </TouchableNativeFeedback>
   );
+};
+
+Touchable.defaultProps = {};
+
+Touchable.propTypes = {
+  children: T.any,
+  rippleColor: T.string,
+  backgroundType: T.any,
+  borderless: T.bool,
+  useForeground: T.bool,
+  style: T.object,
 };
 
 export default Touchable;

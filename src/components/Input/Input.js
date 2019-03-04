@@ -1,21 +1,25 @@
 import React from 'react';
 import { View, Text, TextInput } from 'react-native';
 import T from 'prop-types';
+import s from './styles';
 
 const Input = ({
   value,
-  onChaneText,
+  onChangeText,
   placeholder,
   title,
   error,
+  containerStyle,
+  inputStyle,
   ...props
 }) => (
-  <View>
-    <View>
-      <Text>{title}</Text>
+  <View style={[s.container, containerStyle]}>
+    <View style={s.inputContainer}>
+      <Text style={s.inputTitle}>{title}</Text>
       <TextInput
+        style={[s.input, inputStyle]}
         value={value}
-        onChaneText={onChaneText}
+        onChangeText={onChangeText}
         placeholder={placeholder}
         {...props}
       />
@@ -26,10 +30,12 @@ const Input = ({
 
 Input.propTypes = {
   value: T.string,
-  onChaneText: T.func,
+  onChangeText: T.func,
   placeholder: T.string,
   title: T.string,
   error: T.object,
+  containerStyle: T.any,
+  inputStyle: T.any,
 };
 
 export default Input;
