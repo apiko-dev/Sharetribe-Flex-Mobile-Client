@@ -10,7 +10,7 @@ import {
   Reanimatable,
   createAnimationConfig,
 } from 'react-native-reanimatable';
-import { isAndroid } from '../../utils/detectDevice';
+import { isAndroid } from '../../utils';
 // import { colors } from '../../styles';
 import s from './styles';
 // import { getRef } from '../../utils';
@@ -20,14 +20,14 @@ const AnimatedTextInput = A.createAnimatedComponent(TextInput);
 const animationConfig = createAnimationConfig({
   animation: {
     type: 'timing',
-    duration: 150,
+    duration: 350,
     easing: Easing.inOut(Easing.poly(5)),
   },
   values: {
-    fontSize: { from: 14, to: 10 },
+    fontSize: { from: 14, to: 11 },
     translateYLabel: {
       from: isAndroid ? -2 : 0,
-      to: isAndroid ? -21 : -23,
+      to: isAndroid ? -23 : -23,
     },
     translateY2Input: { from: 0, to: 0 },
   },

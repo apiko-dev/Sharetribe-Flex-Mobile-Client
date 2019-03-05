@@ -16,6 +16,7 @@ target 'SharetribeFlexMobileClient' do
     ‘RCTWebSocket’, # Needed for debugging
     ‘RCTAnimation’, # Needed for FlatList and animations running on native UI thread
     # Add any other subspecs you want to use in your project
+    ‘RCTImage’
   ]
   # Explicitly include Yoga if you are using RN >= 0.42.0
   pod ‘yoga’, :path => ‘../node_modules/react-native/ReactCommon/yoga’
@@ -25,6 +26,7 @@ target 'SharetribeFlexMobileClient' do
   # Pods for SharetribeFlexMobileClient
   pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
   pod ‘RNReanimated’, :path => ‘../node_modules/react-native-reanimated’
+  pod 'RNSVG', :path => '../node_modules/react-native-svg'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
   pod ‘DoubleConversion’, :podspec => ‘../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec’
   pod ‘glog’, :podspec => ‘../node_modules/react-native/third-party-podspecs/glog.podspec’

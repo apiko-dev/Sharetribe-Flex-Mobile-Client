@@ -1,8 +1,8 @@
 export default {
-  signInSingUpForm: {
+  signInSignUpForm: {
     backgroundColor: '#FFF',
     heading: '#333333',
-    textGray: '#8F8F8F',
+    text: '#8F8F8F',
   },
   input: {
     borderColor: '#E9E9E9',
@@ -22,6 +22,9 @@ export default {
     textColor: '#8F8F8F',
     textColorPrimary: '#FFFFFF',
     shadowColor: '#FF9900',
+    disableColor: '#8F8F8F',
+    rippleColor: '#FFF',
+    rippleColorPrimary: '#FF9900',
   },
   authScreen: {
     backgroundColor: '#FFF',

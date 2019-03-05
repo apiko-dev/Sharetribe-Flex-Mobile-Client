@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import colors from '../../styles/colors';
+import { fontSizes } from '../../styles';
 
 export default StyleSheet.create({
   container: {},
@@ -19,7 +20,7 @@ export default StyleSheet.create({
   },
   input: {
     color: colors.input.textColor,
-    fontSize: 14,
+    fontSize: fontSizes.medium,
     height: 46,
     paddingLeft: 16,
     paddingTop: 13,

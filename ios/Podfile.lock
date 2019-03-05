@@ -40,6 +40,9 @@ PODS:
     - React/Core
   - React/RCTBlob (0.59.0-rc.3):
     - React/Core
+  - React/RCTImage (0.59.0-rc.3):
+    - React/Core
+    - React/RCTNetwork
   - React/RCTNetwork (0.59.0-rc.3):
     - React/Core
   - React/RCTText (0.59.0-rc.3):
@@ -52,6 +55,8 @@ PODS:
     - React
   - RNReanimated (1.0.0-alpha.12):
     - React
+  - RNSVG (9.2.4):
+    - React
   - yoga (0.59.0-rc.3.React)
 
 DEPENDENCIES:
@@ -62,11 +67,13 @@ DEPENDENCIES:
   - React/CxxBridge (from `../node_modules/react-native`)
   - React/DevSupport (from `../node_modules/react-native`)
   - React/RCTAnimation (from `../node_modules/react-native`)
+  - React/RCTImage (from `../node_modules/react-native`)
   - React/RCTNetwork (from `../node_modules/react-native`)
   - React/RCTText (from `../node_modules/react-native`)
   - React/RCTWebSocket (from `../node_modules/react-native`)
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
+  - RNSVG (from `../node_modules/react-native-svg`)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -86,6 +93,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-gesture-handler"
   RNReanimated:
     :path: "../node_modules/react-native-reanimated"
+  RNSVG:
+    :path: "../node_modules/react-native-svg"
   yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -97,8 +106,9 @@ SPEC CHECKSUMS:
   React: e18068c843db92d5761d2d05a485c85c430727da
   RNGestureHandler: 0438a761e8f29be3b809f9e7e43014f3aba4d7a6
   RNReanimated: b7adc1a5e4eca563966cfcbd982429ebd70d6b17
+  RNSVG: 6fec2b50e65b4a01ba54155e8e546e0a1eeb16f4
   yoga: 4d7f00d234c42cf46c609ee1e429c987167b30f1
 
-PODFILE CHECKSUM: 712eaab61f1067dcc7a1cfbafc21b5facec201ef
+PODFILE CHECKSUM: d0dad77f2f1764700d12f007f887f287c0dc0d2b
 
 COCOAPODS: 1.6.1

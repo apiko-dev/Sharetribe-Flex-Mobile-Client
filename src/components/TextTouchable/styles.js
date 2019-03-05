@@ -1,17 +1,19 @@
 import { StyleSheet } from 'react-native';
 import colors from '../../styles/colors';
+import { fontSizes } from '../../styles';
 
 export default StyleSheet.create({
   container: {
     paddingHorizontal: 3,
+    alignSelf: 'center',
   },
   text: {
     color: colors.textTouchable.textColor,
-    fontSize: 14,
+    fontSize: fontSizes.medium,
     alignSelf: 'center',
   },
   smallFontSize: {
-    fontSize: 12,
+    fontSize: fontSizes.small,
   },
   boldFontWeight: {
     fontWeight: '700',

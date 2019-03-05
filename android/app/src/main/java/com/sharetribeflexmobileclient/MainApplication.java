@@ -14,6 +14,7 @@ import java.util.List;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
 import com.swmansion.reanimated.ReanimatedPackage;
+import com.horcrux.svg.SvgPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -29,7 +30,8 @@ public class MainApplication extends Application implements ReactApplication {
           new MainReactPackage(),
           new RNGestureHandlerPackage(),
           new SplashScreenReactPackage(),
-          new ReanimatedPackage()
+          new ReanimatedPackage(),
+          new SvgPackage()
       );
     }
 

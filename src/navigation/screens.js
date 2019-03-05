@@ -9,11 +9,4 @@ export default {
   // Common
   Home: 'Home',
   Product: 'Product',
-
-  TabViews: {
-    Auth: {
-      SingIn: 'SignIn',
-      SingUp: 'SigSingUpnIn',
-    },
-  },
 };

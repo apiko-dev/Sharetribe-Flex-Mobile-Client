@@ -1,6 +1,6 @@
 import { createStackNavigator } from 'react-navigation';
 import screens from './screens';
-import AuthScreen from '../screens/Auth/AuthScreenContainer';
+import { AuthScreen } from '../screens';
 
 export default createStackNavigator(
   {

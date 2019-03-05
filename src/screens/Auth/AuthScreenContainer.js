@@ -3,11 +3,11 @@ import {
   withHandlers,
   hoistStatics,
   withStateHandlers,
-  withPropsOnChange,
+  lifecycle,
 } from 'recompose';
+import { Keyboard } from 'react-native';
 import { inject } from 'mobx-react';
 import AuthScreenView from './AuthScreenView';
-import screens from '../../navigation/screens';
 
 export default hoistStatics(
   compose(
@@ -16,29 +16,13 @@ export default hoistStatics(
       {
         tabIndex: 0,
         tabRoutes: [
-          { key: screens.TabViews.Auth.SingIn, title: 'Sign In' },
-          { key: screens.TabViews.Auth.SingUp, title: 'Sign Up' },
+          { key: 'signIn', title: 'Sign In' },
+          { key: 'signUp', title: 'Sign Up' },
         ],
       },
       {
         onChangeTabIndex: () => (index) => ({
           tabIndex: index,
-        }),
-      },
-    ),
-    withStateHandlers(
-      {
-        emailSignIn: '',
-        passwordSignIn: '',
-        emailSignUp: '',
-        passwordSignUp: '',
-        firstName: '',
-        lastName: '',
-        activeField: '',
-      },
-      {
-        onChange: () => (field, value) => ({
-          [field]: value,
         }),
       },
     ),
@@ -51,17 +35,20 @@ export default hoistStatics(
           email: 'email@apiko.com',
         });
       },
+      keyboardDidShowHandler: () => () => {},
+      keyboardDidHideHandler: () => () => {},
     }),
-    withPropsOnChange(
-      [
-        'emailSignIn',
-        'passwordSignIn',
-        'emailSignUp',
-        'passwordSignUp',
-        'firstName',
-        'lastName',
-      ],
-      () => {},
-    ),
+    lifecycle({
+      componentDidMount() {
+        this.keyboardDidShowListener = Keyboard.addListener(
+          'keyboardDidShow',
+          this.props.keyboardDidShowHandler,
+        );
+        this.keyboardDidHideListener = Keyboard.addListener(
+          'keyboardDidHide',
+          this.props.keyboardDidHideHandler,
+        );
+      },
+    }),
   ),
 )(AuthScreenView);

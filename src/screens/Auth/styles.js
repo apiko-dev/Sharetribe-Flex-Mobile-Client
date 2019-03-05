@@ -1,44 +1,50 @@
 import { StyleSheet } from 'react-native';
 import { colors, fontSizes } from '../../styles';
-import { isSmallDevice } from '../../utils/detectDevice';
-
-const smallDevice = isSmallDevice();
+import * as dimensions from '../../utils/dimensions';
 
 export default StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
     backgroundColor: colors.authScreen.backgroundColor,
     justifyContent: 'center',
   },
+  containerSafeAreaView: {
+    flex: 1,
+  },
   heading: {
     color: colors.authScreen.heading,
-    fontSize: smallDevice ? 20 : fontSizes.authScreen.heading,
     textAlign: 'center',
-    marginBottom: smallDevice ? 10 : 32,
   },
-  logo: {
-    alignSelf: 'center',
-    marginTop: smallDevice ? 10 : 35,
-    marginBottom: smallDevice ? 10 : 18,
-    height: smallDevice ? 40 : 90,
-    width: smallDevice ? 100 : 200,
+  headingSmall: {
+    fontSize: fontSizes.medium,
+    marginBottom: dimensions.indent * 1.3,
+  },
+  headingMedium: {
+    fontSize: fontSizes.xlarge,
+    marginBottom: dimensions.indent * 2.3,
+  },
+  headingLarge: {
+    fontSize: fontSizes.xlarge,
+    marginTop: dimensions.indent,
+    marginBottom: dimensions.indent * 4,
   },
   tabViewContainer: {
     flex: 1,
-    marginLeft: 16,
-    marginRight: 16,
-    shadowColor: colors.authScreen.shadowColor,
+    marginLeft: dimensions.indent,
+    marginRight: dimensions.indent,
     shadowOffset: {
       width: 0,
       height: 3,
     },
-    shadowOpacity: 0.29,
-    shadowRadius: 4.65,
-    elevation: 7,
+    shadowOpacity: 0.3,
+    shadowRadius: 4.7,
   },
   tabView: {
-    flex: 1,
     borderRadius: 10,
+    marginLeft: 1,
+    marginBottom: 3,
+    shadowColor: colors.authScreen.shadowColor,
+    elevation: 3,
   },
   circle: {
     position: 'absolute',

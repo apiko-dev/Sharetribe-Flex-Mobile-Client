@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import colors from '../../styles/colors';
+import { fontSizes } from '../../styles';
 
 export default StyleSheet.create({
   button: {
@@ -15,6 +16,7 @@ export default StyleSheet.create({
     color: colors.button.textColor,
     textAlign: 'center',
     fontWeight: '700',
+    fontSize: fontSizes.medium,
   },
   primaryView: {
     backgroundColor: colors.button.backgroundColorPrimary,
@@ -23,12 +25,22 @@ export default StyleSheet.create({
       width: 0,
       height: 3,
     },
-    shadowOpacity: 0.29,
-    shadowRadius: 4.65,
+    shadowOpacity: 0.3,
+    shadowRadius: 4.7,
 
-    elevation: 7,
+    elevation: 3,
   },
   primaryText: {
     color: colors.button.textColorPrimary,
+  },
+  disable: {
+    backgroundColor: colors.button.disableColor,
+    shadowOffset: {
+      width: 0,
+      height: 0,
+    },
+    shadowOpacity: 0,
+    shadowRadius: 0,
+    elevation: 0,
   },
 });
