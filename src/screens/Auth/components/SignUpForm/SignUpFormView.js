@@ -32,6 +32,8 @@ const SignUpForm = ({
         active={activeField === 'email'}
         onFocus={() => onChange('activeField', 'email')}
         onChangeText={(text) => onChange('email', text)}
+        autoCapitalize="none"
+        keyboardType="email-address"
       />
       <View style={s.inputContainerFirstAndLastNames}>
         <InputForm

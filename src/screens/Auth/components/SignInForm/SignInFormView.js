@@ -31,6 +31,8 @@ const SignInFormView = ({
         active={activeField === 'email'}
         onFocus={() => onChange('activeField', 'email')}
         onChangeText={(text) => onChange('email', text)}
+        autoCapitalize="none"
+        keyboardType="email-address"
       />
       <InputForm
         placeholder={i18n.t('auth.password')}
