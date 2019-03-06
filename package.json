@@ -22,7 +22,8 @@
     "react-native-svg": "^9.2.4",
     "react-native-tab-view": "^2.0.1",
     "react-navigation": "^3.3.0",
-    "recompose": "^0.30.0"
+    "recompose": "^0.30.0",
+    "sharetribe-flex-sdk": "^1.2.0"
   },
   "devDependencies": {
     "@babel/core": "7.3.4",
