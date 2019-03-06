@@ -8,6 +8,7 @@ export default hoistStatics(
       user: stores.viewer.user,
       auth: stores.auth,
     })),
+
     withHandlers({
       singOut: (props) => () => {
         props.auth.logout();

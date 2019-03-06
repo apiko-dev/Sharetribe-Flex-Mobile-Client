@@ -1,12 +1,3 @@
-/* export default {
-  verySmall: 12,
-  small: 13,
-  medium: 14,
-  large: 16,
-  veryLarge: 18,
-  veryLargeHeading: 22,
-}; */
-
 import { moderateScale } from '../utils/scalingUtils';
 
 const fontSizes = {
@@ -18,9 +9,9 @@ const fontSizes = {
   xxmedium: moderateScale(20),
   xmedium: moderateScale(18),
   medium: moderateScale(14),
-  xxsmall: moderateScale(14),
-  small: moderateScale(12),
-  xsmall: moderateScale(10),
+  xxsmall: moderateScale(10),
+  small: moderateScale(13),
+  xsmall: moderateScale(12),
 };
 
 export default fontSizes;

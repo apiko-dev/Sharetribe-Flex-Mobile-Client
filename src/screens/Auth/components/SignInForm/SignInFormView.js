@@ -1,12 +1,14 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import T from 'prop-types';
 import s from './styles';
 import {
   InputForm,
   Button,
   TextTouchable,
+  Text,
 } from '../../../../components';
+import i18n from '../../../../i18n';
 
 const SignInFormView = ({
   jumpTo,
@@ -15,12 +17,15 @@ const SignInFormView = ({
   onChange,
   activeField,
   isValidFields,
+  signIn,
 }) => (
   <View style={s.container}>
-    <Text style={s.heading}>Sign In</Text>
+    <Text style={s.heading} bold xxmediumSize>
+      Sign In
+    </Text>
     <View>
       <InputForm
-        placeholder="Email"
+        placeholder={i18n.t('auth.email')}
         containerStyle={s.inputContainerEmail}
         value={email}
         active={activeField === 'email'}
@@ -28,7 +33,7 @@ const SignInFormView = ({
         onChangeText={(text) => onChange('email', text)}
       />
       <InputForm
-        placeholder="Password"
+        placeholder={i18n.t('auth.password')}
         containerStyle={s.inputContainerPassword}
         value={password}
         active={activeField === 'password'}
@@ -38,26 +43,31 @@ const SignInFormView = ({
       />
     </View>
     <View style={s.textWithTouchableContainer}>
-      <Text style={[s.text, s.smallFontSize]}>
-        Forgot your password?
+      <Text style={[s.text]} smallSize gray>
+        {i18n.t('auth.resetPassword')}
       </Text>
-      <TextTouchable smallFontSize>Reset password.</TextTouchable>
+      <TextTouchable smallSize>
+        {i18n.t('auth.resetPasswordLink')}
+      </TextTouchable>
     </View>
     <Button
       primary
       containerStyle={s.buttonContainer}
       disable={!isValidFields}
+      onPress={() => signIn()}
     >
-      Sign In
+      {i18n.t('auth.signIn')}
     </Button>
-    <Text style={[s.text]}>Dont have an account?</Text>
+    <Text style={[s.text]} gray>
+      {i18n.t('auth.dontHaveAnAccount')}
+    </Text>
     <View style={s.bottom}>
       <TextTouchable
-        boldFontWeight
+        bold
         alignCenter
         onPress={() => jumpTo('signUp')}
       >
-        Sign Up
+        {i18n.t('auth.signUp')}
       </TextTouchable>
     </View>
   </View>
@@ -70,6 +80,7 @@ SignInFormView.propTypes = {
   password: T.string,
   activeField: T.string,
   isValidFields: T.bool,
+  signIn: T.func,
 };
 
 export default SignInFormView;

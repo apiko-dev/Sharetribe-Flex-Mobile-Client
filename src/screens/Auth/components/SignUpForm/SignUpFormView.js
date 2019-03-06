@@ -1,12 +1,14 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import T from 'prop-types';
 import s from './styles';
 import {
   InputForm,
   Button,
   TextTouchable,
+  Text,
 } from '../../../../components';
+import i18n from '../../../../i18n';
 
 const SignUpForm = ({
   jumpTo,
@@ -19,10 +21,12 @@ const SignUpForm = ({
   isValidFields,
 }) => (
   <View style={s.container}>
-    <Text style={s.heading}>Sign Up</Text>
+    <Text style={s.heading} xxmediumSize bold>
+      {i18n.t('auth.signUp')}
+    </Text>
     <View>
       <InputForm
-        placeholder="Email"
+        placeholder={i18n.t('auth.email')}
         containerStyle={s.inputContainerEmail}
         value={email}
         active={activeField === 'email'}
@@ -31,7 +35,7 @@ const SignUpForm = ({
       />
       <View style={s.inputContainerFirstAndLastNames}>
         <InputForm
-          placeholder="First name"
+          placeholder={i18n.t('auth.firstName')}
           containerStyle={[s.inputContainer, s.inputLeft]}
           value={firstName}
           active={activeField === 'firstName'}
@@ -39,7 +43,7 @@ const SignUpForm = ({
           onChangeText={(text) => onChange('firstName', text)}
         />
         <InputForm
-          placeholder="Last name"
+          placeholder={i18n.t('auth.lastName')}
           containerStyle={s.inputContainer}
           value={lastName}
           active={activeField === 'lastName'}
@@ -48,7 +52,7 @@ const SignUpForm = ({
         />
       </View>
       <InputForm
-        placeholder="Password"
+        placeholder={i18n.t('auth.password')}
         containerStyle={s.inputContainerPassword}
         value={password}
         active={activeField === 'password'}
@@ -58,11 +62,11 @@ const SignUpForm = ({
       />
     </View>
     <View style={[s.textWithTouchableContainer, s.alignCenter]}>
-      <Text style={[s.text, s.smallFontSize]}>
-        By signing up you accept the
+      <Text style={[s.text]} smallSize gray>
+        {i18n.t('auth.termsAndConditions')}
       </Text>
-      <TextTouchable smallFontSize>
-        terms and conditions
+      <TextTouchable smallSize>
+        {i18n.t('auth.termsAndConditionsLink')}
       </TextTouchable>
     </View>
     <Button
@@ -70,12 +74,14 @@ const SignUpForm = ({
       containerStyle={s.buttonContainer}
       disable={!isValidFields}
     >
-      Create account
+      {i18n.t('auth.createAccount')}
     </Button>
     <View style={[s.textWithTouchableContainer, s.alignCenter]}>
-      <Text style={s.text}>Already have an account?</Text>
-      <TextTouchable boldFontWeight onPress={() => jumpTo('signIn')}>
-        Sign in
+      <Text style={s.text} gray>
+        {i18n.t('auth.alreadyHaveAnAccount')}
+      </Text>
+      <TextTouchable bold onPress={() => jumpTo('signIn')}>
+        {i18n.t('auth.signIn')}
       </TextTouchable>
     </View>
   </View>

@@ -7,6 +7,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "i18n-js": "^3.2.1",
     "mobx": "^5.9.0",
     "mobx-react": "^5.4.3",
     "mobx-state-tree": "^3.10.2",
@@ -14,6 +15,7 @@
     "react-native": "0.59.0-rc.3",
     "react-native-gesture-handler": "^1.0.16",
     "react-native-keyboard-aware-scroll-view": "^0.8.0",
+    "react-native-languages": "^3.0.2",
     "react-native-reanimatable": "^0.4.3",
     "react-native-reanimated": "^1.0.0-alpha.12",
     "react-native-splash-screen": "^3.2.0",

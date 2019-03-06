@@ -6,6 +6,7 @@ import {
 } from 'recompose';
 import { inject } from 'mobx-react';
 import SignInFormView from './SignInFormView';
+import { isValidEmail } from '../../../../utils/regExp';
 
 export default compose(
   inject('auth'),
@@ -23,21 +24,21 @@ export default compose(
       }),
     },
   ),
+
   withHandlers({
-    singIn: (props) => () => {
+    signIn: (props) => () => {
       props.auth.login({
-        id: '1234a',
-        lastName: 'Last name of user',
-        firstName: 'Apiko Flex',
-        email: 'email@apiko.com',
+        id: Math.random(),
+        email: props.email,
+        password: props.password,
       });
     },
   }),
-  withPropsOnChange(['email', 'password'], (props) => {
-    const isValidFields =
-      props.email.trim().includes('@') &&
-      props.password.trim().length > 8;
 
-    props.onChange('isValidFields', isValidFields);
+  withPropsOnChange(['email', 'password'], (props) => {
+    props.onChange(
+      'isValidFields',
+      props.password.trim().length > 8 && isValidEmail(props.email),
+    );
   }),
 )(SignInFormView);

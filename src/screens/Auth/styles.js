@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { colors, fontSizes } from '../../styles';
-import * as dimensions from '../../utils/dimensions';
+import { colors, fontSizes, dimensions } from '../../styles';
 
 export default StyleSheet.create({
   container: {
@@ -10,18 +9,16 @@ export default StyleSheet.create({
   },
   containerSafeAreaView: {
     flex: 1,
+    justifyContent: 'center',
   },
   heading: {
-    color: colors.authScreen.heading,
     textAlign: 'center',
+    fontSize: fontSizes.xlarge,
+    marginBottom: dimensions.indent * 2.3,
   },
   headingSmall: {
     fontSize: fontSizes.medium,
     marginBottom: dimensions.indent * 1.3,
-  },
-  headingMedium: {
-    fontSize: fontSizes.xlarge,
-    marginBottom: dimensions.indent * 2.3,
   },
   headingLarge: {
     fontSize: fontSizes.xlarge,
@@ -59,5 +56,8 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     height: 48,
+  },
+  toUpperCase: {
+    textTransform: 'uppercase',
   },
 });

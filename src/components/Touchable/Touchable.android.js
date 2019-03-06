@@ -10,10 +10,10 @@ import T from 'prop-types';
 const Touchable = ({
   style,
   children,
-  rippleColor = '#fff',
+  rippleColor,
   backgroundType,
-  borderless = false,
-  useForeground = false,
+  borderless,
+  useForeground,
   ...props
 }) => {
   if (Platform.Version <= 20) {
@@ -40,7 +40,11 @@ const Touchable = ({
   );
 };
 
-Touchable.defaultProps = {};
+Touchable.defaultProps = {
+  rippleColor: '#fff',
+  borderless: false,
+  useForeground: false,
+};
 
 Touchable.propTypes = {
   children: T.any,

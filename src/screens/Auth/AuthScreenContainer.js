@@ -1,17 +1,17 @@
 import {
   compose,
-  withHandlers,
   hoistStatics,
   withStateHandlers,
-  lifecycle,
+  withHandlers,
 } from 'recompose';
-import { Keyboard } from 'react-native';
 import { inject } from 'mobx-react';
 import AuthScreenView from './AuthScreenView';
+import { NavigationService } from '../../services';
 
 export default hoistStatics(
   compose(
     inject('auth'),
+
     withStateHandlers(
       {
         tabIndex: 0,
@@ -26,29 +26,9 @@ export default hoistStatics(
         }),
       },
     ),
+
     withHandlers({
-      singIn: (props) => () => {
-        props.auth.login({
-          id: '1234a',
-          lastName: 'Last name of user',
-          firstName: 'Apiko Flex',
-          email: 'email@apiko.com',
-        });
-      },
-      keyboardDidShowHandler: () => () => {},
-      keyboardDidHideHandler: () => () => {},
-    }),
-    lifecycle({
-      componentDidMount() {
-        this.keyboardDidShowListener = Keyboard.addListener(
-          'keyboardDidShow',
-          this.props.keyboardDidShowHandler,
-        );
-        this.keyboardDidHideListener = Keyboard.addListener(
-          'keyboardDidHide',
-          this.props.keyboardDidHideHandler,
-        );
-      },
+      onSkip: () => () => NavigationService.navigateToAuthorizedApp(),
     }),
   ),
 )(AuthScreenView);

@@ -1,7 +1,6 @@
 import { StyleSheet } from 'react-native';
-import { fontSizes, colors } from '../../../../styles';
+import { colors, dimensions } from '../../../../styles';
 import { isSmallDevice, isMediumDevice } from '../../../../utils';
-import * as dimensions from '../../../../utils/dimensions';
 
 const smallDevice = isSmallDevice();
 const mediumDevice = isMediumDevice();
@@ -18,17 +17,9 @@ export default StyleSheet.create({
       ? dimensions.indent * 0.8
       : dimensions.indent,
     textAlign: 'center',
-    fontWeight: '700',
-    fontSize: fontSizes.xxmedium,
-    color: colors.signInSignUpForm.heading,
-  },
-  smallFontSize: {
-    fontSize: fontSizes.small,
   },
   text: {
-    fontSize: fontSizes.medium,
     textAlign: 'center',
-    color: colors.signInSignUpForm.text,
   },
   textWithTouchableContainer: {
     flexDirection: smallDevice ? 'column' : 'row',
@@ -65,9 +56,10 @@ export default StyleSheet.create({
     marginRight: 20,
   },
   buttonContainer: {
-    marginVertical: mediumDevice
-      ? dimensions.indent * 0.7
-      : dimensions.indent,
+    marginVertical:
+      (mediumDevice && dimensions.indent * 0.7) ||
+      (smallDevice && dimensions.indent * 0.6) ||
+      dimensions.indent,
   },
   alignCenter: {
     justifyContent: 'center',

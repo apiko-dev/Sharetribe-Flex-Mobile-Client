@@ -23,13 +23,19 @@ export default {
     textColorPrimary: '#FFFFFF',
     shadowColor: '#FF9900',
     disableColor: '#8F8F8F',
-    rippleColor: '#FFF',
-    rippleColorPrimary: '#FF9900',
+    rippleColor: '#FF9900',
+    rippleColorPrimary: '#FFF',
   },
   authScreen: {
     backgroundColor: '#FFF',
     circle: '#FFAC2F',
     heading: '#FFF',
     shadowColor: '#000',
+  },
+  text: {
+    black: '#333333',
+    gray: '#8F8F8F',
+    white: '#FFF',
+    orange: '#FF9900',
   },
 };

@@ -1,19 +1,29 @@
 import React from 'react';
-import { View, Text } from 'react-native';
-import { Touchable } from '..';
+import { View } from 'react-native';
+import { Touchable, Text } from '..';
 import T from 'prop-types';
 import s from './styles';
 import { colors } from '../../styles';
 
-const Button = ({ children, primary, containerStyle, disable }) => (
+const Button = ({
+  children,
+  primary,
+  containerStyle,
+  disable,
+  onPress,
+  ...props
+}) => (
   <View style={containerStyle}>
     <Touchable
-      disable={!disable}
+      useForeground
+      disabled={disable}
       rippleColor={
         primary
           ? colors.button.rippleColorPrimary
           : colors.button.rippleColor
       }
+      onPress={onPress}
+      {...props}
     >
       <View
         style={[
@@ -23,7 +33,13 @@ const Button = ({ children, primary, containerStyle, disable }) => (
           disable && s.disable,
         ]}
       >
-        <Text style={[s.text, primary && s.primaryText]}>
+        <Text
+          style={s.text}
+          bold
+          mediumSize
+          white={primary}
+          gray={!primary}
+        >
           {children}
         </Text>
       </View>
@@ -36,6 +52,7 @@ Button.propTypes = {
   primary: T.bool,
   containerStyle: T.any,
   disable: T.bool,
+  onPress: T.func,
 };
 
 export default Button;

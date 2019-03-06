@@ -6,6 +6,7 @@ import {
 } from 'recompose';
 import { inject } from 'mobx-react';
 import SignUpFormView from './SignUpFormView';
+import { isValidEmail } from '../../../../utils/regExp';
 
 export default compose(
   inject('auth'),
@@ -25,6 +26,7 @@ export default compose(
       }),
     },
   ),
+
   withHandlers({
     signUp: (props) => () => {
       props.auth.signUp({
@@ -35,16 +37,17 @@ export default compose(
       });
     },
   }),
+
   withPropsOnChange(
     ['email', 'password', 'firstName', 'lastName'],
     (props) => {
-      const isValidFields =
-        props.email.trim().includes('@') &&
-        props.password.trim().length > 8 &&
-        props.firstName.trim().length > 0 &&
-        props.lastName.trim().length > 0;
-
-      props.onChange('isValidFields', isValidFields);
+      props.onChange(
+        'isValidFields',
+        isValidEmail(props.email) &&
+          props.password.trim().length > 8 &&
+          props.firstName.trim().length > 0 &&
+          props.lastName.trim().length > 0,
+      );
     },
   ),
 )(SignUpFormView);

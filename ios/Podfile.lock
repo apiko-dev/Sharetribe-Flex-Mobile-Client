@@ -53,6 +53,8 @@ PODS:
     - React/RCTBlob
   - RNGestureHandler (1.0.16):
     - React
+  - RNLanguages (3.0.2):
+    - React
   - RNReanimated (1.0.0-alpha.12):
     - React
   - RNSVG (9.2.4):
@@ -72,6 +74,7 @@ DEPENDENCIES:
   - React/RCTText (from `../node_modules/react-native`)
   - React/RCTWebSocket (from `../node_modules/react-native`)
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
+  - RNLanguages (from `../node_modules/react-native-languages`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNSVG (from `../node_modules/react-native-svg`)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga`)
@@ -91,6 +94,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
+  RNLanguages:
+    :path: "../node_modules/react-native-languages"
   RNReanimated:
     :path: "../node_modules/react-native-reanimated"
   RNSVG:
@@ -105,10 +110,11 @@ SPEC CHECKSUMS:
   glog: aefd1eb5dda2ab95ba0938556f34b98e2da3a60d
   React: e18068c843db92d5761d2d05a485c85c430727da
   RNGestureHandler: 0438a761e8f29be3b809f9e7e43014f3aba4d7a6
+  RNLanguages: 962e562af0d34ab1958d89bcfdb64fafc37c513e
   RNReanimated: b7adc1a5e4eca563966cfcbd982429ebd70d6b17
   RNSVG: 6fec2b50e65b4a01ba54155e8e546e0a1eeb16f4
   yoga: 4d7f00d234c42cf46c609ee1e429c987167b30f1
 
-PODFILE CHECKSUM: d0dad77f2f1764700d12f007f887f287c0dc0d2b
+PODFILE CHECKSUM: 9e5286c34b8cc4c6c287172ed0878b205cd3e775
 
 COCOAPODS: 1.6.1
