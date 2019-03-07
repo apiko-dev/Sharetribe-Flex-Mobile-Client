@@ -38,4 +38,8 @@ export default {
     white: '#FFF',
     orange: '#FF9900',
   },
+  loader: {
+    primary: '#FFF',
+    secondary: '#FF9900',
+  },
 };

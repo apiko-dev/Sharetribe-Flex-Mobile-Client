@@ -1,9 +1,11 @@
 import { createInstance } from 'sharetribe-flex-sdk';
+import { constants } from '../../config';
 
+// TODO: Split config
 class SharetribeSdkService {
-  constructor() {
+  init() {
     this.sdk = createInstance({
-      clientId: '2a96a108-d05c-47fd-af0c-631343eb41cd',
+      clientId: constants.MARKETPLACE_ID,
     });
   }
 
@@ -14,6 +16,25 @@ class SharetribeSdkService {
       email,
       password,
     });
+  }
+
+  login({ email, password }) {
+    return this.sdk.login({
+      username: email,
+      password,
+    });
+  }
+
+  logout() {
+    return this.sdk.logout();
+  }
+
+  isAuthenticated() {
+    return this.sdk.authInfo();
+  }
+
+  getUser() {
+    return this.sdk.currentUser.show();
   }
 }
 

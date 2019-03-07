@@ -9,9 +9,9 @@ const fontSizes = {
   xxmedium: moderateScale(20),
   xmedium: moderateScale(18),
   medium: moderateScale(14),
-  xxsmall: moderateScale(10),
-  small: moderateScale(13),
+  xxsmall: moderateScale(13),
   xsmall: moderateScale(12),
+  small: moderateScale(10),
 };
 
 export default fontSizes;

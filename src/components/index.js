@@ -1,4 +1,4 @@
-export { default as Loader } from './Loader/Loader';
+export { default as ActivityIndicator } from './Loader/Loader';
 export {
   default as TextTouchable,
 } from './TextTouchable/TextTouchable';

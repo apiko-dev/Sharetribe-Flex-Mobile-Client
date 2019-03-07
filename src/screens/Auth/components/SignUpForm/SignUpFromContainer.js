@@ -9,7 +9,10 @@ import SignUpFormView from './SignUpFormView';
 import { isValidEmail } from '../../../../utils/regExp';
 
 export default compose(
-  inject('auth'),
+  inject((stores) => ({
+    auth: stores.auth,
+    isSigningUp: stores.auth.registerUser.inProgress,
+  })),
 
   withStateHandlers(
     {
@@ -29,11 +32,11 @@ export default compose(
 
   withHandlers({
     signUp: (props) => () => {
-      props.auth.signUp({
-        id: '1234a',
-        lastName: 'Last name of user',
-        firstName: 'Apiko Flex',
-        email: 'email@apiko.com',
+      props.auth.registerUser.run({
+        lastName: props.lastName,
+        firstName: props.firstName,
+        email: props.email,
+        password: props.password,
       });
     },
   }),

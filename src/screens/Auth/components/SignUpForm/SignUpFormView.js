@@ -19,6 +19,8 @@ const SignUpForm = ({
   onChange,
   activeField,
   isValidFields,
+  signUp,
+  isSigningUp,
 }) => (
   <View style={s.container}>
     <Text style={s.heading} xxmediumSize bold>
@@ -75,6 +77,8 @@ const SignUpForm = ({
       primary
       containerStyle={s.buttonContainer}
       disable={!isValidFields}
+      onPress={() => signUp()}
+      isLoading={isSigningUp}
     >
       {i18n.t('auth.createAccount')}
     </Button>
@@ -98,6 +102,8 @@ SignUpForm.propTypes = {
   onChange: T.func.isRequired,
   activeField: T.string,
   isValidFields: T.bool,
+  signUp: T.func,
+  isSigningUp: T.bool,
 };
 
 export default SignUpForm;

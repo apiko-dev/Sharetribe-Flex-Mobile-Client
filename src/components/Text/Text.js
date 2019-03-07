@@ -6,7 +6,7 @@ const getFontFamily = (light, medium, bold) => {
   let fontFamily = 'OpenSans-Regular';
 
   if (light) fontFamily = 'OpenSans-Light';
-  if (medium) fontFamily = 'OpenSans-Medium';
+  if (medium) fontFamily = 'OpenSans-SemiBold';
   if (bold) fontFamily = 'OpenSans-Bold';
 
   return { fontFamily };
@@ -36,8 +36,8 @@ const getFontSize = (
   if (xmediumSize) fontSize = fontSizes.xmedium;
   if (mediumSize) fontSize = fontSizes.medium;
   if (xxsmallSize) fontSize = fontSizes.xxsmall;
-  if (smallSize) fontSize = fontSizes.small;
   if (xsmallSize) fontSize = fontSizes.xsmall;
+  if (smallSize) fontSize = fontSizes.small;
 
   return { fontSize };
 };

@@ -9,12 +9,15 @@ import SignInFormView from './SignInFormView';
 import { isValidEmail } from '../../../../utils/regExp';
 
 export default compose(
-  inject('auth'),
+  inject((stores) => ({
+    auth: stores.auth,
+    isSigningIn: stores.auth.loginUser.inProgress,
+  })),
 
   withStateHandlers(
     {
-      email: '',
-      password: '',
+      email: 'apiko-user1@apiko.com',
+      password: '123456789',
       activeField: '',
       isValidFields: false,
     },
@@ -27,8 +30,7 @@ export default compose(
 
   withHandlers({
     signIn: (props) => () => {
-      props.auth.login({
-        id: Math.random(),
+      props.auth.loginUser.run({
         email: props.email,
         password: props.password,
       });

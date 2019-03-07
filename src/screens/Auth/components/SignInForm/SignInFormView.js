@@ -18,6 +18,7 @@ const SignInFormView = ({
   activeField,
   isValidFields,
   signIn,
+  isSigningIn,
 }) => (
   <View style={s.container}>
     <Text style={s.heading} bold xxmediumSize>
@@ -42,6 +43,7 @@ const SignInFormView = ({
         onFocus={() => onChange('activeField', 'password')}
         onChangeText={(text) => onChange('password', text)}
         secureTextEntry
+        autoCapitalize="none"
       />
     </View>
     <View style={s.textWithTouchableContainer}>
@@ -57,6 +59,7 @@ const SignInFormView = ({
       containerStyle={s.buttonContainer}
       disable={!isValidFields}
       onPress={() => signIn()}
+      isLoading={isSigningIn}
     >
       {i18n.t('auth.signIn')}
     </Button>
@@ -83,6 +86,7 @@ SignInFormView.propTypes = {
   activeField: T.string,
   isValidFields: T.bool,
   signIn: T.func,
+  isSigningIn: T.bool,
 };
 
 export default SignInFormView;

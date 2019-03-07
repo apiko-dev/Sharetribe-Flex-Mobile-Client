@@ -11,7 +11,7 @@ export default hoistStatics(
 
     withHandlers({
       singOut: (props) => () => {
-        props.auth.logout();
+        props.auth.logout.run();
       },
     }),
   ),
