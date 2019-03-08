@@ -42,4 +42,7 @@ export default {
     primary: '#FFF',
     secondary: '#FF9900',
   },
+  resetPasswordModal: {
+    backgroundColor: '#FFF',
+  },
 };

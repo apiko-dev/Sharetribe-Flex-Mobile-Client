@@ -52,7 +52,7 @@ export default StyleSheet.create({
   bottom: {
     justifyContent: 'center',
     alignItems: 'center',
-    height: dimensions.indent * 3,
+    height: dimensions.indent * 1.9,
   },
   toUpperCase: {
     textTransform: 'uppercase',

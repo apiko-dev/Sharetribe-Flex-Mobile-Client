@@ -50,7 +50,10 @@ const SignInFormView = ({
       <Text style={[s.text]} smallSize gray>
         {i18n.t('auth.resetPassword')}
       </Text>
-      <TextTouchable smallSize>
+      <TextTouchable
+        smallSize
+        onPress={() => onChange('isVisibleResetPasswordModal', true)}
+      >
         {i18n.t('auth.resetPasswordLink')}
       </TextTouchable>
     </View>

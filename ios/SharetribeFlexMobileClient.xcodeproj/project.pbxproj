@@ -39,6 +39,7 @@
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		B93ACC2222292D14001A6FDF /* libSplashScreen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B93ACC2122292CCC001A6FDF /* libSplashScreen.a */; };
 		B9AE2DCB223296BF0001E034 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9AE2DCA223296BF0001E034 /* Images.xcassets */; };
+		B9AE2E032232BA830001E034 /* ApikoFlex.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B9AE2E022232BA830001E034 /* ApikoFlex.ttf */; };
 		B9D64FED222FD8C3001DDDB4 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = B9D64FEC222FD8C2001DDDB4 /* fonts */; };
 		B9D65041222FE496001DDDB4 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B9D65037222FE495001DDDB4 /* OpenSans-Regular.ttf */; };
 		B9D65043222FE497001DDDB4 /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B9D65039222FE495001DDDB4 /* OpenSans-Light.ttf */; };
@@ -362,6 +363,7 @@
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
 		B93ACC1C22292CCC001A6FDF /* SplashScreen.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SplashScreen.xcodeproj; path = "../node_modules/react-native-splash-screen/ios/SplashScreen.xcodeproj"; sourceTree = "<group>"; };
 		B9AE2DCA223296BF0001E034 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		B9AE2E022232BA830001E034 /* ApikoFlex.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = ApikoFlex.ttf; path = fonts/ApikoFlex.ttf; sourceTree = "<group>"; };
 		B9D64FEC222FD8C2001DDDB4 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
 		B9D65037222FE495001DDDB4 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-Regular.ttf"; path = "fonts/OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		B9D65039222FE495001DDDB4 /* OpenSans-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-Light.ttf"; path = "fonts/OpenSans-Light.ttf"; sourceTree = "<group>"; };
@@ -615,6 +617,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				B9AE2E022232BA830001E034 /* ApikoFlex.ttf */,
 				B9D6503F222FE496001DDDB4 /* OpenSans-Bold.ttf */,
 				B9D65039222FE495001DDDB4 /* OpenSans-Light.ttf */,
 				B9D65037222FE495001DDDB4 /* OpenSans-Regular.ttf */,
@@ -1124,6 +1127,7 @@
 				B9D65049222FE497001DDDB4 /* OpenSans-Bold.ttf in Resources */,
 				B9AE2DCB223296BF0001E034 /* Images.xcassets in Resources */,
 				B9D64FED222FD8C3001DDDB4 /* fonts in Resources */,
+				B9AE2E032232BA830001E034 /* ApikoFlex.ttf in Resources */,
 				B9D65044222FE497001DDDB4 /* OpenSans-SemiBold.ttf in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				B9D65041222FE496001DDDB4 /* OpenSans-Regular.ttf in Resources */,

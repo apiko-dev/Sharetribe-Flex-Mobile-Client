@@ -125,6 +125,20 @@ function registerUser(flow, store) {
   };
 }
 
+function resetPassword(flow, store) {
+  return function* resetPassword({ email }) {
+    try {
+      flow.start();
+
+      yield store.Api.resetPassword({ email });
+
+      flow.success();
+    } catch (err) {
+      flow.operationError();
+    }
+  };
+}
+
 function logout(flow, store) {
   return function* logout() {
     try {
@@ -148,6 +162,7 @@ const AuthStore = types
     loginUser: createFlow(loginUser),
     registerUser: createFlow(registerUser),
     logout: createFlow(logout),
+    resetPassword: createFlow(resetPassword),
   })
   .views((store) => ({
     get Api() {
