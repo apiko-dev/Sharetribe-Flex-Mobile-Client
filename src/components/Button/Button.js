@@ -10,7 +10,7 @@ const Button = ({
   children,
   primary,
   containerStyle,
-  disable,
+  disabled,
   onPress,
   isLoading,
   ...props
@@ -18,7 +18,7 @@ const Button = ({
   <View style={containerStyle}>
     <Touchable
       useForeground
-      disabled={disable || isLoading}
+      disabled={disabled}
       rippleColor={
         primary
           ? colors.button.rippleColorPrimary
@@ -32,8 +32,7 @@ const Button = ({
           s.button,
           s.view,
           primary && s.primaryView,
-          disable && s.disable,
-          isLoading && s.disable,
+          disabled && s.disable,
         ]}
       >
         {!isLoading ? (
@@ -47,7 +46,7 @@ const Button = ({
             {children}
           </Text>
         ) : (
-          <Loader primary />
+          <Loader color={!primary && colors.loader.secondary} />
         )}
       </View>
     </Touchable>
@@ -58,7 +57,7 @@ Button.propTypes = {
   children: T.any,
   primary: T.bool,
   containerStyle: T.any,
-  disable: T.bool,
+  disabled: T.bool,
   onPress: T.func,
   isLoading: T.bool,
 };

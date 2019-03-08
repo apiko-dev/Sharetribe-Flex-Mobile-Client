@@ -6,8 +6,9 @@ import {
   getRoot,
   getEnv,
 } from 'mobx-state-tree';
-import { NavigationService } from '../services';
+import { NavigationService, AlertService } from '../services';
 
+// TODO: Change ErrorModel
 const ErrorModel = types.model({
   message: '',
   status: types.maybeNull(types.number),
@@ -43,9 +44,14 @@ function createFlow(flowDefinition) {
         store.inProgress = false;
       },
 
-      error(err) {
+      /* error(err) {
         store.inProgress = false;
         store.error = err;
+      }, */
+
+      operationError(err) { // eslint-disable-line
+        store.inProgress = false;
+        // store.error = err;
       },
 
       run: flow(flowDefinition(store, getParent(store))),
@@ -59,9 +65,7 @@ function loginUser(flow, store) {
     try {
       flow.start();
 
-      const res = yield store.Api.login({ email, password });
-
-      console.log('res', res);
+      yield store.Api.login({ email, password });
 
       const {
         data: {
@@ -79,11 +83,12 @@ function loginUser(flow, store) {
       });
 
       flow.success();
+
       store.setAuthorizationStatus(true);
       NavigationService.navigateToAuthorizedApp();
     } catch (err) {
-      console.log(err);
-      // flow.error(err);
+      flow.operationError();
+      AlertService.showSignInError();
     }
 
     return false;
@@ -100,29 +105,40 @@ function registerUser(flow, store) {
     try {
       flow.start();
 
-      const res = yield store.Api.register({
+      yield store.Api.register({
         firstName,
         email,
         lastName,
         password,
       });
 
-      console.log('register res: ', res);
+      store.loginUser.run({ email, password });
 
       flow.success();
 
       store.setAuthorizationStatus(true);
     } catch (err) {
-      // flow.error(err, true);
-      console.log(err);
+      AlertService.showSignUpError();
+
+      flow.operationError(err);
     }
   };
 }
 
 function logout(flow, store) {
   return function* logout() {
-    yield store.Api.logout();
-    NavigationService.navigateToUnauthorizedApp();
+    try {
+      yield store.Api.logout();
+
+      const rootStore = getRoot(store);
+
+      rootStore.viewer.removeUser();
+
+      store.setAuthorizationStatus(false);
+      NavigationService.navigateToUnauthorizedApp();
+    } catch (err) {
+      AlertService.showSignOutError();
+    }
   };
 }
 

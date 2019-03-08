@@ -1,11 +1,12 @@
 import { createInstance } from 'sharetribe-flex-sdk';
-import { constants } from '../../config';
+import config from '../../config';
+import AsyncStore from './AsyncStore';
 
-// TODO: Split config
 class SharetribeSdkService {
   init() {
     this.sdk = createInstance({
-      clientId: constants.MARKETPLACE_ID,
+      clientId: config.MARKETPLACE_ID,
+      tokenStore: AsyncStore({ clientId: config.MARKETPLACE_ID }),
     });
   }
 

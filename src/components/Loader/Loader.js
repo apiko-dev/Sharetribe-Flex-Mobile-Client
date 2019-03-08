@@ -3,15 +3,15 @@ import { ActivityIndicator } from 'react-native';
 import T from 'prop-types';
 import { colors } from '../../styles';
 
-const Loader = ({ primary, large }) => (
+const Loader = ({ color, large }) => (
   <ActivityIndicator
     size={large && 'large'}
-    color={primary ? colors.loader.primary : colors.loader.secondary}
+    color={color || colors.loader.primary}
   />
 );
 
 Loader.propTypes = {
-  primary: T.bool,
+  color: T.any,
   large: T.bool,
 };
 

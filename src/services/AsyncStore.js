@@ -7,18 +7,13 @@ const createStore = ({ clientId }) => {
   const namespace = 'st';
   const key = generateKey(clientId, namespace);
 
-  const getToken = async () => {
-    const token = await AsyncStorage.getItem(key);
-    return token;
-  };
+  const getToken = async () =>
+    JSON.parse(await AsyncStorage.getItem(key));
 
-  const setToken = (tokenData) => {
-    AsyncStorage.setItem(key, tokenData);
-  };
-  const removeToken = () => {
-    AsyncStorage.removeItem(key);
-  };
-  console.log(getToken());
+  const setToken = async (tokenData) =>
+    AsyncStorage.setItem(key, JSON.stringify(tokenData));
+
+  const removeToken = () => AsyncStorage.removeItem(key);
 
   return {
     getToken,

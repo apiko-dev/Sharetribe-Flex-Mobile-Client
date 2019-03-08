@@ -76,7 +76,7 @@ const SignUpForm = ({
     <Button
       primary
       containerStyle={s.buttonContainer}
-      disable={!isValidFields}
+      disabled={!isValidFields || isSigningUp}
       onPress={() => signUp()}
       isLoading={isSigningUp}
     >

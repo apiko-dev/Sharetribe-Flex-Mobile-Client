@@ -9,6 +9,9 @@ const ViewerStore = types
     setUser(data) {
       store.user = data;
     },
+    removeUser() {
+      store.user = null;
+    },
   }));
 
 export default ViewerStore;

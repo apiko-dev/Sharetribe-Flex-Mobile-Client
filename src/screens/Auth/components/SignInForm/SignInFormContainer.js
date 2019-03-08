@@ -16,8 +16,8 @@ export default compose(
 
   withStateHandlers(
     {
-      email: 'apiko-user1@apiko.com',
-      password: '123456789',
+      email: '',
+      password: '',
       activeField: '',
       isValidFields: false,
     },

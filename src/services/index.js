@@ -1,4 +1,5 @@
 import NavigationService from './NavigationService';
 import SharetribeFlexService from './SharetribeFlexService';
+import AlertService from './AlertService';
 
-export { NavigationService, SharetribeFlexService };
+export { NavigationService, SharetribeFlexService, AlertService };

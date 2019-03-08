@@ -57,7 +57,7 @@ const SignInFormView = ({
     <Button
       primary
       containerStyle={s.buttonContainer}
-      disable={!isValidFields}
+      disabled={!isValidFields || isSigningIn}
       onPress={() => signIn()}
       isLoading={isSigningIn}
     >

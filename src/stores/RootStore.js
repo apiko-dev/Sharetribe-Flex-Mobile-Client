@@ -10,11 +10,9 @@ const RootStore = types
   })
   .actions((store) => ({
     bootstrap: flow(function* bootstrap() {
-      // const token = yield getEnv(store).storage.getItem('token');
-      const token = false;
-      yield getEnv(store).Api.isAuthenticated();
+      const authInfo = yield getEnv(store).Api.isAuthenticated();
 
-      if (token) {
+      if (authInfo && authInfo.grantType === 'refresh_token') {
         NavigationService.navigateToAuthorizedApp();
       } else {
         NavigationService.navigateToUnauthorizedApp();

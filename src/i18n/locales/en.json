@@ -18,5 +18,19 @@
     "alreadyHaveAnAccount": "Already have an account?",
     "createAccount": "Create account",
     "skip": "skip"
+  },
+  "alerts": {
+    "signInError": {
+      "title": "Sign In",
+      "message": "Incorrect email or password"
+    },
+    "signUpError": {
+      "title": "Sign Up",
+      "message": "User already registered"
+    },
+    "signOutError": {
+      "title": "Sign Out",
+      "message": "Something went wrong try again"
+    }
   }
 }
