@@ -53,3 +53,4 @@ app/local.js
 ios/letapp.xcworkspace/xcuserdata/terry.xcuserdatad/UserInterfaceState.xcuserstate
 .vscode
 *.hprof
+config/

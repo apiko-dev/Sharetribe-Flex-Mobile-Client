@@ -1,0 +1,36 @@
+{
+  "main": {
+    
+  },
+  "auth": {
+    "heading": "Mobile rent service",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "email": "Email",
+    "password": "Password",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "resetPassword": "Forgot your password?",
+    "resetPasswordLink": "Reset Password",
+    "termsAndConditions": "By signing up you accept the",
+    "termsAndConditionsLink": "terms and conditions",
+    "dontHaveAnAccount": "Dont have an account?",
+    "alreadyHaveAnAccount": "Already have an account?",
+    "createAccount": "Create account",
+    "skip": "skip"
+  },
+  "alerts": {
+    "signInError": {
+      "title": "Sign In",
+      "message": "Incorrect email or password"
+    },
+    "signUpError": {
+      "title": "Sign Up",
+      "message": "User already registered"
+    },
+    "signOutError": {
+      "title": "Sign Out",
+      "message": "Something went wrong try again"
+    }
+  }
+}

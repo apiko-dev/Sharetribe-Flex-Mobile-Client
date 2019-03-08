@@ -1,7 +1,6 @@
 import { compose, hoistStatics, withHandlers } from 'recompose';
 import { inject } from 'mobx-react';
 import HomeScreenComponent from './HomeScreenView';
-import { NavigationService } from '../../services';
 
 export default hoistStatics(
   compose(
@@ -9,10 +8,10 @@ export default hoistStatics(
       user: stores.viewer.user,
       auth: stores.auth,
     })),
+
     withHandlers({
       singOut: (props) => () => {
-        props.auth.logout();
-        NavigationService.navigateToUnauthorizedApp();
+        props.auth.logout.run();
       },
     }),
   ),

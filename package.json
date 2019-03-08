@@ -7,15 +7,26 @@
     "test": "jest"
   },
   "dependencies": {
-    "react": "16.8.3",
-    "react-native": "0.59.0-rc.3",
+    "i18n-js": "^3.2.1",
+    "js-cookie": "^2.2.0",
     "mobx": "^5.9.0",
     "mobx-react": "^5.4.3",
     "mobx-state-tree": "^3.10.2",
+    "normalizr": "^3.3.0",
+    "ramda": "^0.26.1",
+    "react": "16.8.3",
+    "react-native": "0.59.0-rc.3",
     "react-native-gesture-handler": "^1.0.16",
+    "react-native-keyboard-aware-scroll-view": "^0.8.0",
+    "react-native-languages": "^3.0.2",
+    "react-native-reanimatable": "^0.4.3",
+    "react-native-reanimated": "^1.0.0-alpha.12",
     "react-native-splash-screen": "^3.2.0",
+    "react-native-svg": "^9.2.4",
+    "react-native-tab-view": "^2.0.1",
     "react-navigation": "^3.3.0",
-    "recompose": "^0.30.0"
+    "recompose": "^0.30.0",
+    "sharetribe-flex-sdk": "^1.2.0"
   },
   "devDependencies": {
     "@babel/core": "7.3.4",

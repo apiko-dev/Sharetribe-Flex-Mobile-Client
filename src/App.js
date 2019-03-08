@@ -4,6 +4,7 @@ import { Provider } from 'mobx-react/native';
 import { lifecycle } from 'recompose';
 import RootNavigation from './navigation/RootNavigation';
 import createStore from './stores';
+import { SharetribeFlexService } from './services';
 
 const store = createStore();
 
@@ -15,8 +16,8 @@ const InitApp = () => (
 
 const enhancer = lifecycle({
   async componentDidMount() {
+    SharetribeFlexService.init();
     await store.bootstrap();
-
     SplashScreen.hide();
   },
 });
