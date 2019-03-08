@@ -38,7 +38,7 @@
 		95AB964F2D6D37BBFC1991B4 /* libPods-SharetribeFlexMobileClient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FD10EC617EFED2BA20BD3B4 /* libPods-SharetribeFlexMobileClient.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		B93ACC2222292D14001A6FDF /* libSplashScreen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B93ACC2122292CCC001A6FDF /* libSplashScreen.a */; };
-		B93ACC2422292EAE001A6FDF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B93ACC2322292EAE001A6FDF /* Images.xcassets */; };
+		B9AE2DCB223296BF0001E034 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9AE2DCA223296BF0001E034 /* Images.xcassets */; };
 		B9D64FED222FD8C3001DDDB4 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = B9D64FEC222FD8C2001DDDB4 /* fonts */; };
 		B9D65041222FE496001DDDB4 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B9D65037222FE495001DDDB4 /* OpenSans-Regular.ttf */; };
 		B9D65043222FE497001DDDB4 /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B9D65039222FE495001DDDB4 /* OpenSans-Light.ttf */; };
@@ -361,7 +361,7 @@
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
 		B93ACC1C22292CCC001A6FDF /* SplashScreen.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SplashScreen.xcodeproj; path = "../node_modules/react-native-splash-screen/ios/SplashScreen.xcodeproj"; sourceTree = "<group>"; };
-		B93ACC2322292EAE001A6FDF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../../../.Trash/Images.xcassets; sourceTree = "<group>"; };
+		B9AE2DCA223296BF0001E034 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		B9D64FEC222FD8C2001DDDB4 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
 		B9D65037222FE495001DDDB4 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-Regular.ttf"; path = "fonts/OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		B9D65039222FE495001DDDB4 /* OpenSans-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-Light.ttf"; path = "fonts/OpenSans-Light.ttf"; sourceTree = "<group>"; };
@@ -511,11 +511,11 @@
 		13B07FAE1A68108700A75B9A /* SharetribeFlexMobileClient */ = {
 			isa = PBXGroup;
 			children = (
+				B9AE2DCA223296BF0001E034 /* Images.xcassets */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
-				B93ACC2322292EAE001A6FDF /* Images.xcassets */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
@@ -1122,11 +1122,11 @@
 			files = (
 				B9D65043222FE497001DDDB4 /* OpenSans-Light.ttf in Resources */,
 				B9D65049222FE497001DDDB4 /* OpenSans-Bold.ttf in Resources */,
+				B9AE2DCB223296BF0001E034 /* Images.xcassets in Resources */,
 				B9D64FED222FD8C3001DDDB4 /* fonts in Resources */,
 				B9D65044222FE497001DDDB4 /* OpenSans-SemiBold.ttf in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				B9D65041222FE496001DDDB4 /* OpenSans-Regular.ttf in Resources */,
-				B93ACC2422292EAE001A6FDF /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
