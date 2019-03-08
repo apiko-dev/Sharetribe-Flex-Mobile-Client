@@ -1,10 +1,10 @@
 import { StyleSheet } from 'react-native';
-import { colors } from '../../styles';
+import { colors, dimensions } from '../../styles';
 
 export default StyleSheet.create({
   button: {
     borderRadius: 10,
-    padding: 15,
+    padding: dimensions.indent * 0.8,
   },
   view: {
     backgroundColor: colors.button.backgroundColor,

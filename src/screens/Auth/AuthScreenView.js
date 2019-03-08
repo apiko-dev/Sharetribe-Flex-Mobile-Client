@@ -41,6 +41,8 @@ const AuthScreen = ({
             smallDevice && s.headingSmall,
             largeDevice && s.headingLarge,
           ]}
+          xlargeSize={!smallDevice}
+          mediumSize={smallDevice}
           white
         >
           {i18n.t('auth.heading')}

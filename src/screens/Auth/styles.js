@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { colors, fontSizes, dimensions } from '../../styles';
+import { colors, dimensions } from '../../styles';
 
 export default StyleSheet.create({
   container: {
@@ -13,15 +13,12 @@ export default StyleSheet.create({
   },
   heading: {
     textAlign: 'center',
-    fontSize: fontSizes.xlarge,
     marginBottom: dimensions.indent * 2.3,
   },
   headingSmall: {
-    fontSize: fontSizes.medium,
     marginBottom: dimensions.indent * 1.3,
   },
   headingLarge: {
-    fontSize: fontSizes.xlarge,
     marginTop: dimensions.indent,
     marginBottom: dimensions.indent * 4,
   },
@@ -55,7 +52,7 @@ export default StyleSheet.create({
   bottom: {
     justifyContent: 'center',
     alignItems: 'center',
-    height: 48,
+    height: dimensions.indent * 3,
   },
   toUpperCase: {
     textTransform: 'uppercase',

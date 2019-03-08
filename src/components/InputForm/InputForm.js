@@ -11,9 +11,8 @@ import {
   createAnimationConfig,
 } from 'react-native-reanimatable';
 import { isAndroid } from '../../utils';
-// import { colors } from '../../styles';
 import s from './styles';
-// import { getRef } from '../../utils';
+import { dimensions } from '../../styles';
 
 const AnimatedTextInput = A.createAnimatedComponent(TextInput);
 
@@ -27,7 +26,9 @@ const animationConfig = createAnimationConfig({
     fontSize: { from: 14, to: 11 },
     translateYLabel: {
       from: isAndroid ? -2 : 0,
-      to: isAndroid ? -23 : -23,
+      to: isAndroid
+        ? -dimensions.indent * 1.5
+        : -dimensions.indent * 1.2,
     },
     translateY2Input: { from: 0, to: 0 },
   },
@@ -53,7 +54,6 @@ const AnimatedFormInput = ({
         s.animatedContainer,
         containerStyle,
         active && s.activeContainer,
-        // value.length !== 0 && s.activeContainer,
       ]}
     >
       <Reanimatable
@@ -71,7 +71,6 @@ const AnimatedFormInput = ({
                 },
                 !active && value.length === 0 && s.placeholder,
                 active && s.activeLabel,
-                // value.length !== 0 && s.activeLabel,
               ]}
             >
               {placeholder}
