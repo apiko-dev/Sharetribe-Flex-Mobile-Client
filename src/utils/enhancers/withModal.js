@@ -13,7 +13,7 @@ const withModal = (propsMapper, ModalComponent) => (
 ) => (props) => (
   <SafeAreaView
     style={styles.container}
-    forceInset={{ top: 'always', horizontal: 'never' }}
+    forceInset={{ vertical: 'never', horizontal: 'never' }}
   >
     <BaseComponent {...props} />
     <ModalComponent {...propsMapper(props)} />

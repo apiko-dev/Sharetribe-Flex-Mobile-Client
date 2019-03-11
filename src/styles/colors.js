@@ -45,4 +45,8 @@ export default {
   resetPasswordModal: {
     backgroundColor: '#FFF',
   },
+  icon: {
+    tintColorOrange: '#FF9900',
+    tintColorGray: '#8F8F8F',
+  },
 };

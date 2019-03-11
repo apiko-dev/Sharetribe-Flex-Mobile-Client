@@ -21,6 +21,9 @@
     "resetPasswordHeading": "Reset your Password",
     "resetPasswordPreInstruction": "Lorem ipsum dolor sit amet, adipiscing elit, sed do eiusmod tempor incididunt",
     "resetPasswordPostInstruction": "Check your email for a message with a link to update your password",
+    "resetPasswordErrorInstruction": "Sorry we couldn't send email. Try send again",
+    "somethingWentWrong": "Something went wrong",
+    "tryAgain": "Try again",
     "emailSent": "Email sent",
     "continue": "Continue",
     "skip": "skip"

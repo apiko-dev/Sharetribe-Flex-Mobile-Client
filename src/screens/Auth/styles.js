@@ -23,6 +23,7 @@ export default StyleSheet.create({
     marginBottom: dimensions.indent * 4,
   },
   tabViewContainer: {
+    borderRadius: 10,
     flex: 1,
     marginLeft: dimensions.indent,
     marginRight: dimensions.indent,

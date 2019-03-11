@@ -10,6 +10,7 @@ export { default as Text } from './Text/Text';
 export { default as Padlock } from './Padlock/Padlock';
 export { default as Verified } from './Verified/Verified';
 export { default as Loader } from './Loader/Loader';
+export { default as IconFonts } from './IconFonts/IconFonts';
 
 /* eslint-disable */
 export { default as Touchable } from './Touchable/Touchable';

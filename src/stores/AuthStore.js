@@ -9,7 +9,7 @@ import {
 import { NavigationService, AlertService } from '../services';
 
 // TODO: Change ErrorModel
-const ErrorModel = types.model({
+const ErrorModel = types.model({ // eslint-disable-line
   message: '',
   status: types.maybeNull(types.number),
   reason: types.maybeNull(types.string),
@@ -19,12 +19,14 @@ function createFlow(flowDefinition) {
   const flowModel = types
     .model({
       inProgress: false,
-      error: types.optional(types.maybeNull(ErrorModel), null),
+      // error: types.optional(types.maybeNull(ErrorModel), null),
+      // TODO: use ErrorModel
+      error: types.optional(types.boolean, false),
     })
     .views((store) => ({
       get errorMessage() {
-        if (store.error === null) {
-          return null;
+        if (store.error === false) {
+          return false;
         }
 
         return store.error.message;
@@ -37,7 +39,7 @@ function createFlow(flowDefinition) {
     .actions((store) => ({
       start() {
         store.inProgress = true;
-        store.error = null;
+        store.error = false;
       },
 
       success() {
@@ -51,10 +53,14 @@ function createFlow(flowDefinition) {
 
       operationError(err) { // eslint-disable-line
         store.inProgress = false;
-        // store.error = err;
+        store.error = true;
       },
 
       run: flow(flowDefinition(store, getParent(store))),
+
+      cleanError() {
+        store.error = false;
+      },
     }));
 
   return types.optional(flowModel, {});
@@ -131,7 +137,6 @@ function resetPassword(flow, store) {
       flow.start();
 
       yield store.Api.resetPassword({ email });
-
       flow.success();
     } catch (err) {
       flow.operationError();

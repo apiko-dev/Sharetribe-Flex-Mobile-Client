@@ -8,13 +8,12 @@ import { inject } from 'mobx-react';
 import SignInFormView from './SignInFormView';
 import { isValidEmail } from '../../../../utils/regExp';
 import { withModal } from '../../../../utils/enhancers';
-import ResetPasswordModal from '../ResetPasswordModal/ResetPasswordModal';
+import ResetPasswordModal from '../ResetPasswordModal/ResetPasswordModalContainer';
 
 export default compose(
   inject((stores) => ({
     auth: stores.auth,
     isSigningIn: stores.auth.loginUser.inProgress,
-    isResetingPassword: stores.auth.resetPassword.inProgress,
   })),
 
   withStateHandlers(
@@ -23,7 +22,6 @@ export default compose(
       password: '',
       activeField: '',
       isValidFields: false,
-      resetPasswordEmail: '',
       isVisibleResetPasswordModal: false,
     },
     {
@@ -41,13 +39,8 @@ export default compose(
       });
     },
 
-    resetPassword: (props) => () => {
-      props.auth.resetPassword.run({
-        email: props.resetPasswordEmail,
-      });
-      props.onChange('isVisibleResetPasswordModal', false);
-      props.onChange('activeField', '');
-    },
+    onCloseModal: (props) => () =>
+      props.onChange('isVisibleResetPasswordModal', false),
   }),
 
   withPropsOnChange(['email', 'password'], (props) => {
@@ -60,11 +53,7 @@ export default compose(
   withModal(
     (props) => ({
       isVisible: props.isVisibleResetPasswordModal,
-      onChange: props.onChange,
-      resetPasswordEmail: props.resetPasswordEmail,
-      resetPassword: props.resetPassword,
-      activeField: props.activeField,
-      // isLoading: props.isResetingPassword,
+      onCloseModal: props.onCloseModal,
     }),
     ResetPasswordModal,
   ),

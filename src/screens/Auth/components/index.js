@@ -7,4 +7,4 @@ export {
 
 export {
   default as ResetPasswordModal,
-} from './ResetPasswordModal/ResetPasswordModal';
+} from './ResetPasswordModal/ResetPasswordModalContainer';
