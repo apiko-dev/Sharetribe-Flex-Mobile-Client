@@ -28,6 +28,13 @@
     "continue": "Continue",
     "skip": "skip"
   },
+  "updatePassword": {
+    "newPassword": "New Password",
+    "newPasswordInstruction": "Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt labore dolore magna aliqua",
+    "retypeNewPassword": "Re-type New Password",
+    "updatePassword": "Update Password",
+    "updateYourPassword": "Update your password"
+  },
   "alerts": {
     "signInError": {
       "title": "Sign In",

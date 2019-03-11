@@ -11,6 +11,9 @@ export { default as Padlock } from './Padlock/Padlock';
 export { default as Verified } from './Verified/Verified';
 export { default as Loader } from './Loader/Loader';
 export { default as IconFonts } from './IconFonts/IconFonts';
+export {
+  default as HeaderBackButton,
+} from './HeaderBackButton/HeaderBackButton';
 
 /* eslint-disable */
 export { default as Touchable } from './Touchable/Touchable';

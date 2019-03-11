@@ -32,6 +32,9 @@ export default {
     heading: '#FFF',
     shadowColor: '#000',
   },
+  updatePasswordScreen: {
+    backgroundColor: '#FFF',
+  },
   text: {
     black: '#333333',
     gray: '#8F8F8F',
@@ -48,5 +51,10 @@ export default {
   icon: {
     tintColorOrange: '#FF9900',
     tintColorGray: '#8F8F8F',
+  },
+  header: {
+    tintColor: '#FFF',
+    backButton: '#FFF',
+    backgroundColor: '#FF9900',
   },
 };
