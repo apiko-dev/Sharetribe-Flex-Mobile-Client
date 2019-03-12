@@ -1,9 +1,15 @@
 import React from 'react';
 import { View } from 'react-native';
 import T from 'prop-types';
-import { Text, InputForm, Button } from '../../components';
+import {
+  Text,
+  InputForm,
+  Button,
+  HeaderBackButton,
+} from '../../components';
 import i18n from '../../i18n';
 import s from './styles';
+import { NavigationService } from '../../services';
 
 const UpdatePasswordScreenView = ({
   newPassword,
@@ -48,6 +54,7 @@ const UpdatePasswordScreenView = ({
       primary
       containerStyle={s.buttonContainer}
       onPress={() => updatePassword()}
+      isLoading={isUpdating}
     >
       {i18n.t('updatePassword.updatePassword')}
     </Button>
@@ -55,6 +62,11 @@ const UpdatePasswordScreenView = ({
 );
 
 UpdatePasswordScreenView.navigationOptions = () => ({
+  headerLeft: (
+    <HeaderBackButton
+      onPress={() => NavigationService.navigateToUnauthorizedApp()}
+    />
+  ),
   title: i18n.t('updatePassword.updateYourPassword'),
 });
 

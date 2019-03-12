@@ -12,6 +12,7 @@ export default hoistStatics(
   compose(
     inject((stores) => ({
       auth: stores.auth,
+      isUpdating: stores.auth.updatePassword.inProgress,
     })),
 
     withStateHandlers(
@@ -31,7 +32,9 @@ export default hoistStatics(
     withHandlers({
       updatePassword: (props) => () => {
         props.auth.updatePassword.run({
-          password: props.newPassword,
+          email: props.navigation.getParam('email'),
+          token: props.navigation.getParam('token'),
+          newPassword: props.newPassword,
         });
       },
     }),

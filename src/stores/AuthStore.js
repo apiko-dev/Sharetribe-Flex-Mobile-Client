@@ -145,12 +145,13 @@ function resetPassword(flow, store) {
 }
 
 function updatePassword(flow, store) {
-  return function* updatePassword({ newPassword }) {
+  return function* updatePassword({ newPassword, email, token }) {
     try {
       flow.start();
 
-      yield store.Api.updatePassword({ newPassword });
+      yield store.Api.updatePassword({ newPassword, email, token });
       flow.success();
+      NavigationService.navigateToUnauthorizedApp();
     } catch (err) {
       flow.operationError();
     }

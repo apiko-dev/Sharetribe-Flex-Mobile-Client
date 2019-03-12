@@ -6,11 +6,11 @@ import { HeaderBackButton } from '../components';
 
 export default createStackNavigator(
   {
-    // [screens.Home]: HomeScreen,
+    [screens.Home]: HomeScreen,
     [screens.UpdatePassword]: UpdatePasswordScreen,
   },
   {
-    initialRouteKey: screens.UpdatePassword,
+    initialRouteKey: screens.Home,
     defaultNavigationOptions: {
       headerTintColor: colors.header.tintColor,
       headerStyle: {

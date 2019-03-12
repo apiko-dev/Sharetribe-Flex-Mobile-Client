@@ -57,4 +57,7 @@ export default {
     backButton: '#FFF',
     backgroundColor: '#FF9900',
   },
+  statusBar: {
+    backgroundColor: '#FF9900',
+  },
 };
