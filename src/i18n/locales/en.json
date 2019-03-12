@@ -17,7 +17,23 @@
     "dontHaveAnAccount": "Dont have an account?",
     "alreadyHaveAnAccount": "Already have an account?",
     "createAccount": "Create account",
+    "sendResetEmail": "Send Email",
+    "resetPasswordHeading": "Reset your Password",
+    "resetPasswordPreInstruction": "Lorem ipsum dolor sit amet, adipiscing elit, sed do eiusmod tempor incididunt",
+    "resetPasswordPostInstruction": "Check your email for a message with a link to update your password",
+    "resetPasswordErrorInstruction": "Sorry we couldn't send email. Try send again",
+    "somethingWentWrong": "Something went wrong",
+    "tryAgain": "Try again",
+    "emailSent": "Email sent",
+    "continue": "Continue",
     "skip": "skip"
+  },
+  "updatePassword": {
+    "newPassword": "New Password",
+    "newPasswordInstruction": "Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt labore dolore magna aliqua",
+    "retypeNewPassword": "Re-type New Password",
+    "updatePassword": "Update Password",
+    "updateYourPassword": "Update your password"
   },
   "alerts": {
     "signInError": {

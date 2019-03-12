@@ -37,6 +37,18 @@ class SharetribeSdkService {
   getUser() {
     return this.sdk.currentUser.show();
   }
+
+  resetPassword({ email }) {
+    return this.sdk.passwordReset.request({ email });
+  }
+
+  updatePassword({ email, newPassword, token }) {
+    return this.sdk.passwordReset.reset({
+      email,
+      passwordResetToken: token,
+      newPassword,
+    });
+  }
 }
 
 export default new SharetribeSdkService();

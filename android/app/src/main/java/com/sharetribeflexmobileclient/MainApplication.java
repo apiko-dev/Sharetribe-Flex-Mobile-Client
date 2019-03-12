@@ -16,6 +16,7 @@ import org.devio.rn.splashscreen.SplashScreenReactPackage;
 import com.swmansion.reanimated.ReanimatedPackage;
 import com.horcrux.svg.SvgPackage;
 import com.reactcommunity.rnlanguages.RNLanguagesPackage;
+import com.oblador.vectoricons.VectorIconsPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -33,7 +34,8 @@ public class MainApplication extends Application implements ReactApplication {
           new SplashScreenReactPackage(),
           new ReanimatedPackage(),
           new SvgPackage(),
-          new RNLanguagesPackage()
+          new RNLanguagesPackage(),
+          new VectorIconsPackage()
       );
     }
 

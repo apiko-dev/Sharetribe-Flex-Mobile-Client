@@ -7,6 +7,8 @@ import {
 import { inject } from 'mobx-react';
 import SignInFormView from './SignInFormView';
 import { isValidEmail } from '../../../../utils/regExp';
+import { withModal } from '../../../../utils/enhancers';
+import ResetPasswordModal from '../ResetPasswordModal/ResetPasswordModalContainer';
 
 export default compose(
   inject((stores) => ({
@@ -20,6 +22,7 @@ export default compose(
       password: '',
       activeField: '',
       isValidFields: false,
+      isVisibleResetPasswordModal: false,
     },
     {
       onChange: () => (field, value) => ({
@@ -35,6 +38,9 @@ export default compose(
         password: props.password,
       });
     },
+
+    onCloseModal: (props) => () =>
+      props.onChange('isVisibleResetPasswordModal', false),
   }),
 
   withPropsOnChange(['email', 'password'], (props) => {
@@ -43,4 +49,12 @@ export default compose(
       props.password.trim().length > 8 && isValidEmail(props.email),
     );
   }),
+
+  withModal(
+    (props) => ({
+      isVisible: props.isVisibleResetPasswordModal,
+      onCloseModal: props.onCloseModal,
+    }),
+    ResetPasswordModal,
+  ),
 )(SignInFormView);

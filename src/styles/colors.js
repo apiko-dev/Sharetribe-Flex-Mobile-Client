@@ -32,6 +32,9 @@ export default {
     heading: '#FFF',
     shadowColor: '#000',
   },
+  updatePasswordScreen: {
+    backgroundColor: '#FFF',
+  },
   text: {
     black: '#333333',
     gray: '#8F8F8F',
@@ -41,5 +44,20 @@ export default {
   loader: {
     primary: '#FFF',
     secondary: '#FF9900',
+  },
+  resetPasswordModal: {
+    backgroundColor: '#FFF',
+  },
+  icon: {
+    tintColorOrange: '#FF9900',
+    tintColorGray: '#8F8F8F',
+  },
+  header: {
+    tintColor: '#FFF',
+    backButton: '#FFF',
+    backgroundColor: '#FF9900',
+  },
+  statusBar: {
+    backgroundColor: '#FF9900',
   },
 };
