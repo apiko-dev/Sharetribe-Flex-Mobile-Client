@@ -18,6 +18,5 @@ export default createStackNavigator(
       },
       headerLeft: HeaderBackButton,
     },
-    // ...HeaderOptions,
   },
 );

@@ -1,5 +1,5 @@
 import { Linking } from 'react-native';
-import { NavigationActions } from 'react-navigation';
+import { NavigationActions, DrawerActions } from 'react-navigation';
 import screens from '../navigation/screens';
 import { isAndroid } from '../utils';
 
@@ -28,6 +28,14 @@ class NavigationService {
     this.navigate(screens.AuthorizedApp, props);
   }
 
+  navigateToApp(props) {
+    this.navigate(screens.App, props);
+  }
+
+  navigateToAuth(props) {
+    this.navigate(screens.Auth, props);
+  }
+
   navigateToHome(props) {
     this.navigate(screens.Home, props);
   }
@@ -38,6 +46,18 @@ class NavigationService {
 
   goBack() {
     this.navigation.dispatch(NavigationActions.back());
+  }
+
+  openDrawer() {
+    this.navigation.dispatch(DrawerActions.openDrawer());
+  }
+
+  closeDrawer() {
+    this.navigation.dispatch(DrawerActions.closeDrawer());
+  }
+
+  navigateTo(screen, props) {
+    this.navigate(screen, props);
   }
 
   initDeepLinking() {

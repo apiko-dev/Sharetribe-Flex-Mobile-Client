@@ -28,7 +28,7 @@ export default hoistStatics(
     ),
 
     withHandlers({
-      onSkip: () => () => NavigationService.navigateToAuthorizedApp(),
+      onSkip: () => () => NavigationService.navigateToApp(),
     }),
   ),
 )(AuthScreenView);

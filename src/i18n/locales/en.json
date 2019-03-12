@@ -1,4 +1,15 @@
 {
+  "drawer": {
+    "home": "Home",
+    "myListings": "My listings",
+    "inbox": "Inbox",
+    "rentals": "Rentals",
+    "settings": "Settings",
+    "help": "Help",
+    "logOut": "Log Out",
+    "login": "Login",
+    "addYourGoods": "Add your goods"
+  },
   "main": {
     
   },
@@ -48,5 +59,12 @@
       "title": "Sign Out",
       "message": "Something went wrong try again"
     }
+  },
+  "common": {
+    "hello": "Hello",
+    "viewProfile": "View profile",
+    "ok": "OK",
+    "cancel": "Cancel",
+    "areYouSure": "Are you sure?"
   }
 }

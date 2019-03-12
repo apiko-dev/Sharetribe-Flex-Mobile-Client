@@ -64,7 +64,7 @@ const UpdatePasswordScreenView = ({
 UpdatePasswordScreenView.navigationOptions = () => ({
   headerLeft: (
     <HeaderBackButton
-      onPress={() => NavigationService.navigateToUnauthorizedApp()}
+      onPress={() => NavigationService.navigateToAuth()}
     />
   ),
   title: i18n.t('updatePassword.updateYourPassword'),

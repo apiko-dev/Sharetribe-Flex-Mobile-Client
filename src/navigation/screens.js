@@ -1,4 +1,5 @@
 export default {
+  Main: 'Main',
   // Authorized
   AuthorizedApp: 'AuthorizedApp',
   UnauthorizedApp: 'UnauthorizedApp',
@@ -9,6 +10,7 @@ export default {
 
   // Auth
   Auth: 'Auth',
+  App: 'App',
 
   // Common
   Home: 'Home',

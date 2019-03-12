@@ -14,6 +14,7 @@ export { default as IconFonts } from './IconFonts/IconFonts';
 export {
   default as HeaderBackButton,
 } from './HeaderBackButton/HeaderBackButton';
+export { default as DrawerButton } from './DrawerButton/DrawerButton';
 
 /* eslint-disable */
 export { default as Touchable } from './Touchable/Touchable';
