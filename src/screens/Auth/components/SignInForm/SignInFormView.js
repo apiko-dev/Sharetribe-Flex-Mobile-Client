@@ -63,9 +63,8 @@ const SignInFormView = ({
       disabled={!isValidFields || isSigningIn}
       onPress={() => signIn()}
       isLoading={isSigningIn}
-    >
-      {i18n.t('auth.signIn')}
-    </Button>
+      title={i18n.t('auth.signIn')}
+    />
     <Text style={[s.text]} gray>
       {i18n.t('auth.dontHaveAnAccount')}
     </Text>

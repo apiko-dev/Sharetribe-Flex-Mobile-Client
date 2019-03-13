@@ -13,6 +13,7 @@ const Button = ({
   disabled,
   onPress,
   isLoading,
+  title,
   ...props
 }) => (
   <View style={containerStyle}>
@@ -43,7 +44,7 @@ const Button = ({
             white={primary}
             gray={!primary}
           >
-            {children}
+            {title}
           </Text>
         ) : (
           <Loader color={!primary && colors.loader.secondary} />
@@ -60,6 +61,7 @@ Button.propTypes = {
   disabled: T.bool,
   onPress: T.func,
   isLoading: T.bool,
+  title: T.string,
 };
 
 export default Button;

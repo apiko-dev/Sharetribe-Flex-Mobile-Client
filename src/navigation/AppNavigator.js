@@ -1,7 +1,7 @@
 import { createDrawerNavigator } from 'react-navigation';
 import screens from './screens';
 import AppNavigator from './MainNavigator';
-import Drawer from '../components/Drawer/Drawer';
+import { Drawer } from '../components';
 
 export default createDrawerNavigator(
   {

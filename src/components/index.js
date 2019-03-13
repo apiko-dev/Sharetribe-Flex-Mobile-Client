@@ -15,6 +15,7 @@ export {
   default as HeaderBackButton,
 } from './HeaderBackButton/HeaderBackButton';
 export { default as DrawerButton } from './DrawerButton/DrawerButton';
+export { default as Drawer } from './Drawer/DrawerContainer';
 
 /* eslint-disable */
 export { default as Touchable } from './Touchable/Touchable';

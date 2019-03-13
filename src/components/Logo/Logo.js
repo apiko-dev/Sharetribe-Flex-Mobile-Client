@@ -5,7 +5,7 @@ import T from 'prop-types';
 import { Svg, Path } from 'react-native-svg';
 import s from './styles';
 
-const Logo = ({ size }) => {
+const Logo = ({ size, style }) => {
   let width;
   let height;
 
@@ -31,6 +31,7 @@ const Logo = ({ size }) => {
         (size === 'small' && s.logoSmall) ||
           (size === 'large' && s.logoLarge) ||
           s.logoMedium,
+        style,
       ]}
     >
       <Svg
@@ -84,6 +85,7 @@ const Logo = ({ size }) => {
 
 Logo.propTypes = {
   size: T.string,
+  style: T.any,
 };
 
 export default Logo;

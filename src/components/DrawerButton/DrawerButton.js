@@ -9,6 +9,7 @@ const DrawerButton = () => (
   <Touchable
     style={s.button}
     onPress={() => NavigationService.openDrawer()}
+    borderless
   >
     <IconFonts
       name="menu"

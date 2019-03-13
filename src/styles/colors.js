@@ -64,5 +64,9 @@ export default {
   drawer: {
     header: '#FF9900',
     backgroundColor: '#FFF',
+    logoBackgroundColor: '#FF9900',
+  },
+  drawerItem: {
+    rippleColor: '#FF9900',
   },
 };

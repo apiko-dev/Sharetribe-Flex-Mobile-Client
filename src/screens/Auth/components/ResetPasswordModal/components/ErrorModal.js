@@ -24,9 +24,8 @@ const RootModal = ({ resetPassword }) => (
       primary
       onPress={() => resetPassword()}
       containerStyle={s.buttonResultContainer}
-    >
-      {i18n.t('auth.tryAgain')}
-    </Button>
+      title={i18n.t('auth.tryAgain')}
+    />
   </View>
 );
 

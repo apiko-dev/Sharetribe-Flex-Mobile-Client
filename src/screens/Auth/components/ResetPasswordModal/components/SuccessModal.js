@@ -24,9 +24,8 @@ const RootModal = ({ onCloseModal }) => (
       primary
       onPress={() => onCloseModal()}
       containerStyle={s.buttonResultContainer}
-    >
-      {i18n.t('auth.continue')}
-    </Button>
+      title={i18n.t('auth.continue')}
+    />
   </View>
 );
 

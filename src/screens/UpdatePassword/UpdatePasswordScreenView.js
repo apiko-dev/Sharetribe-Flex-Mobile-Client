@@ -55,9 +55,8 @@ const UpdatePasswordScreenView = ({
       containerStyle={s.buttonContainer}
       onPress={() => updatePassword()}
       isLoading={isUpdating}
-    >
-      {i18n.t('updatePassword.updatePassword')}
-    </Button>
+      title={i18n.t('updatePassword.updatePassword')}
+    />
   </View>
 );
 
