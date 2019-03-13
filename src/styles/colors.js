@@ -56,8 +56,17 @@ export default {
     tintColor: '#FFF',
     backButton: '#FFF',
     backgroundColor: '#FF9900',
+    drawerButton: '#FFF',
   },
   statusBar: {
     backgroundColor: '#FF9900',
+  },
+  drawer: {
+    header: '#FF9900',
+    backgroundColor: '#FFF',
+    logoBackgroundColor: '#FF9900',
+  },
+  drawerItem: {
+    rippleColor: '#FF9900',
   },
 };

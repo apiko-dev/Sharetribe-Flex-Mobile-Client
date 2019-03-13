@@ -46,9 +46,8 @@ const RootModal = ({
       onPress={() => resetPassword()}
       containerStyle={s.buttonContainer}
       disabled={!isValidEmail}
-    >
-      {i18n.t('auth.sendResetEmail')}
-    </Button>
+      title={i18n.t('auth.sendResetEmail')}
+    />
   </View>
 );
 

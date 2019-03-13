@@ -61,6 +61,20 @@ class AlertService {
       i18n.t('alerts.signOutError.message'),
     );
   }
+
+  logOut(onPress) {
+    this.showAlert(
+      i18n.t('drawer.logOut'),
+      i18n.t('common.areYouSure'),
+      [
+        { text: i18n.t('common.ok'), onPress },
+        {
+          text: i18n.t('common.cancel'),
+          style: 'cancel',
+        },
+      ],
+    );
+  }
 }
 
 export default new AlertService();

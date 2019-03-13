@@ -13,9 +13,10 @@ const RootStore = types
       const authInfo = yield getEnv(store).Api.isAuthenticated();
 
       if (authInfo && authInfo.grantType === 'refresh_token') {
-        NavigationService.navigateToAuthorizedApp();
+        store.auth.setAuthorizationStatus(true);
+        NavigationService.navigateToApp();
       } else {
-        NavigationService.navigateToUnauthorizedApp();
+        NavigationService.navigateToAuth();
       }
     }),
   }));

@@ -91,7 +91,7 @@ function loginUser(flow, store) {
       flow.success();
 
       store.setAuthorizationStatus(true);
-      NavigationService.navigateToAuthorizedApp();
+      NavigationService.navigateToApp();
     } catch (err) {
       flow.operationError();
       AlertService.showSignInError();
@@ -151,7 +151,7 @@ function updatePassword(flow, store) {
 
       yield store.Api.updatePassword({ newPassword, email, token });
       flow.success();
-      NavigationService.navigateToUnauthorizedApp();
+      NavigationService.navigateToAuth();
     } catch (err) {
       flow.operationError();
     }
@@ -168,7 +168,7 @@ function logout(flow, store) {
       rootStore.viewer.removeUser();
 
       store.setAuthorizationStatus(false);
-      NavigationService.navigateToUnauthorizedApp();
+      NavigationService.navigateToAuth();
     } catch (err) {
       AlertService.showSignOutError();
     }

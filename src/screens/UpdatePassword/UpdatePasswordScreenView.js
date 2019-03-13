@@ -55,16 +55,15 @@ const UpdatePasswordScreenView = ({
       containerStyle={s.buttonContainer}
       onPress={() => updatePassword()}
       isLoading={isUpdating}
-    >
-      {i18n.t('updatePassword.updatePassword')}
-    </Button>
+      title={i18n.t('updatePassword.updatePassword')}
+    />
   </View>
 );
 
 UpdatePasswordScreenView.navigationOptions = () => ({
   headerLeft: (
     <HeaderBackButton
-      onPress={() => NavigationService.navigateToUnauthorizedApp()}
+      onPress={() => NavigationService.navigateToAuth()}
     />
   ),
   title: i18n.t('updatePassword.updateYourPassword'),

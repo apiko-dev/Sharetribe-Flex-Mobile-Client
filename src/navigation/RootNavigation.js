@@ -6,22 +6,22 @@ import {
 import { compose } from 'recompose';
 import { NavigationService } from '../services';
 import screens from './screens';
-import AuthorizedAppNavigator from './AuthorizedAppNavigator';
-import UnauthorizedAppNavigator from './UnauthorizedAppNavigator';
+import AppNavigator from './AppNavigator';
+import AuthNavigator from './AuthNavigator';
 import EmptyScreen from '../screens/Empty/EmptyScreen';
 
-const AppNavigator = createSwitchNavigator(
+const Navigator = createSwitchNavigator(
   {
     [screens.Init]: EmptyScreen,
-    [screens.AuthorizedApp]: AuthorizedAppNavigator,
-    [screens.UnauthorizedApp]: UnauthorizedAppNavigator,
+    [screens.Auth]: AuthNavigator,
+    [screens.App]: AppNavigator,
   },
   {
     initialRouteName: screens.Init,
   },
 );
 
-const RootNavigator = createAppContainer(AppNavigator);
+const RootNavigator = createAppContainer(Navigator);
 
 const RootNavigatorContainer = () => (
   <RootNavigator ref={(ref) => NavigationService.init(ref)} />

@@ -79,9 +79,8 @@ const SignUpForm = ({
       disabled={!isValidFields || isSigningUp}
       onPress={() => signUp()}
       isLoading={isSigningUp}
-    >
-      {i18n.t('auth.createAccount')}
-    </Button>
+      title={i18n.t('auth.createAccount')}
+    />
     <View style={[s.textWithTouchableContainer, s.alignCenter]}>
       <Text style={s.text} gray>
         {i18n.t('auth.alreadyHaveAnAccount')}
