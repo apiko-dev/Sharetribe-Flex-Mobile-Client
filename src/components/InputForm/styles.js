@@ -7,7 +7,7 @@ const android = isAndroid();
 export default StyleSheet.create({
   container: {},
   animatedContainer: {
-    height: dimensions.indent * 3,
+    minHeight: dimensions.indent * 3,
     borderWidth: 1,
     borderRadius: 10,
     borderColor: colors.input.borderColor,
@@ -22,7 +22,7 @@ export default StyleSheet.create({
   },
   input: {
     color: colors.input.textColor,
-    height: dimensions.indent * 3,
+    minHeight: dimensions.indent * 3,
     paddingLeft: dimensions.indent * 0.8,
     paddingTop: dimensions.indent,
     paddingBottom: dimensions.indent,

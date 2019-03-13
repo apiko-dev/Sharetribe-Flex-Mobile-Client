@@ -69,4 +69,10 @@ export default {
   drawerItem: {
     rippleColor: '#FF9900',
   },
+  addPhotoButton: {
+    borderColor: '#E9E9E9',
+  },
+  categoryScreen: {
+    itemBorder: '#E9E9E9',
+  },
 };

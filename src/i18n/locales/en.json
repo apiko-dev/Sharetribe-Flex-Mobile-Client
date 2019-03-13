@@ -40,11 +40,29 @@
     "skip": "skip"
   },
   "updatePassword": {
+    "addGoods": "Add goods",
     "newPassword": "New Password",
     "newPasswordInstruction": "Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt labore dolore magna aliqua",
     "retypeNewPassword": "Re-type New Password",
     "updatePassword": "Update Password",
     "updateYourPassword": "Update your password"
+  },
+  "addNewItem": {
+    "photos": "Photos",
+    "addPhoto": "Add photo",
+    "addGoods": "Add goods",
+    "title": "Title",
+    "category": "Category",
+    "description": "Description",
+    "priceADay": "Price a day",
+    "location": "Location",
+    "publishListing": "Publish listing"
+  },
+  "category": {
+    "category": "Category",
+    "transport": "Transport",
+    "sport": "Sport",
+    "travel": "Travel"
   },
   "alerts": {
     "signInError": {
@@ -60,6 +78,7 @@
       "message": "Something went wrong try again"
     }
   },
+
   "common": {
     "hello": "Hello",
     "viewProfile": "View profile",
