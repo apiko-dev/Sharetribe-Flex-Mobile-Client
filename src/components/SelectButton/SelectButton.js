@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity, ViewPropTypes } from 'react-native';
 import { Text, IconFonts } from '..';
 import T from 'prop-types';
 import s from './styles';
@@ -43,7 +43,7 @@ const Button = ({
 );
 
 Button.propTypes = {
-  containerStyle: T.any,
+  containerStyle: ViewPropTypes.style,
   disabled: T.bool,
   onPress: T.func,
   isLoading: T.bool,

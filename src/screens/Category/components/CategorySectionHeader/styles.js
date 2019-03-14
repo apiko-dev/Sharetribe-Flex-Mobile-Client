@@ -7,5 +7,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     paddingTop: dimensions.indent,
     paddingBottom: dimensions.indent,
+    borderBottomWidth: 1,
+    marginBottom: dimensions.indent * 0.4,
   },
 });

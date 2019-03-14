@@ -74,5 +74,12 @@ export default {
   },
   categoryScreen: {
     itemBorder: '#E9E9E9',
+    backgroundColor: '#E5E5E5',
+  },
+  photoItem: {
+    removeButtonBackground: '#FFF',
+  },
+  addNewItemScreen: {
+    actionSheetTintColor: '#333333',
   },
 };

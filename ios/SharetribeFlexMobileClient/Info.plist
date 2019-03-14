@@ -68,5 +68,9 @@
 		<string>OpenSans-SemiBold.ttf</string>
 		<string>ApikoFlex.ttf</string>
 	</array>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>To load photos</string>
+	<key>NSCameraUsageDescription</key>
+	<string>To make photos</string>
 </dict>
 </plist>

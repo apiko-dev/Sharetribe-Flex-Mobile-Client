@@ -1,18 +1,14 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, ViewPropTypes } from 'react-native';
 import T from 'prop-types';
 import { Touchable, Text, IconFonts } from '../../../../components';
 import s from './styles';
 import i18n from '../../../../i18n';
 
-const Button = ({
-  children,
-  primary,
+const AddPhotoButton = ({
   containerStyle,
   disabled,
   onPress,
-  isLoading,
-  title,
   ...props
 }) => (
   <View style={[s.container, containerStyle]}>
@@ -32,14 +28,10 @@ const Button = ({
   </View>
 );
 
-Button.propTypes = {
-  children: T.any,
-  primary: T.bool,
-  containerStyle: T.any,
+AddPhotoButton.propTypes = {
+  containerStyle: ViewPropTypes.style,
   disabled: T.bool,
   onPress: T.func,
-  isLoading: T.bool,
-  title: T.string,
 };
 
-export default Button;
+export default AddPhotoButton;

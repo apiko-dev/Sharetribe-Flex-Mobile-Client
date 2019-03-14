@@ -24,7 +24,7 @@ export default compose(
       AlertService.logOut(() => props.logout.run()),
     goToLogin: () => () => NavigationService.navigateToAuth(),
     goToAddNewItem: () => () =>
-      NavigationService.navigateToAddNewItem(),
+      NavigationService.navigateTo(screens.AddNewItem),
   }),
 
   withPropsOnChange(['isAuthorized'], (props) => {

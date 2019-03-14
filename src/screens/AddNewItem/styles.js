@@ -7,11 +7,18 @@ export default StyleSheet.create({
     paddingHorizontal: dimensions.indent,
     paddingTop: dimensions.indent,
   },
+  textPhotos: {
+    marginBottom: dimensions.indent * 0.2,
+  },
   inputContainer: {
     marginTop: dimensions.indent,
   },
   descriptionInputContainer: {
-    minHeight: dimensions.indent * 15,
+    height: dimensions.indent * 15,
+  },
+  descriptionInput: {
+    textAlignVertical: 'top',
+    height: dimensions.indent * 15,
   },
   buttonContainer: {
     marginTop: dimensions.indent * 1.3,

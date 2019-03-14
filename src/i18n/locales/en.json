@@ -56,7 +56,12 @@
     "description": "Description",
     "priceADay": "Price a day",
     "location": "Location",
-    "publishListing": "Publish listing"
+    "publishListing": "Publish listing",
+    "brand": "Brand",
+    "level": "Level",
+    "choosePhotosFromLibraryOrMakeNewPhoto": "Choose photos from library or make new photo?",
+    "choosePhotosFromLibrary": "Choose photos from library",
+    "makeNewPhoto": "Make new photo by camera"
   },
   "category": {
     "category": "Category",
@@ -85,6 +90,7 @@
     "ok": "OK",
     "cancel": "Cancel",
     "areYouSure": "Are you sure?",
-    "joinToUs": "Joint to us"
+    "joinToUs": "Joint to us",
+    "select": "Select"
   }
 }

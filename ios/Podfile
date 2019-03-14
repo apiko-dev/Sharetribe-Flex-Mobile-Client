@@ -29,6 +29,7 @@ target 'SharetribeFlexMobileClient' do
   pod 'RNSVG', :path => '../node_modules/react-native-svg'
   pod 'RNLanguages', :path => '../node_modules/react-native-languages'
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+  pod 'RNImageCropPicker', :path =>  '../node_modules/react-native-image-crop-picker'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
   pod ‘DoubleConversion’, :podspec => ‘../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec’
   pod ‘glog’, :podspec => ‘../node_modules/react-native/third-party-podspecs/glog.podspec’

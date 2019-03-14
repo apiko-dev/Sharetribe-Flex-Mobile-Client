@@ -33,6 +33,7 @@ const UpdatePasswordScreenView = ({
         containerStyle={s.inputContainer}
         value={newPassword}
         onFocus={() => onChange('activeField', 'newPassword')}
+        onBlur={() => onChange('activeField', '')}
         onChangeText={(text) => onChange('newPassword', text)}
         active={activeField === 'newPassword'}
         secureTextEntry
@@ -43,6 +44,7 @@ const UpdatePasswordScreenView = ({
         placeholder={i18n.t('updatePassword.retypeNewPassword')}
         value={replyPassword}
         onFocus={() => onChange('activeField', 'replyPassword')}
+        onBlur={() => onChange('activeField', '')}
         onChangeText={(text) => onChange('replyPassword', text)}
         active={activeField === 'replyPassword'}
         secureTextEntry

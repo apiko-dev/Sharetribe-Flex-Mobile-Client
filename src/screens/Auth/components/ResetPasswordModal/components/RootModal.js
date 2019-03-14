@@ -37,6 +37,7 @@ const RootModal = ({
       value={email}
       active={activeField === 'email'}
       onFocus={() => onChange('activeField', 'email')}
+      onBlur={() => onChange('activeField', '')}
       onChangeText={(value) => onChange('email', value)}
       autoCapitalize="none"
       keyboardType="email-address"

@@ -1,9 +1,11 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import { colors, dimensions } from '../../../../styles';
 
 export default StyleSheet.create({
   container: {
     margin: dimensions.indent * 0.2,
+    width:
+      (Dimensions.get('window').width - dimensions.indent * 3.2) / 3,
   },
   button: {
     borderStyle: 'dashed',
@@ -12,7 +14,7 @@ export default StyleSheet.create({
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingVertical: dimensions.indent * 0.5,
-    paddingHorizontal: dimensions.indent * 1.4,
+    height:
+      (Dimensions.get('window').width - dimensions.indent * 8) / 3,
   },
 });

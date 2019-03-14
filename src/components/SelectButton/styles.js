@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 import { colors, dimensions } from '../../styles';
 import { isAndroid } from '../../utils';
 
-const android = isAndroid();
+const isAndroidDevice = isAndroid();
 
 export default StyleSheet.create({
   button: {
@@ -20,7 +20,7 @@ export default StyleSheet.create({
   labelOnTop: {
     position: 'absolute',
     left: dimensions.indent * 0.7,
-    top: android
+    top: isAndroidDevice
       ? -dimensions.indent * 0.3
       : -dimensions.indent * 0.4,
     color: colors.input.labelColor,
