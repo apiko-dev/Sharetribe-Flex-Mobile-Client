@@ -149,6 +149,7 @@ dependencies {
     implementation project(':react-native-languages')
     implementation project(':react-native-vector-icons')
     implementation project(':react-native-image-crop-picker')
+    implementation project(':react-native-app-settings')
 }
 
 // Run this once to be able to run the application with BUCK

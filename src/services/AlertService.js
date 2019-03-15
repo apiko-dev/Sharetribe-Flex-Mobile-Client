@@ -34,6 +34,26 @@ class AlertService {
     );
   }
 
+  permissionAsk(title, subtitle, onCancel, onPress) {
+    this.showAlert(
+      title,
+      subtitle,
+      [
+        {
+          text: i18n.t('common.cancel'),
+          style: 'cancel',
+          onPress: onCancel,
+        },
+        { text: i18n.t('common.settings'), onPress },
+      ],
+      { cancelable: false },
+    );
+  }
+
+  permissionError(title) {
+    this.showAlert(title, i18n.t('permissions.error'));
+  }
+
   iosRestrictedPermission(title) {
     this.showAlert(
       title,

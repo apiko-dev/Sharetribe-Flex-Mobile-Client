@@ -17,7 +17,7 @@ const Button = ({
   buttonStyle,
   ...props
 }) => (
-  <View style={containerStyle}>
+  <View style={[s.container, containerStyle]}>
     <Touchable
       useForeground
       disabled={disabled}

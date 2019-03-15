@@ -7,3 +7,5 @@ export {
   isLargeDevice,
 } from './detectDevice';
 export { scalingUtils, regExp };
+
+export { default as delay } from './delay';

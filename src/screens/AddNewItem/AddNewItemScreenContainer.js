@@ -3,11 +3,12 @@ import {
   compose,
   withStateHandlers,
   withHandlers,
+  withPropsOnChange,
 } from 'recompose';
 import ImagePicker from 'react-native-image-crop-picker';
 import {} from 'mobx-react';
 import AddNewItemScreen from './AddNewItemScreenView';
-import { NavigationService } from '../../services';
+import { NavigationService, PermissionService } from '../../services';
 
 export default hoistStatics(
   compose(
@@ -23,7 +24,7 @@ export default hoistStatics(
         price: '',
         location: '',
         activeField: '',
-        actionSheetRef: null,
+        isValidFields: false,
       },
       {
         onChange: () => (field, value) => ({
@@ -50,28 +51,43 @@ export default hoistStatics(
 
     withHandlers({
       addPhotoByCamera: (props) => async () => {
-        const images = await ImagePicker.openCamera({
-          cropping: true,
-        });
+        try {
+          if (await PermissionService.getCameraPermission()) {
+            const images = await ImagePicker.openCamera({
+              cropping: true,
+            });
 
-        props.addPhoto(images.path);
-      },
-      addPhotoFormLibrary: (props) => async () => {
-        const images = await ImagePicker.openPicker({
-          multiple: true,
-          maxFiles: 6 - props.photos.length,
-          cropping: true,
-        });
-
-        // Some devices can return object if they haven't got multiple support
-        if (Array.isArray(images)) {
-          // Android doesn't support maxFiles
-          if (images.length > 6) {
-            images.length = 6 - props.photos.length;
+            props.addPhoto(images.path);
           }
-          images.forEach((image) => props.addPhoto(image.path));
-        } else {
-          props.addPhoto(images.path);
+        } catch (error) {
+          if (error.code === 'E_PICKER_CANCELLED') {
+            // do nothing;
+          }
+        }
+      },
+
+      addPhotoFormLibrary: (props) => async () => {
+        try {
+          if (await PermissionService.getCameraRollPermission()) {
+            const images = await ImagePicker.openPicker({
+              multiple: true,
+              maxFiles: 6 - props.photos.length,
+              cropping: true,
+            });
+
+            // Some devices can return object if they haven't got multiple support
+            if (Array.isArray(images)) {
+              // Android doesn't support maxFiles
+              images.length = 6 - props.photos.length;
+              images.forEach((image) => props.addPhoto(image.path));
+            } else {
+              props.addPhoto(images.path);
+            }
+          }
+        } catch (error) {
+          if (error.code === 'E_PICKER_CANCELLED') {
+            // do nothing;
+          }
         }
       },
     }),
@@ -94,5 +110,33 @@ export default hoistStatics(
         }
       },
     }),
+
+    withPropsOnChange(
+      [
+        'photos',
+        'title',
+        'category',
+        'subCategory',
+        'brand',
+        'level',
+        'description',
+        'price',
+        'location',
+      ],
+      (props) => {
+        props.onChange(
+          'isValidFields',
+          props.photos.length > 0 &&
+            props.title.trim().length > 0 &&
+            props.category.trim().length > 0 &&
+            props.subCategory.trim().length > 0 &&
+            props.brand.trim().length > 0 &&
+            props.level.trim().length > 0 &&
+            props.description.trim().length > 0 &&
+            props.price.trim().length > 0 &&
+            props.location.trim().length > 0,
+        );
+      },
+    ),
   ),
 )(AddNewItemScreen);

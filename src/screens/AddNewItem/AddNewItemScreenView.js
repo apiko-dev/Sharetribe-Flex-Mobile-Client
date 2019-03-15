@@ -26,6 +26,7 @@ const AddNewItemScreenView = ({
   goToCategory,
   subCategory,
   removePhoto,
+  isValidFields,
 }) => (
   <KeyboardAwareScrollView enableOnAndroid extraScrollHeight={30}>
     <View style={s.container}>
@@ -121,6 +122,7 @@ const AddNewItemScreenView = ({
         onChangeText={(text) => onChange('location', text)}
       />
       <Button
+        disabled={!isValidFields}
         primary
         title={i18n.t('addNewItem.publishListing')}
         containerStyle={s.buttonContainer}
@@ -167,6 +169,7 @@ AddNewItemScreenView.propTypes = {
   addPhoto: T.func,
   goToCategory: T.func,
   removePhoto: T.func,
+  isValidFields: T.bool,
 };
 
 export default AddNewItemScreenView;

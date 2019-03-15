@@ -91,6 +91,19 @@
     "cancel": "Cancel",
     "areYouSure": "Are you sure?",
     "joinToUs": "Joint to us",
-    "select": "Select"
+    "select": "Select",
+    "settings": "Settings"
+  },
+  "permissions": {
+    "iosRestrictedPermission": "Restricted Permission",
+    "titles": {
+      "cameraRoll": "Camera roll permission",
+      "camera": "Camera permission",
+      "mediaLibrary": "Media library permission"
+    },
+    "cameraRoll": "We need camera roll Permission",
+    "camera": "We need camera permission",
+    "mediaLibrary": "We need media library permission",
+    "error": "Permission error"
   }
 }
