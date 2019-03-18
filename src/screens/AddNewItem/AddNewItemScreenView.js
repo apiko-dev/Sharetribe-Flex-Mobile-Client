@@ -1,15 +1,17 @@
 /* eslint-disable react/no-this-in-sfc */
 import React from 'react';
-import { View } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import T from 'prop-types';
 import { ActionSheetCustom as ActionSheet } from 'react-native-actionsheet';
+import { GoogleAutoComplete } from 'react-native-google-autocomplete';
 import { Text, Button, InputForm } from '../../components';
 import { AddPhotoButton, PhotoItem } from './components';
 import s from './styles';
 import i18n from '../../i18n';
 import SelectButton from '../../components/SelectButton/SelectButton';
 import { colors } from '../../styles';
+import config from '../../../config/config.dev';
 
 const AddNewItemScreenView = ({
   title,
@@ -118,7 +120,7 @@ const AddNewItemScreenView = ({
         }
         keyboardType="numeric"
       />
-      <InputForm
+      {/* <InputForm
         containerStyle={s.inputContainer}
         placeholder={i18n.t('addNewItem.location')}
         value={location}
@@ -126,7 +128,35 @@ const AddNewItemScreenView = ({
         onFocus={() => onChange('activeField', 'location')}
         onBlur={() => onChange('activeField', '')}
         onChangeText={(text) => onChange('location', text)}
-      />
+      /> */}
+      <GoogleAutoComplete
+        apiKey={config.GOOGLE_API_KEY}
+        debounce={300}
+      >
+        {({
+          inputValue,
+          handleTextChange,
+          locationResults,
+          fetchDetails,
+        }) => (
+          <React.Fragment>
+            <InputForm
+              containerStyle={s.inputContainer}
+              placeholder={i18n.t('addNewItem.location')}
+              value={inputValue}
+              onChangeText={(text) => handleTextChange(text)}
+              active={activeField === 'location'}
+              onFocus={() => onChange('activeField', 'location')}
+              onBlur={() => onChange('activeField', '')}
+            />
+            <ScrollView>
+              {locationResults.map((place) => (
+                <Text>{place.description}</Text>
+              ))}
+            </ScrollView>
+          </React.Fragment>
+        )}
+      </GoogleAutoComplete>
       <Button
         disabled={!isValidFields || isCreatingListing}
         primary
