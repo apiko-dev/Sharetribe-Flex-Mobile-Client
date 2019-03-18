@@ -47,15 +47,15 @@
 		</dict>
 	</dict>
 	<key>NSAppleMusicUsageDescription</key>
-	<string>${PRODUCT_NAME} uses photos</string>
+	<string>$(PRODUCT NAME) uses media library</string>
 	<key>NSCameraUsageDescription</key>
-	<string>${PRODUCT_NAME} uses camera</string>
+	<string>$(PRODUCT NAME) uses camera</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string>$(PRODUCT NAME) uses location</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>${PRODUCT_NAME} uses photos</string>
+	<string>$(PRODUCT NAME) uses photo library additions</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>${PRODUCT_NAME} uses photos</string>
+	<string>$(PRODUCT NAME) uses photo library</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>OpenSans-Bold.ttf</string>
