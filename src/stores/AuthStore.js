@@ -6,7 +6,9 @@ import {
   getRoot,
   getEnv,
 } from 'mobx-state-tree';
+import R from 'ramda';
 import { NavigationService, AlertService } from '../services';
+import i18n from '../i18n';
 
 // TODO: Change ErrorModel
 const ErrorModel = types.model({ // eslint-disable-line
@@ -94,7 +96,10 @@ function loginUser(flow, store) {
       NavigationService.navigateToApp();
     } catch (err) {
       flow.operationError();
-      AlertService.showSignInError();
+      AlertService.showAlert(
+        i18n.t('alerts.signInError.title'),
+        i18n.t('alerts.signInError.message'),
+      );
     }
 
     return false;
@@ -124,8 +129,23 @@ function registerUser(flow, store) {
 
       store.setAuthorizationStatus(true);
     } catch (err) {
-      AlertService.showSignUpError();
+      const errorPath = R.pathOr(
+        false,
+        ['source', 'path'],
+        err.data.errors[0],
+      );
 
+      if (errorPath && errorPath.includes('email')) {
+        AlertService.showAlert(
+          i18n.t('alerts.incorrectEmail.title'),
+          i18n.t('alerts.incorrectEmail.message'),
+        );
+      } else {
+        AlertService.showAlert(
+          i18n.t('alerts.signUpError.title'),
+          i18n.t('alerts.signUpError.message'),
+        );
+      }
       flow.operationError(err);
     }
   };
@@ -170,7 +190,10 @@ function logout(flow, store) {
       store.setAuthorizationStatus(false);
       NavigationService.navigateToAuth();
     } catch (err) {
-      AlertService.showSignOutError();
+      AlertService.showAlert(
+        i18n.t('alerts.signOutError.title'),
+        i18n.t('alerts.signOutError.message'),
+      );
     }
   };
 }

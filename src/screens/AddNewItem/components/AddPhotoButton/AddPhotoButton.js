@@ -4,6 +4,7 @@ import T from 'prop-types';
 import { Touchable, Text, IconFonts } from '../../../../components';
 import s from './styles';
 import i18n from '../../../../i18n';
+import { colors } from '../../../../styles';
 
 const AddPhotoButton = ({
   containerStyle,
@@ -19,7 +20,11 @@ const AddPhotoButton = ({
       {...props}
     >
       <View style={s.button}>
-        <IconFonts name="outline-add_a_photo-24px" size={46} />
+        <IconFonts
+          name="outline-add_a_photo-24px"
+          size={46}
+          tintColor={colors.addPhotoButton.iconCamera}
+        />
         <Text gray xsmallSize>
           {i18n.t('addNewItem.addPhoto')}
         </Text>

@@ -66,6 +66,7 @@ const AnimatedFormInput = ({
             <A.Text
               style={[
                 s.inputLabel,
+                labelStyle,
                 {
                   fontSize,
                   transform: [{ translateY: translateYLabel }],
@@ -105,7 +106,7 @@ AnimatedFormInput.propTypes = {
   inputStyle: T.any,
   containerStyle: ViewPropTypes.style,
   labelContainerStyle: ViewPropTypes.style,
-  labelStyle: T.any,
+  labelStyle: ViewPropTypes.style,
   textInputRef: T.object,
   label: T.string,
   onInputPress: T.func,

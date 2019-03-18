@@ -27,6 +27,8 @@ const AddNewItemScreenView = ({
   subCategory,
   removePhoto,
   isValidFields,
+  createListing,
+  isCreatingListing,
 }) => (
   <KeyboardAwareScrollView enableOnAndroid extraScrollHeight={30}>
     <View style={s.container}>
@@ -36,7 +38,7 @@ const AddNewItemScreenView = ({
       <View style={s.photos}>
         {photos.map((item) => (
           <PhotoItem
-            src={item.src}
+            src={item.uri}
             onPress={() => removePhoto(item.id)}
             key={item.id}
           />
@@ -93,6 +95,7 @@ const AddNewItemScreenView = ({
           s.inputContainer,
           s.descriptionInputContainer,
         ]}
+        labelStyle={s.descriptionLabel}
         inputStyle={s.descriptionInput}
         placeholder={i18n.t('addNewItem.description')}
         value={description}
@@ -109,7 +112,10 @@ const AddNewItemScreenView = ({
         active={activeField === 'price'}
         onFocus={() => onChange('activeField', 'price')}
         onBlur={() => onChange('activeField', '')}
-        onChangeText={(text) => onChange('price', text)}
+        onChangeText={(text) =>
+          (text.match(/^\d+$/) || text.trim().length === 0) &&
+          onChange('price', text)
+        }
         keyboardType="numeric"
       />
       <InputForm
@@ -122,10 +128,12 @@ const AddNewItemScreenView = ({
         onChangeText={(text) => onChange('location', text)}
       />
       <Button
-        disabled={!isValidFields}
+        disabled={!isValidFields || isCreatingListing}
         primary
         title={i18n.t('addNewItem.publishListing')}
         containerStyle={s.buttonContainer}
+        onPress={createListing}
+        isLoading={isCreatingListing}
       />
     </View>
     <ActionSheet
@@ -170,6 +178,8 @@ AddNewItemScreenView.propTypes = {
   goToCategory: T.func,
   removePhoto: T.func,
   isValidFields: T.bool,
+  createListing: T.func,
+  isCreatingListing: T.bool,
 };
 
 export default AddNewItemScreenView;

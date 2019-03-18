@@ -6,12 +6,17 @@ import {
   withPropsOnChange,
 } from 'recompose';
 import ImagePicker from 'react-native-image-crop-picker';
-import {} from 'mobx-react';
+import { inject } from 'mobx-react';
 import AddNewItemScreen from './AddNewItemScreenView';
 import { NavigationService, PermissionService } from '../../services';
 
 export default hoistStatics(
   compose(
+    inject((stores) => ({
+      listings: stores.listings,
+      isCreatingListing: stores.listings.createListing.inProgress,
+    })),
+
     withStateHandlers(
       {
         photos: [],
@@ -31,10 +36,12 @@ export default hoistStatics(
           [field]: value,
         }),
 
-        addPhoto: (props) => (src) => ({
+        addPhoto: (props) => (image) => ({
           photos: props.photos.concat({
             id: Math.random(),
-            src,
+            uri: image.path,
+            name: `image_${Math.floor(Math.random() * 100)}.jpg`,
+            type: image.mime,
           }),
         }),
 
@@ -57,7 +64,7 @@ export default hoistStatics(
               cropping: true,
             });
 
-            props.addPhoto(images.path);
+            props.addPhoto(images);
           }
         } catch (error) {
           if (error.code === 'E_PICKER_CANCELLED') {
@@ -74,14 +81,13 @@ export default hoistStatics(
               maxFiles: 6 - props.photos.length,
               cropping: true,
             });
-
             // Some devices can return object if they haven't got multiple support
             if (Array.isArray(images)) {
               // Android doesn't support maxFiles
               images.length = 6 - props.photos.length;
-              images.forEach((image) => props.addPhoto(image.path));
+              images.forEach((image) => props.addPhoto(image));
             } else {
-              props.addPhoto(images.path);
+              props.addPhoto(images);
             }
           }
         } catch (error) {
@@ -89,6 +95,20 @@ export default hoistStatics(
             // do nothing;
           }
         }
+      },
+
+      createListing: (props) => () => {
+        props.listings.createListing.run({
+          images: props.photos,
+          title: props.title,
+          category: props.category,
+          subCategory: props.subCategory,
+          brand: props.brand,
+          level: props.level,
+          description: props.description,
+          price: props.price,
+          location: props.location,
+        });
       },
     }),
 

@@ -81,6 +81,18 @@
     "signOutError": {
       "title": "Sign Out",
       "message": "Something went wrong try again"
+    },
+    "incorrectEmail": {
+      "title": "Incorrect email",
+      "message": "You send incorrect email"
+    },
+    "createListingSuccess": {
+      "title": "Create Listing",
+      "message": "Listing created"
+    },
+    "createListingError": {
+      "title": "Create Listing",
+      "message": "Sorry, we couldn't create listing, try again"
     }
   },
 

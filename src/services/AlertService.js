@@ -61,27 +61,6 @@ class AlertService {
     );
   }
 
-  showSignInError() {
-    this.showAlert(
-      i18n.t('alerts.signInError.title'),
-      i18n.t('alerts.signInError.message'),
-    );
-  }
-
-  showSignUpError() {
-    this.showAlert(
-      i18n.t('alerts.signUpError.title'),
-      i18n.t('alerts.signUpError.message'),
-    );
-  }
-
-  showSignOutError() {
-    this.showAlert(
-      i18n.t('alerts.signOutError.title'),
-      i18n.t('alerts.signOutError.message'),
-    );
-  }
-
   logOut(onPress) {
     this.showAlert(
       i18n.t('drawer.logOut'),

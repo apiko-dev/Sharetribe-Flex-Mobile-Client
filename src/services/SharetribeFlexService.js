@@ -1,4 +1,4 @@
-import { createInstance } from 'sharetribe-flex-sdk';
+import { createInstance, types } from 'sharetribe-flex-sdk';
 import config from '../../config';
 import AsyncStore from './AsyncStore';
 
@@ -48,6 +48,48 @@ class SharetribeSdkService {
       passwordResetToken: token,
       newPassword,
     });
+  }
+
+  createListing({
+    title,
+    description,
+    price,
+    category,
+    subCategory,
+    brand,
+    level,
+    images,
+    location,
+  }) {
+    return this.sdk.ownListings.create(
+      {
+        title,
+        description,
+        price: new types.Money(Number(price), 'USD'),
+        publicData: {
+          category,
+          subCategory,
+          brand,
+          level,
+          location,
+        },
+        images,
+      },
+      {
+        expand: true,
+        include: ['images'],
+      },
+    );
+  }
+
+  imagesUpload(image) {
+    return this.sdk.images.upload({
+      image,
+    });
+  }
+
+  getOwnListing(id) {
+    return this.sdk.ownListings.show({ id });
   }
 }
 

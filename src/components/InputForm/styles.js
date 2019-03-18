@@ -24,6 +24,7 @@ export default StyleSheet.create({
     color: colors.input.textColor,
     height: dimensions.indent * 3,
     paddingLeft: dimensions.indent * 0.8,
+    paddingRight: dimensions.indent * 0.8,
     paddingTop: dimensions.indent,
     paddingBottom: dimensions.indent,
   },

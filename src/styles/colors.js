@@ -71,6 +71,7 @@ export default {
   },
   addPhotoButton: {
     borderColor: '#E9E9E9',
+    iconCamera: '#D9D9D9',
   },
   categoryScreen: {
     itemBorder: '#E9E9E9',

@@ -9,10 +9,11 @@ export default createStackNavigator(
     [screens.AddNewItem]: AddNewItemScreen,
     [screens.Home]: HomeScreen,
     [screens.UpdatePassword]: UpdatePasswordScreen,
+
     [screens.Category]: CategoryScreen,
   },
   {
-    initialRouteKey: screens.AddNewItemScreen,
+    initialRouteKey: screens.AddNewItem,
     defaultNavigationOptions: {
       headerTintColor: colors.header.tintColor,
       headerStyle: {
