@@ -1,13 +1,14 @@
 import qs from 'qs';
 import axios from 'axios';
-import config from '../../config';
-import { UserDataService } from '../../services';
+import config from '../../../config';
+// import { UserDataService } from '../../../services';
 
 class GoogleAutocompleteApi {
   constructor(key) {
     this._key = key;
     this._requests = [];
   }
+
   // Predictions response example
   // {
   //   "predictions": [
@@ -183,13 +184,13 @@ class GoogleAutocompleteApi {
   }
 
   getCurrentLocation({ enableHighAccuracyLocation = false } = {}) {
-    return UserDataService.getCurrentLocation({
+    /* return UserDataService.getCurrentLocation({
       enableHighAccuracyLocation,
-    });
+    }); */
   }
 
   abortAllRequests() {
-    this._requests.forEach(request => request.abort());
+    this._requests.forEach((request) => request.abort());
   }
 
   _request({ url, method }, options = { timeout: 30000 }) {
@@ -218,7 +219,7 @@ class GoogleAutocompleteApi {
 }
 
 const googleAutocompleteApi = new GoogleAutocompleteApi(
-  config.googleAutocompleteAPI,
+  config.GOOGLE_API_KEY,
 );
 
 export default googleAutocompleteApi;
