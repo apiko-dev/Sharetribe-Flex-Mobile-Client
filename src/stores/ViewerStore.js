@@ -2,7 +2,7 @@ import { types } from 'mobx-state-tree';
 import { User } from './UserStore';
 
 const ViewerStore = types
-  .model({
+  .model('ViewerStore', {
     user: types.maybeNull(User),
   })
   .actions((store) => ({

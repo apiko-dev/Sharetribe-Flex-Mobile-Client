@@ -31,6 +31,7 @@ const SignInFormView = ({
         value={email}
         active={activeField === 'email'}
         onFocus={() => onChange('activeField', 'email')}
+        onBlur={() => onChange('activeField', '')}
         onChangeText={(text) => onChange('email', text)}
         autoCapitalize="none"
         keyboardType="email-address"
@@ -41,6 +42,7 @@ const SignInFormView = ({
         value={password}
         active={activeField === 'password'}
         onFocus={() => onChange('activeField', 'password')}
+        onBlur={() => onChange('activeField', '')}
         onChangeText={(text) => onChange('password', text)}
         secureTextEntry
         autoCapitalize="none"

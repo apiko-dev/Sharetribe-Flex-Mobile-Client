@@ -20,14 +20,6 @@ class NavigationService {
     this.navigation.navigate(route);
   }
 
-  navigateToUnauthorizedApp(props) {
-    this.navigate(screens.UnauthorizedApp, props);
-  }
-
-  navigateToAuthorizedApp(props) {
-    this.navigate(screens.AuthorizedApp, props);
-  }
-
   navigateToApp(props) {
     this.navigate(screens.App, props);
   }
@@ -42,6 +34,14 @@ class NavigationService {
 
   navigateToUpdatePassword(props) {
     this.navigate(screens.UpdatePassword, props);
+  }
+
+  navigateToAddNewItem(props) {
+    this.navigate(screens.AddNewItem, props);
+  }
+
+  navigateToCategory(props) {
+    this.navigate(screens.Category, props);
   }
 
   goBack() {

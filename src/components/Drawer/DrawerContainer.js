@@ -23,6 +23,8 @@ export default compose(
     logout: (props) => () =>
       AlertService.logOut(() => props.logout.run()),
     goToLogin: () => () => NavigationService.navigateToAuth(),
+    goToAddNewItem: () => () =>
+      NavigationService.navigateTo(screens.AddNewItem),
   }),
 
   withPropsOnChange(['isAuthorized'], (props) => {

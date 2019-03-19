@@ -34,31 +34,30 @@ class AlertService {
     );
   }
 
+  permissionAsk(title, subtitle, onCancel, onPress) {
+    this.showAlert(
+      title,
+      subtitle,
+      [
+        {
+          text: i18n.t('common.cancel'),
+          style: 'cancel',
+          onPress: onCancel,
+        },
+        { text: i18n.t('common.settings'), onPress },
+      ],
+      { cancelable: false },
+    );
+  }
+
+  permissionError(title) {
+    this.showAlert(title, i18n.t('permissions.error'));
+  }
+
   iosRestrictedPermission(title) {
     this.showAlert(
       title,
       i18n.t('permissions.iosRestrictedPermission'),
-    );
-  }
-
-  showSignInError() {
-    this.showAlert(
-      i18n.t('alerts.signInError.title'),
-      i18n.t('alerts.signInError.message'),
-    );
-  }
-
-  showSignUpError() {
-    this.showAlert(
-      i18n.t('alerts.signUpError.title'),
-      i18n.t('alerts.signUpError.message'),
-    );
-  }
-
-  showSignOutError() {
-    this.showAlert(
-      i18n.t('alerts.signOutError.title'),
-      i18n.t('alerts.signOutError.message'),
     );
   }
 

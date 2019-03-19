@@ -6,6 +6,7 @@ PODS:
     - DoubleConversion
     - glog
   - glog (0.3.5)
+  - QBImagePickerController (3.4.0)
   - React (0.59.0-rc.3):
     - React/Core (= 0.59.0-rc.3)
   - React/Core (0.59.0-rc.3):
@@ -51,9 +52,17 @@ PODS:
     - React/Core
     - React/fishhook
     - React/RCTBlob
+  - ReactNativePermissions (1.1.1):
+    - React
   - RNGestureHandler (1.0.16):
     - React
+  - RNImageCropPicker (0.23.0):
+    - QBImagePickerController
+    - React/Core
+    - RSKImageCropper
   - RNLanguages (3.0.2):
+    - React
+  - RNOpenAppSettings (1.0.0):
     - React
   - RNReanimated (1.0.0-alpha.12):
     - React
@@ -61,6 +70,7 @@ PODS:
     - React
   - RNVectorIcons (6.3.0):
     - React
+  - RSKImageCropper (2.2.1)
   - yoga (0.59.0-rc.3.React)
 
 DEPENDENCIES:
@@ -75,8 +85,11 @@ DEPENDENCIES:
   - React/RCTNetwork (from `../node_modules/react-native`)
   - React/RCTText (from `../node_modules/react-native`)
   - React/RCTWebSocket (from `../node_modules/react-native`)
+  - ReactNativePermissions (from `../node_modules/react-native-permissions`)
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
+  - RNImageCropPicker (from `../node_modules/react-native-image-crop-picker`)
   - RNLanguages (from `../node_modules/react-native-languages`)
+  - RNOpenAppSettings (from `../node_modules/react-native-app-settings`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNSVG (from `../node_modules/react-native-svg`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
@@ -85,6 +98,8 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - boost-for-react-native
+    - QBImagePickerController
+    - RSKImageCropper
 
 EXTERNAL SOURCES:
   DoubleConversion:
@@ -95,10 +110,16 @@ EXTERNAL SOURCES:
     :podspec: "../node_modules/react-native/third-party-podspecs/glog.podspec"
   React:
     :path: "../node_modules/react-native"
+  ReactNativePermissions:
+    :path: "../node_modules/react-native-permissions"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
+  RNImageCropPicker:
+    :path: "../node_modules/react-native-image-crop-picker"
   RNLanguages:
     :path: "../node_modules/react-native-languages"
+  RNOpenAppSettings:
+    :path: "../node_modules/react-native-app-settings"
   RNReanimated:
     :path: "../node_modules/react-native-reanimated"
   RNSVG:
@@ -113,14 +134,19 @@ SPEC CHECKSUMS:
   DoubleConversion: bb338842f62ab1d708ceb63ec3d999f0f3d98ecd
   Folly: de497beb10f102453a1afa9edbf8cf8a251890de
   glog: aefd1eb5dda2ab95ba0938556f34b98e2da3a60d
+  QBImagePickerController: d54cf93db6decf26baf6ed3472f336ef35cae022
   React: e18068c843db92d5761d2d05a485c85c430727da
+  ReactNativePermissions: 2e324bb3baf12702e3ec27f76c8ae1158fa69fc6
   RNGestureHandler: 0438a761e8f29be3b809f9e7e43014f3aba4d7a6
+  RNImageCropPicker: e56deca5b463b9493d22e966cfd83cb1fc5c99bb
   RNLanguages: 962e562af0d34ab1958d89bcfdb64fafc37c513e
+  RNOpenAppSettings: 1169b90a275e9e18c5973e1608949f97d426e7f3
   RNReanimated: b7adc1a5e4eca563966cfcbd982429ebd70d6b17
   RNSVG: 6fec2b50e65b4a01ba54155e8e546e0a1eeb16f4
   RNVectorIcons: cb42a5653c046f12ca16c9480c571b52620559e8
+  RSKImageCropper: 98296ad26b41753f796b6898d015509598f13d97
   yoga: 4d7f00d234c42cf46c609ee1e429c987167b30f1
 
-PODFILE CHECKSUM: 2ca80b8bd5dd2e81142e033af9d4447fc5a8d345
+PODFILE CHECKSUM: e6af04a95374f96a896d44b054ae869f044131e2
 
 COCOAPODS: 1.6.1

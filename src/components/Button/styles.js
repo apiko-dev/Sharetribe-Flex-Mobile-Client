@@ -2,6 +2,10 @@ import { StyleSheet } from 'react-native';
 import { colors, dimensions } from '../../styles';
 
 export default StyleSheet.create({
+  container: {
+    borderRadius: 10,
+    overflow: 'hidden',
+  },
   button: {
     borderRadius: 10,
     padding: dimensions.indent * 0.8,

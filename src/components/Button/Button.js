@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, ViewPropTypes } from 'react-native';
 import { Touchable, Text } from '..';
 import T from 'prop-types';
 import s from './styles';
@@ -14,9 +14,10 @@ const Button = ({
   onPress,
   isLoading,
   title,
+  buttonStyle,
   ...props
 }) => (
-  <View style={containerStyle}>
+  <View style={[s.container, containerStyle]}>
     <Touchable
       useForeground
       disabled={disabled}
@@ -34,6 +35,7 @@ const Button = ({
           s.view,
           primary && s.primaryView,
           disabled && s.disable,
+          buttonStyle,
         ]}
       >
         {!isLoading ? (
@@ -55,9 +57,10 @@ const Button = ({
 );
 
 Button.propTypes = {
+  buttonStyle: ViewPropTypes.style,
   children: T.any,
   primary: T.bool,
-  containerStyle: T.any,
+  containerStyle: ViewPropTypes.style,
   disabled: T.bool,
   onPress: T.func,
   isLoading: T.bool,

@@ -33,6 +33,7 @@ const SignUpForm = ({
         value={email}
         active={activeField === 'email'}
         onFocus={() => onChange('activeField', 'email')}
+        onBlur={() => onChange('activeField', '')}
         onChangeText={(text) => onChange('email', text)}
         autoCapitalize="none"
         keyboardType="email-address"
@@ -44,6 +45,7 @@ const SignUpForm = ({
           value={firstName}
           active={activeField === 'firstName'}
           onFocus={() => onChange('activeField', 'firstName')}
+          onBlur={() => onChange('activeField', '')}
           onChangeText={(text) => onChange('firstName', text)}
         />
         <InputForm
@@ -52,6 +54,7 @@ const SignUpForm = ({
           value={lastName}
           active={activeField === 'lastName'}
           onFocus={() => onChange('activeField', 'lastName')}
+          onBlur={() => onChange('activeField', '')}
           onChangeText={(text) => onChange('lastName', text)}
         />
       </View>
@@ -61,6 +64,7 @@ const SignUpForm = ({
         value={password}
         active={activeField === 'password'}
         onFocus={() => onChange('activeField', 'password')}
+        onBlur={() => onChange('activeField', '')}
         onChangeText={(text) => onChange('password', text)}
         secureTextEntry
       />

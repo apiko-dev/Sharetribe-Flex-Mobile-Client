@@ -11,7 +11,7 @@ import s from './styles';
 import i18n from '../../i18n';
 import IconAppLogo from '../../assets/png/icon-app-logo.png';
 
-const Drawer = ({ isAuthorized, user, items }) => (
+const Drawer = ({ isAuthorized, user, items, goToAddNewItem }) => (
   <SafeAreaView style={s.container} forceInset={{ bottom: 'never' }}>
     <View style={s.drawerContainer}>
       <View style={s.header}>
@@ -55,6 +55,7 @@ const Drawer = ({ isAuthorized, user, items }) => (
             <Button
               primary
               title={`+ ${i18n.t('drawer.addYourGoods')}`}
+              onPress={() => goToAddNewItem()}
             />
           </View>
         )}
@@ -67,6 +68,7 @@ Drawer.propTypes = {
   isAuthorized: T.bool,
   user: T.any,
   items: T.array,
+  goToAddNewItem: T.func,
 };
 
 export default Drawer;

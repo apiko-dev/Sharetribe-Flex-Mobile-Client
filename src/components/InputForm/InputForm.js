@@ -4,6 +4,7 @@ import {
   View,
   TextInput,
   TouchableWithoutFeedback,
+  ViewPropTypes,
 } from 'react-native';
 import A, { Easing } from 'react-native-reanimated';
 import {
@@ -65,6 +66,7 @@ const AnimatedFormInput = ({
             <A.Text
               style={[
                 s.inputLabel,
+                labelStyle,
                 {
                   fontSize,
                   transform: [{ translateY: translateYLabel }],
@@ -102,9 +104,9 @@ const AnimatedFormInput = ({
 
 AnimatedFormInput.propTypes = {
   inputStyle: T.any,
-  containerStyle: T.any,
-  labelContainerStyle: T.any,
-  labelStyle: T.any,
+  containerStyle: ViewPropTypes.style,
+  labelContainerStyle: ViewPropTypes.style,
+  labelStyle: ViewPropTypes.style,
   textInputRef: T.object,
   label: T.string,
   onInputPress: T.func,

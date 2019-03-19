@@ -17,6 +17,8 @@ import com.swmansion.reanimated.ReanimatedPackage;
 import com.horcrux.svg.SvgPackage;
 import com.reactcommunity.rnlanguages.RNLanguagesPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
+import com.reactnative.ivpusic.imagepicker.PickerPackage;
+import com.krazylabs.OpenAppSettingsPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -35,7 +37,9 @@ public class MainApplication extends Application implements ReactApplication {
           new ReanimatedPackage(),
           new SvgPackage(),
           new RNLanguagesPackage(),
-          new VectorIconsPackage()
+          new VectorIconsPackage(),
+          new PickerPackage(),
+          new OpenAppSettingsPackage()
       );
     }
 

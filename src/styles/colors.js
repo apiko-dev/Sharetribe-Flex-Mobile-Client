@@ -69,4 +69,18 @@ export default {
   drawerItem: {
     rippleColor: '#FF9900',
   },
+  addPhotoButton: {
+    borderColor: '#E9E9E9',
+    iconCamera: '#D9D9D9',
+  },
+  categoryScreen: {
+    itemBorder: '#E9E9E9',
+    backgroundColor: '#E5E5E5',
+  },
+  photoItem: {
+    removeButtonBackground: '#FFF',
+  },
+  addNewItemScreen: {
+    actionSheetTintColor: '#333333',
+  },
 };

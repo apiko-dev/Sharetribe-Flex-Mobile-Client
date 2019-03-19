@@ -16,4 +16,6 @@ export default {
   Home: 'Home',
   Product: 'Product',
   UpdatePassword: 'UpdatePassword',
+  AddNewItem: 'AddNewItem',
+  Category: 'Category',
 };

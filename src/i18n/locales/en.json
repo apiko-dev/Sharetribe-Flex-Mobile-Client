@@ -40,11 +40,34 @@
     "skip": "skip"
   },
   "updatePassword": {
+    "addGoods": "Add goods",
     "newPassword": "New Password",
     "newPasswordInstruction": "Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt labore dolore magna aliqua",
     "retypeNewPassword": "Re-type New Password",
     "updatePassword": "Update Password",
     "updateYourPassword": "Update your password"
+  },
+  "addNewItem": {
+    "photos": "Photos",
+    "addPhoto": "Add photo",
+    "addGoods": "Add goods",
+    "title": "Title",
+    "category": "Category",
+    "description": "Description",
+    "priceADay": "Price a day",
+    "location": "Location",
+    "publishListing": "Publish listing",
+    "brand": "Brand",
+    "level": "Level",
+    "choosePhotosFromLibraryOrMakeNewPhoto": "Choose photos from library or make new photo?",
+    "choosePhotosFromLibrary": "Choose photos from library",
+    "makeNewPhoto": "Make new photo by camera"
+  },
+  "category": {
+    "category": "Category",
+    "transport": "Transport",
+    "sport": "Sport",
+    "travel": "Travel"
   },
   "alerts": {
     "signInError": {
@@ -58,14 +81,41 @@
     "signOutError": {
       "title": "Sign Out",
       "message": "Something went wrong try again"
+    },
+    "incorrectEmail": {
+      "title": "Incorrect email",
+      "message": "You send incorrect email"
+    },
+    "createListingSuccess": {
+      "title": "Create Listing",
+      "message": "Listing created"
+    },
+    "createListingError": {
+      "title": "Create Listing",
+      "message": "Sorry, we couldn't create listing, try again"
     }
   },
+
   "common": {
     "hello": "Hello",
     "viewProfile": "View profile",
     "ok": "OK",
     "cancel": "Cancel",
     "areYouSure": "Are you sure?",
-    "joinToUs": "Joint to us"
+    "joinToUs": "Joint to us",
+    "select": "Select",
+    "settings": "Settings"
+  },
+  "permissions": {
+    "iosRestrictedPermission": "Restricted Permission",
+    "titles": {
+      "cameraRoll": "Camera roll permission",
+      "camera": "Camera permission",
+      "mediaLibrary": "Media library permission"
+    },
+    "cameraRoll": "We need camera roll Permission",
+    "camera": "We need camera permission",
+    "mediaLibrary": "We need media library permission",
+    "error": "Permission error"
   }
 }
