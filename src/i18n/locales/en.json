@@ -13,6 +13,9 @@
   "main": {
     
   },
+  "home": {
+    "category": "Category"
+  },
   "auth": {
     "heading": "Mobile rent service",
     "signIn": "Sign In",

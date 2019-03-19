@@ -84,4 +84,11 @@ export default {
     actionSheetTintColor: '#333333',
     backgroundColorDropDownList: '#FFF',
   },
+  switch: {
+    borderColor: '#FF9900',
+    icon: '#FF9900',
+    backgroundColor: '#fff',
+    activeIcon: '#fff',
+    activeBackgroundColor: '#FF9900',
+  },
 };
