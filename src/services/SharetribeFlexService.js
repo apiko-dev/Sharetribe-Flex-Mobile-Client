@@ -91,6 +91,10 @@ class SharetribeSdkService {
   getOwnListing(id) {
     return this.sdk.ownListings.show({ id });
   }
+
+  fetchListings(query) {
+    return this.sdk.listings.query(query);
+  }
 }
 
 export default new SharetribeSdkService();

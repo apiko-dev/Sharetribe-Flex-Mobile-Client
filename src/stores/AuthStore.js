@@ -53,7 +53,7 @@ function createFlow(flowDefinition) {
         store.error = err;
       }, */
 
-      operationError(err) { // eslint-disable-line
+      failed(err) { // eslint-disable-line
         store.inProgress = false;
         store.error = true;
       },
@@ -95,7 +95,7 @@ function loginUser(flow, store) {
       store.setAuthorizationStatus(true);
       NavigationService.navigateToApp();
     } catch (err) {
-      flow.operationError();
+      flow.failed();
       AlertService.showAlert(
         i18n.t('alerts.signInError.title'),
         i18n.t('alerts.signInError.message'),
@@ -146,7 +146,7 @@ function registerUser(flow, store) {
           i18n.t('alerts.signUpError.message'),
         );
       }
-      flow.operationError(err);
+      flow.failed(err);
     }
   };
 }
@@ -159,7 +159,7 @@ function resetPassword(flow, store) {
       yield store.Api.resetPassword({ email });
       flow.success();
     } catch (err) {
-      flow.operationError();
+      flow.failed();
     }
   };
 }
@@ -173,7 +173,7 @@ function updatePassword(flow, store) {
       flow.success();
       NavigationService.navigateToAuth();
     } catch (err) {
-      flow.operationError();
+      flow.failed();
     }
   };
 }

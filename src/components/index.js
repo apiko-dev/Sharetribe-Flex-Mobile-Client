@@ -16,7 +16,10 @@ export {
 } from './HeaderBackButton/HeaderBackButton';
 export { default as DrawerButton } from './DrawerButton/DrawerButton';
 export { default as Drawer } from './Drawer/DrawerContainer';
-export { default as Switch } from './Switch/Switch';
+export { default as SelectButton } from './SelectButton/SelectButton';
+export {
+  default as ProductButton,
+} from './ProductButton/ProductButton';
 
 /* eslint-disable */
 export { default as Touchable } from './Touchable/Touchable';

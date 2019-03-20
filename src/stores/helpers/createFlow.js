@@ -44,7 +44,7 @@ function createFlow(flowDefinition) {
         store.error = err;
       }, */
 
-      operationError(err) { // eslint-disable-line
+      failed(err) { // eslint-disable-line
         store.inProgress = false;
         store.error = true;
       },

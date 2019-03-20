@@ -1,18 +1,18 @@
-import { StyleSheet } from 'react-native';
-import { dimensions } from '../../styles';
+import { StyleSheet, Dimensions } from 'react-native';
+import { colors } from '../../styles';
 
 export default StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'center',
+    backgroundColor: colors.homeScreen.backgroundColor,
   },
-  top: {
-    flexDirection: 'row',
-    height: dimensions.indent * 3,
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    alignSelf: 'stretch',
-    paddingHorizontal: dimensions.indent,
+  tabViewContainer: {
+    flex: 1,
+  },
+  tabView: {
+    flex: 1,
+    width: Dimensions.get('window').width,
   },
 });

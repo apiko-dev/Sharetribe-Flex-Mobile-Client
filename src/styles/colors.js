@@ -91,4 +91,11 @@ export default {
     activeIcon: '#fff',
     activeBackgroundColor: '#FF9900',
   },
+  homeScreen: {
+    backgroundColor: '#F8F8F8',
+    tabBar: '#fff',
+  },
+  productButton: {
+    backgroundColor: '#fff',
+  },
 };

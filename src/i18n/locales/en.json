@@ -14,7 +14,10 @@
     
   },
   "home": {
-    "category": "Category"
+    "home": "Home",
+    "category": "Category",
+    "day": "day",
+    "seeAll": "See All"
   },
   "auth": {
     "heading": "Mobile rent service",
@@ -96,6 +99,10 @@
     "createListingError": {
       "title": "Create Listing",
       "message": "Sorry, we couldn't create listing, try again"
+    },
+    "somethingWentWrong": {
+      "title": "Error",
+      "message": "Something went wrong"
     }
   },
 
