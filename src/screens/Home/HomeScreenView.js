@@ -7,7 +7,14 @@ import { DrawerButton } from '../../components';
 import { ListView, MapView, TabBar } from './components';
 import i18n from '../../i18n';
 
-const HomeScreen = ({ onChangeTabIndex, tabRoutes, tabIndex }) => (
+const HomeScreen = ({
+  onChangeTabIndex,
+  tabRoutes,
+  tabIndex,
+  goToCategory,
+  category,
+  subCategory,
+}) => (
   <View style={s.container}>
     <View>
       <TabView
@@ -22,7 +29,14 @@ const HomeScreen = ({ onChangeTabIndex, tabRoutes, tabIndex }) => (
         })}
         onIndexChange={(index) => onChangeTabIndex(index)}
         style={s.tabView}
-        renderTabBar={(props) => <TabBar {...props} />}
+        renderTabBar={(props) => (
+          <TabBar
+            {...props}
+            goToCategory={goToCategory}
+            category={category}
+            subCategory={subCategory}
+          />
+        )}
       />
     </View>
   </View>
@@ -37,6 +51,9 @@ HomeScreen.propTypes = {
   onChangeTabIndex: T.func,
   tabRoutes: T.array,
   tabIndex: T.number,
+  goToCategory: T.func,
+  category: T.string,
+  subCategory: T.string,
 };
 
 export default HomeScreen;

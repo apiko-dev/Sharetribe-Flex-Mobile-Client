@@ -3,15 +3,31 @@ import {
   hoistStatics,
   withStateHandlers,
   lifecycle,
+  withHandlers,
 } from 'recompose';
 import { inject } from 'mobx-react';
 import HomeScreenComponent from './HomeScreenView';
+import { NavigationService } from '../../services';
+import { categories } from '../../constants';
+
+const categoriesList = categories.map((item) => item.title);
 
 export default hoistStatics(
   compose(
     inject((stores) => ({
       listings: stores.listings,
     })),
+
+    withStateHandlers(
+      {
+        categoriesList,
+      },
+      {
+        onChange: () => (index) => ({
+          tabIndex: index,
+        }),
+      },
+    ),
 
     withStateHandlers(
       {
@@ -41,12 +57,30 @@ export default hoistStatics(
         onChange: () => (field, value) => ({
           [field]: value,
         }),
+
+        chooseCategory: () => (category, subCategory) => ({
+          category,
+          subCategory,
+        }),
       },
     ),
 
+    withHandlers({
+      goToCategory: (props) => () => {
+        NavigationService.navigateToCategory({
+          chooseCategory: (category, subCategory) => {
+            props.chooseCategory(category, subCategory);
+            NavigationService.goBack();
+          },
+        });
+      },
+    }),
+
     lifecycle({
       componentDidMount() {
-        this.props.listings.fetchListings.run();
+        this.props.listings.fetchListings.run({
+          categoriesList,
+        });
       },
     }),
   ),

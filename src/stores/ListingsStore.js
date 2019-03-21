@@ -1,75 +1,87 @@
 /* eslint-disable no-shadow */
-import { types, getEnv } from 'mobx-state-tree';
-import { types as t } from 'sharetribe-flex-sdk';
+import { types as t, getEnv } from 'mobx-state-tree';
 import createFlow from './helpers/createFlow';
 import { AlertService, NavigationService } from '../services';
 import i18n from '../i18n';
+import processJsonApi from './utils/processJsonApi';
+import listModel from './utils/listModel';
 
-const Money = types.custom({
-  name: 'Money',
-  fromSnapshot(value) {
-    return new t.Money(value, 'USD');
-  },
-  toSnapshot(value) {
-    return value.toString();
-  },
-  isTargetType(value) {
-    return value instanceof t.Money;
-  },
-  getValidationMessage(value) {
-    if (/^-?\d+\.\d+$/.test(value)) return '';
-    return `'${value}' doesn't look like a valid money number`;
-  },
+const ProductPublicData = t.model('ProductPublicData', {
+  brand: t.maybe(t.string),
+  category: t.maybe(t.string),
+  level: t.maybe(t.string),
+  location: t.maybe(t.string),
+  subCategory: t.maybe(t.string),
 });
 
-const Listing = types.model('Listing', {
-  attributes: types.optional(
-    types.model('Listing_attributes_model', {
-      // createdAt: types.Date,
-      deleted: false,
-      description: '',
-      /* geolocation: types.maybeNull(
-        types.model('Listing_geolocation_model', {
-          lat: 0,
-          lng: 0,
-        }),
-      ), */
-      metadata: types.optional(
-        types.model('Listing_metadata_model', {
-          promoted: false,
-        }),
-        {},
-      ),
-      // price: types.optional(
-      //   types.model('Listing_price_model', {
-      //     amount: 0,
-      //     currency: '',
-      //   }),
-      //   {},
-      // ),
-      publicData: types.optional(
-        types.model('Listing_publicData_price', {
-          brand: '',
-          category: '',
-          subCategory: '',
-          // location: '',
-          level: '',
-        }),
-        {},
-      ),
-      state: '',
-      title: '',
-    }),
-    {},
-  ),
-  /* id: types.model(
-    {
-      uuid: types.optional(types.identifier, ''),
+const Price = t.model('Price', {
+  amount: t.number,
+  currency: t.string,
+
+  // update: createFlow(updatePrice),
+});
+
+// .actions(store => ({
+//   updateAmount(amount) {
+//     store.amount = amount;
+//   }
+// }))
+
+// function updatePrice(flow, store) {
+//   return function* updatePriceFlow(amount) {
+//     const { id } = getParent(store);
+
+//     store.updateAmount(amount);
+//   }
+// }
+
+const Image = t
+  .model('Image', {
+    id: t.string,
+  })
+  .views((store) => ({
+    get uri() {
+      return store.id;
     },
-    {},
-  ), */
-  type: '',
+  }));
+
+const ProductRelationships = t.model('ProductRelationships', {
+  images: t.maybe(t.array(Image)),
 });
+
+const Product = t
+  .model('Product', {
+    id: t.identifier,
+    description: t.string,
+    deleted: t.boolean,
+    geolocation: t.null,
+    createdAt: t.maybe(t.Date),
+    state: t.string,
+    title: t.string,
+    publicData: t.optional(t.maybeNull(ProductPublicData), null),
+    price: t.optional(t.maybeNull(Price), null),
+    metadata: t.model('metadata', {}),
+    relationships: t.maybe(ProductRelationships),
+  })
+  .preProcessSnapshot(processJsonApi);
+
+const ProductList = listModel('ProductList', {
+  of: t.reference(Product),
+  entityName: 'listings',
+  identifierName: 'id',
+});
+
+const ListingsStore = t
+  .model('ListingsStore', {
+    listings: ProductList,
+    createListing: createFlow(createListing),
+    fetchListings: createFlow(fetchListings),
+  })
+  .views((store) => ({
+    get Api() {
+      return getEnv(store).Api;
+    },
+  }));
 
 function createListing(flow, store) {
   return function* createListing({
@@ -85,17 +97,11 @@ function createListing(flow, store) {
   }) {
     try {
       flow.start();
+      const res = yield Promise.all(
+        images.map((image) => store.Api.imagesUpload(image)),
+      );
 
-      const imagesId = [];
-
-      for (let i = 0; i <= images.length; i += 1) {
-        const {
-          data: {
-            data: { id },
-          },
-        } = yield store.Api.imagesUpload(images[0]);
-        imagesId.push(id.uuid);
-      }
+      const imagesId = res.map((item) => item.data.data.id.uuid);
 
       yield store.Api.createListing({
         title,
@@ -126,8 +132,7 @@ function createListing(flow, store) {
         ],
       );
     } catch (err) {
-      console.log(err);
-      flow.failed();
+      flow.failed(err, true);
 
       AlertService.showAlert(
         i18n.t('alerts.createListingError.title'),
@@ -138,17 +143,16 @@ function createListing(flow, store) {
 }
 
 function fetchListings(flow, store) {
-  return function* fetchListings() {
+  return function* fetchListings({ categoriesList }) {
     try {
       flow.start();
 
       const res = yield store.Api.fetchListings({
-        pub_level: 'Asdasd',
+        pub_category: categoriesList,
+        include: ['images'],
       });
 
-      console.log(res.data.data);
-
-      yield store.setListings(res.data.data);
+      store.listings.set(res.data.data);
       flow.success();
     } catch (err) {
       console.log(err);
@@ -161,26 +165,5 @@ function fetchListings(flow, store) {
     }
   };
 }
-
-const ListingsStore = types
-  .model('ListingsStore', {
-    listings: types.array(Listing),
-    createListing: createFlow(createListing),
-    fetchListings: createFlow(fetchListings),
-  })
-  .views((store) => ({
-    get Api() {
-      return getEnv(store).Api;
-    },
-
-    get getListings() {
-      return store.listings.slice();
-    },
-  }))
-  .actions((store) => ({
-    setListings(data) {
-      store.listings = data;
-    },
-  }));
 
 export default ListingsStore;

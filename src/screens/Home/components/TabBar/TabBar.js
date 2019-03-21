@@ -6,10 +6,18 @@ import s from './styles';
 import i18n from '../../../../i18n';
 import { colors } from '../../../../styles';
 
-const TabBar = ({ navigationState, jumpTo }) => (
+const TabBar = ({
+  navigationState,
+  jumpTo,
+  goToCategory,
+  category,
+  subCategory,
+}) => (
   <View style={s.tabBar}>
     <View style={s.categoryContainer}>
-      <Text>{i18n.t('home.category')}</Text>
+      <Text onPress={goToCategory}>
+        {category || subCategory || i18n.t('home.category')}
+      </Text>
     </View>
     <View style={s.switch}>
       {navigationState.routes.map((route, i) => {
@@ -40,6 +48,9 @@ const TabBar = ({ navigationState, jumpTo }) => (
 TabBar.propTypes = {
   navigationState: T.any,
   jumpTo: T.func,
+  goToCategory: T.func,
+  category: T.string,
+  subCategory: T.string,
 };
 
 export default TabBar;

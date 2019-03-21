@@ -4,5 +4,8 @@ export default [
     data: ['Cars', 'Bicycles', 'Tracks', 'Planes', 'Trains'],
   },
   { title: 'Sport', data: ['Football', 'Basketball'] },
-  { title: 'Travel', data: ['Camera', 'Bicycles', 'Cycles'] },
+  {
+    title: 'Travel',
+    data: ['Camera', 'Bicycles', 'Cycles', 'Tourism'],
+  },
 ];

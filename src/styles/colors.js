@@ -98,4 +98,7 @@ export default {
   productButton: {
     backgroundColor: '#fff',
   },
+  textPicker: {
+    icon: '#8F8F8F',
+  },
 };

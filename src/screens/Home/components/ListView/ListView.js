@@ -10,36 +10,46 @@ import {
 import i18n from '../../../../i18n';
 import { categories } from '../../../../constants';
 
-const ListView = ({ listings }) => (
-  <View style={s.container}>
-    <ScrollView style={s.listContainer}>
-      {categories.map((category) => (
-        <View key={category.title} style={s.section}>
-          <View style={s.sectionTop}>
-            <Text xmediumSize bold>
-              {category.title}
-            </Text>
-            <TextTouchable>{i18n.t('home.seeAll')}</TextTouchable>
-          </View>
-          <View>
-            <FlatList
-              data={listings}
-              renderItem={({ item }) => (
-                <ProductButton
-                  title={item.attributes.title}
-                  price="10"
+const ListView = React.memo(({ listings }) => {
+  return (
+    <View style={s.container}>
+      <ScrollView style={s.listContainer}>
+        <FlatList
+          data={categories}
+          keyExtractor={(item) => item.title}
+          renderItem={({ item: category }) => (
+            <View key={category.title} style={s.section}>
+              <View style={s.sectionTop}>
+                <Text xmediumSize bold>
+                  {category.title}
+                </Text>
+                <TextTouchable>{i18n.t('home.seeAll')}</TextTouchable>
+              </View>
+              <View>
+                <FlatList
+                  data={listings}
+                  renderItem={({ item }) => {
+                    if (item.publicData.category === category.title) {
+                      return (
+                        <ProductButton
+                          title={item.title}
+                          price={item.price.amount}
+                        />
+                      );
+                    }
+                  }}
+                  horizontal
+                  keyExtractor={(item) => item.id}
+                  showsHorizontalScrollIndicator={false}
                 />
-              )}
-              horizontal
-              // keyExtractor={(item) => item.attributes}
-              showsHorizontalScrollIndicator={false}
-            />
-          </View>
-        </View>
-      ))}
-    </ScrollView>
-  </View>
-);
+              </View>
+            </View>
+          )}
+        />
+      </ScrollView>
+    </View>
+  );
+});
 
 ListView.propTypes = {
   listings: T.array,

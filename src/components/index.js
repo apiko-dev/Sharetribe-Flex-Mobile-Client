@@ -20,6 +20,7 @@ export { default as SelectButton } from './SelectButton/SelectButton';
 export {
   default as ProductButton,
 } from './ProductButton/ProductButton';
+export { default as TextPicker } from './TextPicker/TextPicker';
 
 /* eslint-disable */
 export { default as Touchable } from './Touchable/Touchable';
