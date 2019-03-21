@@ -82,5 +82,6 @@ export default {
   },
   addNewItemScreen: {
     actionSheetTintColor: '#333333',
+    backgroundColorDropDownList: '#FFF',
   },
 };

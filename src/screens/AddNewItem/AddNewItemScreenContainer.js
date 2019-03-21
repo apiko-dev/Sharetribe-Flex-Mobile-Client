@@ -9,6 +9,8 @@ import ImagePicker from 'react-native-image-crop-picker';
 import { inject } from 'mobx-react';
 import AddNewItemScreen from './AddNewItemScreenView';
 import { NavigationService, PermissionService } from '../../services';
+import GoogleApi from '../../libs/google-autocomplete/GoogleAutocompleteApi';
+import { withDebounce } from '../../utils/enhancers';
 
 export default hoistStatics(
   compose(
@@ -28,6 +30,7 @@ export default hoistStatics(
         description: '',
         price: '',
         location: '',
+        locationList: [],
         activeField: '',
         isValidFields: false,
       },
@@ -110,7 +113,20 @@ export default hoistStatics(
           location: props.location,
         });
       },
+
+      getPredictions: (props) => async () => {
+        try {
+          const res = await GoogleApi.getPredictions({
+            text: props.location,
+          });
+          props.onChange('locationList', res.data.predictions);
+        } catch (error) {
+          props.onChange('locationList', []);
+        }
+      },
     }),
+
+    withDebounce('getPredictions', 300),
 
     withHandlers({
       goToCategory: (props) => () => {
@@ -128,6 +144,11 @@ export default hoistStatics(
         } else if (index === 1) {
           props.addPhotoByCamera();
         }
+      },
+
+      onChangeLocation: (props) => (text) => {
+        props.onChange('location', text);
+        props.getPredictions();
       },
     }),
 

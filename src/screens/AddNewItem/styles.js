@@ -1,5 +1,5 @@
-import { StyleSheet } from 'react-native';
-import { dimensions } from '../../styles';
+import { StyleSheet, Dimensions } from 'react-native';
+import { dimensions, colors } from '../../styles';
 import { isAndroid, isLargeDevice } from '../../utils';
 
 const isAndroidDevice = isAndroid();
@@ -16,6 +16,9 @@ export default StyleSheet.create({
   },
   inputContainer: {
     marginTop: dimensions.indent,
+  },
+  locationInputContainer: {
+    zIndex: 1,
   },
   descriptionInputContainer: {
     height: dimensions.indent * 15,
@@ -43,8 +46,32 @@ export default StyleSheet.create({
     marginLeft: dimensions.indent,
     marginRight: dimensions.indent,
   },
+  buttonContainerBottom: {
+    marginBottom: dimensions.indent * 2,
+  },
   photos: {
     flexDirection: 'row',
     flexWrap: 'wrap',
+  },
+  locationDropDownList: {
+    zIndex: 2,
+    position: 'absolute',
+    top: dimensions.indent * 3,
+    height: dimensions.indent * 6,
+    width: Dimensions.get('window').width - dimensions.indent * 2,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: colors.input.borderColor,
+    backgroundColor:
+      colors.addNewItemScreen.backgroundColorDropDownList,
+  },
+  locationDropDownListItem: {
+    color: colors.input.textColor,
+    height: dimensions.indent * 2,
+    width: Dimensions.get('window').width - dimensions.indent * 2,
+    paddingLeft: dimensions.indent * 0.8,
+    paddingRight: dimensions.indent * 0.8,
+    paddingTop: dimensions.indent * 0.4,
+    paddingBottom: dimensions.indent * 0.5,
   },
 });

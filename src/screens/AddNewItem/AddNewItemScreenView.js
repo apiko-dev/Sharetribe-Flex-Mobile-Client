@@ -1,15 +1,18 @@
 /* eslint-disable react/no-this-in-sfc */
 import React from 'react';
-import { View } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import T from 'prop-types';
 import { ActionSheetCustom as ActionSheet } from 'react-native-actionsheet';
-import { Text, Button, InputForm } from '../../components';
+import { Text, Button, InputForm, Touchable } from '../../components';
 import { AddPhotoButton, PhotoItem } from './components';
 import s from './styles';
 import i18n from '../../i18n';
 import SelectButton from '../../components/SelectButton/SelectButton';
 import { colors } from '../../styles';
+import { isAndroid } from '../../utils';
+
+const isAndroidDevice = isAndroid();
 
 const AddNewItemScreenView = ({
   title,
@@ -29,6 +32,8 @@ const AddNewItemScreenView = ({
   isValidFields,
   createListing,
   isCreatingListing,
+  onChangeLocation,
+  locationList,
 }) => (
   <KeyboardAwareScrollView enableOnAndroid extraScrollHeight={30}>
     <View style={s.container}>
@@ -118,20 +123,50 @@ const AddNewItemScreenView = ({
         }
         keyboardType="numeric"
       />
-      <InputForm
-        containerStyle={s.inputContainer}
-        placeholder={i18n.t('addNewItem.location')}
-        value={location}
-        active={activeField === 'location'}
-        onFocus={() => onChange('activeField', 'location')}
-        onBlur={() => onChange('activeField', '')}
-        onChangeText={(text) => onChange('location', text)}
-      />
+      <View
+        style={[
+          s.inputContainer,
+          !isAndroidDevice && s.locationInputContainer,
+        ]}
+      >
+        <InputForm
+          placeholder={i18n.t('addNewItem.location')}
+          value={location}
+          active={activeField === 'location'}
+          onFocus={() => onChange('activeField', 'location')}
+          onBlur={() => onChange('activeField', '')}
+          onChangeText={(text) => onChangeLocation(text)}
+        />
+        {locationList.length !== 0 && (
+          <ScrollView
+            style={s.locationDropDownList}
+            scrollEnabled
+            nestedScrollEnabled
+          >
+            {locationList.map((place) => (
+              <View key={place.id}>
+                <Touchable
+                  onPress={() => {
+                    onChange('location', place.description);
+                    onChange('locationList', []);
+                  }}
+                  style={s.locationDropDownListItem}
+                >
+                  <Text>{place.description}</Text>
+                </Touchable>
+              </View>
+            ))}
+          </ScrollView>
+        )}
+      </View>
       <Button
         disabled={!isValidFields || isCreatingListing}
         primary
         title={i18n.t('addNewItem.publishListing')}
-        containerStyle={s.buttonContainer}
+        containerStyle={[
+          s.buttonContainer,
+          locationList.length !== 0 && s.buttonContainerBottom,
+        ]}
         onPress={createListing}
         isLoading={isCreatingListing}
       />
@@ -180,6 +215,8 @@ AddNewItemScreenView.propTypes = {
   isValidFields: T.bool,
   createListing: T.func,
   isCreatingListing: T.bool,
+  onChangeLocation: T.func,
+  locationList: T.array,
 };
 
 export default AddNewItemScreenView;
