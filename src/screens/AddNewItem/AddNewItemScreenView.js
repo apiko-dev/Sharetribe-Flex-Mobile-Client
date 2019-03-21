@@ -137,7 +137,8 @@ const AddNewItemScreenView = ({
           onBlur={() => onChange('activeField', '')}
           onChangeText={(text) => onChangeLocation(text)}
         />
-        {locationList.length !== 0 && (
+
+        {activeField === 'location' && locationList.length !== 0 && (
           <ScrollView
             style={s.locationDropDownList}
             scrollEnabled
