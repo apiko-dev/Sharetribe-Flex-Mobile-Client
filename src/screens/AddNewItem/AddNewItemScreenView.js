@@ -1,6 +1,6 @@
 /* eslint-disable react/no-this-in-sfc */
 import React from 'react';
-import { View, ScrollView } from 'react-native';
+import { View, FlatList } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import T from 'prop-types';
 import { ActionSheetCustom as ActionSheet } from 'react-native-actionsheet';
@@ -35,7 +35,10 @@ const AddNewItemScreenView = ({
   onChangeLocation,
   locationList,
 }) => (
-  <KeyboardAwareScrollView enableOnAndroid extraScrollHeight={30}>
+  <KeyboardAwareScrollView
+    keyboardShouldPersistTaps="handled"
+    extraScrollHeight={30}
+  >
     <View style={s.container}>
       <Text xxsmallSize gray style={s.textPhotos}>
         {i18n.t('addNewItem.photos')}
@@ -132,6 +135,7 @@ const AddNewItemScreenView = ({
         <InputForm
           placeholder={i18n.t('addNewItem.location')}
           value={location}
+          scrollEnabled={locationList.length === 0}
           active={activeField === 'location'}
           onFocus={() => onChange('activeField', 'location')}
           onBlur={() => onChange('activeField', '')}
@@ -139,25 +143,25 @@ const AddNewItemScreenView = ({
         />
 
         {activeField === 'location' && locationList.length !== 0 && (
-          <ScrollView
+          <FlatList
             style={s.locationDropDownList}
-            scrollEnabled
+            keyExtractor={(item) => item.id}
+            data={locationList}
             nestedScrollEnabled
-          >
-            {locationList.map((place) => (
-              <View key={place.id}>
+            renderItem={({ item }) => (
+              <View>
                 <Touchable
                   onPress={() => {
-                    onChange('location', place.description);
+                    onChange('location', description);
                     onChange('locationList', []);
                   }}
                   style={s.locationDropDownListItem}
                 >
-                  <Text>{place.description}</Text>
+                  <Text>{item.description}</Text>
                 </Touchable>
               </View>
-            ))}
-          </ScrollView>
+            )}
+          />
         )}
       </View>
       <Button
