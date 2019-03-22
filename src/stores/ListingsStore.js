@@ -5,6 +5,7 @@ import { AlertService, NavigationService } from '../services';
 import i18n from '../i18n';
 import processJsonApi from './utils/processJsonApi';
 import listModel from './utils/listModel';
+import { getImageUrl } from '../utils';
 
 const ProductPublicData = t.model('ProductPublicData', {
   brand: t.maybe(t.string),
@@ -41,39 +42,48 @@ const Image = t
   })
   .views((store) => ({
     get uri() {
-      return store.id;
+      return getImageUrl(store.id);
     },
   }));
 
-const ProductRelationships = t.model('ProductRelationships', {
-  images: t.maybe(t.array(Image)),
-});
-
-const Product = t
-  .model('Product', {
-    id: t.identifier,
-    description: t.string,
-    deleted: t.boolean,
-    geolocation: t.null,
-    createdAt: t.maybe(t.Date),
-    state: t.string,
-    title: t.string,
-    publicData: t.optional(t.maybeNull(ProductPublicData), null),
-    price: t.optional(t.maybeNull(Price), null),
-    metadata: t.model('metadata', {}),
-    relationships: t.maybe(ProductRelationships),
+const ProductRelationships = t
+  .model('ProductRelationships', {
+    images: t.maybe(t.array(Image)),
   })
-  .preProcessSnapshot(processJsonApi);
+  .views((store) => ({
+    get getImages() {
+      return store.images.map((i) => i.uri);
+    },
+  }));
+
+export const Product = t.model('Product', {
+  id: t.identifier,
+  description: t.string,
+  deleted: t.boolean,
+  geolocation: t.null,
+  createdAt: t.maybe(t.Date),
+  state: t.string,
+  title: t.string,
+  publicData: t.optional(t.maybeNull(ProductPublicData), null),
+  price: t.optional(t.maybeNull(Price), null),
+  metadata: t.model('metadata', {}),
+  relationships: t.maybe(ProductRelationships),
+});
 
 const ProductList = listModel('ProductList', {
   of: t.reference(Product),
   entityName: 'listings',
   identifierName: 'id',
+  responseTransformer,
 });
+
+function responseTransformer(res) {
+  return res.map(processJsonApi);
+}
 
 const ListingsStore = t
   .model('ListingsStore', {
-    listings: ProductList,
+    list: ProductList,
     createListing: createFlow(createListing),
     fetchListings: createFlow(fetchListings),
   })
@@ -132,7 +142,7 @@ function createListing(flow, store) {
         ],
       );
     } catch (err) {
-      flow.failed(err, true);
+      flow.failed(err);
 
       AlertService.showAlert(
         i18n.t('alerts.createListingError.title'),
@@ -152,7 +162,9 @@ function fetchListings(flow, store) {
         include: ['images'],
       });
 
-      store.listings.set(res.data.data);
+      console.log(res);
+
+      store.list.set(res.data.data);
       flow.success();
     } catch (err) {
       console.log(err);

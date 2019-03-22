@@ -76,6 +76,7 @@ export default {
   categoryScreen: {
     itemBorder: '#E9E9E9',
     backgroundColor: '#E5E5E5',
+    icon: '#333333',
   },
   photoItem: {
     removeButtonBackground: '#FFF',

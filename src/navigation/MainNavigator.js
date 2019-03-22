@@ -5,6 +5,7 @@ import {
   UpdatePasswordScreen,
   AddNewItemScreen,
   CategoryScreen,
+  ProductScreen,
 } from '../screens';
 import { colors } from '../styles';
 import { HeaderBackButton } from '../components';
@@ -15,6 +16,7 @@ export default createStackNavigator(
     [screens.UpdatePassword]: UpdatePasswordScreen,
     [screens.AddNewItem]: AddNewItemScreen,
     [screens.Category]: CategoryScreen,
+    [screens.Product]: ProductScreen,
   },
   {
     initialRouteKey: screens.Home,

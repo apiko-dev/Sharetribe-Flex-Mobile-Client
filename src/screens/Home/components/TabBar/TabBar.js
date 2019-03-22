@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, TouchableOpacity } from 'react-native';
 import T from 'prop-types';
-import { Text, IconFonts } from '../../../../components';
+import { IconFonts, TextPicker } from '../../../../components';
 import s from './styles';
 import i18n from '../../../../i18n';
 import { colors } from '../../../../styles';
@@ -15,9 +15,20 @@ const TabBar = ({
 }) => (
   <View style={s.tabBar}>
     <View style={s.categoryContainer}>
-      <Text onPress={goToCategory}>
-        {category || subCategory || i18n.t('home.category')}
-      </Text>
+      <TextPicker
+        onPress={() => goToCategory({ onlyCategory: true })}
+        iconNameRight="baseline-arrow_drop_down-24px"
+      >
+        {category || i18n.t('home.category')}
+      </TextPicker>
+      {!!category && (
+        <TextPicker
+          onPress={goToCategory}
+          iconNameRight="baseline-arrow_drop_down-24px"
+        >
+          {subCategory || i18n.t('home.subCategory')}
+        </TextPicker>
+      )}
     </View>
     <View style={s.switch}>
       {navigationState.routes.map((route, i) => {

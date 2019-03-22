@@ -4,13 +4,15 @@ import {
   withStateHandlers,
   lifecycle,
   withHandlers,
+  defaultProps,
 } from 'recompose';
 import { inject } from 'mobx-react';
 import HomeScreenComponent from './HomeScreenView';
 import { NavigationService } from '../../services';
-import { categories } from '../../constants';
+import { categories as categoriesConstants } from '../../constants';
+import { withCategoriesContext } from '../../utils/enhancers/withCategoriesHocs';
 
-const categoriesList = categories.map((item) => item.title);
+const categories = categoriesConstants.map((item) => item.title);
 
 export default hoistStatics(
   compose(
@@ -18,22 +20,19 @@ export default hoistStatics(
       listings: stores.listings,
     })),
 
-    withStateHandlers(
-      {
-        categoriesList,
-      },
-      {
-        onChange: () => (index) => ({
-          tabIndex: index,
-        }),
-      },
-    ),
+    defaultProps({
+      categories: categoriesConstants,
+    }),
 
     withStateHandlers(
       {
         tabIndex: 0,
         tabRoutes: [
-          { key: 'listView', title: 'List View', iconName: 'plitka' },
+          {
+            key: 'listView',
+            title: 'List View',
+            iconName: 'plitka',
+          },
           {
             key: 'mapVIew',
             title: 'Map View',
@@ -66,8 +65,9 @@ export default hoistStatics(
     ),
 
     withHandlers({
-      goToCategory: (props) => () => {
+      goToCategory: (props) => ({ onlyCategory }) => {
         NavigationService.navigateToCategory({
+          onlyCategory,
           chooseCategory: (category, subCategory) => {
             props.chooseCategory(category, subCategory);
             NavigationService.goBack();
@@ -76,10 +76,20 @@ export default hoistStatics(
       },
     }),
 
+    withCategoriesContext,
+
     lifecycle({
+      componentDidUpdate(nextProps) {
+        if (this.props.category !== nextProps.category) {
+          this.props.listings.fetchListings.run({
+            categoriesList: this.props.category || categories,
+          });
+        }
+      },
+
       componentDidMount() {
         this.props.listings.fetchListings.run({
-          categoriesList,
+          categoriesList: this.props.category || categories,
         });
       },
     }),

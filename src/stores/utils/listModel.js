@@ -2,7 +2,12 @@ import { types, getRoot } from 'mobx-state-tree';
 import normalize from './normalize';
 
 export default function listModel(name, options) {
-  const { of: ofType, identifierName, entityName } = options;
+  const {
+    of: ofType,
+    identifierName,
+    entityName,
+    responseTransformer,
+  } = options;
 
   const listStore = types
     .model(name, {
@@ -55,7 +60,8 @@ export default function listModel(name, options) {
       },
 
       normalize(items, keyName) {
-        return normalize(items, keyName);
+        const transformed = responseTransformer(items);
+        return normalize(transformed, keyName);
       },
 
       merge(key, object) {

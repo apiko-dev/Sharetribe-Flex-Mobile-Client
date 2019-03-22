@@ -1,20 +1,19 @@
-import {
-  compose,
-  withPropsOnChange,
-  branch,
-  renderComponent,
-} from 'recompose';
+import { compose, withHandlers } from 'recompose';
 import { inject } from 'mobx-react';
 import ListView from './ListView';
-import { Loader } from '../../../../components';
+import { getCategoriesContext } from '../../../../utils/enhancers/withCategoriesHocs';
+import { NavigationService } from '../../../../services';
 
 export default compose(
   inject(({ listings }) => ({
-    listings: listings.asArray,
+    listings: listings.list.asArray,
     isLoading: listings.fetchListings.inProgress,
   })),
 
-  branch((props) => props.isLoading, renderComponent(Loader)),
+  withHandlers({
+    goToProduct: () => (productId) =>
+      NavigationService.navigateToProduct({ productId }),
+  }),
 
-  withPropsOnChange('isLoading', console.log),
+  getCategoriesContext,
 )(ListView);

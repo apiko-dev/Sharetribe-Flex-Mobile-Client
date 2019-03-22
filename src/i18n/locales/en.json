@@ -16,6 +16,7 @@
   "home": {
     "home": "Home",
     "category": "Category",
+    "subCategory": "Sub category",
     "day": "day",
     "seeAll": "See All"
   },
@@ -73,7 +74,8 @@
     "category": "Category",
     "transport": "Transport",
     "sport": "Sport",
-    "travel": "Travel"
+    "travel": "Travel",
+    "allCategories": "All categories"
   },
   "alerts": {
     "signInError": {

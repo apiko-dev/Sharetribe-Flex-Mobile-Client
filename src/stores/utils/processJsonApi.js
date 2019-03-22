@@ -47,4 +47,29 @@ function processJsonApi(record) {
   };
 }
 
+export function processJsonApiIncluded(record) {
+  const data = Object.keys(record.attributes).reduce(
+    (acc, current) => {
+      const currentAttr = record.attributes.variants[current];
+      if (
+        objectUtils.isObject(currentAttr) &&
+        !objectUtils.isPlainObject(currentAttr) &&
+        !(currentAttr instanceof Date)
+      ) {
+        acc[current] = objectUtils.toPlainObject(currentAttr);
+      } else {
+        acc[current] = record.attributes.variants[current];
+      }
+
+      return acc;
+    },
+    {},
+  );
+
+  return {
+    ...data,
+    id: record.id.uuid,
+  };
+}
+
 export default processJsonApi;

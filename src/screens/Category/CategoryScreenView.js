@@ -7,17 +7,28 @@ import { CategorySectionHeader } from './components';
 import { Button } from '../../components';
 import { categories } from '../../constants';
 
-const CategoryScreenView = ({ chooseCategory }) => (
+const CategoryScreenView = ({ chooseCategory, onlyCategory }) => (
   <View style={s.container}>
+    {onlyCategory && (
+      <CategorySectionHeader
+        title={i18n.t('category.allCategories')}
+        onlyCategory={onlyCategory}
+        onPress={() => chooseCategory()}
+      />
+    )}
     <SectionList
       stickySectionHeadersEnabled={false}
       sections={categories}
       contentContainerStyle={s.sectionContainer}
       renderSectionHeader={({ section: { title } }) => (
-        <CategorySectionHeader title={title} />
+        <CategorySectionHeader
+          title={title}
+          onlyCategory={onlyCategory}
+          onPress={() => chooseCategory(title)}
+        />
       )}
       renderItem={({ section: { title, data }, index }) => {
-        if (index !== 0) return null;
+        if (index !== 0 || onlyCategory) return null;
 
         return (
           <FlatList
@@ -48,6 +59,7 @@ CategoryScreenView.navigationOptions = () => ({
 
 CategoryScreenView.propTypes = {
   chooseCategory: T.func,
+  onlyCategory: T.bool,
 };
 
 export default CategoryScreenView;

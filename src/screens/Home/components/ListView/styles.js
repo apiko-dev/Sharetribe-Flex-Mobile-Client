@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import { dimensions } from '../../../../styles';
 
 export default StyleSheet.create({
@@ -19,5 +19,11 @@ export default StyleSheet.create({
   },
   listContainer: {
     flex: 1,
+  },
+  flatList: {
+    alignItems: 'center',
+  },
+  flatListContainer: {
+    width: Dimensions.get('window').width,
   },
 });

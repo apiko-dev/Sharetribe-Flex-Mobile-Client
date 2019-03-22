@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, Dimensions } from 'react-native';
 import T from 'prop-types';
 import { TabView, SceneMap } from 'react-native-tab-view';
 import s from './styles';
@@ -29,6 +29,9 @@ const HomeScreen = ({
         })}
         onIndexChange={(index) => onChangeTabIndex(index)}
         style={s.tabView}
+        initialLayout={{
+          width: Dimensions.get('window').width,
+        }}
         renderTabBar={(props) => (
           <TabBar
             {...props}

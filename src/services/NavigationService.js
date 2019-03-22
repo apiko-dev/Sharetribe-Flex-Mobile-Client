@@ -60,6 +60,10 @@ class NavigationService {
     this.navigate(screen, props);
   }
 
+  navigateToProduct(props) {
+    this.navigate(screens.Product, props);
+  }
+
   initDeepLinking() {
     if (isAndroid()) {
       Linking.getInitialURL().then((url) => {

@@ -38,8 +38,6 @@ function loginUser(flow, store) {
         i18n.t('alerts.signInError.message'),
       );
     }
-
-    return false;
   };
 }
 

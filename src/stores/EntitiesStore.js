@@ -1,8 +1,8 @@
 import { createEntitiesStore } from './utils/createEntitiesStore';
-import ListingsStore from './ListingsStore';
+import { Product } from './ListingsStore';
 
 const EntitiesStore = createEntitiesStore({
-  listings: ListingsStore,
+  listings: Product,
 });
 
 export default EntitiesStore;

@@ -3,6 +3,7 @@ import { dimensions, colors } from '../../../../styles';
 
 export default StyleSheet.create({
   tabBar: {
+    zIndex: 1,
     paddingHorizontal: dimensions.indent,
     flexDirection: 'row',
     backgroundColor: colors.homeScreen.tabBar,
@@ -17,7 +18,9 @@ export default StyleSheet.create({
     shadowRadius: 3,
     elevation: 3,
   },
-  categoryContainer: {},
+  categoryContainer: {
+    flexDirection: 'row',
+  },
   switch: {
     overflow: 'visible',
     flexDirection: 'row',
