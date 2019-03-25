@@ -19,7 +19,9 @@
     "subCategory": "Sub category",
     "day": "day",
     "seeAll": "See All",
-    "emptyList": "Sorry list is empty"
+    "emptyList": "Sorry list is empty",
+    "search": "Search",
+    "nothingWasFound": "Nothing was found"
   },
   "auth": {
     "heading": "Mobile rent service",

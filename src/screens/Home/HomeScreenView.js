@@ -4,7 +4,7 @@ import T from 'prop-types';
 import { TabView, SceneMap } from 'react-native-tab-view';
 import s from './styles';
 import { DrawerButton } from '../../components';
-import { ListView, MapView, TabBar } from './components';
+import { ListView, MapView, TabBar, SearchInput } from './components';
 import i18n from '../../i18n';
 
 const HomeScreen = ({
@@ -25,7 +25,7 @@ const HomeScreen = ({
         }}
         renderScene={SceneMap({
           listView: ListView,
-          mapVIew: MapView,
+          mapView: MapView,
         })}
         onIndexChange={(index) => onChangeTabIndex(index)}
         style={s.tabView}
@@ -45,9 +45,15 @@ const HomeScreen = ({
   </View>
 );
 
-HomeScreen.navigationOptions = () => ({
+HomeScreen.navigationOptions = ({ navigation }) => ({
   headerLeft: <DrawerButton />,
-  title: i18n.t('home.home'),
+  headerTitle: (
+    <SearchInput
+      placeholder={`${i18n.t('home.search')}...`}
+      value={navigation.getParam('value')}
+      onChangeText={navigation.getParam('onChangeSearch')}
+    />
+  ),
 });
 
 HomeScreen.propTypes = {

@@ -23,8 +23,11 @@ const ListView = React.memo(
     category,
     subCategory,
     goToProduct,
+    search,
+    searchListings,
+    isSearching,
   }) => {
-    if (isLoading) {
+    if (isLoading || isSearching) {
       return (
         <View style={s.container}>
           <Loader large color={colors.loader.secondary} />
@@ -32,7 +35,7 @@ const ListView = React.memo(
       );
     }
 
-    if (category && subCategory) {
+    if ((category && subCategory) || search.length) {
       const data = listings.filter(
         (i) => i.publicData.subCategory === subCategory && i,
       );
@@ -42,16 +45,26 @@ const ListView = React.memo(
           <View style={s.flatListContainer}>
             <FlatList
               style={s.flatListContainer}
-              data={data}
+              data={search ? searchListings : data}
               keyExtractor={(item) => item.id}
               numColumns={2}
               contentContainerStyle={[
                 s.flatList,
                 data.length === 0 && s.emptyFlatList,
+                search &&
+                  searchListings.length === 0 &&
+                  s.emptyFlatList,
               ]}
               columnWrapperStyle={s.columnWrapperStyle}
               ListEmptyComponent={() => (
-                <EmptyFlatList message={i18n.t('home.emptyList')} />
+                <EmptyFlatList
+                  iconName={search && 'outline-search-24px'}
+                  message={
+                    search
+                      ? i18n.t('home.nothingWasFound')
+                      : i18n.t('home.emptyList')
+                  }
+                />
               )}
               renderItem={({ item }) => (
                 <ProductButton
@@ -164,6 +177,9 @@ ListView.propTypes = {
   category: T.string,
   subCategory: T.string,
   goToProduct: T.func,
+  search: T.string,
+  searchListings: T.array,
+  isSearching: T.bool,
 };
 
 export default ListView;
