@@ -14,7 +14,7 @@ const EmptyFlatList = ({
   <View style={s.container}>
     <IconFonts
       name={iconName}
-      iconSize={iconSize || 40}
+      size={iconSize || 100}
       tintColor={iconColor}
     />
     <Text gray xxmediumSize style={s.text}>

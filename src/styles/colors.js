@@ -104,4 +104,10 @@ export default {
   textPicker: {
     icon: '#8F8F8F',
   },
+  searchInput: {
+    text: '#8F8F8F',
+    icon: '#8F8F8F',
+    placeholder: '#F8F8F8',
+    backgroundColor: '#FFF',
+  },
 };

@@ -79,6 +79,13 @@ const ProductList = listModel('ProductList', {
   responseTransformer,
 });
 
+const SearchProductList = listModel('SearchProductList', {
+  of: t.reference(Product),
+  entityName: 'listings',
+  identifierName: 'id',
+  responseTransformer,
+});
+
 function responseTransformer(res) {
   return res.map(processJsonApi);
 }
@@ -87,8 +94,10 @@ const ListingsStore = t
   .model('ListingsStore', {
     list: ProductList,
     imageList: ImageList,
+    searchList: SearchProductList,
     createListing: createFlow(createListing),
     fetchListings: createFlow(fetchListings),
+    searchListings: createFlow(searchListings),
   })
   .views((store) => ({
     get Api() {
@@ -130,6 +139,7 @@ function createListing(flow, store) {
 
       flow.success();
 
+      // TODO: move this alert into screen container
       AlertService.showAlert(
         i18n.t('alerts.createListingSuccess.title'),
         i18n.t('alerts.createListingSuccess.message'),
@@ -147,6 +157,7 @@ function createListing(flow, store) {
     } catch (err) {
       flow.failed(err);
 
+      // TODO: move this alert into screen container
       AlertService.showAlert(
         i18n.t('alerts.createListingError.title'),
         i18n.t('alerts.createListingError.message'),
@@ -156,27 +167,63 @@ function createListing(flow, store) {
 }
 
 function fetchListings(flow, store) {
-  return function* fetchListings({ categories }) {
+  return function* fetchListings({ categories, title }) {
     try {
       flow.start();
 
       const res = yield store.Api.fetchListings({
         pub_category: categories,
+        pub_title: title,
         include: ['images'],
       });
 
       console.log(res);
 
       store.list.set(res.data.data);
-
       // TODO: Set directly in entities store
-      store.imageList.set(res.data.included);
+      if (res.data.included) {
+        store.imageList.set(res.data.included);
+      }
       // getRoot(store).entities.merge(res.data.included);
       flow.success();
     } catch (err) {
       console.log(err);
       flow.failed();
 
+      // TODO: move this alert into screen container
+      AlertService.showAlert(
+        i18n.t('alerts.somethingWentWrong.title'),
+        i18n.t('alerts.somethingWentWrong.message'),
+      );
+    }
+  };
+}
+
+function searchListings(flow, store) {
+  return function* searchListings({ categories, title }) {
+    try {
+      flow.start();
+
+      const res = yield store.Api.fetchListings({
+        pub_category: categories,
+        pub_title: title,
+        include: ['images'],
+      });
+
+      console.log(res);
+
+      store.searchList.set(res.data.data);
+
+      // TODO: Set directly in entities store
+      if (res.data.included) {
+        store.imageList.set(res.data.included);
+      }
+      // getRoot(store).entities.merge(res.data.included);
+      flow.success();
+    } catch (err) {
+      flow.failed();
+
+      // TODO: move this alert into screen container
       AlertService.showAlert(
         i18n.t('alerts.somethingWentWrong.title'),
         i18n.t('alerts.somethingWentWrong.message'),
