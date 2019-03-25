@@ -24,6 +24,7 @@ export default createStackNavigator(
       headerTintColor: colors.header.tintColor,
       headerStyle: {
         backgroundColor: colors.header.backgroundColor,
+        elevation: 0,
       },
       headerLeft: HeaderBackButton,
     },

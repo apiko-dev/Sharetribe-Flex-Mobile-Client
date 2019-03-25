@@ -5,6 +5,7 @@ import {
   lifecycle,
   withHandlers,
   defaultProps,
+  withPropsOnChange,
 } from 'recompose';
 import { inject } from 'mobx-react';
 import HomeScreenComponent from './HomeScreenView';
@@ -65,9 +66,15 @@ export default hoistStatics(
     ),
 
     withHandlers({
-      goToCategory: (props) => ({ onlyCategory }) => {
+      goToCategory: (props) => ({
+        onlyCategory,
+        showAllCategoriesButton,
+        showCategoriesAsButton,
+      }) => {
         NavigationService.navigateToCategory({
           onlyCategory,
+          showAllCategoriesButton,
+          showCategoriesAsButton,
           chooseCategory: (category, subCategory) => {
             props.chooseCategory(category, subCategory);
             NavigationService.goBack();
@@ -79,19 +86,18 @@ export default hoistStatics(
     withCategoriesContext,
 
     lifecycle({
-      componentDidUpdate(nextProps) {
-        if (this.props.category !== nextProps.category) {
-          this.props.listings.fetchListings.run({
-            categoriesList: this.props.category || categories,
-          });
-        }
-      },
-
       componentDidMount() {
         this.props.listings.fetchListings.run({
-          categoriesList: this.props.category || categories,
+          categories: this.props.category || categories,
         });
       },
+    }),
+
+    withPropsOnChange(['category', 'subCategory'], (props) => {
+      props.listings.fetchListings.run({
+        categories: props.category || categories,
+        subCategories: props.subCategory,
+      });
     }),
   ),
 )(HomeScreenComponent);

@@ -1,5 +1,8 @@
 import { StyleSheet, Dimensions } from 'react-native';
 import { dimensions } from '../../../../styles';
+import { isSmallDevice } from '../../../../utils';
+
+const isSmall = isSmallDevice();
 
 export default StyleSheet.create({
   container: {
@@ -21,9 +24,18 @@ export default StyleSheet.create({
     flex: 1,
   },
   flatList: {
-    alignItems: 'center',
+    paddingHorizontal: isSmall ? 0 : dimensions.indent,
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
   },
   flatListContainer: {
+    flex: 1,
     width: Dimensions.get('window').width,
+  },
+  emptyFlatList: {
+    flex: 1,
+  },
+  columnWrapperStyle: {
+    justifyContent: 'space-between',
   },
 });

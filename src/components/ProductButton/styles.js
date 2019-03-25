@@ -1,12 +1,13 @@
 import { StyleSheet } from 'react-native';
 import { dimensions, colors } from '../../styles';
+import { isSmallDevice } from '../../utils';
+
+const isSmall = isSmallDevice();
 
 export default StyleSheet.create({
   container: {
     margin: dimensions.indent * 0.3,
     borderRadius: 5,
-    width: dimensions.indent * 9.5,
-    height: dimensions.indent * 11,
     backgroundColor: colors.productButton.backgroundColor,
     shadowOffset: {
       width: 0,
@@ -18,7 +19,19 @@ export default StyleSheet.create({
   },
   image: {
     height: dimensions.indent * 7.5,
-    width: dimensions.indent * 9.5,
+    width: isSmall
+      ? dimensions.indent * 9.3
+      : dimensions.indent * 9.5,
+  },
+  containerTouchable: {
+    borderRadius: 5,
+    overflow: 'hidden',
+  },
+  containerContent: {
+    width: isSmall
+      ? dimensions.indent * 9.3
+      : dimensions.indent * 9.5,
+    height: dimensions.indent * 11,
   },
   imageContainer: {
     overflow: 'hidden',

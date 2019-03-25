@@ -8,10 +8,12 @@ import {
   ProductButton,
   TextTouchable,
   Loader,
+  EmptyFlatList,
 } from '../../../../components';
 import i18n from '../../../../i18n';
 import { categories } from '../../../../constants';
 import { colors } from '../../../../styles';
+import IconAppLogo from '../../../../assets/png/icon-app-logo.png';
 
 const ListView = React.memo(
   ({
@@ -31,31 +33,40 @@ const ListView = React.memo(
     }
 
     if (category && subCategory) {
+      const data = listings.filter(
+        (i) => i.publicData.subCategory === subCategory && i,
+      );
+
       return (
         <View style={s.container}>
           <View style={s.flatListContainer}>
             <FlatList
               style={s.flatListContainer}
-              data={listings}
+              data={data}
               keyExtractor={(item) => item.id}
               numColumns={2}
-              contentContainerStyle={s.flatList}
-              renderItem={({ item }) => {
-                if (
-                  item.publicData.category === category &&
-                  item.publicData.subCategory === subCategory
-                ) {
-                  return (
-                    <ProductButton
-                      onPress={() => goToProduct(item.id)}
-                      id={item.id}
-                      title={item.title}
-                      price={item.price.amount}
-                      uri={item.relationships.getImages[0]}
-                    />
-                  );
-                }
-              }}
+              contentContainerStyle={[
+                s.flatList,
+                data.length === 0 && s.emptyFlatList,
+              ]}
+              columnWrapperStyle={s.columnWrapperStyle}
+              ListEmptyComponent={() => (
+                <EmptyFlatList message={i18n.t('home.emptyList')} />
+              )}
+              renderItem={({ item }) => (
+                <ProductButton
+                  onPress={() => goToProduct(item.id)}
+                  id={item.id}
+                  title={item.title}
+                  price={item.price.amount}
+                  src={
+                    item.relationships.getImages[0]
+                      ? item.relationships.getImages[0].variants
+                          .default.url
+                      : IconAppLogo
+                  }
+                />
+              )}
             />
           </View>
         </View>
@@ -66,77 +77,80 @@ const ListView = React.memo(
       <View style={s.container}>
         <FlatList
           style={s.listContainer}
+          initialNumToRender={5}
           data={
             category
-              ? categories.filter(
-                  (i) =>
-                    i.title === category &&
-                    i.data.map((item) => ({ title: item })),
-                )[0].data
+              ? categories[
+                  categories.findIndex((i) => i.title === category)
+                ].data
               : categories
           }
           keyExtractor={(item) => (category ? item : item.title)}
-          item
-          renderItem={({ item: categoryItem }) => (
-            <View style={s.section}>
-              <View style={s.sectionTop}>
-                <Text xmediumSize bold>
-                  {category ? categoryItem : categoryItem.title}
-                </Text>
-                <TextTouchable
-                  onPress={() =>
-                    chooseCategory(
-                      category || categoryItem.title,
-                      category && categoryItem,
-                    )
-                  }
-                >
-                  {i18n.t('home.seeAll')}
-                </TextTouchable>
-              </View>
-              <View>
-                <FlatList
-                  data={listings}
-                  renderItem={({ item }) => {
-                    if (category) {
-                      if (
-                        item.publicData.subCategory === categoryItem
-                      ) {
-                        return (
-                          <ProductButton
-                            onPress={() => goToProduct(item.id)}
-                            id={item.id}
-                            title={item.title}
-                            price={item.price.amount}
-                            uri={item.relationships.getImages[0]}
-                          />
-                        );
-                      }
-
-                      return null;
+          ListEmptyComponent={
+            <EmptyFlatList message={i18n.t('home.emptyList')} />
+          }
+          renderItem={({ item: categoryItem }) =>
+            listings.filter(
+              (i) =>
+                i.publicData.category === categoryItem.title ||
+                (category &&
+                  i.publicData.category === category &&
+                  i.publicData.subCategory === categoryItem),
+            ).length > 0 && (
+              <View style={s.section}>
+                <View style={s.sectionTop}>
+                  <Text xmediumSize bold>
+                    {category ? categoryItem : categoryItem.title}
+                  </Text>
+                  <TextTouchable
+                    onPress={() =>
+                      chooseCategory(
+                        category || categoryItem.title,
+                        category && categoryItem,
+                      )
                     }
-
-                    if (
-                      item.publicData.category === categoryItem.title
-                    ) {
-                      return (
-                        <ProductButton
-                          onPress={() => goToProduct(item.id)}
-                          id={item.id}
-                          title={item.title}
-                          price={item.price.amount}
-                          uri={item.relationships.getImages[0]}
-                        />
-                      );
-                    }
-                  }}
-                  horizontal
-                  keyExtractor={(item) => item.id}
-                  showsHorizontalScrollIndicator={false}
-                />
+                  >
+                    {i18n.t('home.seeAll')}
+                  </TextTouchable>
+                </View>
+                <View>
+                  <FlatList
+                    data={listings.filter((i) =>
+                      category
+                        ? categoryItem &&
+                          i.publicData.category === category &&
+                          i.publicData.subCategory === categoryItem
+                        : categoryItem &&
+                          i.publicData.category ===
+                            categoryItem.title,
+                    )}
+                    ListEmptyComponent={() => (
+                      <EmptyFlatList
+                        message={i18n.t('home.emptyList')}
+                      />
+                    )}
+                    renderItem={({ item }) => (
+                      <ProductButton
+                        onPress={() => goToProduct(item.id)}
+                        id={item.id}
+                        title={item.title}
+                        price={item.price.amount}
+                        src={
+                          item.relationships.getImages[0]
+                            ? item.relationships.getImages[0].variants
+                                .default.url
+                            : IconAppLogo
+                        }
+                      />
+                    )}
+                    horizontal
+                    keyExtractor={(item) => item.id}
+                    showsHorizontalScrollIndicator={false}
+                  />
+                </View>
               </View>
-            </View>
-          )}
+            )
+          }
         />
       </View>
     );

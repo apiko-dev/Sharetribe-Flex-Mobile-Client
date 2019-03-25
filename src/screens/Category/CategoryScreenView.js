@@ -7,23 +7,31 @@ import { CategorySectionHeader } from './components';
 import { Button } from '../../components';
 import { categories } from '../../constants';
 
-const CategoryScreenView = ({ chooseCategory, onlyCategory }) => (
+const CategoryScreenView = ({
+  chooseCategory,
+  onlyCategory,
+  showAllCategoriesButton,
+  showCategoriesAsButton,
+}) => (
   <View style={s.container}>
-    {onlyCategory && (
-      <CategorySectionHeader
-        title={i18n.t('category.allCategories')}
-        onlyCategory={onlyCategory}
-        onPress={() => chooseCategory()}
-      />
-    )}
     <SectionList
       stickySectionHeadersEnabled={false}
       sections={categories}
       contentContainerStyle={s.sectionContainer}
+      ListHeaderComponent={() =>
+        (showAllCategoriesButton && (
+          <CategorySectionHeader
+            title={i18n.t('category.allCategories')}
+            showCategoriesAsButton={showCategoriesAsButton}
+            onPress={() => chooseCategory()}
+          />
+        )) ||
+        null
+      }
       renderSectionHeader={({ section: { title } }) => (
         <CategorySectionHeader
           title={title}
-          onlyCategory={onlyCategory}
+          showCategoriesAsButton={showCategoriesAsButton}
           onPress={() => chooseCategory(title)}
         />
       )}
@@ -60,6 +68,8 @@ CategoryScreenView.navigationOptions = () => ({
 CategoryScreenView.propTypes = {
   chooseCategory: T.func,
   onlyCategory: T.bool,
+  showAllCategoriesButton: T.bool,
+  showCategoriesAsButton: T.bool,
 };
 
 export default CategoryScreenView;

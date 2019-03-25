@@ -6,7 +6,7 @@ const CategoriesContext = createContext({});
 
 export const withCategoriesContext = withContext(
   CategoriesContext,
-  R.pick(['chooseCategory', 'categories', 'category', 'subCategory']),
+  R.pick(['chooseCategory', 'category', 'subCategory']),
 );
 
 export const getCategoriesContext = getContext(CategoriesContext);

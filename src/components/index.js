@@ -21,6 +21,9 @@ export {
   default as ProductButton,
 } from './ProductButton/ProductButton';
 export { default as TextPicker } from './TextPicker/TextPicker';
+export {
+  default as EmptyFlatList,
+} from './EmptyFlatList/EmptyFlatList';
 
 /* eslint-disable */
 export { default as Touchable } from './Touchable/Touchable';

@@ -31,9 +31,9 @@ function processJsonApi(record) {
         return acc;
       }
 
-      acc[current] = currentRelations.data.map((item) => ({
-        id: item.id.uuid,
-      }));
+      acc[current] = currentRelations.data.map(
+        (item) => item.id.uuid,
+      );
 
       return acc;
     },
@@ -50,7 +50,7 @@ function processJsonApi(record) {
 export function processJsonApiIncluded(record) {
   const data = Object.keys(record.attributes).reduce(
     (acc, current) => {
-      const currentAttr = record.attributes.variants[current];
+      const currentAttr = record.attributes[current];
       if (
         objectUtils.isObject(currentAttr) &&
         !objectUtils.isPlainObject(currentAttr) &&
@@ -58,7 +58,7 @@ export function processJsonApiIncluded(record) {
       ) {
         acc[current] = objectUtils.toPlainObject(currentAttr);
       } else {
-        acc[current] = record.attributes.variants[current];
+        acc[current] = record.attributes[current];
       }
 
       return acc;

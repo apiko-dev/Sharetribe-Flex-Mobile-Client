@@ -11,6 +11,12 @@ export default hoistStatics(
     withProps((props) => ({
       ...props,
       onlyCategory: props.navigation.getParam('onlyCategory'),
+      showAllCategoriesButton: props.navigation.getParam(
+        'showAllCategoriesButton',
+      ),
+      showCategoriesAsButton: props.navigation.getParam(
+        'showAllCategoriesButton',
+      ),
     })),
 
     withHandlers({

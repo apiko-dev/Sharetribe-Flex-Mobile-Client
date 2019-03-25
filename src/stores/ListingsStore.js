@@ -3,9 +3,10 @@ import { types as t, getEnv } from 'mobx-state-tree';
 import createFlow from './helpers/createFlow';
 import { AlertService, NavigationService } from '../services';
 import i18n from '../i18n';
-import processJsonApi from './utils/processJsonApi';
+import processJsonApi, {
+  processJsonApiIncluded,
+} from './utils/processJsonApi';
 import listModel from './utils/listModel';
-import { getImageUrl } from '../utils';
 
 const ProductPublicData = t.model('ProductPublicData', {
   brand: t.maybe(t.string),
@@ -18,41 +19,42 @@ const ProductPublicData = t.model('ProductPublicData', {
 const Price = t.model('Price', {
   amount: t.number,
   currency: t.string,
-
-  // update: createFlow(updatePrice),
 });
 
-// .actions(store => ({
-//   updateAmount(amount) {
-//     store.amount = amount;
-//   }
-// }))
+const ImageData = t.model('ImageData', {
+  height: t.number,
+  name: t.string,
+  url: t.string,
+  width: t.number,
+});
 
-// function updatePrice(flow, store) {
-//   return function* updatePriceFlow(amount) {
-//     const { id } = getParent(store);
+const ImageVariants = t.model('ImageVariants', {
+  default: t.maybe(ImageData),
+});
 
-//     store.updateAmount(amount);
-//   }
-// }
+export const Image = t.model('Image', {
+  id: t.identifier,
+  variants: t.maybe(ImageVariants),
+});
 
-const Image = t
-  .model('Image', {
-    id: t.string,
-  })
-  .views((store) => ({
-    get uri() {
-      return getImageUrl(store.id);
-    },
-  }));
+const ImageList = listModel('ProductImageList', {
+  of: t.reference(Image),
+  entityName: 'images',
+  identifierName: 'id',
+  responseTransformer: responseTransformerIncluded,
+});
+
+function responseTransformerIncluded(res) {
+  return res.map(processJsonApiIncluded);
+}
 
 const ProductRelationships = t
   .model('ProductRelationships', {
-    images: t.maybe(t.array(Image)),
+    images: t.maybe(t.array(t.reference(Image))),
   })
   .views((store) => ({
     get getImages() {
-      return store.images.map((i) => i.uri);
+      return store.images.slice();
     },
   }));
 
@@ -84,6 +86,7 @@ function responseTransformer(res) {
 const ListingsStore = t
   .model('ListingsStore', {
     list: ProductList,
+    imageList: ImageList,
     createListing: createFlow(createListing),
     fetchListings: createFlow(fetchListings),
   })
@@ -153,18 +156,22 @@ function createListing(flow, store) {
 }
 
 function fetchListings(flow, store) {
-  return function* fetchListings({ categoriesList }) {
+  return function* fetchListings({ categories }) {
     try {
       flow.start();
 
       const res = yield store.Api.fetchListings({
-        pub_category: categoriesList,
+        pub_category: categories,
         include: ['images'],
       });
 
       console.log(res);
 
       store.list.set(res.data.data);
+
+      // TODO: Set directly in entities store
+      store.imageList.set(res.data.included);
+      // getRoot(store).entities.merge(res.data.included);
       flow.success();
     } catch (err) {
       console.log(err);

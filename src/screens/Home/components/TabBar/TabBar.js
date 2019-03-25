@@ -16,14 +16,25 @@ const TabBar = ({
   <View style={s.tabBar}>
     <View style={s.categoryContainer}>
       <TextPicker
-        onPress={() => goToCategory({ onlyCategory: true })}
+        onPress={() =>
+          goToCategory({
+            onlyCategory: true,
+            showAllCategoriesButton: true,
+            showCategoriesAsButton: true,
+          })
+        }
         iconNameRight="baseline-arrow_drop_down-24px"
       >
         {category || i18n.t('home.category')}
       </TextPicker>
       {!!category && (
         <TextPicker
-          onPress={goToCategory}
+          onPress={() =>
+            goToCategory({
+              showAllCategoriesButton: true,
+              showCategoriesAsButton: true,
+            })
+          }
           iconNameRight="baseline-arrow_drop_down-24px"
         >
           {subCategory || i18n.t('home.subCategory')}

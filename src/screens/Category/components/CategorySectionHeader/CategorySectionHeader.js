@@ -5,10 +5,14 @@ import { Text, Touchable, IconFonts } from '../../../../components';
 import s from './styles';
 import { colors } from '../../../../styles';
 
-const CategorySectionHeader = ({ title, onlyCategory, onPress }) => (
-  <Touchable disabled={!onlyCategory} onPress={onPress}>
+const CategorySectionHeader = ({
+  title,
+  showCategoriesAsButton,
+  onPress,
+}) => (
+  <Touchable disabled={!showCategoriesAsButton} onPress={onPress}>
     <View style={s.header}>
-      {onlyCategory && (
+      {showCategoriesAsButton && (
         <IconFonts
           name="outline-keyboard_arrow_left-24px-1"
           tintColor={colors.categoryScreen.icon}
@@ -22,7 +26,7 @@ const CategorySectionHeader = ({ title, onlyCategory, onPress }) => (
 
 CategorySectionHeader.propTypes = {
   title: T.string,
-  onlyCategory: T.bool,
+  showCategoriesAsButton: T.bool,
   onPress: T.func,
 };
 
