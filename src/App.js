@@ -1,3 +1,4 @@
+/* global __DEV__ */
 import React from 'react';
 import { StatusBar } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
@@ -7,6 +8,10 @@ import RootNavigation from './navigation/RootNavigation';
 import createStore from './stores/stores';
 import { SharetribeFlexService, NavigationService } from './services';
 import { colors } from './styles';
+
+if (__DEV__) {
+  SplashScreen.hide();
+}
 
 const store = createStore();
 

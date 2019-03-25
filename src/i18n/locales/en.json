@@ -13,6 +13,14 @@
   "main": {
     
   },
+  "home": {
+    "home": "Home",
+    "category": "Category",
+    "subCategory": "Sub category",
+    "day": "day",
+    "seeAll": "See All",
+    "emptyList": "Sorry list is empty"
+  },
   "auth": {
     "heading": "Mobile rent service",
     "signIn": "Sign In",
@@ -67,7 +75,8 @@
     "category": "Category",
     "transport": "Transport",
     "sport": "Sport",
-    "travel": "Travel"
+    "travel": "Travel",
+    "allCategories": "All categories"
   },
   "alerts": {
     "signInError": {
@@ -93,6 +102,10 @@
     "createListingError": {
       "title": "Create Listing",
       "message": "Sorry, we couldn't create listing, try again"
+    },
+    "somethingWentWrong": {
+      "title": "Error",
+      "message": "Something went wrong"
     }
   },
 

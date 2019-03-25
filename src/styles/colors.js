@@ -76,6 +76,8 @@ export default {
   categoryScreen: {
     itemBorder: '#E9E9E9',
     backgroundColor: '#E5E5E5',
+    icon: '#8F8F8F',
+    sectionBorder: '#8F8F8F',
   },
   photoItem: {
     removeButtonBackground: '#FFF',
@@ -83,5 +85,23 @@ export default {
   addNewItemScreen: {
     actionSheetTintColor: '#333333',
     backgroundColorDropDownList: '#FFF',
+  },
+  switch: {
+    borderColor: '#FF9900',
+    icon: '#FF9900',
+    backgroundColor: '#fff',
+    activeIcon: '#fff',
+    activeBackgroundColor: '#FF9900',
+  },
+  homeScreen: {
+    backgroundColor: '#F8F8F8',
+    tabBar: '#fff',
+  },
+  productButton: {
+    backgroundColor: '#fff',
+    rippleColor: '#FF9900',
+  },
+  textPicker: {
+    icon: '#8F8F8F',
   },
 };

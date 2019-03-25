@@ -72,6 +72,9 @@ class SharetribeSdkService {
           brand,
           level,
           location,
+          title,
+          description,
+          price: Number(price),
         },
         images,
       },
@@ -90,6 +93,10 @@ class SharetribeSdkService {
 
   getOwnListing(id) {
     return this.sdk.ownListings.show({ id });
+  }
+
+  fetchListings(query) {
+    return this.sdk.listings.query(query);
   }
 }
 

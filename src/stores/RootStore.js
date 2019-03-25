@@ -3,12 +3,14 @@ import AuthStore from './AuthStore';
 import ViewerStore from './ViewerStore';
 import { NavigationService } from '../services';
 import ListingsStore from './ListingsStore';
+import EntitiesStore from './EntitiesStore';
 
 const RootStore = types
   .model('RootStore', {
     auth: types.optional(AuthStore, {}),
     viewer: types.optional(ViewerStore, {}),
     listings: types.optional(ListingsStore, {}),
+    entities: types.optional(EntitiesStore, {}),
   })
   .actions((store) => ({
     bootstrap: flow(function* bootstrap() {

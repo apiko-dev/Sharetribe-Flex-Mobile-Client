@@ -44,9 +44,13 @@ function createFlow(flowDefinition) {
         store.error = err;
       }, */
 
-      operationError(err) { // eslint-disable-line
+      failed(err, throwError) { // eslint-disable-line
         store.inProgress = false;
         store.error = true;
+
+        if (throwError) {
+          throw err;
+        }
       },
 
       run: flow(flowDefinition(store, getParent(store))),
