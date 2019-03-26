@@ -1,5 +1,10 @@
 import React from 'react';
-import { View, Image, Dimensions } from 'react-native';
+import {
+  View,
+  Image,
+  Dimensions,
+  ImageBackground,
+} from 'react-native';
 import T from 'prop-types';
 import Carousel from 'react-native-snap-carousel';
 
@@ -30,31 +35,44 @@ const dataItems = [
 ];
 const { width, height } = Dimensions.get('window');
 
+const placeholderImage = require('../../assets/png/icon-app-logo.png');
+
 const ProductScreen = ({ id }) => (
   <View style={s.container}>
-    {/* <Text>{id}</Text */}
     <Carousel
-      // ref={(c) => {
-      //   this._carousel = c;
-      // }}
       data={dataItems}
       renderItem={({ item }) => (
         <View style={s.slide}>
-          <Image
-            source={{ uri: item.illustration }}
-            style={s.image}
-          />
+          <ImageBackground
+            source={placeholderImage}
+            style={{ height: 325, width: '100%' }}
+          >
+            <Image
+              source={{ uri: item.illustration }}
+              style={s.image}
+            />
+          </ImageBackground>
         </View>
       )}
       sliderWidth={width}
-      // sliderHeight={325}
+      sliderHeight={325}
       itemWidth={width}
     />
   </View>
 );
 
 ProductScreen.navigationOptions = () => ({
-  title: 'Product name',
+  headerTransparent: true,
+  headerStyle: {
+    // position: 'absolute',
+    // zIndex: 100,
+    // top: 0,
+    // left: 0,
+    // right: 0,
+    elevation: 0,
+    shadowOpacity: 0,
+    borderBottomWidth: 0,
+  },
 });
 
 ProductScreen.propTypes = {
