@@ -32,6 +32,10 @@ target 'SharetribeFlexMobileClient' do
   pod 'RNImageCropPicker', :path =>  '../node_modules/react-native-image-crop-picker'
   pod 'ReactNativePermissions', :path => '../node_modules/react-native-permissions'
   pod 'RNOpenAppSettings', :path => '../node_modules/react-native-app-settings'
+  pod 'react-native-maps', :path => '../node_modules/react-native-maps'
+  pod 'react-native-google-maps', :path => '../node_modules/react-native-maps'  # Uncomment this line if you want to support GoogleMaps on iOS
+  pod 'GoogleMaps'  # Uncomment this line if you want to support GoogleMaps on iOS
+  pod 'Google-Maps-iOS-Utils' # Uncomment this line if you want to support GoogleMaps on iOS
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
   pod ‘DoubleConversion’, :podspec => ‘../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec’
   pod ‘glog’, :podspec => ‘../node_modules/react-native/third-party-podspecs/glog.podspec’

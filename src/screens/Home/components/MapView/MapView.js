@@ -1,11 +1,21 @@
 import React from 'react';
 import { View } from 'react-native';
+import Map, { PROVIDER_GOOGLE } from 'react-native-maps';
 import s from './styles';
-import { Text } from '../../../../components';
 
 const MapView = () => (
   <View style={s.container}>
-    <Text>Map View</Text>
+    <Map
+      style={s.map}
+      provider={PROVIDER_GOOGLE}
+      // Test region
+      initialRegion={{
+        latitude: 37.78825,
+        longitude: -122.4324,
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421,
+      }}
+    />
   </View>
 );
 

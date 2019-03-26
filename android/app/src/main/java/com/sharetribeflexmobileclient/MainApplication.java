@@ -19,6 +19,8 @@ import com.reactcommunity.rnlanguages.RNLanguagesPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.reactnative.ivpusic.imagepicker.PickerPackage;
 import com.krazylabs.OpenAppSettingsPackage;
+import com.airbnb.android.react.maps.MapsPackage;
+
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -39,7 +41,8 @@ public class MainApplication extends Application implements ReactApplication {
           new RNLanguagesPackage(),
           new VectorIconsPackage(),
           new PickerPackage(),
-          new OpenAppSettingsPackage()
+          new OpenAppSettingsPackage(),
+          new MapsPackage()
       );
     }
 
