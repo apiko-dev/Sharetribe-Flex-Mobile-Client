@@ -20,9 +20,9 @@ const ListView = React.memo(
     data,
     sectionList,
     listingsFilter,
-  }) => {
-    if (search.length) {
-      return (
+  }) => (
+    <View style={s.container}>
+      {search.length && (
         <FlatListVertical
           data={searchListings}
           keyExtractor={(item) => item.id}
@@ -36,11 +36,9 @@ const ListView = React.memo(
             />
           )}
         />
-      );
-    }
+      )}
 
-    if (category && subCategory) {
-      return (
+      {category && subCategory && (
         <FlatListVertical
           data={data}
           keyExtractor={(item) => item.id}
@@ -53,11 +51,9 @@ const ListView = React.memo(
             />
           )}
         />
-      );
-    }
+      )}
 
-    return (
-      <View style={s.container}>
+      {!search.length && !(category && subCategory) && (
         <FlatListVertical
           style={s.listContainer}
           data={sectionList}
@@ -88,9 +84,9 @@ const ListView = React.memo(
             />
           )}
         />
-      </View>
-    );
-  },
+      )}
+    </View>
+  ),
 );
 
 ListView.propTypes = {
