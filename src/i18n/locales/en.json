@@ -80,6 +80,12 @@
     "travel": "Travel",
     "allCategories": "All categories"
   },
+  "myListings": {
+    "myListings": "My listings",
+    "addNewItem": "Add new goods",
+    "youHave": "You have",
+    "listings": "listings"
+  },
   "alerts": {
     "signInError": {
       "title": "Sign In",

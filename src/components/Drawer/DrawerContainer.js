@@ -54,7 +54,7 @@ export default compose(
         iconName: 'homepage',
       },
       {
-        screen: screens.Home,
+        screen: screens.MyListings,
         title: i18n.t('drawer.myListings'),
         iconName: 'list',
       },

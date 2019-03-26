@@ -1,7 +1,7 @@
 import React from 'react';
 import T from 'prop-types';
-import { ProductButton } from '../../../../../components';
-import IconAppLogo from '../../../../../assets/png/icon-app-logo.png';
+import ProductButton from '../ProductButton/ProductButton';
+import IconAppLogo from '../../assets/png/icon-app-logo.png';
 
 const RenderProductButton = ({ item, goToProduct }) => (
   <ProductButton

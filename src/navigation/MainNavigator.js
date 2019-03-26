@@ -6,12 +6,15 @@ import {
   AddNewItemScreen,
   CategoryScreen,
   ProductScreen,
+  MyListingsScreen,
 } from '../screens';
 import { colors } from '../styles';
 import { HeaderBackButton } from '../components';
 
 export default createStackNavigator(
   {
+    [screens.MyListings]: MyListingsScreen,
+
     [screens.Home]: HomeScreen,
     [screens.UpdatePassword]: UpdatePasswordScreen,
     [screens.AddNewItem]: AddNewItemScreen,
@@ -19,7 +22,7 @@ export default createStackNavigator(
     [screens.Product]: ProductScreen,
   },
   {
-    initialRouteKey: screens.Home,
+    initialRouteKey: screens.MyListings,
     defaultNavigationOptions: {
       headerTintColor: colors.header.tintColor,
       headerStyle: {

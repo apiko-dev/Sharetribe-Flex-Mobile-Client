@@ -6,7 +6,7 @@ import { colors } from '../../styles';
 const Loader = ({ color, large }) => (
   <ActivityIndicator
     size={large && 'large'}
-    color={color || colors.loader.primary}
+    color={color || colors.loader.secondary}
   />
 );
 

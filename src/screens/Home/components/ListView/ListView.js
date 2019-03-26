@@ -3,10 +3,12 @@ import React from 'react';
 import { View } from 'react-native';
 import T from 'prop-types';
 import s from './styles';
-import { FlatListVertical } from '../../../../components';
+import {
+  FlatListVertical,
+  RenderProductButton,
+} from '../../../../components';
 import FlatListHorizontal from '../FlatListHorizontal/FlatListHorizontal';
 import i18n from '../../../../i18n';
-import RenderProductButton from './components/RenderProductButton';
 
 const ListView = React.memo(
   ({
@@ -22,7 +24,7 @@ const ListView = React.memo(
     listingsFilter,
   }) => (
     <View style={s.container}>
-      {search.length && (
+      {!!search && (
         <FlatListVertical
           data={searchListings}
           keyExtractor={(item) => item.id}
@@ -38,7 +40,7 @@ const ListView = React.memo(
         />
       )}
 
-      {category && subCategory && (
+      {!!category && !!subCategory && (
         <FlatListVertical
           data={data}
           keyExtractor={(item) => item.id}
@@ -53,7 +55,7 @@ const ListView = React.memo(
         />
       )}
 
-      {!search.length && !(category && subCategory) && (
+      {!search && !(!!category && !!subCategory) && (
         <FlatListVertical
           style={s.listContainer}
           data={sectionList}

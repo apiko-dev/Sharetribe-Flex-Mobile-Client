@@ -86,6 +86,13 @@ const SearchProductList = listModel('SearchProductList', {
   responseTransformer,
 });
 
+const OwnProductList = listModel('OwnProductList', {
+  of: t.reference(Product),
+  entityName: 'listings',
+  identifierName: 'id',
+  responseTransformer,
+});
+
 function responseTransformer(res) {
   return res.map(processJsonApi);
 }
@@ -95,9 +102,11 @@ const ListingsStore = t
     list: ProductList,
     imageList: ImageList,
     searchList: SearchProductList,
+    ownList: OwnProductList,
     createListing: createFlow(createListing),
     fetchListings: createFlow(fetchListings),
     searchListings: createFlow(searchListings),
+    fetchOwnListings: createFlow(fetchOwnListings),
   })
   .views((store) => ({
     get Api() {
@@ -213,6 +222,38 @@ function searchListings(flow, store) {
       console.log(res);
 
       store.searchList.set(res.data.data);
+
+      // TODO: Set directly in entities store
+      if (res.data.included) {
+        store.imageList.set(res.data.included);
+      }
+      // getRoot(store).entities.merge(res.data.included);
+      flow.success();
+    } catch (err) {
+      flow.failed();
+
+      // TODO: move this alert into screen container
+      AlertService.showAlert(
+        i18n.t('alerts.somethingWentWrong.title'),
+        i18n.t('alerts.somethingWentWrong.message'),
+      );
+    }
+  };
+}
+
+function fetchOwnListings(flow, store) {
+  return function* fetchOwnListings({ categories }) {
+    try {
+      flow.start();
+
+      const res = yield store.Api.fetchOwnListings({
+        pub_category: categories,
+        include: ['images'],
+      });
+
+      console.log(res);
+
+      store.ownList.set(res.data.data);
 
       // TODO: Set directly in entities store
       if (res.data.included) {

@@ -27,6 +27,9 @@ export {
 export {
   default as EmptyFlatList,
 } from './EmptyFlatList/EmptyFlatList';
+export {
+  default as RenderProductButton,
+} from './RenderProductButton/RenderProductButton';
 
 /* eslint-disable */
 export { default as Touchable } from './Touchable/Touchable';

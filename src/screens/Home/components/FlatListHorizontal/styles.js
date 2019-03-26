@@ -1,6 +1,6 @@
 import { StyleSheet, Dimensions } from 'react-native';
-import { dimensions } from '../../styles';
-import { isSmallDevice } from '../../utils';
+import { dimensions } from '../../../../styles';
+import { isSmallDevice } from '../../../../utils';
 
 const isSmall = isSmallDevice();
 

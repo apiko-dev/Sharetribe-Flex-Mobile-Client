@@ -12,3 +12,6 @@ export {
 export {
   default as CategoryScreen,
 } from './Category/CategoryScreenContainer';
+export {
+  default as MyListingsScreen,
+} from './MyListings/MyListingsScreenContainer';

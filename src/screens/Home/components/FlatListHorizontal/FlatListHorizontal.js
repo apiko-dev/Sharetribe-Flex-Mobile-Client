@@ -60,10 +60,6 @@ const FlatListHorizontal = React.memo(
             data.length === 0 && s.emptyFlatList,
             contentContainerStyle,
           ]}
-          columnWrapperStyle={[
-            s.columnWrapperStyle,
-            columnWrapperStyle,
-          ]}
           ListEmptyComponent={() => (
             <EmptyFlatList
               iconName={emptyListIconName}
