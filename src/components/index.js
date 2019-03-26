@@ -22,6 +22,9 @@ export {
 } from './ProductButton/ProductButton';
 export { default as TextPicker } from './TextPicker/TextPicker';
 export {
+  default as FlatListVertical,
+} from './FlatListVertical/FlatListVertical';
+export {
   default as EmptyFlatList,
 } from './EmptyFlatList/EmptyFlatList';
 
