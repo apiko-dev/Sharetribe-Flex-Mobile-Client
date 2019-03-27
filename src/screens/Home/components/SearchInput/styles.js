@@ -11,8 +11,9 @@ export default StyleSheet.create({
     backgroundColor: colors.searchInput.backgroundColor,
     borderRadius: 5,
     alignItems: 'center',
-    width:
-      (isSmall && dimensions.indent * 12.5) || dimensions.indent * 15,
+    width: isSmall
+      ? dimensions.indent * 12.5
+      : dimensions.indent * 15,
   },
   input: {
     fontSize: 16,

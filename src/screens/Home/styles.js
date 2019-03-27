@@ -8,9 +8,6 @@ export default StyleSheet.create({
     alignItems: 'center',
     backgroundColor: colors.homeScreen.backgroundColor,
   },
-  tabViewContainer: {
-    flex: 1,
-  },
   tabView: {
     flex: 1,
     width: '100%',

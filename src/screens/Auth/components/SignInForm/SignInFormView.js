@@ -11,7 +11,6 @@ import {
 import i18n from '../../../../i18n';
 
 const SignInFormView = ({
-  jumpTo,
   email,
   password,
   onChange,
@@ -19,6 +18,7 @@ const SignInFormView = ({
   isValidFields,
   signIn,
   isSigningIn,
+  onChangeTabIndex,
 }) => (
   <View style={s.container}>
     <Text style={s.heading} bold xxmediumSize>
@@ -74,7 +74,7 @@ const SignInFormView = ({
       <TextTouchable
         bold
         alignCenter
-        onPress={() => jumpTo('signUp')}
+        onPress={() => onChangeTabIndex(1)}
       >
         {i18n.t('auth.signUp')}
       </TextTouchable>
@@ -83,7 +83,7 @@ const SignInFormView = ({
 );
 
 SignInFormView.propTypes = {
-  jumpTo: T.func,
+  onChangeTabIndex: T.func,
   onChange: T.func.isRequired,
   email: T.string,
   password: T.string,

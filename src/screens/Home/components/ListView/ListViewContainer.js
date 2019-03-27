@@ -8,7 +8,6 @@ import {
 } from 'recompose';
 import { inject } from 'mobx-react';
 import ListView from './ListView';
-import { getCategoriesContext } from '../../../../utils/enhancers/withCategoriesHocs';
 import { NavigationService } from '../../../../services';
 import { ScreenLoader } from '../../../../components';
 import { categories } from '../../../../constants';
@@ -34,8 +33,6 @@ export default compose(
     (props) => props.isLoading || props.isSearching,
     renderComponent(ScreenLoader),
   ),
-
-  getCategoriesContext,
 
   withHandlers({
     // Filter products by category or if we've selected category

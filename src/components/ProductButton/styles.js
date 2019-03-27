@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { dimensions, colors } from '../../styles';
 import { isSmallDevice } from '../../utils';
 
@@ -47,8 +47,7 @@ export default StyleSheet.create({
     paddingHorizontal: dimensions.indent * 0.5,
   },
   buttonByWindowWidth: {
-    width:
-      (Dimensions.get('window').width - dimensions.indent * 1.7) / 2,
+    width: (dimensions.width - dimensions.indent * 1.7) / 2,
   },
   imageByWindowWidth: {
     height: dimensions.indent * 7.6,

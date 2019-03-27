@@ -11,7 +11,6 @@ import {
 import i18n from '../../../../i18n';
 
 const SignUpForm = ({
-  jumpTo,
   email,
   password,
   firstName,
@@ -21,6 +20,7 @@ const SignUpForm = ({
   isValidFields,
   signUp,
   isSigningUp,
+  onChangeTabIndex,
 }) => (
   <View style={s.container}>
     <Text style={s.heading} xxmediumSize bold>
@@ -89,7 +89,7 @@ const SignUpForm = ({
       <Text style={s.text} gray>
         {i18n.t('auth.alreadyHaveAnAccount')}
       </Text>
-      <TextTouchable bold onPress={() => jumpTo('signIn')}>
+      <TextTouchable bold onPress={() => onChangeTabIndex(0)}>
         {i18n.t('auth.signIn')}
       </TextTouchable>
     </View>
@@ -97,7 +97,7 @@ const SignUpForm = ({
 );
 
 SignUpForm.propTypes = {
-  jumpTo: T.func,
+  onChangeTabIndex: T.func,
   email: T.string,
   password: T.string,
   firstName: T.string,

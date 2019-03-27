@@ -4,20 +4,20 @@ import screens from '../navigation/screens';
 import { isAndroid } from '../utils';
 
 class NavigationService {
-  navigation = null;
+  _navigation = null;
 
-  init(ref) {
-    this._ref = ref;
-    this.navigation = this._ref._navigation;
+  init(navigation) {
+    if (this._navigation) {
+      return;
+    }
+
+    this._navigation = navigation;
   }
 
   navigate(screen, params) {
-    const route =
-      typeof params !== 'object'
-        ? screen
-        : { routeName: screen, params };
+    const route = { routeName: screen, params };
 
-    this.navigation.navigate(route);
+    this._navigation.dispatch(NavigationActions.navigate(route));
   }
 
   navigateToApp(props) {
@@ -45,15 +45,15 @@ class NavigationService {
   }
 
   goBack() {
-    this.navigation.dispatch(NavigationActions.back());
+    this._navigation.dispatch(NavigationActions.back());
   }
 
   openDrawer() {
-    this.navigation.dispatch(DrawerActions.openDrawer());
+    this._navigation.dispatch(DrawerActions.openDrawer());
   }
 
   closeDrawer() {
-    this.navigation.dispatch(DrawerActions.closeDrawer());
+    this._navigation.dispatch(DrawerActions.closeDrawer());
   }
 
   navigateTo(screen, props) {

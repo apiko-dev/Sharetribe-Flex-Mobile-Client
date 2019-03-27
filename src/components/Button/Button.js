@@ -51,8 +51,9 @@ const Button = ({
         ) : (
           <Loader
             color={
-              (!primary && colors.loader.secondary) ||
-              colors.loader.primary
+              !primary
+                ? colors.loader.secondary
+                : colors.loader.primary
             }
           />
         )}

@@ -1,11 +1,15 @@
+/* eslint-disable jsx-a11y/tabindex-no-positive */
 import React from 'react';
-import { View } from 'react-native';
+import { View, KeyboardAvoidingView, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-navigation';
-import { TabView, SceneMap } from 'react-native-tab-view';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import T from 'prop-types';
 import s from './styles';
-import { TextTouchable, Logo, Text } from '../../components';
+import {
+  TextTouchable,
+  Logo,
+  Text,
+  TabContainer,
+} from '../../components';
 import { SignInForm, SignUpForm } from './components';
 import { isSmallDevice, isLargeDevice } from '../../utils';
 import i18n from '../../i18n';
@@ -14,19 +18,13 @@ const smallDevice = isSmallDevice();
 const largeDevice = isLargeDevice();
 
 const AuthScreen = ({
-  tabIndex,
-  tabRoutes,
   onChangeTabIndex,
+  selectedTabIndex,
   onSkip,
 }) => (
-  <KeyboardAwareScrollView
-    contentContainerStyle={s.container}
-    extraHeight={200}
-    enableOnAndroid
-    bounces={false}
-  >
-    <SafeAreaView style={s.containerSafeAreaView}>
-      <View style={s.circle} />
+  <SafeAreaView style={s.containerSafeAreaView}>
+    <View style={s.circle} />
+    <ScrollView contentContainerStyle={s.container}>
       <Logo
         size={
           (smallDevice && 'small') ||
@@ -48,39 +46,34 @@ const AuthScreen = ({
           {i18n.t('auth.heading')}
         </Text>
       </View>
-      <View style={s.tabViewContainer}>
-        <TabView
-          swipeEnabled={false}
-          navigationState={{
-            index: tabIndex,
-            routes: tabRoutes,
-          }}
-          renderScene={SceneMap({
-            signIn: SignInForm,
-            signUp: SignUpForm,
-          })}
-          onIndexChange={(index) => onChangeTabIndex(index)}
-          renderTabBar={() => null}
-          style={s.tabView}
-        />
-      </View>
-      <View style={s.bottom}>
-        <TextTouchable
-          alignCenter
-          textStyle={s.toUpperCase}
-          onPress={onSkip}
+      <KeyboardAvoidingView
+        behavior="height"
+        style={s.tabViewContainer}
+        contentContainerStyle={s.tabViewWrapper}
+        enabled
+        keyboardVerticalOffset={30}
+      >
+        <TabContainer
+          tabIndex={0}
+          selectedTabIndex={selectedTabIndex}
         >
-          {i18n.t('auth.skip')}
-        </TextTouchable>
-      </View>
-    </SafeAreaView>
-  </KeyboardAwareScrollView>
+          <SignInForm onChangeTabIndex={onChangeTabIndex} />
+        </TabContainer>
+        <TabContainer
+          tabIndex={1}
+          selectedTabIndex={selectedTabIndex}
+          lazy
+        >
+          <SignUpForm onChangeTabIndex={onChangeTabIndex} />
+        </TabContainer>
+      </KeyboardAvoidingView>
+    </ScrollView>
+  </SafeAreaView>
 );
 
 AuthScreen.propTypes = {
-  tabIndex: T.number.isRequired,
   onChangeTabIndex: T.func.isRequired,
-  tabRoutes: T.array.isRequired,
+  selectedTabIndex: T.number,
   onSkip: T.func,
 };
 

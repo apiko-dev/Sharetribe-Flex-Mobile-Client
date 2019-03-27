@@ -3,9 +3,7 @@ import { colors, dimensions } from '../../styles';
 
 export default StyleSheet.create({
   container: {
-    flexGrow: 1,
-    backgroundColor: colors.authScreen.backgroundColor,
-    justifyContent: 'center',
+    flex: 1,
   },
   containerSafeAreaView: {
     flex: 1,
@@ -23,7 +21,6 @@ export default StyleSheet.create({
     marginBottom: dimensions.indent * 4,
   },
   tabViewContainer: {
-    borderRadius: 10,
     flex: 1,
     marginLeft: dimensions.indent,
     marginRight: dimensions.indent,
@@ -34,7 +31,9 @@ export default StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 4.7,
   },
-  tabView: {
+  tabViewWrapper: {
+    flex: 1,
+    overflow: 'hidden',
     borderRadius: 10,
     marginLeft: 1,
     marginBottom: 3,
