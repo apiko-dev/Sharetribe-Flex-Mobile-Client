@@ -8,35 +8,18 @@ import s from './styles';
 import { width, height } from '../../styles/dimensions';
 import { NavigationButton } from '../../components';
 
-const dataItems = [
-  {
-    title: 'Beautiful and dramatic Antelope Canyon',
-    subtitle: 'Lorem ipsum dolor sit amet et nuncat mergitur',
-    illustration: 'https://i.imgur.com/UYiroysl.jpg',
-  },
-  {
-    title: 'Earlier this morning, NYC',
-    subtitle: 'Lorem ipsum dolor sit amet',
-    illustration: 'https://i.imgur.com/UPrs1EWl.jpg',
-  },
-  {
-    title: 'White Pocket Sunset',
-    subtitle: 'Lorem ipsum dolor sit amet et nuncat ',
-    illustration: 'https://i.imgur.com/MABUbpDl.jpg',
-  },
-  {
-    title: 'Acrocorinth, Greece',
-    subtitle: 'Lorem ipsum dolor sit amet et nuncat mergitur',
-    illustration: 'https://i.imgur.com/KZsmUi2l.jpg',
-  },
-];
-
 const placeholderImage = require('../../assets/png/icon-app-logo.png');
 
-const ProductScreen = ({ onChangeIndex, currentIndex }) => (
+const ProductScreen = ({
+  onChangeIndex,
+  currentIndex,
+  product,
+  images,
+}) => (
   <View style={s.container}>
     <Carousel
-      data={dataItems}
+      // data={dataItems}
+      data={images}
       layout="default"
       renderItem={({ item }) => (
         <View style={s.slide}>
@@ -44,10 +27,7 @@ const ProductScreen = ({ onChangeIndex, currentIndex }) => (
             source={placeholderImage}
             style={s.carouselBackgroundImage}
           >
-            <Image
-              source={{ uri: item.illustration }}
-              style={s.image}
-            />
+            <Image source={{ uri: item }} style={s.image} />
           </ImageBackground>
         </View>
       )}
@@ -58,7 +38,7 @@ const ProductScreen = ({ onChangeIndex, currentIndex }) => (
     />
     <Pagination
       activeDotIndex={currentIndex}
-      dotsLength={dataItems.length}
+      dotsLength={images.length}
       containerStyle={s.paginationContainerStyle}
       dotStyle={s.dotStyle}
     />
