@@ -1,11 +1,11 @@
 import { StyleSheet } from 'react-native';
-import { colors } from '../../styles';
+import { colors, fontSizes } from '../../styles';
 
 export default StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    // justifyContent: 'center',
+    // alignItems: 'center',
   },
   image: {
     height: 325,
@@ -28,5 +28,32 @@ export default StyleSheet.create({
     borderRadius: 10,
     marginHorizontal: 0,
     backgroundColor: colors.switch.activeIcon,
+  },
+
+  headerContainer: {
+    height: 50,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+
+  priceContainer: {
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    justifyContent: 'center',
+    marginLeft: 16,
+  },
+
+  availabilityContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingRight: 16,
+  },
+
+  titleTextContainer: {
+    paddingLeft: 16,
+  },
+
+  rating: {
+    margin: 16,
   },
 });

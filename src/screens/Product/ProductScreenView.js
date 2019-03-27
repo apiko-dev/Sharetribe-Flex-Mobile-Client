@@ -4,9 +4,11 @@ import T from 'prop-types';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 
 import s from './styles';
-// import { Text } from '../../components';
+import { Text } from '../../components';
+import i18n from '../../i18n';
+import { colors } from '../../styles';
 import { width, height } from '../../styles/dimensions';
-import { NavigationButton } from '../../components';
+import { NavigationButton, Rating } from '../../components';
 
 const placeholderImage = require('../../assets/png/icon-app-logo.png');
 
@@ -17,31 +19,52 @@ const ProductScreen = ({
   images,
 }) => (
   <View style={s.container}>
-    <Carousel
-      // data={dataItems}
-      data={images}
-      layout="default"
-      renderItem={({ item }) => (
-        <View style={s.slide}>
-          <ImageBackground
-            source={placeholderImage}
-            style={s.carouselBackgroundImage}
-          >
-            <Image source={{ uri: item }} style={s.image} />
-          </ImageBackground>
-        </View>
-      )}
-      sliderWidth={width}
-      sliderHeight={325}
-      itemWidth={width}
-      onSnapToItem={(index) => onChangeIndex(index)}
-    />
-    <Pagination
-      activeDotIndex={currentIndex}
-      dotsLength={images.length}
-      containerStyle={s.paginationContainerStyle}
-      dotStyle={s.dotStyle}
-    />
+    <View style={s.carouselContainer}>
+      <Carousel
+        data={images}
+        layout="default"
+        renderItem={({ item }) => (
+          <View style={s.slide}>
+            <ImageBackground
+              source={placeholderImage}
+              style={s.carouselBackgroundImage}
+            >
+              <Image source={{ uri: item }} style={s.image} />
+            </ImageBackground>
+          </View>
+        )}
+        sliderWidth={width}
+        sliderHeight={325}
+        itemWidth={width}
+        onSnapToItem={(index) => onChangeIndex(index)}
+      />
+      <Pagination
+        activeDotIndex={currentIndex}
+        dotsLength={images.length}
+        containerStyle={s.paginationContainerStyle}
+        dotStyle={s.dotStyle}
+      />
+    </View>
+    <View style={s.headerContainer}>
+      <View style={s.priceContainer}>
+        <Text xlargeSize bold>${product.price.amount}</Text>
+        <Text xmediumSize gray >/{i18n.t('home.day')}</Text>
+      </View>
+      <View style={s.availabilityContainer}>
+        <Text mediumSize red>
+          lease
+        </Text>
+      </View>
+    </View>
+    <View style={s.titleTextContainer}>
+      <Text largeSize bold black>{product.title}</Text>
+    </View>
+    <View style={s.rating}>
+      <Rating value={4} />
+    </View>
+    <View>
+      
+    </View>
   </View>
 );
 
