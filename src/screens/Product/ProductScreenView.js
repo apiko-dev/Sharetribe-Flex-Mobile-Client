@@ -6,6 +6,7 @@ import Carousel, { Pagination } from 'react-native-snap-carousel';
 import s from './styles';
 // import { Text } from '../../components';
 import { width, height } from '../../styles/dimensions';
+import { NavigationButton } from '../../components';
 
 const dataItems = [
   {
@@ -71,6 +72,16 @@ ProductScreen.navigationOptions = () => ({
     shadowOpacity: 0,
     borderBottomWidth: 0,
   },
+  headerRight: (
+    <NavigationButton
+      name="outline-edit-24px"
+      color="white"
+      right
+      // onPress={}
+      circled
+    />
+  ),
+  headerLeft: <NavigationButton goBack color="white" circled />,
 });
 
 ProductScreen.propTypes = {

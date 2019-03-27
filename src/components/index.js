@@ -27,3 +27,4 @@ export {
 
 /* eslint-disable */
 export { default as Touchable } from './Touchable/Touchable';
+export { default as NavigationButton } from './NavigationButton/NavigationButton';

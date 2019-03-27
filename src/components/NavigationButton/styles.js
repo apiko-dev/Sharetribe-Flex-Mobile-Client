@@ -1,0 +1,24 @@
+import { StyleSheet } from 'react-native';
+import { colors, dimensions } from '../../styles';
+
+export default StyleSheet.create({
+  buttonContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  circled: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    marginHorizontal: 0,
+    backgroundColor: colors.button.disableColor,
+    opacity: 0.7,
+  },
+  icon: {},
+  right: {
+    marginRight: dimensions.indent,
+  },
+  left: {
+    marginLeft: dimensions.indent,
+  },
+});
