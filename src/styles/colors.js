@@ -40,6 +40,7 @@ export default {
     gray: '#8F8F8F',
     white: '#FFF',
     orange: '#FF9900',
+    red: '#ff0000',
   },
   loader: {
     primary: '#FFF',
