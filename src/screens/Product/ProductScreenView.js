@@ -1,15 +1,11 @@
 import React from 'react';
-import {
-  View,
-  Image,
-  Dimensions,
-  ImageBackground,
-} from 'react-native';
+import { View, Image, ImageBackground } from 'react-native';
 import T from 'prop-types';
-import Carousel from 'react-native-snap-carousel';
+import Carousel, { Pagination } from 'react-native-snap-carousel';
 
 import s from './styles';
-import { Text } from '../../components';
+// import { Text } from '../../components';
+import { width, height } from '../../styles/dimensions';
 
 const dataItems = [
   {
@@ -33,19 +29,19 @@ const dataItems = [
     illustration: 'https://i.imgur.com/KZsmUi2l.jpg',
   },
 ];
-const { width, height } = Dimensions.get('window');
 
 const placeholderImage = require('../../assets/png/icon-app-logo.png');
 
-const ProductScreen = ({ id }) => (
+const ProductScreen = ({ onChangeIndex, currentIndex }) => (
   <View style={s.container}>
     <Carousel
       data={dataItems}
+      layout="default"
       renderItem={({ item }) => (
         <View style={s.slide}>
           <ImageBackground
             source={placeholderImage}
-            style={{ height: 325, width: '100%' }}
+            style={s.carouselBackgroundImage}
           >
             <Image
               source={{ uri: item.illustration }}
@@ -57,6 +53,13 @@ const ProductScreen = ({ id }) => (
       sliderWidth={width}
       sliderHeight={325}
       itemWidth={width}
+      onSnapToItem={(index) => onChangeIndex(index)}
+    />
+    <Pagination
+      activeDotIndex={currentIndex}
+      dotsLength={dataItems.length}
+      containerStyle={s.paginationContainerStyle}
+      dotStyle={s.dotStyle}
     />
   </View>
 );
@@ -64,11 +67,6 @@ const ProductScreen = ({ id }) => (
 ProductScreen.navigationOptions = () => ({
   headerTransparent: true,
   headerStyle: {
-    // position: 'absolute',
-    // zIndex: 100,
-    // top: 0,
-    // left: 0,
-    // right: 0,
     elevation: 0,
     shadowOpacity: 0,
     borderBottomWidth: 0,
@@ -76,7 +74,8 @@ ProductScreen.navigationOptions = () => ({
 });
 
 ProductScreen.propTypes = {
-  id: T.string,
+  onChangeIndex: T.func,
+  currentIndex: T.number,
 };
 
 export default ProductScreen;
