@@ -84,7 +84,8 @@
     "myListings": "My listings",
     "addNewItem": "Add new goods",
     "youHave": "You have",
-    "listings": "listings"
+    "listings": "listings",
+    "noListings": "You haven't got any listings yet"
   },
   "alerts": {
     "signInError": {

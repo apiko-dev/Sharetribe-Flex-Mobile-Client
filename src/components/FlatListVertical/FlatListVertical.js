@@ -22,7 +22,7 @@ const FlatListVertical = React.memo(
   }) => (
     <View style={s.container}>
       <FlatList
-        style={[s.flatList, style]}
+        style={[s.flatListDefaultStyle, style]}
         data={data}
         renderItem={renderItem}
         keyExtractor={keyExtractor}
@@ -33,7 +33,7 @@ const FlatListVertical = React.memo(
           contentContainerStyle,
         ]}
         columnWrapperStyle={[
-          s.columnWrapperStyle,
+          s.columnWrapperDefaultStyle,
           columnWrapperStyle,
         ]}
         ListEmptyComponent={() => (

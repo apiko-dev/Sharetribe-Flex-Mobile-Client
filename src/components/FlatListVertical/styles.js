@@ -1,28 +1,28 @@
-import { StyleSheet, Dimensions } from 'react-native';
-import { dimensions } from '../../styles';
-import { isSmallDevice } from '../../utils';
-
-const isSmall = isSmallDevice();
+import { StyleSheet } from 'react-native';
+import { dimensions, colors } from '../../styles';
 
 export default StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
+    alignSelf: 'center',
     alignItems: 'center',
+    width: '100%',
   },
   flatListContentContainer: {
-    paddingHorizontal: isSmall ? 0 : dimensions.indent,
+    paddingHorizontal: dimensions.indent * 0.3,
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
   },
-  flatList: {
+  flatListDefaultStyle: {
     flex: 1,
-    width: Dimensions.get('window').width,
+    width: '100%',
+    backgroundColor: colors.myListingsScreen.backgroundColor,
   },
   emptyFlatList: {
     flex: 1,
   },
-  columnWrapperStyle: {
+  columnWrapperStyleDefaultStyle: {
     justifyContent: 'space-between',
   },
 });

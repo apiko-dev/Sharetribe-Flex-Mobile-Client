@@ -12,11 +12,13 @@ const EmptyFlatList = ({
   iconColor,
 }) => (
   <View style={s.container}>
-    <IconFonts
-      name={iconName}
-      size={iconSize || 100}
-      tintColor={iconColor}
-    />
+    {!!iconName && (
+      <IconFonts
+        name={iconName}
+        size={iconSize || 100}
+        tintColor={iconColor}
+      />
+    )}
     <Text gray xxmediumSize style={s.text}>
       {message}
     </Text>

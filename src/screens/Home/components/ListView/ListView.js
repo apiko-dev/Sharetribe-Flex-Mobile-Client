@@ -1,6 +1,6 @@
 /* eslint-disable consistent-return */
 import React from 'react';
-import { View } from 'react-native';
+import { View, FlatList } from 'react-native';
 import T from 'prop-types';
 import s from './styles';
 import {
@@ -35,12 +35,12 @@ const ListView = React.memo(
             <RenderProductButton
               item={item}
               goToProduct={goToProduct}
+              forTwoColumns
             />
           )}
         />
       )}
-
-      {!!category && !!subCategory && (
+      {!search && !!category && !!subCategory && (
         <FlatListVertical
           data={data}
           keyExtractor={(item) => item.id}
@@ -50,41 +50,40 @@ const ListView = React.memo(
             <RenderProductButton
               item={item}
               goToProduct={goToProduct}
+              forTwoColumns
             />
           )}
         />
       )}
-
       {!search && !(!!category && !!subCategory) && (
-        <FlatListVertical
+        <FlatList
           style={s.listContainer}
           data={sectionList}
           keyExtractor={(item) => item}
           emptyListMessage={i18n.t('home.emptyList')}
-          renderItem={({ item: categoryItem }) => (
-            <FlatListHorizontal
-              data={listingsFilter(listings, categoryItem)}
-              showHeader
-              headerStyle={s.section}
-              headerTitle={categoryItem}
-              headerTitleTextTouchable={i18n.t('home.seeAll')}
-              headerOnPressTextTouchable={() =>
-                chooseCategory(
-                  category || categoryItem,
-                  category && categoryItem,
-                )
-              }
-              keyExtractor={(item) => item.id}
-              showsHorizontalScrollIndicator={false}
-              emptyListMessage={i18n.t('home.emptyList')}
-              renderItem={({ item }) => (
-                <RenderProductButton
-                  item={item}
-                  goToProduct={goToProduct}
-                />
-              )}
-            />
-          )}
+          renderItem={({ item: categoryItem }) =>
+            !!listingsFilter(listings, categoryItem).length && (
+              <FlatListHorizontal
+                data={listingsFilter(listings, categoryItem)}
+                headerTitle={categoryItem}
+                headerTitleTextTouchable={i18n.t('home.seeAll')}
+                headerOnPressTextTouchable={() =>
+                  chooseCategory(
+                    category || categoryItem,
+                    category && categoryItem,
+                  )
+                }
+                keyExtractor={(item) => item.id}
+                emptyListMessage={i18n.t('home.emptyList')}
+                renderItem={({ item }) => (
+                  <RenderProductButton
+                    item={item}
+                    goToProduct={goToProduct}
+                  />
+                )}
+              />
+            )
+          }
         />
       )}
     </View>

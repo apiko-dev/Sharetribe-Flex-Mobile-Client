@@ -1,6 +1,6 @@
 /* eslint-disable consistent-return */
 import React from 'react';
-import { View, FlatList, ViewPropTypes } from 'react-native';
+import { View, FlatList } from 'react-native';
 import T from 'prop-types';
 import s from './styles';
 import {
@@ -16,64 +16,38 @@ const FlatListHorizontal = React.memo(
     emptyListIconName,
     emptyListIconSize,
     emptyListIconColor,
-    numColumns,
     renderItem,
     keyExtractor,
-    style,
-    columnWrapperStyle,
-    contentContainerStyle,
-    showHeader,
     headerTitle,
     headerOnPressTextTouchable,
     headerTitleTextTouchable,
-    showsHorizontalScrollIndicator,
-    containerStyle,
-    headerStyle,
-    headerTitleStyle,
-    headerTitleTextTouchableStyle,
-    ...props
   }) => (
-    <View style={[s.container, containerStyle]}>
-      {showHeader && (
-        <View style={[s.header, headerStyle]}>
-          <Text xmediumSize bold style={headerTitleStyle}>
-            {headerTitle}
-          </Text>
-          <TextTouchable
-            onPress={headerOnPressTextTouchable}
-            textStyle={headerTitleTextTouchableStyle}
-          >
-            {headerTitleTextTouchable}
-          </TextTouchable>
-        </View>
-      )}
-      <View>
-        <FlatList
-          horizontal
-          style={[s.flatList, style]}
-          data={data}
-          renderItem={renderItem}
-          keyExtractor={keyExtractor}
-          numColumns={numColumns}
-          contentContainerStyle={[
-            s.flatListContentContainer,
-            data.length === 0 && s.emptyFlatList,
-            contentContainerStyle,
-          ]}
-          ListEmptyComponent={() => (
-            <EmptyFlatList
-              iconName={emptyListIconName}
-              message={emptyListMessage}
-              iconSize={emptyListIconSize}
-              tintColor={emptyListIconColor}
-            />
-          )}
-          showsHorizontalScrollIndicator={
-            showsHorizontalScrollIndicator
-          }
-          {...props}
-        />
+    <View style={[s.container]}>
+      <View style={[s.header]}>
+        <Text xmediumSize bold>
+          {headerTitle}
+        </Text>
+        <TextTouchable onPress={headerOnPressTextTouchable}>
+          {headerTitleTextTouchable}
+        </TextTouchable>
       </View>
+      <FlatList
+        horizontal
+        style={[s.flatList]}
+        data={data}
+        renderItem={renderItem}
+        keyExtractor={keyExtractor}
+        contentContainerStyle={[s.flatListContentContainer]}
+        ListEmptyComponent={() => (
+          <EmptyFlatList
+            iconName={emptyListIconName}
+            message={emptyListMessage}
+            iconSize={emptyListIconSize}
+            tintColor={emptyListIconColor}
+          />
+        )}
+        showsHorizontalScrollIndicator={false}
+      />
     </View>
   ),
 );
@@ -84,21 +58,11 @@ FlatListHorizontal.propTypes = {
   emptyListIconName: T.string,
   emptyListIconSize: T.number,
   emptyListIconColor: T.string,
-  numColumns: T.number,
   keyExtractor: T.func,
   renderItem: T.func,
-  style: ViewPropTypes.style,
-  columnWrapperStyle: ViewPropTypes.style,
-  contentContainerStyle: ViewPropTypes.style,
-  showHeader: T.bool,
   headerTitle: T.string,
   headerOnPressTextTouchable: T.func,
   headerTitleTextTouchable: T.string,
-  showsHorizontalScrollIndicator: T.bool,
-  containerStyle: ViewPropTypes.style,
-  headerStyle: ViewPropTypes.style,
-  headerTitleStyle: ViewPropTypes.style,
-  headerTitleTextTouchableStyle: ViewPropTypes.style,
 };
 
 export default FlatListHorizontal;

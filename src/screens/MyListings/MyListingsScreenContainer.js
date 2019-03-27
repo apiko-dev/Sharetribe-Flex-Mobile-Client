@@ -10,7 +10,7 @@ import { inject } from 'mobx-react';
 import MyListingsScreenView from './MyListingsScreenView';
 import { NavigationService } from '../../services';
 import { categories as c } from '../../constants';
-import { Loader } from '../../components';
+import { ScreenLoader } from '../../components';
 
 const categories = c.map((i) => i.title);
 
@@ -42,6 +42,6 @@ export default hoistStatics(
       },
     }),
 
-    branch((props) => props.isLoading, renderComponent(Loader)),
+    branch((props) => props.isLoading, renderComponent(ScreenLoader)),
   ),
 )(MyListingsScreenView);

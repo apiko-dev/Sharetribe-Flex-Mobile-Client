@@ -1,8 +1,9 @@
 import { StyleSheet } from 'react-native';
 import { colors, dimensions } from '../../../../styles';
-import { isAndroid } from '../../../../utils';
+import { isAndroid, isSmallDevice } from '../../../../utils';
 
 const isAndroidDevice = isAndroid();
+const isSmall = isSmallDevice();
 
 export default StyleSheet.create({
   container: {
@@ -10,7 +11,8 @@ export default StyleSheet.create({
     backgroundColor: colors.searchInput.backgroundColor,
     borderRadius: 5,
     alignItems: 'center',
-    width: dimensions.indent * 15,
+    width:
+      (isSmall && dimensions.indent * 12.5) || dimensions.indent * 15,
   },
   input: {
     fontSize: 16,
@@ -21,7 +23,8 @@ export default StyleSheet.create({
       : dimensions.indent * 2,
     width: isAndroidDevice
       ? dimensions.indent * 10.5
-      : dimensions.indent * 11.5,
+      : (isSmall && dimensions.indent * 9) ||
+        dimensions.indent * 11.5,
     paddingLeft: dimensions.indent * 0.1,
     paddingRight: dimensions.indent * 0.2,
   },

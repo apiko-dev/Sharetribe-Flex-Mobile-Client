@@ -27,9 +27,14 @@ const MyListingsScreen = ({
       )}
       data={listings}
       numColumns={2}
+      emptyListMessage={i18n.t('myListings.noListings')}
       keyExtractor={(item) => item.id}
       renderItem={({ item }) => (
-        <RenderProductButton goToProduct={goToProduct} item={item} />
+        <RenderProductButton
+          goToProduct={goToProduct}
+          item={item}
+          forTwoColumns
+        />
       )}
       ListFooterComponent={() => (
         <Button
