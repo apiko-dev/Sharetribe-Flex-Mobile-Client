@@ -6,6 +6,7 @@ import {
   withHandlers,
   defaultProps,
   withPropsOnChange,
+  withProps,
 } from 'recompose';
 import { inject } from 'mobx-react';
 import HomeScreenComponent from './HomeScreenView';
@@ -137,5 +138,7 @@ export default hoistStatics(
         value: props.search,
       });
     }),
+
+    withProps((props) => console.log(props)),
   ),
 )(HomeScreenComponent);

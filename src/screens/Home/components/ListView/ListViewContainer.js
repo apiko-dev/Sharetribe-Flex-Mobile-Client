@@ -10,7 +10,7 @@ import { inject } from 'mobx-react';
 import ListView from './ListView';
 import { getCategoriesContext } from '../../../../utils/enhancers/withCategoriesHocs';
 import { NavigationService } from '../../../../services';
-import { Loader } from '../../../../components';
+import { ScreenLoader } from '../../../../components';
 import { categories } from '../../../../constants';
 
 export default compose(
@@ -32,7 +32,7 @@ export default compose(
 
   branch(
     (props) => props.isLoading || props.isSearching,
-    renderComponent(Loader),
+    renderComponent(ScreenLoader),
   ),
 
   getCategoriesContext,

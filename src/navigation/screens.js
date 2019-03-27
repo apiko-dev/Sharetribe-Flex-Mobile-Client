@@ -18,4 +18,5 @@ export default {
   UpdatePassword: 'UpdatePassword',
   AddNewItem: 'AddNewItem',
   Category: 'Category',
+  MyListings: 'MyListings',
 };

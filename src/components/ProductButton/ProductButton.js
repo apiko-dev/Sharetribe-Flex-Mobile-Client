@@ -7,7 +7,13 @@ import s from './styles';
 import i18n from '../../i18n';
 import { colors } from '../../styles';
 
-const ProductButton = ({ onPress, title, price, src }) => (
+const ProductButton = ({
+  onPress,
+  title,
+  price,
+  src,
+  forTwoColumns,
+}) => (
   <View style={s.container}>
     <View style={s.containerTouchable}>
       <Touchable
@@ -15,11 +21,16 @@ const ProductButton = ({ onPress, title, price, src }) => (
         onPress={onPress}
         rippleColor={colors.productButton.rippleColor}
       >
-        <View style={s.containerContent}>
+        <View
+          style={[
+            s.containerContent,
+            forTwoColumns && s.buttonByWindowWidth,
+          ]}
+        >
           <View style={s.imageContainer}>
             <Image
               source={typeof src === 'string' ? { uri: src } : src}
-              style={s.image}
+              style={[s.image, forTwoColumns && s.imageByWindowWidth]}
             />
           </View>
           <View style={s.infoContainer}>
@@ -44,6 +55,7 @@ ProductButton.propTypes = {
   title: T.string,
   price: T.number,
   src: T.any,
+  forTwoColumns: T.bool,
 };
 
 export default ProductButton;

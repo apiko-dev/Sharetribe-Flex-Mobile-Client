@@ -110,4 +110,7 @@ export default {
     placeholder: '#F8F8F8',
     backgroundColor: '#FFF',
   },
+  myListingsScreen: {
+    backgroundColor: '#F8F8F8',
+  },
 };

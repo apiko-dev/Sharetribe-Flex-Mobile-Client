@@ -4,10 +4,10 @@ import { dimensions } from '../../styles';
 export default StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: dimensions.indent,
   },
   sectionList: {
     alignSelf: 'stretch',
+    paddingHorizontal: dimensions.indent,
   },
   sectionListContent: {
     alignItems: 'flex-start',

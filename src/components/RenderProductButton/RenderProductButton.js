@@ -1,9 +1,9 @@
 import React from 'react';
 import T from 'prop-types';
-import { ProductButton } from '../../../../../components';
-import IconAppLogo from '../../../../../assets/png/icon-app-logo.png';
+import ProductButton from '../ProductButton/ProductButton';
+import IconAppLogo from '../../assets/png/icon-app-logo.png';
 
-const RenderProductButton = ({ item, goToProduct }) => (
+const RenderProductButton = ({ item, goToProduct, ...props }) => (
   <ProductButton
     onPress={() => goToProduct(item.id)}
     id={item.id}
@@ -14,6 +14,7 @@ const RenderProductButton = ({ item, goToProduct }) => (
         ? item.relationships.getImages[0].variants.default.url
         : IconAppLogo
     }
+    {...props}
   />
 );
 

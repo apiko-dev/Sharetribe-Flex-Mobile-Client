@@ -1,6 +1,6 @@
 import { StyleSheet, Dimensions } from 'react-native';
-import { dimensions } from '../../styles';
-import { isSmallDevice } from '../../utils';
+import { dimensions } from '../../../../styles';
+import { isSmallDevice } from '../../../../utils';
 
 const isSmall = isSmallDevice();
 
@@ -16,12 +16,11 @@ export default StyleSheet.create({
     paddingHorizontal: dimensions.indent * 1.2,
   },
   flatListContentContainer: {
-    paddingHorizontal: isSmall ? 0 : dimensions.indent,
+    paddingHorizontal: isSmall ? 0 : dimensions.indent * 0.3,
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
   },
   flatList: {
-    flex: 1,
     width: Dimensions.get('window').width,
   },
   emptyFlatList: {

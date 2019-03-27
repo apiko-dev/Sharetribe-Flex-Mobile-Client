@@ -16,32 +16,31 @@ const HomeScreen = ({
   subCategory,
 }) => (
   <View style={s.container}>
-    <View>
-      <TabView
-        swipeEnabled={false}
-        navigationState={{
-          index: tabIndex,
-          routes: tabRoutes,
-        }}
-        renderScene={SceneMap({
-          listView: ListView,
-          mapView: MapView,
-        })}
-        onIndexChange={(index) => onChangeTabIndex(index)}
-        style={s.tabView}
-        initialLayout={{
-          width: Dimensions.get('window').width,
-        }}
-        renderTabBar={(props) => (
-          <TabBar
-            {...props}
-            goToCategory={goToCategory}
-            category={category}
-            subCategory={subCategory}
-          />
-        )}
-      />
-    </View>
+    <TabView
+      swipeEnabled={false}
+      navigationState={{
+        index: tabIndex,
+        routes: tabRoutes,
+      }}
+      renderScene={SceneMap({
+        listView: ListView,
+        mapView: MapView,
+      })}
+      // onIndexChange={(index) => onChangeTabIndex(index)}
+      onIndexChange={(index) => onChangeTabIndex(index)}
+      style={s.tabView}
+      initialLayout={{
+        width: Dimensions.get('window').width,
+      }}
+      renderTabBar={(props) => (
+        <TabBar
+          {...props}
+          goToCategory={goToCategory}
+          category={category}
+          subCategory={subCategory}
+        />
+      )}
+    />
   </View>
 );
 
