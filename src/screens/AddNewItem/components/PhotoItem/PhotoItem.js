@@ -8,7 +8,7 @@ const PhotoItem = ({ src, containerStyle, onPress, ...props }) => (
   <View style={[s.container, containerStyle]}>
     <View style={s.removeIconContainer}>
       <IconFonts
-        name="outline-close-24px"
+        name="close"
         size={19}
         onPress={onPress}
         {...props}

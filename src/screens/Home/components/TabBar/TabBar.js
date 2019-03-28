@@ -23,7 +23,7 @@ const TabBar = ({
             showCategoriesAsButton: true,
           })
         }
-        iconNameRight="baseline-arrow_drop_down-24px"
+        iconNameRight="drop-down"
       >
         {category || i18n.t('home.category')}
       </TextPicker>
@@ -35,7 +35,7 @@ const TabBar = ({
               showCategoriesAsButton: true,
             })
           }
-          iconNameRight="baseline-arrow_drop_down-24px"
+          iconNameRight="drop-down"
         >
           {subCategory || i18n.t('home.subCategory')}
         </TextPicker>
@@ -47,7 +47,7 @@ const TabBar = ({
         onPress={() => onChangeTabIndex(0)}
       >
         <IconFonts
-          name="plitka"
+          name="grid"
           tintColor={
             selectedTabIndex === 0
               ? colors.switch.activeIcon
@@ -61,7 +61,7 @@ const TabBar = ({
         onPress={() => onChangeTabIndex(1)}
       >
         <IconFonts
-          name="baseline-map-24px"
+          name="map"
           tintColor={
             selectedTabIndex === 1
               ? colors.switch.activeIcon

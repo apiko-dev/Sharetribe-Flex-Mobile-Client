@@ -21,7 +21,7 @@ const AddPhotoButton = ({
     >
       <View style={s.button}>
         <IconFonts
-          name="outline-add_a_photo-24px"
+          name="add-photo"
           size={46}
           tintColor={colors.addPhotoButton.iconCamera}
         />
