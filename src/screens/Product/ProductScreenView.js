@@ -7,15 +7,14 @@ import { Tab, TabView } from 'react-native-easy-tabs';
 
 import s from './styles';
 import i18n from '../../i18n';
-import { colors } from '../../styles';
 import { width, height } from '../../styles/dimensions';
-import { NavigationButton, Rating, Text, Touchable } from '../../components';
+import { NavigationButton, Rating, Text, Touchable, TabHeader } from '../../components';
 // import Label from './components/Label/LabelView';
 import DescriptionTab from './components/DescriptionTab/DescriptionTabContainer';
 
-const placeholderImage = require('../../assets/png/icon-app-logo.png');
+const placeholderImage = require('../../assets/png/Group.png');
 
-// const textMes = "1sdsdsdsdsd 2sdsdsdsdsd 3sdsdsdsdsd 4sdsdsdsdsd 5sdsdsdsdsd 6sdsdsdsdsd 7sdsdsdsdsd s8dsdsdsdsd 9sdsdsdsdsd 10sdsdsdsdsd 111111 22222 33333 4444 555 666 777"
+const textMs = "1sdsdsdsdsd 2sdsdsdsdsd 3sdsdsdsdsd 4sdsdsdsdsd 5sdsdsdsdsd 6sdsdsdsdsd 7sdsdsdsdsd s8dsdsdsdsd 9sdsdsdsdsd 10sdsdsdsdsd 111111 22222 33333 4444 555 666 777"
 
 
 const ProductScreen = ({
@@ -27,80 +26,72 @@ const ProductScreen = ({
   user,
   onChangeTabIndex,
   tabIndex
-}) => {
-  // console.log('Labels_labels_labels', labels);
-  return (
-    <ScrollView style={s.container}>
-      <View style={s.carouselContainer}>
-        <Carousel
-          data={images}
-          layout="default"
-          renderItem={({ item }) => (
-            <View style={s.slide}>
-              <ImageBackground
-                source={placeholderImage}
-                style={s.carouselBackgroundImage}
-              >
-                <Image source={{ uri: item }} style={s.image} />
-              </ImageBackground>
-            </View>
-          )}
-          sliderWidth={width}
-          sliderHeight={325}
-          itemWidth={width}
-          onSnapToItem={(index) => onChangeIndex(index)}
-        />
-        <Pagination
-          activeDotIndex={currentIndex}
-          dotsLength={images.length}
-          containerStyle={s.paginationContainerStyle}
-          dotStyle={s.dotStyle}
-        />
+}) => (
+  <ScrollView style={s.container}>
+    <View style={s.carouselContainer}>
+      <Carousel
+        data={images}
+        layout="default"
+        renderItem={({ item }) => (
+          <View style={s.slide}>
+            <ImageBackground
+              source={placeholderImage}
+              style={s.carouselBackgroundImage}
+            >
+              <Image source={{ uri: item }} style={s.image} />
+            </ImageBackground>
+          </View>
+        )}
+        sliderWidth={width}
+        sliderHeight={325}
+        itemWidth={width}
+        onSnapToItem={(index) => onChangeIndex(index)}
+      />
+      <Pagination
+        activeDotIndex={currentIndex}
+        dotsLength={images.length}
+        containerStyle={s.paginationContainerStyle}
+        dotStyle={s.dotStyle}
+      />
+    </View>
+    <View style={s.headerContainer}>
+      <View style={s.priceContainer}>
+        <Text xlargeSize bold>${product.price.amount}</Text>
+        <Text xmediumSize gray >/{i18n.t('home.day')}</Text>
       </View>
-      <View style={s.headerContainer}>
-        <View style={s.priceContainer}>
-          <Text xlargeSize bold>${product.price.amount}</Text>
-          <Text xmediumSize gray >/{i18n.t('home.day')}</Text>
-        </View>
-        <View style={s.availabilityContainer}>
-          <Text mediumSize red>
-            lease
-          </Text>
-        </View>
+      <View style={s.availabilityContainer}>
+        <Text mediumSize red>
+          lease
+        </Text>
       </View>
-      <View style={s.titleTextContainer}>
-        <Text largeSize bold black>{product.title}</Text>
-      </View>
-      <View style={s.rating}>
-        <Rating value={4} />
-      </View>
-      <View style={s.containerTabView}>
-        <View style={s.padding}>
-          <Touchable onPress={() => onChangeTabIndex(0)}>
-            <Text>1</Text>
-          </Touchable>
-          <Touchable onPress={() => onChangeTabIndex(1)}>
-            <Text>2</Text>
-          </Touchable>
-        </View>
-        <TabView selectedTabIndex={tabIndex}>
-          <Tab>
-            <View style={s.tab1}>
-              <Text style={s.paragraph}>This is tab 1</Text>
-            </View>
-          </Tab>
+    </View>
+    <View style={s.titleTextContainer}>
+      <Text largeSize bold black>{product.title}</Text>
+    </View>
+    <View style={s.rating}>
+      <Rating value={4} />
+    </View>
+    <View style={s.containerTabView}>
+      <TabHeader
+        currentTabIndex={tabIndex}
+        onChangeTabIndex={onChangeTabIndex}
+      />
 
-          <Tab lazy>
-            <View style={s.tab2}>
-              <Text style={s.paragraph}>Second tab</Text>
-            </View>
+      <TabView selectedTabIndex={tabIndex}>
+        <View style={s.tab1}>
+          <Tab>
+            <DescriptionTab text={textMs} />
           </Tab>
-        </TabView>
-        {/* <DescriptionTab text={textMes}/> */}
-      </View>
-    </ScrollView>
-  );
-};
+        </View>
+        <Tab lazy>
+          <View style={s.tab2}>
+            <Text style={s.paragraph}>Second tab</Text>
+          </View>
+        </Tab>
+      </TabView>
+    </View>
+  </ScrollView>
+);
 
 ProductScreen.navigationOptions = () => ({
   headerTransparent: true,
