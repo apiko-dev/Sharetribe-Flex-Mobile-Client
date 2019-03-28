@@ -1,11 +1,9 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, StatusBar } from 'react-native';
 import { colors, fontSizes } from '../../styles';
 
 export default StyleSheet.create({
   container: {
     flex: 1,
-    // justifyContent: 'center',
-    // alignItems: 'center',
   },
   image: {
     height: 325,
@@ -55,5 +53,31 @@ export default StyleSheet.create({
 
   rating: {
     margin: 16,
+  },
+
+  containerTabView: {
+    marginTop: StatusBar.currentHeight,
+  },
+  scene: {
+    flex: 1,
+  },
+
+  paragraph: {
+    margin: 24,
+    fontSize: 18,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  tab1: {
+    flex: 1,
+    justifyContent: 'center',
+    // backgroundColor: colors.white,
+    padding: 8,
+  },
+  tab2: {
+    flex: 1,
+    justifyContent: 'center',
+    // backgroundColor: colors.white,
+    padding: 8,
   },
 });

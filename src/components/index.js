@@ -31,3 +31,4 @@ export {
   default as NavigationButton,
 } from './NavigationButton/NavigationButton';
 export { default as Rating } from './Rating/Rating';
+export { default as TabHeader } from './TabHeader/TabHeader';

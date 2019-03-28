@@ -111,4 +111,7 @@ export default {
     placeholder: '#F8F8F8',
     backgroundColor: '#FFF',
   },
+  primaryColors: {
+    orange: '#FF9900',
+  },
 };
