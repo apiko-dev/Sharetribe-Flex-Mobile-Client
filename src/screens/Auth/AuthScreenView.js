@@ -1,32 +1,31 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, KeyboardAvoidingView, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-navigation';
-import { TabView, SceneMap } from 'react-native-tab-view';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { Tab, TabView } from 'react-native-easy-tabs';
 import T from 'prop-types';
 import s from './styles';
 import { TextTouchable, Logo, Text } from '../../components';
 import { SignInForm, SignUpForm } from './components';
-import { isSmallDevice, isLargeDevice } from '../../utils';
+import { isSmallDevice, isLargeDevice, isAndroid } from '../../utils';
 import i18n from '../../i18n';
+import { dimensions } from '../../styles';
 
 const smallDevice = isSmallDevice();
 const largeDevice = isLargeDevice();
+const isAndroidDevice = isAndroid();
 
 const AuthScreen = ({
-  tabIndex,
-  tabRoutes,
   onChangeTabIndex,
+  selectedTabIndex,
   onSkip,
 }) => (
-  <KeyboardAwareScrollView
-    contentContainerStyle={s.container}
-    extraHeight={200}
-    enableOnAndroid
-    bounces={false}
-  >
-    <SafeAreaView style={s.containerSafeAreaView}>
-      <View style={s.circle} />
+  <SafeAreaView style={s.containerSafeAreaView}>
+    <View style={s.circle} />
+    <ScrollView
+      contentContainerStyle={s.container}
+      keyboardShouldPersistTaps="handled"
+      scrollEnabled={false}
+    >
       <Logo
         size={
           (smallDevice && 'small') ||
@@ -48,39 +47,72 @@ const AuthScreen = ({
           {i18n.t('auth.heading')}
         </Text>
       </View>
-      <View style={s.tabViewContainer}>
+
+      {// On Android when the keyboard is showing, this component rise up.
+      // To fix it we put on Android this component here and give for it position: "absolute".
+      // And instead of this component, we put empty component at the bottom.
+      // We put empty component at the bottom of the screen to make space for this component.
+
+      // "Skip" button
+      isAndroidDevice && (
+        <View style={s.bottomButtonAndroid}>
+          <TextTouchable
+            alignCenter
+            textStyle={s.toUpperCase}
+            onPress={onSkip}
+          >
+            {i18n.t('auth.skip')}
+          </TextTouchable>
+        </View>
+      )}
+      <KeyboardAvoidingView
+        behavior="position"
+        style={s.keyboardAvoidingView}
+        contentContainerStyle={s.keyboardAvoidingViewContentContainer}
+        keyboardVerticalOffset={isAndroidDevice ? -30 : 0}
+      >
         <TabView
-          swipeEnabled={false}
-          navigationState={{
-            index: tabIndex,
-            routes: tabRoutes,
-          }}
-          renderScene={SceneMap({
-            signIn: SignInForm,
-            signUp: SignUpForm,
-          })}
-          onIndexChange={(index) => onChangeTabIndex(index)}
-          renderTabBar={() => null}
-          style={s.tabView}
-        />
-      </View>
-      <View style={s.bottom}>
-        <TextTouchable
-          alignCenter
-          textStyle={s.toUpperCase}
-          onPress={onSkip}
+          selectedTabIndex={selectedTabIndex}
+          layoutWidth={dimensions.width}
         >
-          {i18n.t('auth.skip')}
-        </TextTouchable>
-      </View>
-    </SafeAreaView>
-  </KeyboardAwareScrollView>
+          <Tab>
+            <View style={s.tabViewContainer}>
+              <View style={s.tabViewWrapper}>
+                <SignInForm onChangeTabIndex={onChangeTabIndex} />
+              </View>
+            </View>
+          </Tab>
+          <Tab lazy>
+            <View style={s.tabViewContainer}>
+              <View style={s.tabViewWrapper}>
+                <SignUpForm onChangeTabIndex={onChangeTabIndex} />
+              </View>
+            </View>
+          </Tab>
+        </TabView>
+      </KeyboardAvoidingView>
+      {isAndroidDevice ? (
+        // Empty component for "Skip" button.
+        <View style={s.bottom} />
+      ) : (
+        // On IOS everything stay without changes.
+        <View style={s.bottom}>
+          <TextTouchable
+            alignCenter
+            textStyle={s.toUpperCase}
+            onPress={onSkip}
+          >
+            {i18n.t('auth.skip')}
+          </TextTouchable>
+        </View>
+      )}
+    </ScrollView>
+  </SafeAreaView>
 );
 
 AuthScreen.propTypes = {
-  tabIndex: T.number.isRequired,
   onChangeTabIndex: T.func.isRequired,
-  tabRoutes: T.array.isRequired,
+  selectedTabIndex: T.number,
   onSkip: T.func,
 };
 

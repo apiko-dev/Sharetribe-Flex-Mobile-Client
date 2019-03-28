@@ -14,7 +14,7 @@ const CategorySectionHeader = ({
     <View style={s.header}>
       {showCategoriesAsButton && (
         <IconFonts
-          name="outline-keyboard_arrow_left-24px-1"
+          name="left"
           tintColor={colors.categoryScreen.icon}
           size={30}
         />

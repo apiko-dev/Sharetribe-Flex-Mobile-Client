@@ -14,15 +14,11 @@ export default hoistStatics(
 
     withStateHandlers(
       {
-        tabIndex: 0,
-        tabRoutes: [
-          { key: 'signIn', title: 'Sign In' },
-          { key: 'signUp', title: 'Sign Up' },
-        ],
+        selectedTabIndex: 0,
       },
       {
         onChangeTabIndex: () => (index) => ({
-          tabIndex: index,
+          selectedTabIndex: index,
         }),
       },
     ),

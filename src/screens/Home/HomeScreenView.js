@@ -1,46 +1,49 @@
+/* eslint-disable jsx-a11y/tabindex-no-positive */
 import React from 'react';
-import { View, Dimensions } from 'react-native';
+import { View } from 'react-native';
 import T from 'prop-types';
-import { TabView, SceneMap } from 'react-native-tab-view';
+import { TabView, Tab } from 'react-native-easy-tabs';
 import s from './styles';
 import { DrawerButton } from '../../components';
 import { ListView, MapView, TabBar, SearchInput } from './components';
 import i18n from '../../i18n';
+import { dimensions } from '../../styles';
 
 const HomeScreen = ({
-  onChangeTabIndex,
-  tabRoutes,
-  tabIndex,
   goToCategory,
   category,
   subCategory,
+  selectedTabIndex,
+  onChangeTabIndex,
+  search,
+  chooseCategory,
 }) => (
   <View style={s.container}>
-    <TabView
-      swipeEnabled={false}
-      navigationState={{
-        index: tabIndex,
-        routes: tabRoutes,
-      }}
-      renderScene={SceneMap({
-        listView: ListView,
-        mapView: MapView,
-      })}
-      // onIndexChange={(index) => onChangeTabIndex(index)}
-      onIndexChange={(index) => onChangeTabIndex(index)}
-      style={s.tabView}
-      initialLayout={{
-        width: Dimensions.get('window').width,
-      }}
-      renderTabBar={(props) => (
-        <TabBar
-          {...props}
-          goToCategory={goToCategory}
-          category={category}
-          subCategory={subCategory}
-        />
-      )}
+    <TabBar
+      goToCategory={goToCategory}
+      category={category}
+      subCategory={subCategory}
+      selectedTabIndex={selectedTabIndex}
+      onChangeTabIndex={onChangeTabIndex}
     />
+    <View style={s.tabView}>
+      <TabView
+        selectedTabIndex={selectedTabIndex}
+        layoutWidth={dimensions.width}
+      >
+        <Tab>
+          <ListView
+            category={category}
+            subCategory={subCategory}
+            search={search}
+            chooseCategory={chooseCategory}
+          />
+        </Tab>
+        <Tab lazy>
+          <MapView />
+        </Tab>
+      </TabView>
+    </View>
   </View>
 );
 
@@ -56,12 +59,13 @@ HomeScreen.navigationOptions = ({ navigation }) => ({
 });
 
 HomeScreen.propTypes = {
+  selectedTabIndex: T.number,
   onChangeTabIndex: T.func,
-  tabRoutes: T.array,
-  tabIndex: T.number,
   goToCategory: T.func,
   category: T.string,
   subCategory: T.string,
+  search: T.string,
+  chooseCategory: T.func,
 };
 
 export default HomeScreen;

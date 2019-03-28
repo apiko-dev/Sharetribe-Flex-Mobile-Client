@@ -33,10 +33,7 @@ const Button = ({
             {value}
           </Text>
         )}
-        <IconFonts
-          size={20}
-          name="outline-keyboard_arrow_left-24px"
-        />
+        <IconFonts size={20} name="right" />
       </View>
     </TouchableOpacity>
   </View>
