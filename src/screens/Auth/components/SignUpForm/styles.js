@@ -6,9 +6,10 @@ const smallDevice = isSmallDevice();
 
 export default StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
     backgroundColor: colors.signInSignUpForm.backgroundColor,
     paddingHorizontal: dimensions.indent,
+    borderRadius: 10,
   },
   heading: {
     marginTop: dimensions.indent * 0.8,

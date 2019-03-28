@@ -33,7 +33,6 @@ export default StyleSheet.create({
   },
   tabViewWrapper: {
     flex: 1,
-    overflow: 'hidden',
     borderRadius: 10,
     marginLeft: 1,
     marginBottom: 3,
@@ -54,6 +53,16 @@ export default StyleSheet.create({
     alignItems: 'center',
     height: dimensions.indent * 1.9,
   },
+  bottomButtonAndroid: {
+    position: 'absolute',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: dimensions.indent * 1.9,
+    width: dimensions.width,
+    bottom: 0,
+    left: 0,
+  },
+
   toUpperCase: {
     textTransform: 'uppercase',
   },

@@ -11,11 +11,12 @@ import {
   TabContainer,
 } from '../../components';
 import { SignInForm, SignUpForm } from './components';
-import { isSmallDevice, isLargeDevice } from '../../utils';
+import { isSmallDevice, isLargeDevice, isAndroid } from '../../utils';
 import i18n from '../../i18n';
 
 const smallDevice = isSmallDevice();
 const largeDevice = isLargeDevice();
+const isAndroidDevice = isAndroid();
 
 const AuthScreen = ({
   onChangeTabIndex,
@@ -24,7 +25,11 @@ const AuthScreen = ({
 }) => (
   <SafeAreaView style={s.containerSafeAreaView}>
     <View style={s.circle} />
-    <ScrollView contentContainerStyle={s.container}>
+    <ScrollView
+      contentContainerStyle={s.container}
+      keyboardShouldPersistTaps="handled"
+      scrollEnabled={false}
+    >
       <Logo
         size={
           (smallDevice && 'small') ||
@@ -46,12 +51,29 @@ const AuthScreen = ({
           {i18n.t('auth.heading')}
         </Text>
       </View>
+
+      {// On Android when the keyboard is showing, this component rise up.
+      // To fix it we put on Android this component here and give for it position: "absolute".
+      // And instead of this component, we put empty component at the bottom.
+      // We put empty component at the bottom of the screen to make space for this component.
+
+      // "Skip" button
+      isAndroidDevice && (
+        <View style={s.bottomButtonAndroid}>
+          <TextTouchable
+            alignCenter
+            textStyle={s.toUpperCase}
+            onPress={onSkip}
+          >
+            {i18n.t('auth.skip')}
+          </TextTouchable>
+        </View>
+      )}
       <KeyboardAvoidingView
-        behavior="height"
+        behavior="position"
         style={s.tabViewContainer}
         contentContainerStyle={s.tabViewWrapper}
-        enabled
-        keyboardVerticalOffset={30}
+        keyboardVerticalOffset={isAndroidDevice ? -30 : 0}
       >
         <TabContainer
           tabIndex={0}
@@ -67,6 +89,21 @@ const AuthScreen = ({
           <SignUpForm onChangeTabIndex={onChangeTabIndex} />
         </TabContainer>
       </KeyboardAvoidingView>
+      {isAndroidDevice ? (
+        // Empty component for "Skip" button.
+        <View style={s.bottom} />
+      ) : (
+        // On IOS everything stay without changes.
+        <View style={s.bottom}>
+          <TextTouchable
+            alignCenter
+            textStyle={s.toUpperCase}
+            onPress={onSkip}
+          >
+            {i18n.t('auth.skip')}
+          </TextTouchable>
+        </View>
+      )}
     </ScrollView>
   </SafeAreaView>
 );
