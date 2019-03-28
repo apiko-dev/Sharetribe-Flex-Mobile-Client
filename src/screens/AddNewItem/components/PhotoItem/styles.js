@@ -1,13 +1,11 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { colors, dimensions } from '../../../../styles';
 
 export default StyleSheet.create({
   container: {
     margin: dimensions.indent * 0.2,
-    width:
-      (Dimensions.get('window').width - dimensions.indent * 3.2) / 3,
-    height:
-      (Dimensions.get('window').width - dimensions.indent * 8) / 3,
+    width: (dimensions.width - dimensions.indentModerated * 3.2) / 3,
+    height: (dimensions.width - dimensions.indentModerated * 8) / 3,
   },
   item: {
     borderColor: colors.addPhotoButton.borderColor,
@@ -36,9 +34,7 @@ export default StyleSheet.create({
   },
   image: {
     borderRadius: 10,
-    width:
-      (Dimensions.get('window').width - dimensions.indent * 3.2) / 3,
-    height:
-      (Dimensions.get('window').width - dimensions.indent * 8) / 3,
+    width: (dimensions.width - dimensions.indentModerated * 3.2) / 3,
+    height: (dimensions.width - dimensions.indentModerated * 8) / 3,
   },
 });

@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { dimensions } from '../../../../styles';
 import { isSmallDevice } from '../../../../utils';
 
@@ -21,7 +21,7 @@ export default StyleSheet.create({
     justifyContent: 'flex-start',
   },
   flatList: {
-    width: Dimensions.get('window').width,
+    width: dimensions.width,
   },
   emptyFlatList: {
     flex: 1,

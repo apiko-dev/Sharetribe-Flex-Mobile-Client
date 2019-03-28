@@ -18,10 +18,10 @@ export default StyleSheet.create({
     elevation: 3,
   },
   image: {
-    height: dimensions.indent * 7.5,
+    height: dimensions.indentModerated * 7.5,
     width: isSmall
-      ? dimensions.indent * 9.3
-      : dimensions.indent * 9.5,
+      ? dimensions.indentModerated * 9.3
+      : dimensions.indentModerated * 9.5,
   },
   containerTouchable: {
     borderRadius: 5,
@@ -29,9 +29,9 @@ export default StyleSheet.create({
   },
   containerContent: {
     width: isSmall
-      ? dimensions.indent * 9.3
-      : dimensions.indent * 9.5,
-    height: dimensions.indent * 11,
+      ? dimensions.indentModerated * 9.3
+      : dimensions.indentModerated * 9.5,
+    height: dimensions.indentModerated * 11,
   },
   imageContainer: {
     overflow: 'hidden',
