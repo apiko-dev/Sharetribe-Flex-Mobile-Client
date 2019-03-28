@@ -29,7 +29,7 @@ const ListView = React.memo(
           data={searchListings}
           keyExtractor={(item) => item.id}
           numColumns={2}
-          emptyListIconName="outline-search-24px"
+          emptyListIconName="search"
           emptyListMessage={i18n.t('home.nothingWasFound')}
           renderItem={({ item }) => (
             <RenderProductButton

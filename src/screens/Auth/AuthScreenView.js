@@ -1,18 +1,14 @@
-/* eslint-disable jsx-a11y/tabindex-no-positive */
 import React from 'react';
 import { View, KeyboardAvoidingView, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-navigation';
+import { Tab, TabView } from 'react-native-easy-tabs';
 import T from 'prop-types';
 import s from './styles';
-import {
-  TextTouchable,
-  Logo,
-  Text,
-  TabContainer,
-} from '../../components';
+import { TextTouchable, Logo, Text } from '../../components';
 import { SignInForm, SignUpForm } from './components';
 import { isSmallDevice, isLargeDevice, isAndroid } from '../../utils';
 import i18n from '../../i18n';
+import { dimensions } from '../../styles';
 
 const smallDevice = isSmallDevice();
 const largeDevice = isLargeDevice();
@@ -71,23 +67,29 @@ const AuthScreen = ({
       )}
       <KeyboardAvoidingView
         behavior="position"
-        style={s.tabViewContainer}
-        contentContainerStyle={s.tabViewWrapper}
+        style={s.keyboardAvoidingView}
+        contentContainerStyle={s.keyboardAvoidingViewContentContainer}
         keyboardVerticalOffset={isAndroidDevice ? -30 : 0}
       >
-        <TabContainer
-          tabIndex={0}
+        <TabView
           selectedTabIndex={selectedTabIndex}
+          layoutWidth={dimensions.width}
         >
-          <SignInForm onChangeTabIndex={onChangeTabIndex} />
-        </TabContainer>
-        <TabContainer
-          tabIndex={1}
-          selectedTabIndex={selectedTabIndex}
-          lazy
-        >
-          <SignUpForm onChangeTabIndex={onChangeTabIndex} />
-        </TabContainer>
+          <Tab>
+            <View style={s.tabViewContainer}>
+              <View style={s.tabViewWrapper}>
+                <SignInForm onChangeTabIndex={onChangeTabIndex} />
+              </View>
+            </View>
+          </Tab>
+          <Tab lazy>
+            <View style={s.tabViewContainer}>
+              <View style={s.tabViewWrapper}>
+                <SignUpForm onChangeTabIndex={onChangeTabIndex} />
+              </View>
+            </View>
+          </Tab>
+        </TabView>
       </KeyboardAvoidingView>
       {isAndroidDevice ? (
         // Empty component for "Skip" button.

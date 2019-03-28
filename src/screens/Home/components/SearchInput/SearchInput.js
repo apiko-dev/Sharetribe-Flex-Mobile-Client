@@ -13,7 +13,7 @@ const SearchInput = ({
 }) => (
   <View style={s.container}>
     <IconFonts
-      name="outline-search-24px"
+      name="search"
       size={22}
       tintColor={colors.searchInput.icon}
       style={[s.icon, s.iconSearch]}
@@ -27,7 +27,7 @@ const SearchInput = ({
     />
     {!!value && (
       <IconFonts
-        name="outline-close-24px"
+        name="close"
         size={22}
         tintColor={colors.searchInput.icon}
         style={s.icon}

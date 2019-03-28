@@ -32,17 +32,17 @@ export default compose(
       {
         screen: screens.Home,
         title: i18n.t('drawer.home'),
-        iconName: 'homepage',
+        iconName: 'home',
       },
       {
         screen: screens.Home,
         title: i18n.t('drawer.help'),
-        iconName: 'help-lifeguard-symbol',
+        iconName: 'help',
       },
       {
         screen: screens.Auth,
         title: i18n.t('drawer.login'),
-        iconName: 'baseline-exit_to_app-24px',
+        iconName: 'log-out',
         onPress: () => props.goToLogin(),
       },
     ];
@@ -51,7 +51,7 @@ export default compose(
       {
         screen: screens.Home,
         title: i18n.t('drawer.home'),
-        iconName: 'homepage',
+        iconName: 'home',
       },
       {
         screen: screens.MyListings,
@@ -61,12 +61,12 @@ export default compose(
       {
         screen: screens.Home,
         title: i18n.t('drawer.inbox'),
-        iconName: 'message-closed-envelope',
+        iconName: 'message',
       },
       {
         screen: screens.Home,
         title: i18n.t('drawer.rentals'),
-        iconName: 'stats',
+        iconName: 'rentals',
       },
       {
         screen: screens.Home,
@@ -76,12 +76,12 @@ export default compose(
       {
         screen: screens.Home,
         title: i18n.t('drawer.help'),
-        iconName: 'help-lifeguard-symbol',
+        iconName: 'help',
       },
       {
         screen: 'LogOut',
         title: i18n.t('drawer.logOut'),
-        iconName: 'baseline-exit_to_app-24px',
+        iconName: 'log-out',
         onPress: () => props.logout(),
       },
     ];

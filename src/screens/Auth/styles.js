@@ -62,6 +62,12 @@ export default StyleSheet.create({
     bottom: 0,
     left: 0,
   },
+  keyboardAvoidingView: {
+    flex: 1,
+  },
+  keyboardAvoidingViewContentContainer: {
+    flex: 1,
+  },
 
   toUpperCase: {
     textTransform: 'uppercase',

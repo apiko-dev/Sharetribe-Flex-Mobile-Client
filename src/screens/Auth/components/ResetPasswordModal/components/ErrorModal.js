@@ -10,7 +10,7 @@ const RootModal = ({ resetPassword }) => (
   <View style={s.contentContainer}>
     <IconFonts
       style={s.icon}
-      name="baseline-error-24px"
+      name="error"
       size={80}
       tintColor={colors.icon.tintColorOrange}
     />

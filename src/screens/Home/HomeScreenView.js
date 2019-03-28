@@ -2,10 +2,12 @@
 import React from 'react';
 import { View } from 'react-native';
 import T from 'prop-types';
+import { TabView, Tab } from 'react-native-easy-tabs';
 import s from './styles';
-import { DrawerButton, TabContainer } from '../../components';
+import { DrawerButton } from '../../components';
 import { ListView, MapView, TabBar, SearchInput } from './components';
 import i18n from '../../i18n';
+import { dimensions } from '../../styles';
 
 const HomeScreen = ({
   goToCategory,
@@ -24,21 +26,24 @@ const HomeScreen = ({
       selectedTabIndex={selectedTabIndex}
       onChangeTabIndex={onChangeTabIndex}
     />
-    <TabContainer tabIndex={0} selectedTabIndex={selectedTabIndex}>
-      <ListView
-        category={category}
-        subCategory={subCategory}
-        search={search}
-        chooseCategory={chooseCategory}
-      />
-    </TabContainer>
-    <TabContainer
-      tabIndex={1}
-      selectedTabIndex={selectedTabIndex}
-      lazy
-    >
-      <MapView />
-    </TabContainer>
+    <View style={s.tabView}>
+      <TabView
+        selectedTabIndex={selectedTabIndex}
+        layoutWidth={dimensions.width}
+      >
+        <Tab>
+          <ListView
+            category={category}
+            subCategory={subCategory}
+            search={search}
+            chooseCategory={chooseCategory}
+          />
+        </Tab>
+        <Tab lazy>
+          <MapView />
+        </Tab>
+      </TabView>
+    </View>
   </View>
 );
 
