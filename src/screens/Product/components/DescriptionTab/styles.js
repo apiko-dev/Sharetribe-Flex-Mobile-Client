@@ -2,12 +2,14 @@ import { StyleSheet } from 'react-native';
 import { colors, theme, dimensions } from '../../../../styles';
 
 export default StyleSheet.create({
-  container: {},
+  container: {
+    backgroundColor: colors.background,
+  },
   description: {
-    ...theme.cardShadow,
     backgroundColor: colors.productScreen.white,
     borderBottomColor: colors.input.borderColor,
     borderBottomWidth: 2 * StyleSheet.hairlineWidth,
+    marginBottom: dimensions.indent,
   },
   textContainer: {
     margin: 16,

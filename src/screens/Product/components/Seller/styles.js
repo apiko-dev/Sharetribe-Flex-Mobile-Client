@@ -1,10 +1,12 @@
 import { StyleSheet } from 'react-native';
-import { dimensions } from '../../../../styles';
+import { dimensions, colors } from '../../../../styles';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    margin: dimensions.indent,
+    padding: dimensions.indent,
+    backgroundColor: colors.seller.background,
+    marginBottom: dimensions.indent * 2,
   },
   mainContainer: {
     flexDirection: 'row',

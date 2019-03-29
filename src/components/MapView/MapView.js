@@ -3,10 +3,11 @@ import { View } from 'react-native';
 import Map, { PROVIDER_GOOGLE } from 'react-native-maps';
 import s from './styles';
 
-const MapView = () => (
+const MapView = (props) => (
   <View style={s.container}>
     <Map
       style={s.map}
+      {...props}
       provider={PROVIDER_GOOGLE}
       // Test region
       initialRegion={{

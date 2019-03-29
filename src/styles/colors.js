@@ -1,4 +1,5 @@
 export default {
+  background: '#F8F8F8',
   signInSignUpForm: {
     backgroundColor: '#FFF',
     heading: '#333333',
@@ -127,5 +128,9 @@ export default {
   },
   productScreen: {
     white: '#FFF',
+  },
+
+  seller: {
+    background: '#FFF',
   },
 };
