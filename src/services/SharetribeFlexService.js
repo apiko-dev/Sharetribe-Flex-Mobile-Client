@@ -80,7 +80,7 @@ class SharetribeSdkService {
       },
       {
         expand: true,
-        include: ['images'],
+        include: ['marketplace', 'images', 'author'],
       },
     );
   }

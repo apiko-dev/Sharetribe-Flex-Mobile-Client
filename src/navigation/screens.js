@@ -19,4 +19,5 @@ export default {
   AddNewItem: 'AddNewItem',
   Category: 'Category',
   MyListings: 'MyListings',
+  Profile: 'Profile',
 };

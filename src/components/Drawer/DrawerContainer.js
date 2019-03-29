@@ -25,6 +25,8 @@ export default compose(
     goToLogin: () => () => NavigationService.navigateToAuth(),
     goToAddNewItem: () => () =>
       NavigationService.navigateTo(screens.AddNewItem),
+    goToProfile: () => () =>
+      NavigationService.navigateTo(screens.Profile),
   }),
 
   withPropsOnChange(['isAuthorized'], (props) => {

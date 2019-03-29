@@ -87,6 +87,10 @@
     "listings": "listings",
     "noListings": "You haven't got any listings yet"
   },
+  "profile": {
+    "profile": "Profile",
+    "testTextBio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, seddo eiusmod tempor incididu..."
+  },
   "alerts": {
     "signInError": {
       "title": "Sign In",
