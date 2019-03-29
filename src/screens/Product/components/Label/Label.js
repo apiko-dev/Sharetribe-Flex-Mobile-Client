@@ -9,8 +9,12 @@ import { Text, Touchable } from '../../../../components';
 function Label({ text, title, onPress }) {
   return (
     <Touchable onPress={onPress} style={s.container}>
-      <Text>{title}: </Text>
-      <Text>{text}</Text>
+      <Text xsmallSize gray ligth>
+        {title}:
+      </Text>
+      <Text xsmallSize black ligth>
+        {text}
+      </Text>
     </Touchable>
   );
 }
