@@ -39,3 +39,4 @@ export {
 } from './NavigationButton/NavigationButton';
 export { default as Rating } from './Rating/Rating';
 export { default as TabHeader } from './TabHeader/TabHeader';
+export { default as MapView } from './MapView/MapView';

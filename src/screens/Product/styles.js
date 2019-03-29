@@ -71,18 +71,11 @@ export default StyleSheet.create({
   tab1: {
     flex: 1,
     justifyContent: 'center',
-    // backgroundColor: colors.white,
     padding: 8,
   },
   tab2: {
     flex: 1,
     justifyContent: 'center',
-    // backgroundColor: colors.white,
     padding: 8,
-  },
-
-  labelContainer: {
-    paddingLeft: dimensions.indent,
-    paddingBottom: dimensions.indent,
   },
 });

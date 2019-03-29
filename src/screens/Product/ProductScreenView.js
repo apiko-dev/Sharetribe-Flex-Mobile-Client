@@ -3,19 +3,16 @@ import { View, Image, ImageBackground, ScrollView } from 'react-native';
 import T from 'prop-types';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { Tab, TabView } from 'react-native-easy-tabs';
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 
 import s from './styles';
 import i18n from '../../i18n';
 import { width, height } from '../../styles/dimensions';
 import { NavigationButton, Rating, Text, Touchable, TabHeader } from '../../components';
 import Label from './components/Label/Label';
+import Location from './components/Location/Location';
 import DescriptionTab from './components/DescriptionTab/DescriptionTabContainer';
 
 const placeholderImage = require('../../assets/png/Group.png');
-
-const textMs = "1sdsdsdsdsd 2sdsdsdsdsd 3sdsdsdsdsd 4sdsdsdsdsd 5sdsdsdsdsd 6sdsdsdsdsd 7sdsdsdsdsd s8dsdsdsdsd 9sdsdsdsdsd 10sdsdsdsdsd 111111 22222 33333 4444 555 666 777"
-
 
 const ProductScreen = ({
   onChangeIndex,
@@ -94,7 +91,7 @@ const ProductScreen = ({
       <TabView selectedTabIndex={tabIndex}>
         <View style={s.tab1}>
           <Tab>
-            <DescriptionTab text={textMs} />
+            <DescriptionTab text={product.description} />
           </Tab>
         </View>
         <Tab lazy>
@@ -104,21 +101,7 @@ const ProductScreen = ({
         </Tab>
       </TabView>
     </View>
-    <View style={s.mapContainer}>
-      <MapView
-        provider={PROVIDER_GOOGLE}
-        style={s.map}
-        liteMode
-        initialRegion={{
-          latitude: 37.78825,
-          longitude: -122.4324,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        }}
-      >
-        {/* <Text>Lviv</Text> */}
-      </MapView>
-    </View>
+    <Location />
   </ScrollView>
 );
 
