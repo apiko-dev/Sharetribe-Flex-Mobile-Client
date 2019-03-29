@@ -1,5 +1,10 @@
 import React from 'react';
-import { View, Image, ImageBackground, ScrollView } from 'react-native';
+import {
+  View,
+  Image,
+  ImageBackground,
+  ScrollView,
+} from 'react-native';
 import T from 'prop-types';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { Tab, TabView } from 'react-native-easy-tabs';
@@ -7,9 +12,16 @@ import { Tab, TabView } from 'react-native-easy-tabs';
 import s from './styles';
 import i18n from '../../i18n';
 import { width, height } from '../../styles/dimensions';
-import { NavigationButton, Rating, Text, Touchable, TabHeader } from '../../components';
+import {
+  NavigationButton,
+  Rating,
+  Text,
+  Touchable,
+  TabHeader,
+} from '../../components';
 import Label from './components/Label/Label';
 import Location from './components/Location/Location';
+import Seller from './components/Seller/Seller';
 import DescriptionTab from './components/DescriptionTab/DescriptionTabContainer';
 
 const placeholderImage = require('../../assets/png/Group.png');
@@ -19,10 +31,11 @@ const ProductScreen = ({
   currentIndex,
   product,
   images,
+  image,
   labels,
   user,
   onChangeTabIndex,
-  tabIndex
+  tabIndex,
 }) => (
   <ScrollView style={s.container}>
     <View style={s.carouselContainer}>
@@ -53,8 +66,12 @@ const ProductScreen = ({
     </View>
     <View style={s.headerContainer}>
       <View style={s.priceContainer}>
-        <Text xlargeSize bold>${product.price.amount}</Text>
-        <Text xmediumSize gray >/{i18n.t('home.day')}</Text>
+        <Text xlargeSize bold>
+          ${product.price.amount}
+        </Text>
+        <Text xmediumSize gray>
+          /{i18n.t('home.day')}
+        </Text>
       </View>
       <View style={s.availabilityContainer}>
         <Text mediumSize red>
@@ -63,24 +80,20 @@ const ProductScreen = ({
       </View>
     </View>
     <View style={s.titleTextContainer}>
-      <Text largeSize bold black>{product.title}</Text>
+      <Text largeSize bold black>
+        {product.title}
+      </Text>
     </View>
     <View style={s.rating}>
       <Rating value={4} />
     </View>
     <Label.Row style={s.labelContainer}>
-      <Label
-        text={product.publicData.brand}
-        title="Brand"
-      />
+      <Label text={product.publicData.brand} title="Brand" />
       <Label
         text={product.publicData.subCategory}
         title="Subcategory"
       />
-      <Label
-        text={product.publicData.category}
-        title="Category"
-      />
+      <Label text={product.publicData.category} title="Category" />
     </Label.Row>
     <View style={s.containerTabView}>
       <TabHeader
@@ -89,11 +102,11 @@ const ProductScreen = ({
       />
 
       <TabView selectedTabIndex={tabIndex}>
-        <View style={s.tab1}>
-          <Tab>
+        <Tab>
+          <View style={s.tab1}>
             <DescriptionTab text={product.description} />
-          </Tab>
-        </View>
+          </View>
+        </Tab>
         <Tab lazy>
           <View style={s.tab2}>
             <Text style={s.paragraph}>Second tab</Text>
@@ -101,7 +114,8 @@ const ProductScreen = ({
         </Tab>
       </TabView>
     </View>
-    <Location />
+    {/* <Location />
+    <Seller image={image} name="Ben" rating={4} /> */}
   </ScrollView>
 );
 

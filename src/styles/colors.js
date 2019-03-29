@@ -120,4 +120,10 @@ export default {
   label: {
     border: '#E9E9E9',
   },
+  tabViewHeader: {
+    white: '#FFF',
+  },
+  productScreen: {
+    white: '#FFF',
+  },
 };

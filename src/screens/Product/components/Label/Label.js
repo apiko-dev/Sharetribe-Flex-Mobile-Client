@@ -10,7 +10,7 @@ function Label({ text, title, onPress }) {
   return (
     <Touchable onPress={onPress} style={s.container}>
       <Text xsmallSize gray ligth>
-        {title}:
+        {`${title}: `}
       </Text>
       <Text xsmallSize black ligth>
         {text}

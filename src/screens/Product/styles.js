@@ -1,5 +1,5 @@
 import { StyleSheet, StatusBar } from 'react-native';
-import { colors, fontSizes, dimensions } from '../../styles';
+import { colors, fontSizes, dimensions, theme } from '../../styles';
 
 export default StyleSheet.create({
   container: {
@@ -71,11 +71,12 @@ export default StyleSheet.create({
   tab1: {
     flex: 1,
     justifyContent: 'center',
-    padding: 8,
   },
   tab2: {
     flex: 1,
     justifyContent: 'center',
-    padding: 8,
+  },
+  labelContainer: {
+    padding: dimensions.indent,
   },
 });

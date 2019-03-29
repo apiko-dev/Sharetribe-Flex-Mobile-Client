@@ -5,6 +5,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     height: dimensions.indent * 7,
+    marginTop: dimensions.indent / 2,
   },
 
   bannerContainer: {

@@ -1,8 +1,9 @@
 import { StyleSheet } from 'react-native';
-import { colors } from '../../styles';
+import { colors, dimensions } from '../../styles';
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: colors.tabViewHeader.white,
     borderTopWidth: StyleSheet.hairlineWidth,
     borderColor: colors.categoryScreen.itemBorder,
     flexDirection: 'row',
@@ -12,12 +13,15 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 10,
+    padding: dimensions.indent,
   },
 
   active: {
     borderBottomWidth: 3 * StyleSheet.hairlineWidth,
     borderColor: colors.primaryColors.orange,
+  },
+  activeText: {
+    color: colors.text.orange,
   },
 });
 

@@ -1,18 +1,19 @@
 import { StyleSheet } from 'react-native';
-import { colors } from '../../../../styles';
+import { colors, theme, dimensions } from '../../../../styles';
 
 export default StyleSheet.create({
-  container: {
-    backgroundColor: colors.white,
+  container: {},
+  description: {
+    ...theme.cardShadow,
+    backgroundColor: colors.productScreen.white,
     borderBottomColor: colors.input.borderColor,
     borderBottomWidth: 2 * StyleSheet.hairlineWidth,
-    elevation: 2,
   },
   textContainer: {
     margin: 16,
   },
   maxHeight: {
-    minHeight: 50,
+    minHeight: dimensions.indent,
     maxHeight: 100,
   },
 
@@ -26,6 +27,7 @@ export default StyleSheet.create({
   buttonContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    margin: 5,
+    backgroundColor: colors.productScreen.white,
+    margin: dimensions.indent / 2,
   },
 });

@@ -10,7 +10,7 @@ import { Dimensions } from 'react-native';
 import { inject } from 'mobx-react/native';
 import ProductScreenView from './ProductScreenView';
 import { withParamsToProps } from '../../utils/enhancers';
-
+import IconAppLogo from '../../assets/png/icon-app-logo.png';
 
 export default hoistStatics(
   compose(
@@ -20,6 +20,9 @@ export default hoistStatics(
       images: R.path(['relationships', 'getImages'], product).map(
         R.path(['variants', 'default', 'url']),
       ),
+      image: product.relationships.getImages[0]
+        ? product.relationships.getImages[0].variants.default.url
+        : IconAppLogo,
       // labels: Object.entries(product.publicData).reduce(
       //   (ini, pair) => ((ini[pair[0]] = pair[1]), ini),
       //   [],
