@@ -25,7 +25,7 @@ const NavigationButton = ({
     borderless
   >
     <IconFonts
-      name={goBack ? 'baseline-arrow_back-24px' : name}
+      name={goBack ? 'ic-back' : name}
       color={color}
       tintColor={colors.header.backButton}
       size={25}

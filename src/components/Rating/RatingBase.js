@@ -97,7 +97,7 @@ const Rating = ({
           height={height}
           needMargin={ratingCount !== index + 1}
           value={itemValue}
-          margin={5}
+          margin={2}
         />
       );
     }, ratingCount)}

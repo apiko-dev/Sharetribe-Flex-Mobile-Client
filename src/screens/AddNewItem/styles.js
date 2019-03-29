@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { dimensions, colors } from '../../styles';
 import { isAndroid, isLargeDevice } from '../../utils';
 
@@ -58,7 +58,7 @@ export default StyleSheet.create({
     position: 'absolute',
     top: -dimensions.indent * 6.5,
     height: dimensions.indent * 6,
-    width: Dimensions.get('window').width - dimensions.indent * 2,
+    width: dimensions.width - dimensions.indentModerated * 2,
     borderRadius: 10,
     borderWidth: 1,
     borderColor: colors.input.borderColor,
@@ -68,7 +68,7 @@ export default StyleSheet.create({
   locationDropDownListItem: {
     color: colors.input.textColor,
     height: dimensions.indent * 2,
-    width: Dimensions.get('window').width - dimensions.indent * 2,
+    width: dimensions.width - dimensions.indentModerated * 2,
     paddingLeft: dimensions.indent * 0.8,
     paddingRight: dimensions.indent * 0.8,
     paddingTop: dimensions.indent * 0.4,

@@ -3,7 +3,8 @@ import { moderateScale, verticalScale } from '../utils/scalingUtils';
 
 export const { width, height } = Dimensions.get('window');
 
-export const indent = moderateScale(16);
+export const indent = 16;
+export const indentModerated = moderateScale(16);
 export const halfIndent = moderateScale(indent / 2);
 export const doubleIndent = moderateScale(indent * 2);
 

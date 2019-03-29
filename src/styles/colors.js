@@ -121,7 +121,9 @@ export default {
     border: '#E9E9E9',
   },
   tabViewHeader: {
-    white: '#FFF',
+    backgroundColor: '#FFF',
+    activeText: '#FF9900',
+    text: '#8F8F8F',
   },
   productScreen: {
     white: '#FFF',

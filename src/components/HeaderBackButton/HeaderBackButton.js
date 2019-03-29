@@ -1,7 +1,7 @@
 import React from 'react';
 import T from 'prop-types';
 import IconFonts from '../IconFonts/IconFonts';
-import Touchable from '../Touchable/Touchable'; // eslint-disable-line
+import Touchable from '../Touchable/Touchable';
 import { colors } from '../../styles';
 import s from './styles';
 import { NavigationService } from '../../services';

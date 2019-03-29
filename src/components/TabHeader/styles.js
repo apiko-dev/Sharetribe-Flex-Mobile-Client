@@ -3,7 +3,7 @@ import { colors, dimensions } from '../../styles';
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.tabViewHeader.white,
+    backgroundColor: colors.tabViewHeader.backgroundColor,
     borderTopWidth: StyleSheet.hairlineWidth,
     borderColor: colors.categoryScreen.itemBorder,
     flexDirection: 'row',
@@ -15,13 +15,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: dimensions.indent,
   },
-
   active: {
     borderBottomWidth: 3 * StyleSheet.hairlineWidth,
     borderColor: colors.primaryColors.orange,
   },
+  text: {
+    color: colors.tabViewHeader.text,
+  },
   activeText: {
-    color: colors.text.orange,
+    color: colors.tabViewHeader.activeText,
   },
 });
 

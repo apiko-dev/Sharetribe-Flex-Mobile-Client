@@ -47,7 +47,7 @@ export default StyleSheet.create({
     paddingHorizontal: dimensions.indent * 0.5,
   },
   buttonByWindowWidth: {
-    width: (dimensions.width - dimensions.indent * 1.7) / 2,
+    width: (dimensions.width - dimensions.indentModerated * 1.7) / 2,
   },
   imageByWindowWidth: {
     height: dimensions.indent * 7.6,

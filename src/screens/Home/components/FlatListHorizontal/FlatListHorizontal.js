@@ -1,4 +1,3 @@
-/* eslint-disable consistent-return */
 import React from 'react';
 import { View, FlatList } from 'react-native';
 import T from 'prop-types';

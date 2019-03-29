@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import RatingBase from './RatingBase';
 import s from './styles';
 import { colors } from '../../styles';
@@ -13,10 +13,13 @@ const formatValue = (value) =>
     ? `${value},0`
     : `${value}`.replace('.', ',');
 
-const Rating = ({ value = 0 }) =>
-  value ? (
-    <View style={{ flexDirection: 'row' }}>
-      <Text style={[s.text, s.value]}>{formatValue(value)}</Text>
+const Rating = ({ value = 0, reviewsCount = 4 }) => {
+  const formattedValue = formatValue(value);
+  const formattedReviews = `(${reviewsCount})`;
+
+  return value ? (
+    <View style={s.row}>
+      <Text style={[s.text, s.value]}>{formattedValue}</Text>
       <RatingBase
         startingValue={round(value)}
         type="custom"
@@ -27,17 +30,14 @@ const Rating = ({ value = 0 }) =>
         ratingColor={colors.icon.tintColorOrange}
         ratingBackgroundColor={colors.icon.tintColorGray}
       />
-      <Text style={[s.text, s.value]}>
-        ({value})
-      </Text>
+      <Text style={[s.text, s.reviewCount]}>{formattedReviews}</Text>
     </View>
-  ) : (
-    <Text style={s.text}>No rating yet</Text>
-  );
+  ) : null;
+};
 
 Rating.propTypes = {
   value: PropTypes.number,
-  color: PropTypes.string,
+  reviewsCount: PropTypes.number,
 };
 
 export default Rating;

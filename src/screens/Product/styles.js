@@ -28,8 +28,12 @@ export default StyleSheet.create({
     backgroundColor: colors.switch.activeIcon,
   },
 
+  infoContainer: {
+    marginTop: dimensions.indent * 0.75, // 12
+    marginHorizontal: dimensions.indent,
+  },
+
   headerContainer: {
-    height: 50,
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
@@ -38,22 +42,23 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-end',
     justifyContent: 'center',
-    marginLeft: 16,
+    marginBottom: dimensions.indent / 2,
+  },
+
+  day: {
+    marginBottom: 4,
   },
 
   availabilityContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    paddingRight: 16,
   },
 
   titleTextContainer: {
-    paddingLeft: 16,
+    marginBottom: dimensions.indent,
   },
 
-  rating: {
-    margin: 16,
-  },
+  rating: {},
 
   containerTabView: {
     marginTop: StatusBar.currentHeight,

@@ -64,28 +64,30 @@ const ProductScreen = ({
         dotStyle={s.dotStyle}
       />
     </View>
-    <View style={s.headerContainer}>
-      <View style={s.priceContainer}>
-        <Text xlargeSize bold>
-          ${product.price.amount}
-        </Text>
-        <Text xmediumSize gray>
-          /{i18n.t('home.day')}
+    <View style={s.infoContainer}>
+      <View style={s.headerContainer}>
+        <View style={s.priceContainer}>
+          <Text xbigSize bold>
+            ${product.price.amount}
+          </Text>
+          <Text xmediumSize gray style={s.day}>
+            /{i18n.t('home.day')}
+          </Text>
+        </View>
+        <View style={s.availabilityContainer}>
+          <Text mediumSize red>
+            lease
+          </Text>
+        </View>
+      </View>
+      <View style={s.titleTextContainer}>
+        <Text largeSize black>
+          {product.title}
         </Text>
       </View>
-      <View style={s.availabilityContainer}>
-        <Text mediumSize red>
-          lease
-        </Text>
+      <View style={s.rating}>
+        <Rating value={4} />
       </View>
-    </View>
-    <View style={s.titleTextContainer}>
-      <Text largeSize bold black>
-        {product.title}
-      </Text>
-    </View>
-    <View style={s.rating}>
-      <Rating value={4} />
     </View>
     <Label.Row style={s.labelContainer}>
       <Label text={product.publicData.brand} title="Brand" />
@@ -128,7 +130,7 @@ ProductScreen.navigationOptions = () => ({
   },
   headerRight: (
     <NavigationButton
-      name="outline-edit-24px"
+      name="ic-edit"
       color="white"
       right
       // onPress={}

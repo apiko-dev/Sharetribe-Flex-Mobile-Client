@@ -28,62 +28,62 @@ PODS:
   - GoogleMaps/Maps (2.5.0):
     - GoogleMaps/Base
   - QBImagePickerController (3.4.0)
-  - React (0.59.0-rc.3):
-    - React/Core (= 0.59.0-rc.3)
+  - React (0.59.2):
+    - React/Core (= 0.59.2)
   - react-native-google-maps (0.23.0):
     - Google-Maps-iOS-Utils (= 2.1.0)
     - GoogleMaps (= 2.5.0)
     - React
   - react-native-maps (0.23.0):
     - React
-  - React/Core (0.59.0-rc.3):
-    - yoga (= 0.59.0-rc.3.React)
-  - React/CxxBridge (0.59.0-rc.3):
+  - React/Core (0.59.2):
+    - yoga (= 0.59.2.React)
+  - React/CxxBridge (0.59.2):
     - Folly (= 2018.10.22.00)
     - React/Core
     - React/cxxreact
     - React/jsiexecutor
-  - React/cxxreact (0.59.0-rc.3):
+  - React/cxxreact (0.59.2):
     - boost-for-react-native (= 1.63.0)
     - DoubleConversion
     - Folly (= 2018.10.22.00)
     - glog
     - React/jsinspector
-  - React/DevSupport (0.59.0-rc.3):
+  - React/DevSupport (0.59.2):
     - React/Core
     - React/RCTWebSocket
-  - React/fishhook (0.59.0-rc.3)
-  - React/jsi (0.59.0-rc.3):
+  - React/fishhook (0.59.2)
+  - React/jsi (0.59.2):
     - DoubleConversion
     - Folly (= 2018.10.22.00)
     - glog
-  - React/jsiexecutor (0.59.0-rc.3):
+  - React/jsiexecutor (0.59.2):
     - DoubleConversion
     - Folly (= 2018.10.22.00)
     - glog
     - React/cxxreact
     - React/jsi
-  - React/jsinspector (0.59.0-rc.3)
-  - React/RCTAnimation (0.59.0-rc.3):
+  - React/jsinspector (0.59.2)
+  - React/RCTAnimation (0.59.2):
     - React/Core
-  - React/RCTBlob (0.59.0-rc.3):
+  - React/RCTBlob (0.59.2):
     - React/Core
-  - React/RCTImage (0.59.0-rc.3):
+  - React/RCTImage (0.59.2):
     - React/Core
     - React/RCTNetwork
-  - React/RCTNetwork (0.59.0-rc.3):
+  - React/RCTNetwork (0.59.2):
     - React/Core
-  - React/RCTText (0.59.0-rc.3):
+  - React/RCTText (0.59.2):
     - React/Core
-  - React/RCTWebSocket (0.59.0-rc.3):
+  - React/RCTWebSocket (0.59.2):
     - React/Core
     - React/fishhook
     - React/RCTBlob
   - ReactNativePermissions (1.1.1):
     - React
-  - RNGestureHandler (1.0.16):
+  - RNGestureHandler (1.1.0):
     - React
-  - RNImageCropPicker (0.23.0):
+  - RNImageCropPicker (0.23.1):
     - QBImagePickerController
     - React/Core
     - RSKImageCropper
@@ -93,12 +93,12 @@ PODS:
     - React
   - RNReanimated (1.0.0-alpha.12):
     - React
-  - RNSVG (9.2.4):
+  - RNSVG (9.3.6):
     - React
-  - RNVectorIcons (6.3.0):
+  - RNVectorIcons (6.4.2):
     - React
   - RSKImageCropper (2.2.1)
-  - yoga (0.59.0-rc.3.React)
+  - yoga (0.59.2.React)
 
 DEPENDENCIES:
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
@@ -174,19 +174,19 @@ SPEC CHECKSUMS:
   Google-Maps-iOS-Utils: c32891ff472eaaa1fca032beedafa1a013af7875
   GoogleMaps: c087b8e5dfe87ca6ebf59adb9b4894a4146bec4f
   QBImagePickerController: d54cf93db6decf26baf6ed3472f336ef35cae022
-  React: e18068c843db92d5761d2d05a485c85c430727da
+  React: 9d063e2f356c8cd2f54dd550d4507740037cbabe
   react-native-google-maps: dd3cee2ea5d77ffba4f03b1fd64891e5113b3193
   react-native-maps: 7525a32bcd025af8cf3b6c469af9b8758245db72
   ReactNativePermissions: 2e324bb3baf12702e3ec27f76c8ae1158fa69fc6
-  RNGestureHandler: 0438a761e8f29be3b809f9e7e43014f3aba4d7a6
-  RNImageCropPicker: e56deca5b463b9493d22e966cfd83cb1fc5c99bb
+  RNGestureHandler: b65d391f4f570178d657b99a16ec99d09b8656b0
+  RNImageCropPicker: a4c8db5757926bda8b04ba6796cc2a21cc6fd783
   RNLanguages: 962e562af0d34ab1958d89bcfdb64fafc37c513e
   RNOpenAppSettings: 1169b90a275e9e18c5973e1608949f97d426e7f3
   RNReanimated: b7adc1a5e4eca563966cfcbd982429ebd70d6b17
-  RNSVG: 6fec2b50e65b4a01ba54155e8e546e0a1eeb16f4
-  RNVectorIcons: cb42a5653c046f12ca16c9480c571b52620559e8
+  RNSVG: 172d33eda196063a6a94900d93a4a2cbb126bf33
+  RNVectorIcons: 6607bd3a30291d0edb56f9bbe7ae411ee2b928b0
   RSKImageCropper: 98296ad26b41753f796b6898d015509598f13d97
-  yoga: 4d7f00d234c42cf46c609ee1e429c987167b30f1
+  yoga: 3768a3026ade0fb46a68f3a31a917cf86bc34fc4
 
 PODFILE CHECKSUM: b6910050bf50e0c9970b4e9a3da3ceba4e81ca9b
 

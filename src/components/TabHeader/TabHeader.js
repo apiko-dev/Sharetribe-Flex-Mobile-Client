@@ -30,7 +30,8 @@ const TabHeader = ({ onChangeTabIndex, currentTabIndex }) => {
         >
           <Text
             mediumSize
-            style={getActiveStyle(index, s.activeText)}
+            bold
+            style={[s.text, getActiveStyle(index, s.activeText)]}
           >
             {tab.text}
           </Text>
