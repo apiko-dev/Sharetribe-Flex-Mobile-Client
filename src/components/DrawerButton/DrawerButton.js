@@ -1,6 +1,6 @@
 import React from 'react';
 import IconFonts from '../IconFonts/IconFonts';
-import Touchable from '../Touchable/Touchable'; // eslint-disable-line
+import Touchable from '../Touchable/Touchable';
 import { colors } from '../../styles';
 import s from './styles';
 import { NavigationService } from '../../services';
@@ -10,6 +10,7 @@ const DrawerButton = () => (
     style={s.button}
     onPress={() => NavigationService.openDrawer()}
     borderless
+    hitSlop={{ top: 15, right: 15, bottom: 15, left: 15 }}
   >
     <IconFonts
       name="menu"

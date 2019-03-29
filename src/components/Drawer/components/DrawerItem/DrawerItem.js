@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import T from 'prop-types';
 import IconFonts from '../../../IconFonts/IconFonts';
 import Text from '../../../Text/Text';
-import Touchable from '../../../Touchable/Touchable'; // eslint-disable-line
+import Touchable from '../../../Touchable/Touchable';
 import s from './styles';
 import { NavigationService } from '../../../../services';
 import { colors } from '../../../../styles';

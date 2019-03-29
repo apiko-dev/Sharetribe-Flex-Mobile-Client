@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/tabindex-no-positive */
 import React from 'react';
 import { View } from 'react-native';
 import T from 'prop-types';

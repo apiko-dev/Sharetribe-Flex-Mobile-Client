@@ -135,7 +135,6 @@ const AddNewItemScreenView = ({
         <InputForm
           placeholder={i18n.t('addNewItem.location')}
           value={location}
-          scrollEnabled={locationList.length === 0}
           active={activeField === 'location'}
           onFocus={() => onChange('activeField', 'location')}
           onBlur={() => onChange('activeField', '')}
@@ -148,11 +147,12 @@ const AddNewItemScreenView = ({
             keyExtractor={(item) => item.id}
             data={locationList}
             nestedScrollEnabled
+            keyboardShouldPersistTaps="handled"
             renderItem={({ item }) => (
               <View>
                 <Touchable
                   onPress={() => {
-                    onChange('location', description);
+                    onChange('location', item.description);
                     onChange('locationList', []);
                   }}
                   style={s.locationDropDownListItem}
