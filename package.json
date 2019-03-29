@@ -4,7 +4,11 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "test": "jest",
+    "clean:android": "cd android && ./gradlew clean",
+    "clean:ios": "cd ios && xcodebuild -configuration Debug clean -UseModernBuildSystem=NO && xcodebuild -configuration Release clean -UseModernBuildSystem=NO && rimraf ./ios/Pods ./ios/Podfile.lock",
+    "clean:js": "rimraf ./node_modules",
+    "clean": "npm run clean:android && npm run clean:ios && npm run clean:js"
   },
   "dependencies": {
     "axios": "^0.18.0",

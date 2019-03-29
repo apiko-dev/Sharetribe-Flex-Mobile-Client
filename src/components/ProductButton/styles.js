@@ -18,10 +18,10 @@ export default StyleSheet.create({
     elevation: 3,
   },
   image: {
-    height: dimensions.indentModerated * 7.5,
+    height: dimensions.indent * 7.5,
     width: isSmall
-      ? dimensions.indentModerated * 9.3
-      : dimensions.indentModerated * 9.5,
+      ? dimensions.indent * 9.3
+      : dimensions.indent * 9.5,
   },
   containerTouchable: {
     borderRadius: 5,
@@ -29,9 +29,9 @@ export default StyleSheet.create({
   },
   containerContent: {
     width: isSmall
-      ? dimensions.indentModerated * 9.3
-      : dimensions.indentModerated * 9.5,
-    height: dimensions.indentModerated * 11,
+      ? dimensions.indent * 9.3
+      : dimensions.indent * 9.5,
+    height: dimensions.indent * 11,
   },
   imageContainer: {
     overflow: 'hidden',
@@ -47,7 +47,7 @@ export default StyleSheet.create({
     paddingHorizontal: dimensions.indent * 0.5,
   },
   buttonByWindowWidth: {
-    width: (dimensions.width - dimensions.indent * 1.7) / 2,
+    width: (dimensions.width - dimensions.indentModerated * 1.7) / 2,
   },
   imageByWindowWidth: {
     height: dimensions.indent * 7.6,

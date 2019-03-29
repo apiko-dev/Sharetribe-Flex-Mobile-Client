@@ -47,7 +47,11 @@ const Drawer = ({ isAuthorized, user, items, goToAddNewItem }) => (
       <View style={s.drawerMain}>
         <View>
           {items.map((item) => (
-            <DrawerItem {...item} screen={item.screen} />
+            <DrawerItem
+              {...item}
+              screen={item.screen}
+              key={item.iconName}
+            />
           ))}
         </View>
         {isAuthorized && (

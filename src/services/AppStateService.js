@@ -1,7 +1,7 @@
 import { AppState } from 'react-native';
 
 class AppStateService {
-  get appCurrentState() { //eslint-disable-line
+  get appCurrentState() {
     return AppState.currentState;
   }
 
