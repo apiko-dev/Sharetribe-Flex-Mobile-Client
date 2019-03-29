@@ -68,7 +68,7 @@ const ListView = React.memo(
               )}
               renderItem={({ item }) => (
                 <ProductButton
-                  onPress={() => goToProduct(item)}
+                  onPress={() => goToProduct(item.id)}
                   id={item.id}
                   title={item.title}
                   price={item.price.amount}
@@ -144,7 +144,7 @@ const ListView = React.memo(
                     )}
                     renderItem={({ item }) => (
                       <ProductButton
-                        onPress={() => goToProduct(item)}
+                        onPress={() => goToProduct(item.id)}
                         id={item.id}
                         title={item.title}
                         price={item.price.amount}

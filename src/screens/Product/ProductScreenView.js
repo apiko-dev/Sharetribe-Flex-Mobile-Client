@@ -2,8 +2,8 @@ import React from 'react';
 import { View, Image, ImageBackground, ScrollView } from 'react-native';
 import T from 'prop-types';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
-// import { TabView, SceneMap } from 'react-native-tab-view';
 import { Tab, TabView } from 'react-native-easy-tabs';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 
 import s from './styles';
 import i18n from '../../i18n';
@@ -89,6 +89,21 @@ const ProductScreen = ({
           </View>
         </Tab>
       </TabView>
+    </View>
+    <View style={s.mapContainer}>
+      <MapView
+        provider={PROVIDER_GOOGLE}
+        style={s.map}
+        // Test region
+        initialRegion={{
+          latitude: 37.78825,
+          longitude: -122.4324,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        }}
+      >
+        <Text>Lviv</Text>
+      </MapView>
     </View>
   </ScrollView>
 );
