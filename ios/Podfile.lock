@@ -175,8 +175,8 @@ SPEC CHECKSUMS:
   GoogleMaps: c087b8e5dfe87ca6ebf59adb9b4894a4146bec4f
   QBImagePickerController: d54cf93db6decf26baf6ed3472f336ef35cae022
   React: e18068c843db92d5761d2d05a485c85c430727da
-  react-native-google-maps: 544d2208b09a7e2ec2c6112c8a97c4e7f921f74d
-  react-native-maps: 9469741f77f270c605cafec603ce47327dc5b5f8
+  react-native-google-maps: dd3cee2ea5d77ffba4f03b1fd64891e5113b3193
+  react-native-maps: 7525a32bcd025af8cf3b6c469af9b8758245db72
   ReactNativePermissions: 2e324bb3baf12702e3ec27f76c8ae1158fa69fc6
   RNGestureHandler: 0438a761e8f29be3b809f9e7e43014f3aba4d7a6
   RNImageCropPicker: e56deca5b463b9493d22e966cfd83cb1fc5c99bb

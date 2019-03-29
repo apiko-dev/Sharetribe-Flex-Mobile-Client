@@ -9,7 +9,7 @@ import s from './styles';
 import i18n from '../../i18n';
 import { width, height } from '../../styles/dimensions';
 import { NavigationButton, Rating, Text, Touchable, TabHeader } from '../../components';
-// import Label from './components/Label/LabelView';
+import Label from './components/Label/Label';
 import DescriptionTab from './components/DescriptionTab/DescriptionTabContainer';
 
 const placeholderImage = require('../../assets/png/Group.png');
@@ -71,6 +71,20 @@ const ProductScreen = ({
     <View style={s.rating}>
       <Rating value={4} />
     </View>
+    <Label.Row style={s.labelContainer}>
+      <Label
+        text={product.publicData.brand}
+        title="Brand"
+      />
+      <Label
+        text={product.publicData.subCategory}
+        title="Subcategory"
+      />
+      <Label
+        text={product.publicData.category}
+        title="Category"
+      />
+    </Label.Row>
     <View style={s.containerTabView}>
       <TabHeader
         currentTabIndex={tabIndex}
@@ -94,7 +108,7 @@ const ProductScreen = ({
       <MapView
         provider={PROVIDER_GOOGLE}
         style={s.map}
-        // Test region
+        liteMode
         initialRegion={{
           latitude: 37.78825,
           longitude: -122.4324,
@@ -102,7 +116,7 @@ const ProductScreen = ({
           longitudeDelta: 0.0421,
         }}
       >
-        <Text>Lviv</Text>
+        {/* <Text>Lviv</Text> */}
       </MapView>
     </View>
   </ScrollView>

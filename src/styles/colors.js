@@ -117,4 +117,7 @@ export default {
   myListingsScreen: {
     backgroundColor: '#F8F8F8',
   },
+  label: {
+    border: '#E9E9E9',
+  },
 };

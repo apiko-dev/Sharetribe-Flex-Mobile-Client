@@ -1,5 +1,5 @@
 import { StyleSheet, StatusBar } from 'react-native';
-import { colors, fontSizes } from '../../styles';
+import { colors, fontSizes, dimensions } from '../../styles';
 
 export default StyleSheet.create({
   container: {
@@ -79,5 +79,10 @@ export default StyleSheet.create({
     justifyContent: 'center',
     // backgroundColor: colors.white,
     padding: 8,
+  },
+
+  labelContainer: {
+    paddingLeft: dimensions.indent,
+    paddingBottom: dimensions.indent,
   },
 });
