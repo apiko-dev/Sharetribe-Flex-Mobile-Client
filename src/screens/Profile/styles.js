@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, StatusBar } from 'react-native';
 import { dimensions } from '../../styles';
 
 export default StyleSheet.create({
@@ -11,6 +11,21 @@ export default StyleSheet.create({
     paddingTop: dimensions.indent * 1.3,
   },
   userName: {
-    margin: dimensions.indent * 0.5,
+    margin: dimensions.indent * 0.8,
+  },
+  rating: {
+    marginBottom: dimensions.indent * 0.8,
+  },
+  bio: {
+    textAlign: 'center',
+    paddingHorizontal: dimensions.indent,
+    marginBottom: dimensions.indent * 0.8,
+  },
+  moreButton: {
+    marginTop: dimensions.indent * 0.4,
+    marginBottom: dimensions.indent * 0.4,
+  },
+  containerTabView: {
+    marginTop: StatusBar.currentHeight,
   },
 });

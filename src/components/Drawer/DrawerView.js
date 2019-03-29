@@ -31,7 +31,7 @@ const Drawer = ({
               <Text bold black>
                 {`${i18n.t('common.hello')}, ${user.firstName}`}
               </Text>
-              <TextTouchable onPress={goToProfile}>
+              <TextTouchable onPress={() => goToProfile(user.id)}>
                 {i18n.t('common.viewProfile')}
               </TextTouchable>
             </React.Fragment>

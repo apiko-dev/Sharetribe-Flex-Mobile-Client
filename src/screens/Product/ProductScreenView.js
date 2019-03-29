@@ -67,10 +67,14 @@ const ProductScreen = ({
     <View style={s.headerContainer}>
       <View style={s.priceContainer}>
         <Text xlargeSize bold>
-          ${product.price.amount}
+          $ 
+{' '}
+{product.price.amount}
         </Text>
         <Text xmediumSize gray>
-          /{i18n.t('home.day')}
+          / 
+{' '}
+{i18n.t('home.day')}
         </Text>
       </View>
       <View style={s.availabilityContainer}>
@@ -99,6 +103,14 @@ const ProductScreen = ({
       <TabHeader
         currentTabIndex={tabIndex}
         onChangeTabIndex={onChangeTabIndex}
+        tabs={[
+          {
+            text: i18n.t('addNewItem.description'),
+          },
+          {
+            text: i18n.t('addNewItem.reviews'),
+          },
+        ]}
       />
 
       <TabView selectedTabIndex={tabIndex}>

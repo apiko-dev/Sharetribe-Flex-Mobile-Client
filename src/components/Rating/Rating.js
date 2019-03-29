@@ -28,8 +28,10 @@ const Rating = ({ value = 0 }) =>
         ratingBackgroundColor={colors.icon.tintColorGray}
       />
       <Text style={[s.text, s.value]}>
-        ({value})
-      </Text>
+(
+{value}
+)
+</Text>
     </View>
   ) : (
     <Text style={s.text}>No rating yet</Text>

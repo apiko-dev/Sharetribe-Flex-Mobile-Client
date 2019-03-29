@@ -14,7 +14,7 @@ export default createDrawerNavigator(
     [screens.Profile]: ProfileNavigator,
   },
   {
-    initialRouteName: screens.Profile,
+    initialRouteName: screens.Home,
     contentComponent: Drawer,
     drawerWidth: 300,
   },
