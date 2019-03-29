@@ -29,7 +29,7 @@ const DescriptionTab = ({ text, setVisible, isVisible, onPress }) => (
       <Location />
       <Seller
         // image={image}
-        name="Ben"
+        name="Oleh Chabanov"
         rating={4}
       />
     </View>
