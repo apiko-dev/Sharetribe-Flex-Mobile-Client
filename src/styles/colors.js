@@ -40,6 +40,7 @@ export default {
     gray: '#8F8F8F',
     white: '#FFF',
     orange: '#FF9900',
+    red: '#ff0000',
   },
   loader: {
     primary: '#FFF',
@@ -110,7 +111,19 @@ export default {
     placeholder: '#F8F8F8',
     backgroundColor: '#FFF',
   },
+  primaryColors: {
+    orange: '#FF9900',
+  },
   myListingsScreen: {
     backgroundColor: '#F8F8F8',
+  },
+  label: {
+    border: '#E9E9E9',
+  },
+  tabViewHeader: {
+    white: '#FFF',
+  },
+  productScreen: {
+    white: '#FFF',
   },
 };

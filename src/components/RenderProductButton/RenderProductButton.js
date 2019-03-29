@@ -5,7 +5,7 @@ import IconAppLogo from '../../assets/png/icon-app-logo.png';
 
 const RenderProductButton = ({ item, goToProduct, ...props }) => (
   <ProductButton
-    onPress={() => goToProduct(item.id)}
+    onPress={() => goToProduct(item)}
     id={item.id}
     title={item.title}
     price={item.price.amount}
