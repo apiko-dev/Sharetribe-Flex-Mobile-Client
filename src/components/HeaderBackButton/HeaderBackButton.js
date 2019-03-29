@@ -11,7 +11,7 @@ const HeaderBackButton = ({
 }) => (
   <Touchable style={s.button} onPress={onPress} borderless>
     <IconFonts
-      name="baseline-arrow_back-24px"
+      name="back"
       tintColor={colors.header.backButton}
       size={25}
     />

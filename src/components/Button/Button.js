@@ -49,7 +49,13 @@ const Button = ({
             {title}
           </Text>
         ) : (
-          <Loader color={!primary && colors.loader.secondary} />
+          <Loader
+            color={
+              !primary
+                ? colors.loader.secondary
+                : colors.loader.primary
+            }
+          />
         )}
       </View>
     </Touchable>

@@ -7,10 +7,7 @@ import s from './styles';
 const CategoryItem = ({ title, onPress }) => (
   <TouchableOpacity onPress={onPress}>
     <View style={s.item}>
-      <IconFonts
-        name="outline-keyboard_arrow_left-24px-1"
-        size={20}
-      />
+      <IconFonts name="left" size={20} />
       <Text style={s.text}>{title}</Text>
     </View>
   </TouchableOpacity>

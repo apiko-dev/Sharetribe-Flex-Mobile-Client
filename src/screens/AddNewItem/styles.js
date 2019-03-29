@@ -56,7 +56,7 @@ export default StyleSheet.create({
   locationDropDownList: {
     zIndex: 2,
     position: 'absolute',
-    top: dimensions.indent * 3,
+    top: -dimensions.indent * 6.5,
     height: dimensions.indent * 6,
     width: Dimensions.get('window').width - dimensions.indent * 2,
     borderRadius: 10,

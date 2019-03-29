@@ -7,11 +7,11 @@ import i18n from '../../../../i18n';
 import { colors } from '../../../../styles';
 
 const TabBar = ({
-  navigationState,
-  jumpTo,
+  onChangeTabIndex,
   goToCategory,
   category,
   subCategory,
+  selectedTabIndex,
 }) => (
   <View style={s.tabBar}>
     <View style={s.categoryContainer}>
@@ -23,7 +23,7 @@ const TabBar = ({
             showCategoriesAsButton: true,
           })
         }
-        iconNameRight="baseline-arrow_drop_down-24px"
+        iconNameRight="drop-down"
       >
         {category || i18n.t('home.category')}
       </TextPicker>
@@ -35,41 +35,48 @@ const TabBar = ({
               showCategoriesAsButton: true,
             })
           }
-          iconNameRight="baseline-arrow_drop_down-24px"
+          iconNameRight="drop-down"
         >
           {subCategory || i18n.t('home.subCategory')}
         </TextPicker>
       )}
     </View>
     <View style={s.switch}>
-      {navigationState.routes.map((route, i) => {
-        const isActive = navigationState.index === i;
-
-        return (
-          <TouchableOpacity
-            key={route.key}
-            style={[s.tabItem, isActive && s.activeTabItem]}
-            onPress={() => jumpTo(route.key)}
-          >
-            <IconFonts
-              name={route.iconName}
-              tintColor={
-                isActive
-                  ? colors.switch.activeIcon
-                  : colors.switch.icon
-              }
-              size={isActive ? 16 : 20}
-            />
-          </TouchableOpacity>
-        );
-      })}
+      <TouchableOpacity
+        style={[s.tabItem, selectedTabIndex === 0 && s.activeTabItem]}
+        onPress={() => onChangeTabIndex(0)}
+      >
+        <IconFonts
+          name="grid"
+          tintColor={
+            selectedTabIndex === 0
+              ? colors.switch.activeIcon
+              : colors.switch.icon
+          }
+          size={selectedTabIndex === 0 ? 16 : 20}
+        />
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={[s.tabItem, selectedTabIndex === 1 && s.activeTabItem]}
+        onPress={() => onChangeTabIndex(1)}
+      >
+        <IconFonts
+          name="map"
+          tintColor={
+            selectedTabIndex === 1
+              ? colors.switch.activeIcon
+              : colors.switch.icon
+          }
+          size={selectedTabIndex === 1 ? 16 : 20}
+        />
+      </TouchableOpacity>
     </View>
   </View>
 );
 
 TabBar.propTypes = {
-  navigationState: T.any,
-  jumpTo: T.func,
+  selectedTabIndex: T.number,
+  onChangeTabIndex: T.func,
   goToCategory: T.func,
   category: T.string,
   subCategory: T.string,

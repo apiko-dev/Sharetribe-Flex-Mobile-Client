@@ -114,4 +114,7 @@ export default {
   primaryColors: {
     orange: '#FF9900',
   },
+  myListingsScreen: {
+    backgroundColor: '#F8F8F8',
+  },
 };

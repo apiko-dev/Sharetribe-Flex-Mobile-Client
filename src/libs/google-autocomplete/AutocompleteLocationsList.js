@@ -10,7 +10,7 @@ import {
   withStateHandlers,
 } from 'recompose';
 import { PermissionService } from '../../services';
-import { Separator, EmptyCover, RootSpinner } from '../';
+import { Separator, EmptyCover, RootSpinner } from "..";
 import { colors } from '../../styles';
 import { withDebouncedHandler } from '../../utils/enhancers';
 import s from './styles';
@@ -32,7 +32,11 @@ const AutocompleteLocationsList = ({
   useCurrentLocationLabel,
   getCurrentLocation,
 }) => {
-  if (currentLocation && R.isEmpty(searchString) && !shouldShowResult) {
+  if (
+    currentLocation &&
+    R.isEmpty(searchString) &&
+    !shouldShowResult
+  ) {
     return (
       <CurrentLocationHeader
         label={useCurrentLocationLabel}
@@ -47,9 +51,7 @@ const AutocompleteLocationsList = ({
   }
 
   if (isLoading) {
-    return (
-      <RootSpinner />
-    );
+    return <RootSpinner />;
   }
 
   if (isError) {
@@ -66,18 +68,26 @@ const AutocompleteLocationsList = ({
     <FlatList
       style={s.container}
       data={predictions}
-      ListEmptyComponent={
-        <EmptyCover
+      ListEmptyComponent={(
+<EmptyCover
           title="Not found"
           caption={`No results for ${searchString}`}
         />
-      }
-      contentContainerStyle={R.and(R.isEmpty(predictions), s.listContainerEmpty)}
+)}
+      contentContainerStyle={R.and(
+        R.isEmpty(predictions),
+        s.listContainerEmpty,
+      )}
       keyboardShouldPersistTaps="handled"
-      ItemSeparatorComponent={() => <Separator small marginLeft indent={32 + 20} />}
-      ListFooterComponent={() => R.and(R.not(R.isEmpty(predictions)), (
+      ItemSeparatorComponent={() => (
         <Separator small marginLeft indent={32 + 20} />
-      ))}
+      )}
+      ListFooterComponent={() =>
+        R.and(
+          R.not(R.isEmpty(predictions)),
+          <Separator small marginLeft indent={32 + 20} />,
+        )
+      }
       keyExtractor={R.prop('id')}
       renderItem={({ item, index }) => (
         <LocationItem
@@ -91,7 +101,6 @@ const AutocompleteLocationsList = ({
     />
   );
 };
-
 
 const suspense = async (asyncFn, onTimeout) => {
   const timeoutId = setTimeout(onTimeout, 1000);
@@ -108,19 +117,22 @@ const suspense = async (asyncFn, onTimeout) => {
 };
 
 const enhancer = compose(
-  withStateHandlers({
-    predictions: [],
-    isLoading: false,
-    loadingItemId: null,
-    isError: false,
-    currentPlace: null,
-    shouldShowResult: false,
-  }, {
-    setState: () => state => state,
-  }),
+  withStateHandlers(
+    {
+      predictions: [],
+      isLoading: false,
+      loadingItemId: null,
+      isError: false,
+      currentPlace: null,
+      shouldShowResult: false,
+    },
+    {
+      setState: () => (state) => state,
+    },
+  ),
 
   withHandlers({
-    getPredictions: props => async () => {
+    getPredictions: (props) => async () => {
       if (!props.searchString) {
         return;
       }
@@ -130,13 +142,13 @@ const enhancer = compose(
       try {
         // don't show loading until timeout
         const res = await suspense(
-          () => GoogleApi.getPredictions({
-            text: props.searchString,
-            types: props.searchTypes,
-          }),
+          () =>
+            GoogleApi.getPredictions({
+              text: props.searchString,
+              types: props.searchTypes,
+            }),
           () => props.setState({ isLoading: true }),
         );
-
 
         props.setState({ predictions: res.data.predictions });
       } catch (err) {
@@ -149,7 +161,7 @@ const enhancer = compose(
         });
       }
     },
-    getDetails: props => async (item) => {
+    getDetails: (props) => async (item) => {
       props.setState({ isError: false, currentPlace: item });
 
       try {
@@ -165,7 +177,7 @@ const enhancer = compose(
         props.setState({ currentPlace: null });
       }
     },
-    getCurrentLocation: props => async () => {
+    getCurrentLocation: (props) => async () => {
       try {
         await PermissionService.getLocationPermission();
         const location = await GoogleApi.getCurrentLocation();
@@ -185,7 +197,7 @@ const enhancer = compose(
   }),
 
   withHandlers({
-    retry: props => () => {
+    retry: (props) => () => {
       props.setState({ isLoading: true });
 
       if (props.currentPlace) {
@@ -216,4 +228,3 @@ const enhancer = compose(
 );
 
 export default enhancer(AutocompleteLocationsList);
-

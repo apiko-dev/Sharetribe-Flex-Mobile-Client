@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { colors } from '../../styles';
 
 export default StyleSheet.create({
@@ -8,11 +8,8 @@ export default StyleSheet.create({
     alignItems: 'center',
     backgroundColor: colors.homeScreen.backgroundColor,
   },
-  tabViewContainer: {
-    flex: 1,
-  },
   tabView: {
     flex: 1,
-    width: Dimensions.get('window').width,
+    width: '100%',
   },
 });

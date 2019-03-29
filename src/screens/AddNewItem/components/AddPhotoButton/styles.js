@@ -14,7 +14,6 @@ export default StyleSheet.create({
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    height:
-      (Dimensions.get('window').width - dimensions.indent * 8) / 3,
+    height: (dimensions.width - dimensions.indent * 8) / 3,
   },
 });

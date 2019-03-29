@@ -6,6 +6,7 @@ import {
   AddNewItemScreen,
   CategoryScreen,
   ProductScreen,
+  MyListingsScreen,
 } from '../screens';
 import { colors } from '../styles';
 import { HeaderBackButton } from '../components';
@@ -17,6 +18,7 @@ export default createStackNavigator(
     [screens.AddNewItem]: AddNewItemScreen,
     [screens.Category]: CategoryScreen,
     [screens.Product]: ProductScreen,
+    [screens.MyListings]: MyListingsScreen,
   },
   {
     initialRouteKey: screens.Home,

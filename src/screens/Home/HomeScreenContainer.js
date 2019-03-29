@@ -7,11 +7,11 @@ import {
   defaultProps,
   withPropsOnChange,
 } from 'recompose';
+import { InteractionManager } from 'react-native';
 import { inject } from 'mobx-react';
 import HomeScreenComponent from './HomeScreenView';
 import { NavigationService } from '../../services';
 import { categories as categoriesConstants } from '../../constants';
-import { withCategoriesContext } from '../../utils/enhancers/withCategoriesHocs';
 import { withDebounce } from '../../utils/enhancers';
 
 const categories = categoriesConstants.map((item) => item.title);
@@ -28,23 +28,11 @@ export default hoistStatics(
 
     withStateHandlers(
       {
-        tabIndex: 0,
-        tabRoutes: [
-          {
-            key: 'listView',
-            title: 'List View',
-            iconName: 'plitka',
-          },
-          {
-            key: 'mapView',
-            title: 'Map View',
-            iconName: 'baseline-map-24px',
-          },
-        ],
+        selectedTabIndex: 0,
       },
       {
         onChangeTabIndex: () => (index) => ({
-          tabIndex: index,
+          selectedTabIndex: index,
         }),
       },
     ),
@@ -107,12 +95,12 @@ export default hoistStatics(
 
     withDebounce('getListingsBySearch', 300),
 
-    withCategoriesContext,
-
     lifecycle({
       componentDidMount() {
-        this.props.listings.fetchListings.run({
-          categories: this.props.category || categories,
+        InteractionManager.runAfterInteractions(() => {
+          this.props.listings.fetchListings.run({
+            categories: this.props.category || categories,
+          });
         });
 
         this.props.navigation.setParams({

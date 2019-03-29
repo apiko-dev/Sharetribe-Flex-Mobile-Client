@@ -50,7 +50,7 @@ const ResetPasswordModal = ({
           <React.Fragment>
             <View style={s.closeIconContainer}>
               <IconFonts
-                name="outline-close-24px"
+                name="close"
                 size={28}
                 tintColor={colors.icon.tintColorGray}
                 onPress={() => onCloseModal()}

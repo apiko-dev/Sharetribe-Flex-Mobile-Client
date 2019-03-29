@@ -3,6 +3,7 @@ import { dimensions, colors } from '../../../../styles';
 
 export default StyleSheet.create({
   tabBar: {
+    width: dimensions.width,
     zIndex: 1,
     paddingHorizontal: dimensions.indent,
     flexDirection: 'row',

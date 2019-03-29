@@ -10,7 +10,7 @@ const RootModal = ({ onCloseModal }) => (
   <View>
     <IconFonts
       style={s.icon}
-      name="verified"
+      name="success"
       size={80}
       tintColor={colors.icon.tintColorOrange}
     />
