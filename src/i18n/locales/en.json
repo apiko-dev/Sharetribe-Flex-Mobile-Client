@@ -136,7 +136,9 @@
     "areYouSure": "Are you sure?",
     "joinToUs": "Joint to us",
     "select": "Select",
-    "settings": "Settings"
+    "settings": "Settings",
+    "more": "More",
+    "less": "Less"
   },
   "permissions": {
     "iosRestrictedPermission": "Restricted Permission",

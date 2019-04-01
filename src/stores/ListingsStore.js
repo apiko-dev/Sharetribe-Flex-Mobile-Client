@@ -194,7 +194,7 @@ function fetchListings(flow, store) {
       const res = yield store.Api.fetchListings({
         pub_category: categories,
         pub_title: title,
-        include: ['images'],
+        include: ['images', 'author'],
       });
 
       console.log(res);

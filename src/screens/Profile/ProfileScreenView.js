@@ -8,7 +8,7 @@ import {
   Avatar,
   TabHeader,
   Rating,
-  TextTouchable,
+  DetailsTab,
   DrawerButton,
   HeaderBackButton,
 } from '../../components';
@@ -32,10 +32,10 @@ const ProfileScreen = ({
       <View style={s.rating}>
         <Rating value={4} />
       </View>
-      <Text style={s.bio}>
-        {userToReview.bio || i18n.t('profile.noBio')}
-      </Text>
-      <TextTouchable style={s.moreButton}>More</TextTouchable>
+      <DetailsTab
+        style={s.bio}
+        text={userToReview.bio || i18n.t('profile.noBio')}
+      />
     </View>
     <View style={s.containerTabView}>
       <TabHeader

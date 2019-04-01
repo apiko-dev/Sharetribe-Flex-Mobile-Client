@@ -4,7 +4,7 @@ import { dimensions, colors } from '../../styles';
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.profileScreen.backgroundColor,
+    backgroundColor: colors.profileScreen.backgroundColorTop,
   },
   top: {
     width: '100%',
