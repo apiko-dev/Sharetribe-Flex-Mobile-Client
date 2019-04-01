@@ -87,6 +87,9 @@
     "listings": "listings",
     "noListings": "You haven't got any listings yet"
   },
+  "settings": {
+    "settings": "Settings"
+  },
   "alerts": {
     "signInError": {
       "title": "Sign In",

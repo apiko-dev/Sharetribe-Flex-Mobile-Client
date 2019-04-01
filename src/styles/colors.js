@@ -113,4 +113,7 @@ export default {
   myListingsScreen: {
     backgroundColor: '#F8F8F8',
   },
+  formContainer: {
+    backgroundColor: '#FFF',
+  },
 };
