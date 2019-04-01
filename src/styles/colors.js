@@ -20,6 +20,7 @@ export default {
     backgroundColorPrimary: '#FF9900',
     backgroundColor: '#FFFFFF',
     borderColor: '#E9E9E9',
+    borderColorPrimary: '#FF9900',
     textColor: '#8F8F8F',
     textColorPrimary: '#FFFFFF',
     shadowColor: '#FF9900',

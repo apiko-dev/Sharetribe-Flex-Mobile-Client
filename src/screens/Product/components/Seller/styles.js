@@ -6,14 +6,16 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: dimensions.indent,
     backgroundColor: colors.seller.background,
-    marginBottom: dimensions.indent * 2,
+    marginBottom: dimensions.indent * 1.5,
   },
   mainContainer: {
     flexDirection: 'row',
   },
-  infoContainer: {},
+  infoContainer: {
+    marginTop: dimensions.indent / 2,
+  },
   name: {
-    marginBottom: dimensions.indent,
+    marginBottom: dimensions.indent / 2,
   },
   button: {
     alignSelf: 'center',
@@ -21,6 +23,12 @@ const styles = StyleSheet.create({
   avatarContainer: {
     width: 70,
     height: 70,
+    borderRadius: 50,
+    overflow: 'hidden',
+    marginRight: dimensions.indent,
+  },
+  carouselBackgroundImage: {
+    flex: 1,
   },
 });
 

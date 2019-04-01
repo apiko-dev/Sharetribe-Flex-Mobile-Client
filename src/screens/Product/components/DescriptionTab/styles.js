@@ -9,7 +9,7 @@ export default StyleSheet.create({
     backgroundColor: colors.productScreen.white,
     borderBottomColor: colors.input.borderColor,
     borderBottomWidth: 2 * StyleSheet.hairlineWidth,
-    marginBottom: dimensions.indent,
+    // marginBottom: dimensions.indent,
   },
   textContainer: {
     margin: 16,

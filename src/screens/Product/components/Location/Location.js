@@ -9,7 +9,7 @@ const Location = () => (
     <MapView liteMode />
     <View pointerEvents="box-only" style={s.bannerContainer}>
       <View style={s.banner}>
-        <Text>Location</Text>
+        <Text>Lviv</Text>
       </View>
     </View>
   </View>

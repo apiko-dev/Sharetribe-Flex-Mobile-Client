@@ -14,7 +14,12 @@ const cardShadowByPlatform = {
   },
 };
 
+export const button = {
+  heightMedium: 40,
+};
+
 export default {
   cardShadow: Platform.select(cardShadowByPlatform),
   cardShadowByPlatform,
+  button,
 };

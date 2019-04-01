@@ -20,9 +20,10 @@ import {
   TabHeader,
 } from '../../components';
 import Label from './components/Label/Label';
-import Location from './components/Location/Location';
-import Seller from './components/Seller/Seller';
+import Footer from './components/Footer/Footer';
 import DescriptionTab from './components/DescriptionTab/DescriptionTabContainer';
+
+import { colors } from '../../styles';
 
 const placeholderImage = require('../../assets/png/Group.png');
 
@@ -116,8 +117,7 @@ const ProductScreen = ({
         </Tab>
       </TabView>
     </View>
-    {/* <Location />
-    <Seller image={image} name="Ben" rating={4} /> */}
+    <Footer />
   </ScrollView>
 );
 
@@ -130,14 +130,20 @@ ProductScreen.navigationOptions = () => ({
   },
   headerRight: (
     <NavigationButton
-      name="ic-edit"
-      color="white"
+      name="edit"
+      tintColor={colors.text.white}
       right
       // onPress={}
       circled
     />
   ),
-  headerLeft: <NavigationButton goBack color="white" circled />,
+  headerLeft: (
+  <NavigationButton
+    goBack
+    tintColor={colors.text.white}
+    circled
+  />
+  ),
 });
 
 ProductScreen.propTypes = {
