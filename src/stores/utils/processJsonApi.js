@@ -24,16 +24,17 @@ function processJsonApi(record) {
       const currentRelations = record.relationships[current];
 
       // TODO: Handle real relationships
-      if (
-        typeof currentRelations.data === 'undefined' ||
-        !Array.isArray(currentRelations.data)
-      ) {
+      if (typeof currentRelations.data === 'undefined') {
         return acc;
       }
 
-      acc[current] = currentRelations.data.map(
-        (item) => item.id.uuid,
-      );
+      if (!Array.isArray(currentRelations.data)) {
+        acc[current] = currentRelations.data.id.uuid;
+      } else {
+        acc[current] = currentRelations.data.map(
+          (item) => item.id.uuid,
+        );
+      }
 
       return acc;
     },

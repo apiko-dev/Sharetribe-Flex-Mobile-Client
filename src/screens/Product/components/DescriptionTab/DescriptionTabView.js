@@ -13,7 +13,13 @@ import {
   ShadowContainer,
 } from '../../../../components';
 
-const DescriptionTab = ({ text, setVisible, isVisible, onPress }) => (
+const DescriptionTab = ({
+  text,
+  setVisible,
+  isVisible,
+  onPress,
+  user,
+}) => (
   <View style={s.container}>
     <ShadowContainer>
       <View style={s.description}>
@@ -39,7 +45,7 @@ const DescriptionTab = ({ text, setVisible, isVisible, onPress }) => (
     <ShadowContainer>
       <Seller
         // image={image}
-        name="Oleh Chabanov"
+        name={user.displayName}
         rating={4}
       />
     </ShadowContainer>

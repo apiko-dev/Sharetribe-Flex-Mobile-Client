@@ -14,7 +14,7 @@ const placeholderImage = require('../../../../assets/png/icon-app-logo.png');
 
 const Seller = ({ image, name, rating }) => (
   <ShadowContainer>
-    <Touchable style={s.container}>
+    <View style={s.container}>
       <View style={s.mainContainer}>
         <View style={s.avatarContainer}>
           <ImageBackground
@@ -34,7 +34,7 @@ const Seller = ({ image, name, rating }) => (
       <Touchable style={s.button}>
         <Text orange>{i18n.t('common.viewProfile')}</Text>
       </Touchable>
-    </Touchable>
+    </View>
   </ShadowContainer>
 );
 

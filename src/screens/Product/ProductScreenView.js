@@ -118,7 +118,7 @@ const ProductScreen = ({
       <TabView selectedTabIndex={tabIndex}>
         <Tab>
           <View style={s.tab1}>
-            <DescriptionTab text={product.description} />
+            <DescriptionTab text={product.description} user={author.profile}/>
           </View>
         </Tab>
         <Tab lazy>
@@ -128,7 +128,6 @@ const ProductScreen = ({
         </Tab>
       </TabView>
     </View>
-    <Text></Text>
     <Footer />
   </ScrollView>
 );
