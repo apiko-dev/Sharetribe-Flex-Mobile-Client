@@ -23,12 +23,17 @@ export default hoistStatics(
       image: product.relationships.getImages[0]
         ? product.relationships.getImages[0].variants.default.url
         : IconAppLogo,
-      // labels: Object.entries(product.publicData).reduce(
-      //   (ini, pair) => ((ini[pair[0]] = pair[1]), ini),
-      //   [],
-      // ),
 
-      // images: R.path(['relationships', 'getImages'], product),
+      author: R.path(
+        [
+          'relationships',
+          'author',
+          // 'profile',
+          // 'ProtectedData',
+          // 'phoneNumber',
+        ],
+        product,
+      ),
     })),
     withStateHandlers(
       {

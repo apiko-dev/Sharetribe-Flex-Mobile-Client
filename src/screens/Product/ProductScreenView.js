@@ -31,6 +31,7 @@ const ProductScreen = ({
   onChangeIndex,
   currentIndex,
   product, 
+  author,
   images,
   image,
   labels,
@@ -127,6 +128,7 @@ const ProductScreen = ({
         </Tab>
       </TabView>
     </View>
+    <Text></Text>
     <Footer />
   </ScrollView>
 );

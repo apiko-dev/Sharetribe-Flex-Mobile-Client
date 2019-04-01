@@ -1,8 +1,44 @@
-import { types } from 'mobx-state-tree';
+import { types as t, getEnv } from 'mobx-state-tree';
 
-export const User = types.model('User', {
-  id: types.identifier,
-  firstName: '',
-  lastName: '',
-  email: '',
+const PublicData = t.model('PublicData', {
+  // age: t.number,
 });
+const ProtectedData = t.model('ProtectedData', {
+  // phoneNumber: t.string,
+});
+const PrivateData = t.model('PrivateData', {
+  // discoveredServiceVia: t.string,
+});
+
+const Profile = t.model('Profile', {
+  firstName: t.maybe(t.string),
+  lastName: t.maybe(t.string),
+  displayName: t.maybe(t.string),
+  abbreviatedName: t.maybe(t.string),
+  bio: t.maybeNull(t.string),
+  publicData: t.optional(PublicData, {}),
+  protectedData: t.optional(ProtectedData, {}),
+  privateData: t.optional(PrivateData, {}),
+});
+
+export const User = t.model('User', {
+  id: t.identifier,
+  banned: t.maybe(t.boolean),
+  deleted: t.maybe(t.boolean),
+  createdAt: t.maybe(t.Date),
+  profile: t.maybe(Profile),
+  email: t.maybe(t.string),
+  emailVerified: t.maybe(t.boolean),
+  pendingEmail: t.maybe(t.null),
+  stripePayoutsEnabled: t.maybe(t.boolean),
+  stripeChargesEnabled: t.maybe(t.boolean),
+});
+
+// .views((store) => ({
+//   get Api() {
+//     return getEnv(store).Api;
+//   },
+// }))
+// .actions({
+
+// })

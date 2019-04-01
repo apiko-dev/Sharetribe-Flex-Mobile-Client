@@ -1,3 +1,5 @@
+import { processJsonApiIncluded } from './processJsonApi';
+
 export default function normalize(items, key = 'id') {
   if (!Array.isArray(items)) {
     throw new Error('items should be an array');
@@ -17,4 +19,17 @@ export default function normalize(items, key = 'id') {
       entities: {},
     },
   );
+}
+
+export function normalizedIncluded(objectArray) {
+  return objectArray.reduce((acc, obj) => {
+    const key = obj.type;
+    if (!acc[key]) {
+      acc[key] = {};
+    }
+
+    const record = processJsonApiIncluded(obj);
+    acc[key][record.id] = record;
+    return acc;
+  }, {});
 }

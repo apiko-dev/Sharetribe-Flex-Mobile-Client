@@ -1,12 +1,12 @@
 /* eslint-disable no-shadow */
-import { types as t, getEnv } from 'mobx-state-tree';
+import { types as t, getEnv, getRoot } from 'mobx-state-tree';
 import createFlow from './helpers/createFlow';
 import { AlertService, NavigationService } from '../services';
 import i18n from '../i18n';
-import processJsonApi, {
-  processJsonApiIncluded,
-} from './utils/processJsonApi';
+import processJsonApi from './utils/processJsonApi';
 import listModel from './utils/listModel';
+import { User } from './UserStore';
+import { normalizedIncluded } from './utils/normalize';
 
 const ProductPublicData = t.model('ProductPublicData', {
   brand: t.maybe(t.string),
@@ -37,20 +37,10 @@ export const Image = t.model('Image', {
   variants: t.maybe(ImageVariants),
 });
 
-const ImageList = listModel('ProductImageList', {
-  of: t.reference(Image),
-  entityName: 'images',
-  identifierName: 'id',
-  responseTransformer: responseTransformerIncluded,
-});
-
-function responseTransformerIncluded(res) {
-  return res.map(processJsonApiIncluded);
-}
-
 const ProductRelationships = t
   .model('ProductRelationships', {
     images: t.maybe(t.array(t.reference(Image))),
+    author: t.maybe(t.reference(User)),
   })
   .views((store) => ({
     get getImages() {
@@ -74,28 +64,28 @@ export const Product = t.model('Product', {
 
 const ProductList = listModel('ProductList', {
   of: t.reference(Product),
-  entityName: 'listings',
+  entityName: 'listing',
   identifierName: 'id',
   responseTransformer,
 });
 
 const SearchProductList = listModel('SearchProductList', {
   of: t.reference(Product),
-  entityName: 'listings',
+  entityName: 'listing',
   identifierName: 'id',
   responseTransformer,
 });
 
 const OwnProductList = listModel('OwnProductList', {
   of: t.reference(Product),
-  entityName: 'listings',
+  entityName: 'listing',
   identifierName: 'id',
   responseTransformer,
 });
 
 const ParticularUserProductList = listModel('OwnProductList', {
   of: t.reference(Product),
-  entityName: 'listings',
+  entityName: 'listing',
   identifierName: 'id',
   responseTransformer,
 });
@@ -104,10 +94,9 @@ function responseTransformer(res) {
   return res.map(processJsonApi);
 }
 
-const ListingsStore = t
+export const ListingsStore = t
   .model('ListingsStore', {
     list: ProductList,
-    imageList: ImageList,
     searchList: SearchProductList,
     ownList: OwnProductList,
     particularUserList: ParticularUserProductList,
@@ -197,14 +186,14 @@ function fetchListings(flow, store) {
         include: ['images', 'author'],
       });
 
-      console.log(res);
+      const normalizedEntities = normalizedIncluded(
+        res.data.included,
+      );
+
+      getRoot(store).entities.merge(normalizedEntities);
 
       store.list.set(res.data.data);
-      // TODO: Set directly in entities store
-      if (res.data.included) {
-        store.imageList.set(res.data.included);
-      }
-      // getRoot(store).entities.merge(res.data.included);
+
       flow.success();
     } catch (err) {
       console.log(err);
