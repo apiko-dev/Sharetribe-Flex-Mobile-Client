@@ -88,6 +88,15 @@
     "listings": "listings",
     "noListings": "You haven't got any listings yet"
   },
+  "profile": {
+    "profile": "Profile",
+    "noListings": "User haven't got any listings yet",
+    "noReviews": "User haven't got any reviews yet",
+    "noBio": "The user doesn't say his bio",
+    "listings": "Listings",
+    "reviews": "Reviews",
+    "testTextBio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, seddo eiusmod tempor incididu..."
+  },
   "alerts": {
     "signInError": {
       "title": "Sign In",
@@ -127,7 +136,9 @@
     "areYouSure": "Are you sure?",
     "joinToUs": "Joint to us",
     "select": "Select",
-    "settings": "Settings"
+    "settings": "Settings",
+    "more": "More",
+    "less": "Less"
   },
   "permissions": {
     "iosRestrictedPermission": "Restricted Permission",

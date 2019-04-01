@@ -31,6 +31,10 @@ export {
   default as RenderProductButton,
 } from './RenderProductButton/RenderProductButton';
 export { default as ScreenLoader } from './ScreenLoader/ScreenLoader';
+export { default as Avatar } from './Avatar/Avatar';
+export {
+  default as DetailsTab,
+} from './DetailsTab/DetailsTabContainer';
 
 /* eslint-disable */
 export { default as Touchable } from './Touchable/Touchable';
