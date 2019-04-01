@@ -8,7 +8,6 @@ import i18n from '../i18n';
 const ViewerStore = types
   .model('ViewerStore', {
     user: types.maybeNull(User),
-    userToReview: types.maybeNull(User),
     getUserById: createFlow(getUserById),
   })
   .views((store) => ({
@@ -32,9 +31,14 @@ function getUserById(flow, store) {
       console.log('user id:', usedId);
 
       const res = yield store.Api.getUserById(usedId);
-      console.log('res: getUserById: ', res);
+      const { displayName } = res.data.data.attributes.profile;
+      console.log('res: getUserById: ', displayName);
 
       flow.success();
+
+      return {
+        displayName,
+      };
     } catch (err) {
       console.log(err);
       flow.failed();

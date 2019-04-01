@@ -91,6 +91,8 @@
   "profile": {
     "profile": "Profile",
     "noListings": "User haven't got any listings yet",
+    "noReviews": "User haven't got any reviews yet",
+    "noBio": "The user doesn't say his bio",
     "listings": "Listings",
     "reviews": "Reviews",
     "testTextBio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, seddo eiusmod tempor incididu..."

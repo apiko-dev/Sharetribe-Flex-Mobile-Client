@@ -103,7 +103,8 @@ class SharetribeSdkService {
     return this.sdk.ownListings.query(query);
   }
 
-  getUserById(id) {
+  getUserById(userId) {
+    const id = new types.UUID(userId);
     return this.sdk.users.show({ id });
   }
 }

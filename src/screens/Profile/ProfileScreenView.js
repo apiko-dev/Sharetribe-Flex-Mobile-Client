@@ -9,27 +9,32 @@ import {
   TabHeader,
   Rating,
   TextTouchable,
+  DrawerButton,
+  HeaderBackButton,
 } from '../../components';
 import i18n from '../../i18n';
-import { ListingsView } from './components';
+import { ListingsView, ReviewsView } from './components';
 import { dimensions } from '../../styles';
 
 const ProfileScreen = ({
-  user,
+  userToReview,
   selectedTabIndex,
   onChangeTabIndex,
   listings,
+  goToProduct,
 }) => (
   <ScrollView style={s.container}>
     <View style={s.top}>
-      <Avatar user={user} large />
+      <Avatar user={userToReview} large />
       <Text xmediumSize style={s.userName}>
-        {`${user.firstName} ${user.lastName}`}
+        {userToReview.displayName}
       </Text>
       <View style={s.rating}>
         <Rating value={4} />
       </View>
-      <Text style={s.bio}>{i18n.t('profile.testTextBio')}</Text>
+      <Text style={s.bio}>
+        {userToReview.bio || i18n.t('profile.noBio')}
+      </Text>
       <TextTouchable style={s.moreButton}>More</TextTouchable>
     </View>
     <View style={s.containerTabView}>
@@ -52,12 +57,13 @@ const ProfileScreen = ({
         layoutWidth={dimensions.width}
       >
         <Tab>
-          <ListingsView listings={listings} />
+          <ListingsView
+            listings={listings}
+            goToProduct={goToProduct}
+          />
         </Tab>
         <Tab>
-          <View>
-            <Text>Reviews</Text>
-          </View>
+          <ReviewsView reviews={[]} />
         </Tab>
       </TabView>
     </View>
@@ -65,14 +71,20 @@ const ProfileScreen = ({
 );
 
 ProfileScreen.navigationOptions = ({ navigation }) => ({
+  headerLeft: navigation.getParam('isDrawerButton') ? (
+    <DrawerButton />
+  ) : (
+    <HeaderBackButton />
+  ),
   title: navigation.getParam('userName', 'User profile'),
 });
 
 ProfileScreen.propTypes = {
-  user: T.object,
+  userToReview: T.object,
   selectedTabIndex: T.number,
   onChangeTabIndex: T.func,
   listings: T.array,
+  goToProduct: T.func,
 };
 
 export default ProfileScreen;

@@ -18,6 +18,7 @@ const TabHeader = ({ onChangeTabIndex, currentTabIndex, tabs }) => {
           onPress={() => onChangeTabIndex(index)}
         >
           <Text
+            key={tab.text}
             xmediumSize
             style={getActiveStyle(index, s.activeText)}
             bold
