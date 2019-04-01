@@ -30,7 +30,7 @@ const placeholderImage = require('../../assets/png/Group.png');
 const ProductScreen = ({
   onChangeIndex,
   currentIndex,
-  product,
+  product, 
   images,
   image,
   labels,
@@ -38,7 +38,7 @@ const ProductScreen = ({
   onChangeTabIndex,
   tabIndex,
 }) => (
-  <ScrollView style={s.container}>
+  <ScrollView style={s.container} bounces={false}>
     <View style={s.carouselContainer}>
       <Carousel
         data={images}
@@ -75,11 +75,11 @@ const ProductScreen = ({
             /{i18n.t('home.day')}
           </Text>
         </View>
-        <View style={s.availabilityContainer}>
+        {/* <View style={s.availabilityContainer}>
           <Text mediumSize red>
             lease
           </Text>
-        </View>
+        </View> */}
       </View>
       <View style={s.titleTextContainer}>
         <Text largeSize black>

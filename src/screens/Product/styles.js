@@ -49,10 +49,10 @@ export default StyleSheet.create({
     marginBottom: 4,
   },
 
-  availabilityContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+  // availabilityContainer: {
+  //   alignItems: 'center',
+  //   justifyContent: 'center',
+  // },
 
   titleTextContainer: {
     marginBottom: dimensions.indent,
