@@ -1,23 +1,41 @@
 import React from 'react';
 import T from 'prop-types';
-import { View, Image } from 'react-native';
+import { View, Image, ImageBackground } from 'react-native';
 import s from './styles';
-import { Touchable, Text, Rating } from '../../../../components';
+import {
+  Touchable,
+  Text,
+  Rating,
+  ShadowContainer,
+} from '../../../../components';
 import i18n from '../../../../i18n';
 
+const placeholderImage = require('../../../../assets/png/icon-app-logo.png');
+
 const Seller = ({ image, name, rating }) => (
-  <View style={s.component}>
-    <View style={s.avatarContainer}>
-      <Image style={s.avatar} source={{ uri: image }} />
-    </View>
-    <View style={s.infoContainer}>
-      <Text>{name}</Text>
-    </View>
-    <Rating value={rating} />
-    <Touchable>
-      <Text>{i18n.t('common.viewProfile')}</Text>
+  <ShadowContainer>
+    <Touchable style={s.container}>
+      <View style={s.mainContainer}>
+        <View style={s.avatarContainer}>
+          <ImageBackground
+            source={placeholderImage}
+            style={s.carouselBackgroundImage}
+          >
+            <Image style={s.avatar} source={{ uri: image }} />
+          </ImageBackground>
+        </View>
+        <View style={s.infoContainer}>
+          <View style={s.name}>
+            <Text>{name}</Text>
+          </View>
+          <Rating value={rating} />
+        </View>
+      </View>
+      <Touchable style={s.button}>
+        <Text orange>{i18n.t('common.viewProfile')}</Text>
+      </Touchable>
     </Touchable>
-  </View>
+  </ShadowContainer>
 );
 
 Seller.propTypes = {};

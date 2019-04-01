@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     paddingVertical: dimensions.indent / 4,
     paddingHorizontal: dimensions.indent / 2,
     marginRight: dimensions.indent / 4,
-    marginTop: dimensions.indent / 4,
+    marginVertical: dimensions.indent / 4,
     justifyContent: 'center',
     alignItems: 'center',
   },

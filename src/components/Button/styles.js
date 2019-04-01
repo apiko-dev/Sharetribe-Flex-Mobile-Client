@@ -9,6 +9,8 @@ export default StyleSheet.create({
   button: {
     borderRadius: 10,
     padding: dimensions.indent * 0.8,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   view: {
     backgroundColor: colors.button.backgroundColor,
@@ -17,6 +19,12 @@ export default StyleSheet.create({
   },
   text: {
     textAlign: 'center',
+    textAlignVertical: 'center',
+  },
+  contentContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   primaryView: {
     backgroundColor: colors.button.backgroundColorPrimary,

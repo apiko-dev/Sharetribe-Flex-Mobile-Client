@@ -20,9 +20,10 @@ import {
   TabHeader,
 } from '../../components';
 import Label from './components/Label/Label';
-import Location from './components/Location/Location';
-import Seller from './components/Seller/Seller';
+import Footer from './components/Footer/Footer';
 import DescriptionTab from './components/DescriptionTab/DescriptionTabContainer';
+
+import { colors } from '../../styles';
 
 const placeholderImage = require('../../assets/png/Group.png');
 
@@ -64,32 +65,32 @@ const ProductScreen = ({
         dotStyle={s.dotStyle}
       />
     </View>
-    <View style={s.headerContainer}>
-      <View style={s.priceContainer}>
-        <Text xlargeSize bold>
-          $ 
-{' '}
+    <View style={s.infoContainer}>
+      <View style={s.headerContainer}>
+        <View style={s.priceContainer}>
+          <Text xbigSize bold>
+            $
 {product.price.amount}
-        </Text>
-        <Text xmediumSize gray>
-          / 
-{' '}
+          </Text>
+          <Text xmediumSize gray style={s.day}>
+            /
 {i18n.t('home.day')}
+          </Text>
+        </View>
+        <View style={s.availabilityContainer}>
+          <Text mediumSize red>
+            lease
+          </Text>
+        </View>
+      </View>
+      <View style={s.titleTextContainer}>
+        <Text largeSize black>
+          {product.title}
         </Text>
       </View>
-      <View style={s.availabilityContainer}>
-        <Text mediumSize red>
-          lease
-        </Text>
+      <View style={s.rating}>
+        <Rating value={4} />
       </View>
-    </View>
-    <View style={s.titleTextContainer}>
-      <Text largeSize bold black>
-        {product.title}
-      </Text>
-    </View>
-    <View style={s.rating}>
-      <Rating value={4} />
     </View>
     <Label.Row style={s.labelContainer}>
       <Label text={product.publicData.brand} title="Brand" />
@@ -126,8 +127,7 @@ const ProductScreen = ({
         </Tab>
       </TabView>
     </View>
-    {/* <Location />
-    <Seller image={image} name="Ben" rating={4} /> */}
+    <Footer />
   </ScrollView>
 );
 
@@ -140,14 +140,16 @@ ProductScreen.navigationOptions = () => ({
   },
   headerRight: (
     <NavigationButton
-      name="outline-edit-24px"
-      color="white"
+      name="edit"
+      tintColor={colors.text.white}
       right
       // onPress={}
       circled
     />
   ),
-  headerLeft: <NavigationButton goBack color="white" circled />,
+  headerLeft: (
+      <NavigationButton goBack tintColor={colors.text.white} circled />
+  ),
 });
 
 ProductScreen.propTypes = {
