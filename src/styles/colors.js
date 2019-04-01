@@ -116,4 +116,11 @@ export default {
   formContainer: {
     backgroundColor: '#FFF',
   },
+  settingsScreen: {
+    backgroundColor: '#F8F8F8',
+    footer: '#FFF',
+  },
+  emailVerifiedMessage: {
+    iconColor: '#EB5757',
+  },
 };

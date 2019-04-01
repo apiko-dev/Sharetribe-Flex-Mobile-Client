@@ -2,29 +2,39 @@ import { StyleSheet } from 'react-native';
 import { colors, dimensions } from '../../styles';
 
 export default StyleSheet.create({
-  container: {
-    flex: 1,
+  formContainer: {
     marginLeft: dimensions.indent,
     marginRight: dimensions.indent,
+    marginBottom: dimensions.indent * 0.5,
     borderRadius: 10,
-    backgroundColor: colors.formContainer.backgroundColor,
+    alignSelf: 'stretch',
   },
   firstShadowContainer: {
-    flex: 1,
     shadowOffset: {
       width: 0,
       height: 3,
     },
-    shadowOpacity: 0.3,
-    shadowRadius: 4.7,
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
   },
   secondShadowContainer: {
-    flex: 1,
     borderRadius: 10,
-    marginLeft: 1,
-    marginBottom: 3,
     shadowColor: colors.authScreen.shadowColor,
     elevation: 3,
     paddingHorizontal: dimensions.indent,
+    paddingTop: dimensions.indent * 1.5,
+    paddingBottom: dimensions.indent * 1.5,
+    backgroundColor: colors.formContainer.backgroundColor,
+  },
+  header: {
+    marginTop: dimensions.indent * 0.7,
+    marginBottom: dimensions.indent * 0.5,
+    marginLeft: dimensions.indent,
+    marginRight: dimensions.indent,
+    alignSelf: 'stretch',
+    textAlign: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
 });

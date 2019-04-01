@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "formik": "^1.5.1",
     "i18n-js": "^3.2.1",
     "install": "^0.12.2",
     "js-cookie": "^2.2.0",

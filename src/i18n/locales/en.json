@@ -88,7 +88,23 @@
     "noListings": "You haven't got any listings yet"
   },
   "settings": {
-    "settings": "Settings"
+    "settings": "Settings",
+    "profileSettings": "Profile settings",
+    "contactDetails": "Contact details",
+    "passwordSettings": "Password settings",
+    "tip": "Tip: Choose an image where your face is recognizable.",
+    "formatSuggestion": "JPG, .GIF or .PNG. Max. 10 MB",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "bio": "Profile bio",
+    "email": "Email",
+    "phoneNumber": "Phone number",
+    "newPassword": "New Password",
+    "retypeNewPassword": "Re-type New Password",
+    "noVerifiedEmail": "You haven't verified your email address yet.",
+    "noVerifiedEmailLink": "Resend verification email",
+    "myProfile": "View my profile",
+    "change": "Change"
   },
   "alerts": {
     "signInError": {
@@ -129,7 +145,8 @@
     "areYouSure": "Are you sure?",
     "joinToUs": "Joint to us",
     "select": "Select",
-    "settings": "Settings"
+    "settings": "Settings",
+    "save": "Save"
   },
   "permissions": {
     "iosRestrictedPermission": "Restricted Permission",
