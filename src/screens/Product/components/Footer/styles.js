@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { dimensions, theme, colors } from '../../../../styles';
+import { theme, colors } from '../../../../styles';
 
 const styles = StyleSheet.create({
   container: {
@@ -9,23 +9,27 @@ const styles = StyleSheet.create({
   contactContainer: {
     flex: 1,
     flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   rentContainer: {
     flex: 1,
+    padding: 5,
   },
 
   containerCall: {
     flexGrow: 4,
+    marginHorizontal: 5,
   },
   buttonContact: {
-    borderWidth: StyleSheet.hairlineWidth * 4,
+    borderWidth: StyleSheet.hairlineWidth * 3,
     borderColor: colors.button.borderColorPrimary,
-    margin: 5,
-    padding: dimensions.indent * 0.5,
+
     height: theme.button.heightMedium,
   },
   containerChat: {
     flexGrow: 6,
+    marginHorizontal: 5,
   },
   textChat: {
     color: colors.button.backgroundColorPrimary,
@@ -37,11 +41,6 @@ const styles = StyleSheet.create({
 
   buttonRent: {
     flex: 1,
-    backgroundColor: colors.button.backgroundColorPrimary,
-    margin: 5,
-    borderWidth: StyleSheet.hairlineWidth * 4,
-    borderColor: colors.button.borderColorPrimary,
-    padding: dimensions.indent * 0.5,
     height: theme.button.heightMedium,
   },
   containerRent: {

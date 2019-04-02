@@ -8,7 +8,7 @@ export default StyleSheet.create({
   },
   button: {
     borderRadius: 10,
-    padding: dimensions.indent * 0.8,
+    padding: dimensions.indent * 0.4,
     justifyContent: 'center',
     alignItems: 'center',
   },

@@ -1,14 +1,13 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, ViewPropTypes } from 'react-native';
 import T from 'prop-types';
 import s from './styles';
-import i18n from '../../../../i18n';
-import { categories } from '../../../../constants';
-import { Text, Touchable } from '../../../../components';
+
+import { Text } from '../../../../components';
 
 function Label({ text, title, onPress }) {
   return (
-    <Touchable onPress={onPress} style={s.container}>
+    <View onPress={onPress} style={s.container}>
       <Text numberOfLines={1}>
         <Text medium gray light style={s.title}>
           {`${title}: `}
@@ -23,7 +22,7 @@ function Label({ text, title, onPress }) {
           {text}
         </Text>
       </Text>
-    </Touchable>
+    </View>
   );
 }
 
@@ -32,5 +31,16 @@ function Row({ children, style }) {
 }
 
 Label.Row = Row;
+
+Label.propTypes = {
+  text: T.string,
+  title: T.string,
+  onPress: T.func,
+};
+
+Row.propTypes = {
+  style: ViewPropTypes.style,
+  children: T.any,
+};
 
 export default Label;
