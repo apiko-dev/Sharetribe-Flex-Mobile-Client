@@ -104,7 +104,10 @@
     "noVerifiedEmail": "You haven't verified your email address yet.",
     "noVerifiedEmailLink": "Resend verification email",
     "myProfile": "View my profile",
-    "change": "Change"
+    "change": "Change",
+    "choosePhotosFromLibraryOrMakeNewPhoto": "Choose photos from library or make new photo?",
+    "choosePhotosFromLibrary": "Choose photos from library",
+    "makeNewPhoto": "Make new photo by camera"
   },
   "alerts": {
     "signInError": {

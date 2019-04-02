@@ -119,6 +119,7 @@ export default {
   settingsScreen: {
     backgroundColor: '#F8F8F8',
     footer: '#FFF',
+    actionSheetTintColor: '#333333',
   },
   emailVerifiedMessage: {
     iconColor: '#EB5757',

@@ -15,8 +15,8 @@ const ChangeAvatarButton = ({ onPress, ...props }) => (
     style={s.container}
   >
     <View style={[s.button, s.view]}>
-      <IconFonts name="edit" size={16} />
-      <Text style={s.text} bold gray>
+      <IconFonts name="edit" size={15} />
+      <Text style={s.text} bold gray xxsmallSize>
         {i18n.t('settings.change')}
       </Text>
     </View>

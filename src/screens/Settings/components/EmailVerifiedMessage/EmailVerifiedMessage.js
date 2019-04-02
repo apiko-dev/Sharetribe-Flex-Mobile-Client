@@ -14,12 +14,12 @@ const EmailVerifiedMessage = ({ resendVerificationEmail }) => (
       tintColor={colors.emailVerifiedMessage.iconColor}
     />
     <View style={s.textContainer}>
-      <Text gray smallSize>
+      <Text gray xsmallSize>
         {i18n.t('settings.noVerifiedEmail')}
       </Text>
       <Text
         style={s.link}
-        smallSize
+        xsmallSize
         onPress={resendVerificationEmail}
       >
         {i18n.t('settings.noVerifiedEmailLink')}
