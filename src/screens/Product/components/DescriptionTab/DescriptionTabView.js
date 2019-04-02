@@ -2,20 +2,19 @@ import React from 'react';
 import { View } from 'react-native';
 import T from 'prop-types';
 import s from './styles';
-import i18n from '../../../../i18n';
-// import { categories } from '../../../../constants';
-// import { Text, Touchable} from '../../../../components';
 import Location from '../Location/Location';
 import Seller from '../Seller/Seller';
 import {
   Touchable,
   Text,
   ShadowContainer,
+  ExpandableText,
 } from '../../../../components';
+import { fontSizes } from '../../../../styles';
 
 const DescriptionTab = ({
   text,
-  setVisible,
+  // setVisible,
   isVisible,
   onPress,
   user,
@@ -23,20 +22,26 @@ const DescriptionTab = ({
   <View style={s.container}>
     <ShadowContainer>
       <View style={s.description}>
-        <View
-          style={[s.textContainer, isVisible ? s.flex : s.maxHeight]}
-        >
-          <Text numberOfLines={!isVisible && 5} style={s.text}>
+        <View style={s.textContainer}>
+          {/* <Text numberOfLines={!isVisible && 5} style={s.text}> */}
+
+          <ExpandableText
+            numberOfLines={5}
+            fontSize={fontSizes.medium}
+            lineHeight={fontSizes.medium}
+            ellipsizeMode="tail"
+          >
             {text}
-          </Text>
+          </ExpandableText>
+          {/* </Text> */}
         </View>
-        <Touchable style={s.buttonContainer} onPress={onPress}>
+        {/* <Touchable style={s.buttonContainer} onPress={onPress}>
           {isVisible ? (
             <Text orange>Less</Text>
           ) : (
             <Text orange>More</Text>
           )}
-        </Touchable>
+        </Touchable> */}
       </View>
     </ShadowContainer>
     <ShadowContainer>
@@ -51,5 +56,13 @@ const DescriptionTab = ({
     </ShadowContainer>
   </View>
 );
+
+DescriptionTab.propTypes = {
+  text: T.string,
+  // setVisible: T.bool,
+  isVisible: T.bool,
+  onPress: T.func,
+  user: T.object,
+};
 
 export default DescriptionTab;

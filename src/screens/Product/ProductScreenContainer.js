@@ -20,9 +20,7 @@ export default hoistStatics(
       images: R.path(['relationships', 'getImages'], product).map(
         R.path(['variants', 'default', 'url']),
       ),
-      image: product.relationships.getImages[0]
-        ? product.relationships.getImages[0].variants.default.url
-        : IconAppLogo,
+
 
       author: R.path(['relationships', 'author'], product),
     })),

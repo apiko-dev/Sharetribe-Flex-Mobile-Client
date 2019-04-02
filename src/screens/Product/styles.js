@@ -10,7 +10,7 @@ export default StyleSheet.create({
   },
   carouselBackgroundImage: {
     height: 325,
-    width: '100%',
+    // width: '100%',
   },
 
   paginationContainerStyle: {
@@ -49,10 +49,7 @@ export default StyleSheet.create({
     marginBottom: 4,
   },
 
-  // availabilityContainer: {
-  //   alignItems: 'center',
-  //   justifyContent: 'center',
-  // },
+
 
   titleTextContainer: {
     marginBottom: dimensions.indent,
@@ -73,15 +70,20 @@ export default StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
   },
-  tab1: {
+  tabDescription: {
     flex: 1,
     justifyContent: 'center',
   },
-  tab2: {
+  tabReviews: {
     flex: 1,
     justifyContent: 'center',
   },
   labelContainer: {
     padding: dimensions.indent,
+  },
+  headerStyle: {
+    elevation: 0,
+    shadowOpacity: 0,
+    borderBottomWidth: 0,
   },
 });

@@ -16,6 +16,7 @@ const TabHeader = ({ onChangeTabIndex, currentTabIndex, tabs }) => {
         <Touchable
           style={[s.button, getActiveStyle(index, s.active)]}
           onPress={() => onChangeTabIndex(index)}
+          key={tab.id}
         >
           <Text
             key={tab.text}

@@ -27,15 +27,23 @@ import { colors } from '../../styles';
 
 const placeholderImage = require('../../assets/png/Group.png');
 
+const tabs = [
+  {
+    id: '1',
+    text: i18n.t('addNewItem.description'),
+  },
+  {
+    id: '2',
+    text: i18n.t('addNewItem.reviews'),
+  },
+];
+
 const ProductScreen = ({
   onChangeIndex,
   currentIndex,
-  product, 
+  product,
   author,
   images,
-  image,
-  labels,
-  user,
   onChangeTabIndex,
   tabIndex,
 }) => (
@@ -43,7 +51,6 @@ const ProductScreen = ({
     <View style={s.carouselContainer}>
       <Carousel
         data={images}
-        layout="default"
         renderItem={({ item }) => (
           <View style={s.slide}>
             <ImageBackground
@@ -58,6 +65,8 @@ const ProductScreen = ({
         sliderHeight={325}
         itemWidth={width}
         onSnapToItem={(index) => onChangeIndex(index)}
+        inactiveSlideOpacity={1}
+        inactiveSlideScale={1}
       />
       <Pagination
         activeDotIndex={currentIndex}
@@ -70,12 +79,10 @@ const ProductScreen = ({
       <View style={s.headerContainer}>
         <View style={s.priceContainer}>
           <Text xbigSize bold>
-            $
-{product.price.amount}
+            {`$${product.price.amount}`}
           </Text>
           <Text xmediumSize gray style={s.day}>
-            /
-{i18n.t('home.day')}
+            {`/${i18n.t('home.day')}`}
           </Text>
         </View>
         {/* <View style={s.availabilityContainer}>
@@ -105,24 +112,20 @@ const ProductScreen = ({
       <TabHeader
         currentTabIndex={tabIndex}
         onChangeTabIndex={onChangeTabIndex}
-        tabs={[
-          {
-            text: i18n.t('addNewItem.description'),
-          },
-          {
-            text: i18n.t('addNewItem.reviews'),
-          },
-        ]}
+        tabs={tabs}
       />
 
       <TabView selectedTabIndex={tabIndex}>
         <Tab>
-          <View style={s.tab1}>
-            <DescriptionTab text={product.description} user={author.profile}/>
+          <View style={s.tabDescription}>
+            <DescriptionTab
+              text={product.description}
+              user={author.profile}
+            />
           </View>
         </Tab>
         <Tab lazy>
-          <View style={s.tab2}>
+          <View style={s.tabReviews}>
             <Text style={s.paragraph}>Second tab</Text>
           </View>
         </Tab>
@@ -132,29 +135,30 @@ const ProductScreen = ({
   </ScrollView>
 );
 
-ProductScreen.navigationOptions = () => ({
+ProductScreen.navigationOptions = ({ navigation }) => ({
   headerTransparent: true,
-  headerStyle: {
-    elevation: 0,
-    shadowOpacity: 0,
-    borderBottomWidth: 0,
-  },
+  headerStyle: s.headerStyle,
   headerRight: (
     <NavigationButton
       name="edit"
       tintColor={colors.text.white}
       right
-      // onPress={}
+      onPress={() => navigation.getParam('editingProduct')}
       circled
     />
   ),
   headerLeft: (
-      <NavigationButton goBack tintColor={colors.text.white} circled />
+    <NavigationButton goBack tintColor={colors.text.white} circled />
   ),
 });
 
 ProductScreen.propTypes = {
   onChangeIndex: T.func,
   currentIndex: T.number,
+  product: T.object,
+  author: T.object,
+  images: T.array,
+  onChangeTabIndex: T.func,
+  tabIndex: T.number,
 };
 export default ProductScreen;

@@ -47,3 +47,6 @@ export { default as MapView } from './MapView/MapView';
 export {
   default as ShadowContainer,
 } from './ShadowContainer/ShadowContainer';
+export {
+  default as ExpandableText,
+} from './ExpandableText/ExpandableText';

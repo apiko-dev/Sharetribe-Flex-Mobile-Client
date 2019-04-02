@@ -13,15 +13,16 @@ export default StyleSheet.create({
   },
   textContainer: {
     margin: 16,
+    marginBottom: 0,
   },
   maxHeight: {
     minHeight: dimensions.indent,
     maxHeight: 100,
   },
 
-  text: {
-    flex: 1,
-  },
+  // text: {
+  //   flex: 1,
+  // },
   flex: {
     flex: 1,
   },

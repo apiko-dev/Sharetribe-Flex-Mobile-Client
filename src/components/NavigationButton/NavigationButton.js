@@ -20,7 +20,8 @@ const NavigationButton = ({
     onPress={() => (goBack ? NavigationService.goBack() : onPress())}
     borderless
   >
-    <View style={[s.containerIcon, circled && s.circled]}>
+    <View style={s.containerIcon}>
+      <View style={circled && s.circled} />
       <IconFonts
         name={goBack ? 'back' : name}
         tintColor={tintColor}

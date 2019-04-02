@@ -1,10 +1,4 @@
-import {
-  compose,
-  withState,
-  withHandlers,
-  withStateHandlers,
-} from 'recompose';
-import { inject } from 'mobx-react';
+import { compose, withHandlers, withStateHandlers } from 'recompose';
 import { LayoutAnimation } from 'react-native';
 import DescriptionTabView from './DescriptionTabView';
 
@@ -21,7 +15,8 @@ export default compose(
   ),
   withHandlers({
     onPress: (props) => () => {
-      LayoutAnimation.easeInEaseOut(), props.setVisible();
+      LayoutAnimation.easeInEaseOut();
+      props.setVisible();
     },
   }),
 )(DescriptionTabView);

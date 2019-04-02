@@ -9,11 +9,19 @@ import { Text, Touchable } from '../../../../components';
 function Label({ text, title, onPress }) {
   return (
     <Touchable onPress={onPress} style={s.container}>
-      <Text medium gray light>
-        {`${title}: `}
-      </Text>
-      <Text medium black light>
-        {text}
+      <Text numberOfLines={1}>
+        <Text medium gray light style={s.title}>
+          {`${title}: `}
+        </Text>
+        <Text
+          medium
+          black
+          light
+          numberOfLines={1}
+          ellipsizeMode="tail"
+        >
+          {text}
+        </Text>
       </Text>
     </Touchable>
   );

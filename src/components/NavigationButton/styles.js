@@ -7,18 +7,24 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
 
-  containerIcon: {
+  circled: {
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  circled: {
+    position: 'absolute',
     width: 40,
     height: 40,
     borderRadius: 20,
     backgroundColor: colors.button.disableColor,
     opacity: 0.4,
+    zIndex: 1,
   },
-  icon: {},
+  containerIcon: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  icon: {
+    zIndex: 200,
+  },
   right: {
     marginRight: dimensions.indent,
   },
