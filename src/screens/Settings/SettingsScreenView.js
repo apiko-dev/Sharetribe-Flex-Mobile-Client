@@ -110,6 +110,7 @@ const SettingsScreen = ({
                   onBlur={() => onChange('activeField', '')}
                   onChangeText={handleChange('bio')}
                   multiline
+                  maxLength={1200}
                 />
               </FormContainer>
 

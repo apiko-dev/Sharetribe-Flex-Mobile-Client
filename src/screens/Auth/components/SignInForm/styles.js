@@ -1,8 +1,9 @@
 import { StyleSheet } from 'react-native';
 import { colors, dimensions } from '../../../../styles';
-import { isSmallDevice } from '../../../../utils';
+import { isSmallDevice, isAndroid } from '../../../../utils';
 
 const smallDevice = isSmallDevice();
+const isAndroidDevice = isAndroid();
 
 export default StyleSheet.create({
   container: {
@@ -12,8 +13,8 @@ export default StyleSheet.create({
     borderRadius: 10,
   },
   heading: {
-    marginTop: dimensions.indent * 0.8,
-    marginBottom: dimensions.indent,
+    marginTop: dimensions.indent * 1.1,
+    marginBottom: dimensions.indent * 1.2,
     textAlign: 'center',
   },
   text: {
@@ -23,17 +24,22 @@ export default StyleSheet.create({
     flexDirection: smallDevice ? 'column' : 'row',
   },
   bottom: {
-    marginTop: dimensions.indent * 0.7,
-    marginBottom: dimensions.indent,
+    marginTop: dimensions.indentModerated * 0.9,
+    marginBottom: dimensions.indentModerated,
   },
   inputContainerEmail: {
-    marginBottom: dimensions.indent * 1.6,
+    marginBottom: dimensions.indent * 1.8,
   },
   inputContainerPassword: {
     marginBottom: dimensions.indent,
   },
   buttonContainer: {
-    marginVertical: dimensions.indent * 1.2,
+    marginTop: isAndroidDevice
+      ? dimensions.indent * 0.7
+      : dimensions.indent * 1.4,
+    marginBottom: isAndroidDevice
+      ? dimensions.indent * 0.7
+      : dimensions.indent * 1.5,
   },
   alignCenter: {
     justifyContent: 'center',

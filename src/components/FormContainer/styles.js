@@ -20,7 +20,7 @@ export default StyleSheet.create({
   secondShadowContainer: {
     borderRadius: 10,
     shadowColor: colors.authScreen.shadowColor,
-    elevation: 3,
+    elevation: 2,
     paddingHorizontal: dimensions.indent,
     paddingTop: dimensions.indent * 1.5,
     paddingBottom: dimensions.indent * 1.5,

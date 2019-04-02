@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, ViewPropTypes } from 'react-native';
 import { Text } from '..';
 import T from 'prop-types';
 import s from './styles';
@@ -9,11 +9,17 @@ const TextTouchable = ({
   alignCenter,
   onPress,
   textStyle,
+  containerStyle,
   ...props
 }) => (
   <TouchableOpacity
     onPress={onPress}
-    style={[s.container, alignCenter && s.alignCenter]}
+    style={[
+      s.container,
+      alignCenter && s.alignCenter,
+      containerStyle,
+    ]}
+    hitSlop={{ top: 15, right: 15, bottom: 15, left: 15 }}
   >
     <Text style={[s.text, textStyle]} orange {...props}>
       {children}
@@ -27,7 +33,8 @@ TextTouchable.propTypes = {
   children: T.any,
   alignCenter: T.bool,
   onPress: T.func,
-  textStyle: T.any,
+  textStyle: ViewPropTypes.style,
+  containerStyle: ViewPropTypes.style,
 };
 
 export default TextTouchable;

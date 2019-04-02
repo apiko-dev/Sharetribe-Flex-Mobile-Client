@@ -27,14 +27,14 @@ const Drawer = ({ isAuthorized, user, items, goToAddNewItem }) => (
         </ImageBackground>
         <View style={s.userProfileContainer}>
           {isAuthorized ? (
-            <React.Fragment>
+            <View>
               <Text bold black>
                 {`${i18n.t('common.hello')}, ${user.firstName}`}
               </Text>
-              <TextTouchable>
+              <TextTouchable containerStyle={s.viewProfileButton}>
                 {i18n.t('common.viewProfile')}
               </TextTouchable>
-            </React.Fragment>
+            </View>
           ) : (
             <Text bold black>
               {`${i18n.t('common.hello')}, ${i18n.t(
