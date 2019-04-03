@@ -29,11 +29,14 @@ const Drawer = ({
           {isAuthorized ? (
             <View>
               <Text bold black>
-                {`${i18n.t('common.hello')}, ${user.firstName}`}
+                {`${i18n.t('common.hello')}, ${
+                  user.profile.firstName
+                }`}
               </Text>
               <TextTouchable
-                onPress={() => goToProfile(user.id)}
-                style={s.viewProfileButton}
+                onPress={() => goToProfile(user)}
+                containerStyle={s.viewProfileButton}
+                textStyle={s.viewProfileButtonText}
               >
                 {i18n.t('common.viewProfile')}
               </TextTouchable>

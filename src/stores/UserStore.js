@@ -1,4 +1,4 @@
-import { types as t, getEnv } from 'mobx-state-tree';
+import { types as t, getRoot } from 'mobx-state-tree';
 
 const PublicData = t.model('PublicData', {
   // age: t.number,
@@ -21,18 +21,25 @@ const Profile = t.model('Profile', {
   privateData: t.optional(PrivateData, {}),
 });
 
-export const User = t.model('User', {
-  id: t.identifier,
-  banned: t.maybe(t.boolean),
-  deleted: t.maybe(t.boolean),
-  createdAt: t.maybe(t.Date),
-  profile: t.maybe(Profile),
-  email: t.maybe(t.string),
-  emailVerified: t.maybe(t.boolean),
-  pendingEmail: t.maybe(t.null),
-  stripePayoutsEnabled: t.maybe(t.boolean),
-  stripeChargesEnabled: t.maybe(t.boolean),
-});
+export const User = t
+  .model('User', {
+    id: t.identifier,
+    banned: t.maybe(t.boolean),
+    deleted: t.maybe(t.boolean),
+    createdAt: t.maybe(t.Date),
+    profile: t.maybe(Profile),
+    email: t.maybe(t.string),
+    emailVerified: t.maybe(t.boolean),
+    pendingEmail: t.maybe(t.null),
+    stripePayoutsEnabled: t.maybe(t.boolean),
+    stripeChargesEnabled: t.maybe(t.boolean),
+  })
+
+  .views((store) => ({
+    get isViewer() {
+      return getRoot(store).viewer.user.id === store.id;
+    },
+  }));
 
 // .views((store) => ({
 //   get Api() {

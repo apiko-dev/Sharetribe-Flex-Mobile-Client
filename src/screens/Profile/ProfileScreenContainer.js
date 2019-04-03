@@ -15,28 +15,15 @@ import { NavigationService } from '../../services';
 
 export default hoistStatics(
   compose(
-    withParamsToProps('userId'),
+    withParamsToProps('user'),
 
-    inject(({ viewer, listings }) => ({
+    inject(({ listings }) => ({
       listings: listings.particularUserList.asArray,
-      getUserById: viewer.getUserById,
-      isLoadingUser: viewer.getUserById.inProgress,
       isLoadingListings:
         listings.fetchParticularUserListings.inProgress,
       fetchParticularUserListings:
         listings.fetchParticularUserListings,
     })),
-
-    withStateHandlers(
-      {
-        userToReview: {},
-      },
-      {
-        onChangeUser: () => (user) => ({
-          userToReview: user,
-        }),
-      },
-    ),
 
     withStateHandlers(
       {
@@ -49,16 +36,13 @@ export default hoistStatics(
       },
     ),
 
-    withPropsOnChange(['userId', 'user'], async (props) => {
+    withPropsOnChange(['user'], async (props) => {
       try {
-        const user = await props.getUserById.run(props.userId);
-        props.onChangeUser(user);
-
         props.navigation.setParams({
-          userName: user.displayName,
+          userName: props.user.profile.displayName,
         });
 
-        props.fetchParticularUserListings.run(props.userId);
+        props.fetchParticularUserListings.run(props.user.id);
       } catch (error) {
         console.log(error);
       }
@@ -70,7 +54,7 @@ export default hoistStatics(
     }),
 
     branch(
-      (props) => props.isLoadingUser || props.isLoadingListings,
+      (props) => props.isLoadingListings,
       renderComponent(ScreenLoader),
     ),
   ),

@@ -21,9 +21,12 @@ export default function normalize(items, key = 'id') {
   );
 }
 
-export function normalizedIncluded(objectArray) {
+export function normalizedIncluded(objectArray = []) {
   return objectArray.reduce((acc, obj) => {
-    const key = obj.type;
+    let key = obj.type;
+    if (key === 'currentUser') {
+      key = 'user';
+    }
     if (!acc[key]) {
       acc[key] = {};
     }

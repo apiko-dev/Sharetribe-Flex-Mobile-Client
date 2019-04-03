@@ -21,7 +21,6 @@ export default hoistStatics(
         R.path(['variants', 'default', 'url']),
       ),
 
-
       author: R.path(['relationships', 'author'], product),
     })),
     withStateHandlers(
