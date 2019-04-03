@@ -2,7 +2,7 @@ import { types, flow, getEnv } from 'mobx-state-tree';
 import AuthStore from './AuthStore';
 import ViewerStore from './ViewerStore';
 import { NavigationService } from '../services';
-import ListingsStore from './ListingsStore';
+import { ListingsStore } from './ListingsStore';
 import EntitiesStore from './EntitiesStore';
 
 const RootStore = types

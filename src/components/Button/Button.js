@@ -15,6 +15,7 @@ const Button = ({
   isLoading,
   title,
   buttonStyle,
+  titleStyle,
   ...props
 }) => (
   <View style={[s.container, containerStyle]}>
@@ -39,15 +40,18 @@ const Button = ({
         ]}
       >
         {!isLoading ? (
-          <Text
-            style={s.text}
-            bold
-            mediumSize
-            white={primary}
-            gray={!primary}
-          >
-            {title}
-          </Text>
+          <View style={s.contentContainer}>
+            <View>{children}</View>
+            <Text
+              bold
+              mediumSize
+              white={primary}
+              gray={!primary}
+              style={[s.text, titleStyle]}
+            >
+              {title}
+            </Text>
+          </View>
         ) : (
           <Loader
             color={
@@ -71,6 +75,7 @@ Button.propTypes = {
   onPress: T.func,
   isLoading: T.bool,
   title: T.string,
+  titleStyle: ViewPropTypes.style,
 };
 
 export default Button;

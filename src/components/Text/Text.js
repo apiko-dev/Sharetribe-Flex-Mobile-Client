@@ -42,13 +42,14 @@ const getFontSize = (
   return { fontSize };
 };
 
-const getFontColor = (black, gray, white, orange) => {
+const getFontColor = (black, gray, white, orange, red) => {
   let color = colors.text.black;
 
   if (black) color = colors.text.black;
   if (gray) color = colors.text.gray;
   if (white) color = colors.text.white;
   if (orange) color = colors.text.orange;
+  if (red) color = colors.text.red;
 
   return { color };
 };
@@ -77,6 +78,7 @@ const enhance = compose(
         props.gray,
         props.white,
         props.orange,
+        props.red,
       ),
       props.style,
     ],
