@@ -16,5 +16,8 @@ export {
   default as MyListingsScreen,
 } from './MyListings/MyListingsScreenContainer';
 export {
+  default as SettingsScreen,
+} from './Settings/SettingsScreenContainer';
+export {  
   default as ProfileScreen,
 } from './Profile/ProfileScreenContainer';

@@ -46,4 +46,7 @@ export default StyleSheet.create({
     resizeMode: 'cover',
     borderRadius: 70 / 2,
   },
+  viewProfileButton: {
+    paddingHorizontal: 0,
+  },
 });

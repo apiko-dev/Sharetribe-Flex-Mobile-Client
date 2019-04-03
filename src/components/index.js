@@ -31,6 +31,9 @@ export {
   default as RenderProductButton,
 } from './RenderProductButton/RenderProductButton';
 export { default as ScreenLoader } from './ScreenLoader/ScreenLoader';
+export {
+  default as FormContainer,
+} from './FormContainer/FormContainer';
 export { default as Avatar } from './Avatar/Avatar';
 export {
   default as DetailsTab,

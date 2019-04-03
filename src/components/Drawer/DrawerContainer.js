@@ -75,7 +75,7 @@ export default compose(
         iconName: 'rentals',
       },
       {
-        screen: screens.Home,
+        screen: screens.Settings,
         title: i18n.t('drawer.settings'),
         iconName: 'settings',
       },

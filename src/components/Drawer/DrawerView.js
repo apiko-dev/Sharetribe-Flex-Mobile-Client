@@ -27,17 +27,17 @@ const Drawer = ({
         <Avatar user={user} />
         <View style={s.userProfileContainer}>
           {isAuthorized ? (
-            <React.Fragment>
+            <View>
               <Text bold black>
                 {`${i18n.t('common.hello')}, ${user.firstName}`}
               </Text>
               <TextTouchable
                 onPress={() => goToProfile(user.id)}
-                style={s.viewProfile}
+                style={s.viewProfileButton}
               >
                 {i18n.t('common.viewProfile')}
               </TextTouchable>
-            </React.Fragment>
+            </View>
           ) : (
             <Text bold black>
               {`${i18n.t('common.hello')}, ${i18n.t(

@@ -6,6 +6,7 @@ import Touchable from '../Touchable/Touchable';
 import s from './styles';
 import i18n from '../../i18n';
 import { colors } from '../../styles';
+import { formatPrice } from '../../utils';
 
 const ProductButton = ({
   onPress,
@@ -37,7 +38,7 @@ const ProductButton = ({
             <Text numberOfLines={1}>{title}</Text>
             <View style={s.price}>
               <Text xmediumSize bold black>
-                {`$ ${price}`}
+                {`$ ${formatPrice(price)}`}
               </Text>
               <Text xxsmallSize gray>
                 {`/${i18n.t('home.day')}`}

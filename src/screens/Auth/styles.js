@@ -1,5 +1,8 @@
 import { StyleSheet } from 'react-native';
 import { colors, dimensions } from '../../styles';
+import { isAndroid } from '../../utils';
+
+const isAndroidDevice = isAndroid();
 
 export default StyleSheet.create({
   container: {
@@ -11,14 +14,14 @@ export default StyleSheet.create({
   },
   heading: {
     textAlign: 'center',
-    marginBottom: dimensions.indent * 2.3,
+    marginBottom: dimensions.indentModerated * 2.3,
   },
   headingSmall: {
-    marginBottom: dimensions.indent * 1.3,
+    marginBottom: dimensions.indentModerated * 1.3,
   },
   headingLarge: {
-    marginTop: dimensions.indent,
-    marginBottom: dimensions.indent * 4,
+    marginTop: dimensions.indentModerated,
+    marginBottom: dimensions.indentModerated * 4,
   },
   tabViewContainer: {
     flex: 1,
@@ -41,9 +44,9 @@ export default StyleSheet.create({
   },
   circle: {
     position: 'absolute',
-    width: 510,
-    height: 510,
-    borderRadius: 510 / 2,
+    width: dimensions.indentModerated * 32,
+    height: dimensions.indentModerated * 32,
+    borderRadius: (dimensions.indentModerated * 32) / 2,
     left: -73,
     top: -110,
     backgroundColor: colors.authScreen.circle,
@@ -51,13 +54,17 @@ export default StyleSheet.create({
   bottom: {
     justifyContent: 'center',
     alignItems: 'center',
-    height: dimensions.indent * 1.9,
+    height: isAndroidDevice
+      ? dimensions.indent * 2.4
+      : dimensions.indent * 2.8,
   },
   bottomButtonAndroid: {
     position: 'absolute',
     justifyContent: 'center',
     alignItems: 'center',
-    height: dimensions.indent * 1.9,
+    height: isAndroidDevice
+      ? dimensions.indent * 2.4
+      : dimensions.indent * 2.8,
     width: dimensions.width,
     bottom: 0,
     left: 0,

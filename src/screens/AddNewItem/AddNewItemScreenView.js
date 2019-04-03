@@ -112,6 +112,7 @@ const AddNewItemScreenView = ({
         onBlur={() => onChange('activeField', '')}
         onChangeText={(text) => onChange('description', text)}
         multiline
+        maxLength={1200}
       />
       <InputForm
         containerStyle={s.inputContainer}

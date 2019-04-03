@@ -19,6 +19,7 @@ const TextPicker = ({
   <TouchableOpacity
     onPress={onPress}
     style={[s.container, alignCenter && s.alignCenter]}
+    hitSlop={{ top: 20, right: 5, bottom: 20, left: 5 }}
   >
     {iconNameLeft && (
       <IconFonts

@@ -119,6 +119,17 @@ export default {
   myListingsScreen: {
     backgroundColor: '#F8F8F8',
   },
+  formContainer: {
+    backgroundColor: '#FFF',
+  },
+  settingsScreen: {
+    backgroundColor: '#F8F8F8',
+    footer: '#FFF',
+    actionSheetTintColor: '#333333',
+  },
+  emailVerifiedMessage: {
+    iconColor: '#EB5757',
+  },
   label: {
     border: '#E9E9E9',
   },
