@@ -5,26 +5,16 @@ import s from './styles';
 import Location from '../Location/Location';
 import Seller from '../Seller/Seller';
 import {
-  Touchable,
-  Text,
   ShadowContainer,
   ExpandableText,
 } from '../../../../components';
 import { fontSizes } from '../../../../styles';
 
-const DescriptionTab = ({
-  text,
-  // setVisible,
-  isVisible,
-  onPress,
-  user,
-}) => (
+const DescriptionTab = ({ text, user }) => (
   <View style={s.container}>
     <ShadowContainer>
       <View style={s.description}>
         <View style={s.textContainer}>
-          {/* <Text numberOfLines={!isVisible && 5} style={s.text}> */}
-
           <ExpandableText
             numberOfLines={5}
             fontSize={fontSizes.medium}
@@ -33,15 +23,7 @@ const DescriptionTab = ({
           >
             {text}
           </ExpandableText>
-          {/* </Text> */}
         </View>
-        {/* <Touchable style={s.buttonContainer} onPress={onPress}>
-          {isVisible ? (
-            <Text orange>Less</Text>
-          ) : (
-            <Text orange>More</Text>
-          )}
-        </Touchable> */}
       </View>
     </ShadowContainer>
     <ShadowContainer>
@@ -59,9 +41,6 @@ const DescriptionTab = ({
 
 DescriptionTab.propTypes = {
   text: T.string,
-  // setVisible: T.bool,
-  isVisible: T.bool,
-  onPress: T.func,
   user: T.object,
 };
 

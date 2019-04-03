@@ -1,5 +1,5 @@
 import { StyleSheet, StatusBar } from 'react-native';
-import { colors, fontSizes, dimensions, theme } from '../../styles';
+import { colors, dimensions } from '../../styles';
 
 export default StyleSheet.create({
   container: {
@@ -10,7 +10,6 @@ export default StyleSheet.create({
   },
   carouselBackgroundImage: {
     height: 325,
-    // width: '100%',
   },
 
   paginationContainerStyle: {
@@ -49,13 +48,9 @@ export default StyleSheet.create({
     marginBottom: 4,
   },
 
-
-
   titleTextContainer: {
     marginBottom: dimensions.indent,
   },
-
-  rating: {},
 
   containerTabView: {
     marginTop: StatusBar.currentHeight,

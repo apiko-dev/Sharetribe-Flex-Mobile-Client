@@ -24,7 +24,6 @@ const styles = StyleSheet.create({
   buttonContact: {
     borderWidth: StyleSheet.hairlineWidth * 3,
     borderColor: colors.button.borderColorPrimary,
-
     height: theme.button.heightMedium,
   },
   containerChat: {

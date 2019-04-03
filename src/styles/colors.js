@@ -137,4 +137,8 @@ export default {
   seller: {
     background: '#FFF',
   },
+
+  location: {
+    background: '#FFF',
+  },
 };

@@ -38,6 +38,10 @@ const Seller = ({ image, name, rating }) => (
   </ShadowContainer>
 );
 
-Seller.propTypes = {};
+Seller.propTypes = {
+  image: T.string,
+  name: T.string,
+  rating: T.number,
+};
 
 export default Seller;
