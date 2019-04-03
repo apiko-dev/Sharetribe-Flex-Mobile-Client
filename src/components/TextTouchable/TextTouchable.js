@@ -19,7 +19,7 @@ const TextTouchable = ({
       alignCenter && s.alignCenter,
       containerStyle,
     ]}
-    hitSlop={{ top: 15, right: 15, bottom: 15, left: 15 }}
+    hitSlop={{ top: 20, right: 20, bottom: 20, left: 20 }}
   >
     <Text style={[s.text, textStyle]} orange {...props}>
       {children}

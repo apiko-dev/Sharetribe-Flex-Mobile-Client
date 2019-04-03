@@ -8,13 +8,12 @@ import SettingsNavigator from './SettingsNavigator';
 
 export default createDrawerNavigator(
   {
-    // [screens.Main]: AppNavigator,
     [screens.Home]: HomeNavigator,
     [screens.MyListings]: MyListingsNavigator,
     [screens.Settings]: SettingsNavigator,
   },
   {
-    initialRouteName: screens.Settings,
+    initialRouteName: screens.HomeNavigator,
     contentComponent: Drawer,
     drawerWidth: 300,
   },

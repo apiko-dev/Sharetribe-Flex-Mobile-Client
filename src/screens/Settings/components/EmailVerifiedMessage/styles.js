@@ -8,6 +8,7 @@ export default StyleSheet.create({
   },
   textContainer: {
     marginLeft: dimensions.indent * 0.3,
+    marginRight: dimensions.indent,
   },
   link: {
     textDecorationLine: 'underline',

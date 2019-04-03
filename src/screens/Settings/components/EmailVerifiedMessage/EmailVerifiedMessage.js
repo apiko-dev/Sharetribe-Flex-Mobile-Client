@@ -15,14 +15,14 @@ const EmailVerifiedMessage = ({ resendVerificationEmail }) => (
     />
     <View style={s.textContainer}>
       <Text gray xsmallSize>
-        {i18n.t('settings.noVerifiedEmail')}
-      </Text>
-      <Text
-        style={s.link}
-        xsmallSize
-        onPress={resendVerificationEmail}
-      >
-        {i18n.t('settings.noVerifiedEmailLink')}
+        {`${i18n.t('settings.noVerifiedEmail')} `}
+        <Text
+          style={s.link}
+          xsmallSize
+          onPress={resendVerificationEmail}
+        >
+          {i18n.t('settings.noVerifiedEmailLink')}
+        </Text>
       </Text>
     </View>
   </View>

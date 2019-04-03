@@ -7,7 +7,7 @@ import {
   defaultProps,
   withPropsOnChange,
 } from 'recompose';
-import { InteractionManager } from 'react-native';
+// import { InteractionManager } from 'react-native';
 import { inject } from 'mobx-react';
 import HomeScreenComponent from './HomeScreenView';
 import { NavigationService } from '../../services';
@@ -97,11 +97,11 @@ export default hoistStatics(
 
     lifecycle({
       componentDidMount() {
-        InteractionManager.runAfterInteractions(() => {
+        /* InteractionManager.runAfterInteractions(() => {
           this.props.listings.fetchListings.run({
             categories: this.props.category || categories,
           });
-        });
+        }); */
 
         this.props.navigation.setParams({
           onChangeSearch: this.props.onChangeSearch,

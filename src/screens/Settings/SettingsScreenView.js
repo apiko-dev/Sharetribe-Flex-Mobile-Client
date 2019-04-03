@@ -1,3 +1,4 @@
+/* eslint-disable react/no-this-in-sfc */
 import React from 'react';
 import { View, ImageBackground } from 'react-native';
 import { SafeAreaView } from 'react-navigation';
@@ -60,7 +61,7 @@ const SettingsScreen = ({
                     >
                       <ChangeAvatarButton
                         onPress={() => {
-                          this.actionSheetRef.show(); // eslint-disable-line
+                          this.actionSheetRefAvatar.show();
                         }}
                       />
                     </ImageBackground>
@@ -199,7 +200,7 @@ const SettingsScreen = ({
     </KeyboardAwareScrollView>
     <ActionSheet
       ref={(ref) => {
-        this.actionSheetRef = ref; // eslint-disable-line
+        this.actionSheetRefAvatar = ref;
       }}
       title={i18n.t('common.select')}
       message={i18n.t(

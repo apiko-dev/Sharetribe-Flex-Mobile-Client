@@ -27,7 +27,7 @@ const FontIcon = ({
     style={[s.icon, size && { fontSize: size }, style]}
     color={isDisabled ? disabledColor : tintColor}
     suppressHighlighting={false}
-    hitSlop={{ top: 15, right: 15, bottom: 15, left: 15 }}
+    hitSlop={{ top: 20, right: 20, bottom: 20, left: 20 }}
   />
 );
 

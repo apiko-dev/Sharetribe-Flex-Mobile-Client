@@ -24,7 +24,9 @@ export default StyleSheet.create({
     flexDirection: smallDevice ? 'column' : 'row',
   },
   bottom: {
-    marginTop: dimensions.indentModerated * 0.9,
+    marginTop: isSmallDevice
+      ? dimensions.indentModerated * 0.7
+      : dimensions.indentModerated * 0.9,
     marginBottom: dimensions.indentModerated,
   },
   inputContainerEmail: {

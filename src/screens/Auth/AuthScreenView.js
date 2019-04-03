@@ -69,7 +69,7 @@ const AuthScreen = ({
         behavior="position"
         style={s.keyboardAvoidingView}
         contentContainerStyle={s.keyboardAvoidingViewContentContainer}
-        keyboardVerticalOffset={isAndroidDevice ? -30 : 0}
+        keyboardVerticalOffset={isAndroidDevice ? -30 : -50}
       >
         <TabView
           selectedTabIndex={selectedTabIndex}

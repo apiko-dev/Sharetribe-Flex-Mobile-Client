@@ -1,9 +1,8 @@
 import { StyleSheet } from 'react-native';
 import { colors, dimensions } from '../../styles';
-import { isAndroid, isLargeDevice } from '../../utils';
+import { isAndroid } from '../../utils';
 
 const isAndroidDevice = isAndroid();
-const isLarge = isLargeDevice();
 
 export default StyleSheet.create({
   container: {

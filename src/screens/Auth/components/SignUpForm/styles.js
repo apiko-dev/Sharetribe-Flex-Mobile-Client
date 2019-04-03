@@ -15,10 +15,10 @@ export default StyleSheet.create({
   heading: {
     marginTop: smallDevice
       ? dimensions.indent * 0.9
-      : dimensions.indent * 1.1,
+      : dimensions.indentModerated * 1.1,
     marginBottom: smallDevice
       ? dimensions.indent
-      : dimensions.indent * 1.2,
+      : dimensions.indentModerated * 1.2,
     textAlign: 'center',
   },
   text: {
@@ -29,7 +29,7 @@ export default StyleSheet.create({
   },
   bottom: {
     marginTop: dimensions.indent * 0.5,
-    marginBottom: dimensions.indent,
+    marginBottom: dimensions.indentModerated,
   },
   inputContainerEmail: {
     marginBottom: smallDevice
@@ -46,7 +46,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     marginBottom: smallDevice
       ? dimensions.indent * 0.9
-      : dimensions.indent * 1.1,
+      : dimensions.indent,
   },
   inputContainer: {
     flex: 1,
@@ -57,8 +57,8 @@ export default StyleSheet.create({
   buttonContainer: {
     marginVertical:
       smallDevice || isAndroidDevice
-        ? dimensions.indentModerated * 0.6
-        : dimensions.indent * 1,
+        ? dimensions.indent * 0.6
+        : dimensions.indent * 0.8,
   },
   alignCenter: {
     justifyContent: 'center',
