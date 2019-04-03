@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { theme, colors } from '../../../../styles';
+import { theme, colors, dimensions } from '../../../../styles';
 
 const styles = StyleSheet.create({
   container: {
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
   },
 
   iconChat: {
-    marginRight: 5,
+    marginRight: dimensions.indent / 2,
   },
 
   buttonRent: {

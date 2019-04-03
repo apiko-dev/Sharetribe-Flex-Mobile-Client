@@ -11,12 +11,8 @@ export default StyleSheet.create({
     borderBottomWidth: 2 * StyleSheet.hairlineWidth,
   },
   textContainer: {
-    margin: 16,
+    margin: dimensions.indent,
     marginBottom: 0,
-  },
-  maxHeight: {
-    minHeight: dimensions.indent,
-    maxHeight: 100,
   },
 
   flex: {
