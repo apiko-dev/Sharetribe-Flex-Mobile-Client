@@ -25,8 +25,8 @@ export default compose(
   }),
 
   withHandlers({
-    goToProduct: () => (productId) =>
-      NavigationService.navigateToProduct({ productId }),
+    goToProduct: () => (product) =>
+      NavigationService.navigateToProduct({ product }),
   }),
 
   branch(

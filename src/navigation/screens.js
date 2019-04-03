@@ -20,4 +20,11 @@ export default {
   Category: 'Category',
   MyListings: 'MyListings',
   Settings: 'Settings',
+  Profile: 'Profile',
+
+  // Stacks
+  HomeStack: 'HomeStack',
+  MyListingsStack: 'MyListingsStack',
+  ProfileStack: 'ProfileStack',
+  SettingsStack: 'SettingsStack',
 };

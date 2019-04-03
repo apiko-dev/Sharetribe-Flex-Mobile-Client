@@ -1,4 +1,5 @@
 export default {
+  background: '#F8F8F8',
   signInSignUpForm: {
     backgroundColor: '#FFF',
     heading: '#333333',
@@ -19,6 +20,7 @@ export default {
     backgroundColorPrimary: '#FF9900',
     backgroundColor: '#FFFFFF',
     borderColor: '#E9E9E9',
+    borderColorPrimary: '#FF9900',
     textColor: '#8F8F8F',
     textColorPrimary: '#FFFFFF',
     shadowColor: '#FF9900',
@@ -40,6 +42,7 @@ export default {
     gray: '#8F8F8F',
     white: '#FFF',
     orange: '#FF9900',
+    red: '#ff0000',
   },
   loader: {
     primary: '#FFF',
@@ -110,6 +113,9 @@ export default {
     placeholder: '#F8F8F8',
     backgroundColor: '#FFF',
   },
+  primaryColors: {
+    orange: '#FF9900',
+  },
   myListingsScreen: {
     backgroundColor: '#F8F8F8',
   },
@@ -123,5 +129,23 @@ export default {
   },
   emailVerifiedMessage: {
     iconColor: '#EB5757',
+  },
+  label: {
+    border: '#E9E9E9',
+  },
+  tabViewHeader: {
+    backgroundColor: '#FFF',
+    activeText: '#FF9900',
+    text: '#8F8F8F',
+  },
+  productScreen: {
+    white: '#FFF',
+  },
+  profileScreen: {
+    backgroundColorTop: '#FFF',
+    backgroundColor: '#F8F8F8',
+  },
+  seller: {
+    background: '#FFF',
   },
 };

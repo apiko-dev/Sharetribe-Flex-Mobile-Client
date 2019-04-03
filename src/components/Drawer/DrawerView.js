@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ImageBackground, Image } from 'react-native';
+import { View } from 'react-native';
 import { SafeAreaView } from 'react-navigation';
 import T from 'prop-types';
 import Logo from '../Logo/Logo';
@@ -9,29 +9,32 @@ import Text from '../Text/Text';
 import TextTouchable from '../TextTouchable/TextTouchable';
 import s from './styles';
 import i18n from '../../i18n';
-import IconAppLogo from '../../assets/png/icon-app-logo.png';
+import Avatar from '../Avatar/Avatar';
 
-const Drawer = ({ isAuthorized, user, items, goToAddNewItem }) => (
+const Drawer = ({
+  isAuthorized,
+  user,
+  items,
+  goToAddNewItem,
+  goToProfile,
+}) => (
   <SafeAreaView style={s.container} forceInset={{ bottom: 'never' }}>
     <View style={s.drawerContainer}>
       <View style={s.header}>
         <Logo size="small" style={s.logoHeader} />
       </View>
       <View style={s.userContainer}>
-        <ImageBackground
-          source={IconAppLogo}
-          style={s.logoImageBackground}
-          imageStyle={s.logoBackground}
-        >
-          {user && user.image && <Image source={user.image} />}
-        </ImageBackground>
+        <Avatar user={user} />
         <View style={s.userProfileContainer}>
           {isAuthorized ? (
             <View>
               <Text bold black>
                 {`${i18n.t('common.hello')}, ${user.firstName}`}
               </Text>
-              <TextTouchable containerStyle={s.viewProfileButton}>
+              <TextTouchable
+                onPress={() => goToProfile(user.id)}
+                style={s.viewProfileButton}
+              >
                 {i18n.t('common.viewProfile')}
               </TextTouchable>
             </View>
@@ -73,6 +76,7 @@ Drawer.propTypes = {
   user: T.any,
   items: T.array,
   goToAddNewItem: T.func,
+  goToProfile: T.func,
 };
 
 export default Drawer;

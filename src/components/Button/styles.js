@@ -18,6 +18,12 @@ export default StyleSheet.create({
   },
   text: {
     textAlign: 'center',
+    textAlignVertical: 'center',
+  },
+  contentContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   primaryView: {
     backgroundColor: colors.button.backgroundColorPrimary,

@@ -71,7 +71,8 @@
     "level": "Level",
     "choosePhotosFromLibraryOrMakeNewPhoto": "Choose photos from library or make new photo?",
     "choosePhotosFromLibrary": "Choose photos from library",
-    "makeNewPhoto": "Make new photo by camera"
+    "makeNewPhoto": "Make new photo by camera",
+    "reviews": "Reviews"
   },
   "category": {
     "category": "Category",
@@ -108,6 +109,15 @@
     "choosePhotosFromLibraryOrMakeNewPhoto": "Choose photos from library or make new photo?",
     "choosePhotosFromLibrary": "Choose photos from library",
     "makeNewPhoto": "Make new photo by camera"
+  },
+  "profile": {
+    "profile": "Profile",
+    "noListings": "User haven't got any listings yet",
+    "noReviews": "User haven't got any reviews yet",
+    "noBio": "The user doesn't say his bio",
+    "listings": "Listings",
+    "reviews": "Reviews",
+    "testTextBio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, seddo eiusmod tempor incididu..."
   },
   "alerts": {
     "signInError": {
@@ -149,7 +159,9 @@
     "joinToUs": "Join to us",
     "select": "Select",
     "settings": "Settings",
-    "save": "Save"
+    "save": "Save",
+    "more": "More",
+    "less": "Less"
   },
   "permissions": {
     "iosRestrictedPermission": "Restricted Permission",

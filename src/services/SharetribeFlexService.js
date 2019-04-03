@@ -80,7 +80,7 @@ class SharetribeSdkService {
       },
       {
         expand: true,
-        include: ['images'],
+        include: ['marketplace', 'images', 'author'],
       },
     );
   }
@@ -101,6 +101,11 @@ class SharetribeSdkService {
 
   fetchOwnListings(query) {
     return this.sdk.ownListings.query(query);
+  }
+
+  getUserById(userId) {
+    const id = new types.UUID(userId);
+    return this.sdk.users.show({ id });
   }
 }
 

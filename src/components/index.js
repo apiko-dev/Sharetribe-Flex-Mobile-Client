@@ -34,6 +34,22 @@ export { default as ScreenLoader } from './ScreenLoader/ScreenLoader';
 export {
   default as FormContainer,
 } from './FormContainer/FormContainer';
+export { default as Avatar } from './Avatar/Avatar';
+export {
+  default as DetailsTab,
+} from './DetailsTab/DetailsTabContainer';
 
 /* eslint-disable */
 export { default as Touchable } from './Touchable/Touchable';
+export {
+  default as NavigationButton,
+} from './NavigationButton/NavigationButton';
+export { default as Rating } from './Rating/Rating';
+export { default as TabHeader } from './TabHeader/TabHeader';
+export { default as MapView } from './MapView/MapView';
+export {
+  default as ShadowContainer,
+} from './ShadowContainer/ShadowContainer';
+export {
+  default as ExpandableText,
+} from './ExpandableText/ExpandableText';

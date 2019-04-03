@@ -64,6 +64,10 @@ class NavigationService {
     this.navigate(screens.Product, props);
   }
 
+  navigateToProfile(props) {
+    this.navigate(screens.Profile, props);
+  }
+
   initDeepLinking() {
     if (isAndroid()) {
       Linking.getInitialURL().then((url) => {

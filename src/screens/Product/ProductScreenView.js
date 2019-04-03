@@ -1,21 +1,164 @@
 import React from 'react';
-import { View } from 'react-native';
+import {
+  View,
+  Image,
+  ImageBackground,
+  ScrollView,
+} from 'react-native';
 import T from 'prop-types';
-import s from './styles';
-import { Text } from '../../components';
+import Carousel, { Pagination } from 'react-native-snap-carousel';
+import { Tab, TabView } from 'react-native-easy-tabs';
 
-const ProductScreen = ({ id }) => (
-  <View style={s.container}>
-    <Text>{id}</Text>
-  </View>
+import s from './styles';
+import i18n from '../../i18n';
+import { width, height } from '../../styles/dimensions';
+import {
+  NavigationButton,
+  Rating,
+  Text,
+  Touchable,
+  TabHeader,
+} from '../../components';
+import Label from './components/Label/Label';
+import Footer from './components/Footer/Footer';
+import DescriptionTab from './components/DescriptionTab/DescriptionTabContainer';
+
+import { colors } from '../../styles';
+
+const placeholderImage = require('../../assets/png/Group.png');
+
+const tabs = [
+  {
+    id: '1',
+    text: i18n.t('addNewItem.description'),
+  },
+  {
+    id: '2',
+    text: i18n.t('addNewItem.reviews'),
+  },
+];
+
+const ProductScreen = ({
+  onChangeIndex,
+  currentIndex,
+  product,
+  author,
+  images,
+  onChangeTabIndex,
+  tabIndex,
+}) => (
+  <ScrollView style={s.container} bounces={false}>
+    <View style={s.carouselContainer}>
+      <Carousel
+        data={images}
+        renderItem={({ item }) => (
+          <View style={s.slide}>
+            <ImageBackground
+              source={placeholderImage}
+              style={s.carouselBackgroundImage}
+            >
+              <Image source={{ uri: item }} style={s.image} />
+            </ImageBackground>
+          </View>
+        )}
+        sliderWidth={width}
+        sliderHeight={325}
+        itemWidth={width}
+        onSnapToItem={(index) => onChangeIndex(index)}
+        inactiveSlideOpacity={1}
+        inactiveSlideScale={1}
+      />
+      <Pagination
+        activeDotIndex={currentIndex}
+        dotsLength={images.length}
+        containerStyle={s.paginationContainerStyle}
+        dotStyle={s.dotStyle}
+      />
+    </View>
+    <View style={s.infoContainer}>
+      <View style={s.headerContainer}>
+        <View style={s.priceContainer}>
+          <Text xbigSize bold>
+            {`$${product.price.amount}`}
+          </Text>
+          <Text xmediumSize gray style={s.day}>
+            {`/${i18n.t('home.day')}`}
+          </Text>
+        </View>
+        {/* <View style={s.availabilityContainer}>
+          <Text mediumSize red>
+            lease
+          </Text>
+        </View> */}
+      </View>
+      <View style={s.titleTextContainer}>
+        <Text largeSize black>
+          {product.title}
+        </Text>
+      </View>
+      <View style={s.rating}>
+        <Rating value={4} />
+      </View>
+    </View>
+    <Label.Row style={s.labelContainer}>
+      <Label text={product.publicData.brand} title="Brand" />
+      <Label
+        text={product.publicData.subCategory}
+        title="Subcategory"
+      />
+      <Label text={product.publicData.category} title="Category" />
+    </Label.Row>
+    <View style={s.containerTabView}>
+      <TabHeader
+        currentTabIndex={tabIndex}
+        onChangeTabIndex={onChangeTabIndex}
+        tabs={tabs}
+      />
+
+      <TabView selectedTabIndex={tabIndex}>
+        <Tab>
+          <View style={s.tabDescription}>
+            <DescriptionTab
+              text={product.description}
+              user={author.profile}
+            />
+          </View>
+        </Tab>
+        <Tab lazy>
+          <View style={s.tabReviews}>
+            <Text style={s.paragraph}>Second tab</Text>
+          </View>
+        </Tab>
+      </TabView>
+    </View>
+    <Footer />
+  </ScrollView>
 );
 
-ProductScreen.navigationOptions = () => ({
-  title: 'Product name',
+ProductScreen.navigationOptions = ({ navigation }) => ({
+  headerTransparent: true,
+  headerStyle: s.headerStyle,
+  headerRight: (
+    <NavigationButton
+      name="edit"
+      tintColor={colors.text.white}
+      right
+      onPress={() => navigation.getParam('editingProduct')}
+      circled
+    />
+  ),
+  headerLeft: (
+    <NavigationButton goBack tintColor={colors.text.white} circled />
+  ),
 });
 
 ProductScreen.propTypes = {
-  id: T.string,
+  onChangeIndex: T.func,
+  currentIndex: T.number,
+  product: T.object,
+  author: T.object,
+  images: T.array,
+  onChangeTabIndex: T.func,
+  tabIndex: T.number,
 };
-
 export default ProductScreen;
