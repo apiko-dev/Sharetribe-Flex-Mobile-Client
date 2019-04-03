@@ -72,7 +72,9 @@
     "choosePhotosFromLibraryOrMakeNewPhoto": "Choose photos from library or make new photo?",
     "choosePhotosFromLibrary": "Choose photos from library",
     "makeNewPhoto": "Make new photo by camera",
-    "reviews": "Reviews"
+    "reviews": "Reviews",
+    "cancel": "Cancel",
+    "save": "Save"
   },
   "category": {
     "category": "Category",

@@ -145,7 +145,7 @@ ProductScreen.navigationOptions = ({ navigation }) => ({
       name="edit"
       tintColor={colors.text.white}
       right
-      onPress={() => navigation.getParam('editingProduct')}
+      onPress={navigation.getParam('navigateToProductEdit')}
       circled
     />
   ),

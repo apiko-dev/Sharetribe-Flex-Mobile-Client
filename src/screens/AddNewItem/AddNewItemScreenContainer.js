@@ -5,34 +5,55 @@ import {
   withHandlers,
   withPropsOnChange,
 } from 'recompose';
+import R from 'ramda';
 import ImagePicker from 'react-native-image-crop-picker';
 import { inject } from 'mobx-react';
 import AddNewItemScreen from './AddNewItemScreenView';
 import { NavigationService, PermissionService } from '../../services';
 import GoogleApi from '../../libs/google-autocomplete/GoogleAutocompleteApi';
-import { withDebounce } from '../../utils/enhancers';
+import {
+  withDebounce,
+  withParamsToProps,
+} from '../../utils/enhancers';
+
+const getPublicData = (props) => (name) =>
+  R.pathOr('', ['product', 'publicData', name], props);
 
 export default hoistStatics(
   compose(
+    withParamsToProps('product', 'isEditing'),
     inject((stores) => ({
       listings: stores.listings,
       isCreatingListing: stores.listings.createListing.inProgress,
     })),
 
+    // withState('isEditing')
     withStateHandlers(
-      {
-        photos: [],
-        title: '',
-        category: '',
-        subCategory: '',
-        brand: '',
-        level: '',
-        description: '',
-        price: '',
-        location: '',
-        locationList: [],
-        activeField: '',
-        isValidFields: false,
+      (props) => {
+        const getPublic = getPublicData(props);
+
+        return {
+          photos: R.pathOr(
+            [],
+            ['product', 'relationships', 'images'],
+            props,
+          ),
+          title: R.pathOr('', ['product', 'title'], props),
+          category: getPublic('category'),
+          subCategory: getPublic('subCategory'),
+          brand: getPublic('subCategory'),
+          level: getPublic('subCategory'),
+          description: R.pathOr(
+            '',
+            ['product', 'description'],
+            props,
+          ),
+          price: R.pathOr('', ['product', 'title'], props),
+          location: getPublic('location'),
+          locationList: [],
+          activeField: '',
+          isValidFields: false,
+        };
       },
       {
         onChange: () => (field, value) => ({
