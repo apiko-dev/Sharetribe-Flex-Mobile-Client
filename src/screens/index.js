@@ -21,3 +21,6 @@ export {
 export {  
   default as ProfileScreen,
 } from './Profile/ProfileScreenContainer';
+export {
+  default as GalleryScreen,
+} from './Gallery/GalleryScreenContainer';
