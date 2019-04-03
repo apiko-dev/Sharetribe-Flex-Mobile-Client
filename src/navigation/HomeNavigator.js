@@ -6,6 +6,7 @@ import {
   AddNewItemScreen,
   CategoryScreen,
   ProductScreen,
+  GalleryScreen,
 } from '../screens';
 import { defaultNavigationOptions } from './NavigationOptions';
 
@@ -16,6 +17,7 @@ export default createStackNavigator(
     [screens.AddNewItem]: AddNewItemScreen,
     [screens.Category]: CategoryScreen,
     [screens.Product]: ProductScreen,
+    [screens.Gallery]: GalleryScreen,
   },
   {
     initialRouteKey: screens.Home,

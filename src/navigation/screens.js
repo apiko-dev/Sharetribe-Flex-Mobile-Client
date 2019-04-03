@@ -20,6 +20,7 @@ export default {
   Category: 'Category',
   MyListings: 'MyListings',
   Profile: 'Profile',
+  Gallery: 'Gallery',
 
   // Stacks
   HomeStack: 'HomeStack',
