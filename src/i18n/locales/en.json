@@ -146,13 +146,13 @@
       "title": "Create Listing",
       "message": "Sorry, we couldn't create listing, try again"
     },
-    "updateListingSuccess": {
-      "title": "Update Listing",
-      "message": "Listing updated"
+    "updateProductSuccess": {
+      "title": "Update Product",
+      "message": "Product updated"
     },
-    "updateListingError": {
-      "title": "Update Listing",
-      "message": "Sorry, we couldn't update listing, try again"
+    "updateProductError": {
+      "title": "Update Product",
+      "message": "Sorry, we couldn't update product, try again"
     },
     "somethingWentWrong": {
       "title": "Error",

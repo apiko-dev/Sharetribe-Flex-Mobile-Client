@@ -9,9 +9,14 @@ import R from 'ramda';
 import ImagePicker from 'react-native-image-crop-picker';
 import { inject } from 'mobx-react';
 import uuid from 'uuid/v4';
+import i18n from '../../i18n';
 
 import AddNewItemScreen from './AddNewItemScreenView';
-import { NavigationService, PermissionService } from '../../services';
+import {
+  NavigationService,
+  PermissionService,
+  AlertService,
+} from '../../services';
 import GoogleApi from '../../libs/google-autocomplete/GoogleAutocompleteApi';
 import {
   withDebounce,
@@ -147,19 +152,41 @@ export default hoistStatics(
         });
       },
 
-      updateListing: (props) => () => {
-        props.listings.createListing.run({
-          id: props.id,
-          images: props.photos,
-          title: props.title,
-          category: props.category,
-          subCategory: props.subCategory,
-          brand: props.brand,
-          level: props.level,
-          description: props.description,
-          price: props.price,
-          location: props.location,
-        });
+      updateProduct: (props) => async () => {
+        try {
+          await props.product.update.run({
+            id: props.id,
+            images: props.photos,
+            title: props.title,
+            category: props.category,
+            subCategory: props.subCategory,
+            brand: props.brand,
+            level: props.level,
+            description: props.description,
+            price: props.price,
+            location: props.location,
+          });
+          AlertService.showAlert(
+            i18n.t('alerts.updateProductSuccess.title'),
+            i18n.t('alerts.updateProductSuccess.message'),
+            [
+              {
+                text: i18n.t('common.ok'),
+                onPress: () => NavigationService.navigateToHome(),
+              },
+              {
+                text: i18n.t('common.cancel'),
+                style: 'cancel',
+              },
+            ],
+          );
+        } catch (err) {
+          console.log(err)
+          AlertService.showAlert(
+            i18n.t('alerts.updateProductError.title'),
+            i18n.t('alerts.updateProductError.message'),
+          );
+        }
       },
 
       getPredictions: (props) => async () => {

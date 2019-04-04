@@ -1,8 +1,15 @@
 /* eslint-disable no-shadow */
-import { types, flow, getParent } from 'mobx-state-tree';
+import {
+  types,
+  flow,
+  getParent,
+  getRoot,
+  getEnv,
+} from 'mobx-state-tree';
 
 // TODO: Change ErrorModel
-const ErrorModel = types.model({ // eslint-disable-line
+const ErrorModel = types.model({
+  // eslint-disable-line
   message: '',
   status: types.maybeNull(types.number),
   reason: types.maybeNull(types.string),
@@ -28,6 +35,10 @@ function createFlow(flowDefinition) {
       get isError() {
         return Boolean(store.error);
       },
+
+      get Api() {
+        return getEnv(getRoot(store)).Api;
+      },
     }))
     .actions((store) => ({
       start() {
@@ -44,7 +55,8 @@ function createFlow(flowDefinition) {
         store.error = err;
       }, */
 
-      failed(err, throwError) { // eslint-disable-line
+      failed(err, throwError) {
+        // eslint-disable-line
         store.inProgress = false;
         store.error = true;
 

@@ -46,6 +46,10 @@ const ProductRelationships = t
     get getImages() {
       return store.images.slice();
     },
+
+    get imageIds() {
+      return store.images.slice().map((i) => i.id);
+    },
   }));
 
 export const Product = t
@@ -61,6 +65,8 @@ export const Product = t
     price: t.optional(t.maybeNull(Price), null),
     metadata: t.model('metadata', {}),
     relationships: t.maybe(ProductRelationships),
+
+    update: createFlow(updateProduct),
   })
 
   .views((store) => ({
@@ -71,6 +77,33 @@ export const Product = t
       );
     },
   }));
+
+function updateProduct(flow, store) {
+  return function* updateProduct({ images, ...params }) {
+    try {
+      flow.start();
+
+      const imagesToUpload = images.filter((i) => !!i.type);
+      const uploadedImagesIds = yield Promise.all(
+        imagesToUpload.map((image) => flow.Api.imagesUpload(image)),
+      );
+
+      const imagesId = uploadedImagesIds.map(
+        (item) => item.data.data.id.uuid,
+      );
+
+      const res = yield flow.Api.updateOwnListings({
+        ...params,
+        id: store.id,
+        images: store.relationships.imageIds.concat(imagesId),
+      });
+
+      flow.success();
+    } catch (err) {
+      flow.failed(err, true);
+    }
+  };
+}
 
 const ProductList = listModel('ProductList', {
   of: t.reference(Product),
@@ -117,76 +150,13 @@ export const ListingsStore = t
     fetchParticularUserListings: createFlow(
       fetchParticularUserListings,
     ),
-    updateListing: createFlow(updateListing),
+    // updateListing: createFlow(updateListing),
   })
   .views((store) => ({
     get Api() {
       return getEnv(store).Api;
     },
   }));
-
-function updateListing(flow, store) {
-  return function* updateListing({
-    id,
-    images,
-    title,
-    category,
-    subCategory,
-    brand,
-    level,
-    description,
-    price,
-    location,
-  }) {
-    try {
-      flow.start();
-      const rez = yield Prom.all(
-        images.map((image) => store.Api.imagesUpload(image)),
-      );
-
-      const imagesId = res.map((item) => item.data.data.id.uuid);
-
-      yield store.Api.createListing({
-        id,
-        title,
-        category,
-        subCategory,
-        brand,
-        level,
-        description,
-        price,
-        location,
-        images: imagesId,
-      });
-
-      flow.success();
-
-      // TODO: move this alert into screen container
-      AlertService.showAlert(
-        i18n.t('alerts.updateListingSuccess.title'),
-        i18n.t('alerts.updateListingSuccess.message'),
-        [
-          {
-            text: i18n.t('common.ok'),
-            onPress: () => NavigationService.navigateToHome(),
-          },
-          {
-            text: i18n.t('common.cancel'),
-            style: 'cancel',
-          },
-        ],
-      );
-    } catch (err) {
-      flow.failed(err);
-
-      // TODO: move this alert into screen container
-      AlertService.showAlert(
-        i18n.t('alerts.updateListingError.title'),
-        i18n.t('alerts.updateListingError.message'),
-      );
-    }
-  };
-}
 
 function createListing(flow, store) {
   return function* createListing({
