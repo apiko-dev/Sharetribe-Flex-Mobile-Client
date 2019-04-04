@@ -1,6 +1,6 @@
 /* eslint-disable react/no-this-in-sfc */
 import React from 'react';
-import { View, ImageBackground } from 'react-native';
+import { View } from 'react-native';
 import { SafeAreaView } from 'react-navigation';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { ActionSheetCustom as ActionSheet } from 'react-native-actionsheet';
@@ -13,24 +13,24 @@ import {
   FormContainer,
   InputForm,
   Button,
+  Avatar,
 } from '../../components';
-import {
-  EmailVerifiedMessage,
-  ChangeAvatarButton,
-} from './components';
+import { EmailVerifiedMessage } from './components';
 import i18n from '../../i18n';
-import IconAppLogo from '../../assets/png/icon-app-logo.png';
 import { colors } from '../../styles';
 
 const SettingsScreen = ({
   goToMyProfile,
   resendVerificationEmail,
-  emailVerified = false,
   profileValidationSchema,
   onSave,
   addPhoto,
   onChange,
   activeField,
+  user,
+  isUpdatingProfile,
+  isChangingEmail,
+  isChangingPassword,
 }) => (
   <SafeAreaView>
     <KeyboardAwareScrollView
@@ -39,10 +39,19 @@ const SettingsScreen = ({
     >
       <View style={s.container}>
         <Formik
+          initialValues={{
+            firstName: user.profile.firstName,
+            lastName: user.profile.lastName,
+            bio: user.profile.bio,
+            email: user.email,
+            phone:
+              user.profile.protectedData &&
+              user.profile.protectedData.phoneNumber,
+          }}
           validationSchema={profileValidationSchema}
           onSubmit={onSave}
         >
-          {({ values, handleChange, handleSubmit, isValid }) => (
+          {({ values, handleChange, handleSubmit }) => (
             <React.Fragment>
               <FormContainer
                 headerTitle={i18n.t('settings.profileSettings')}
@@ -52,19 +61,15 @@ const SettingsScreen = ({
                 headerOnPressTextTouchable={goToMyProfile}
               >
                 <View style={s.avatarContainer}>
-                  {/* TODO: Use avatar component */}
                   <View style={s.avatar}>
-                    <ImageBackground
-                      source={IconAppLogo}
-                      style={s.logoImageBackground}
-                      imageStyle={s.logoBackground}
-                    >
-                      <ChangeAvatarButton
-                        onPress={() => {
-                          this.actionSheetRefAvatar.show();
-                        }}
-                      />
-                    </ImageBackground>
+                    <Avatar
+                      user={user}
+                      large
+                      canChange
+                      onPressChange={() => {
+                        this.actionSheetRefAvatar.show();
+                      }}
+                    />
                   </View>
                   <View style={s.tipContainer}>
                     <Text style={s.tip} gray xxsmallSize>
@@ -118,6 +123,21 @@ const SettingsScreen = ({
               <FormContainer
                 headerTitle={i18n.t('settings.contactDetails')}
               >
+                <InputForm
+                  placeholder={i18n.t('settings.currentPassword')}
+                  containerStyle={s.inputContainer}
+                  value={values.currentPasswordForEmail || ''}
+                  onFocus={() =>
+                    onChange('activeField', 'currentPasswordForEmail')
+                  }
+                  onBlur={() => onChange('activeField', '')}
+                  onChangeText={handleChange(
+                    'currentPasswordForEmail',
+                  )}
+                  active={activeField === 'currentPasswordForEmail'}
+                  secureTextEntry
+                  autoCapitalize="none"
+                />
                 <View style={s.inputContainer}>
                   <InputForm
                     placeholder={i18n.t('settings.email')}
@@ -129,7 +149,7 @@ const SettingsScreen = ({
                     autoCapitalize="none"
                     keyboardType="email-address"
                   />
-                  {!emailVerified && (
+                  {!user.emailVerified && (
                     <EmailVerifiedMessage
                       resendVerificationEmail={
                         resendVerificationEmail
@@ -153,6 +173,19 @@ const SettingsScreen = ({
               <FormContainer
                 headerTitle={i18n.t('settings.passwordSettings')}
               >
+                <InputForm
+                  placeholder={i18n.t('settings.currentPassword')}
+                  containerStyle={s.inputContainer}
+                  value={values.currentPassword || ''}
+                  onFocus={() =>
+                    onChange('activeField', 'currentPassword')
+                  }
+                  onBlur={() => onChange('activeField', '')}
+                  onChangeText={handleChange('currentPassword')}
+                  active={activeField === 'currentPassword'}
+                  secureTextEntry
+                  autoCapitalize="none"
+                />
                 <InputForm
                   placeholder={i18n.t('settings.newPassword')}
                   containerStyle={s.inputContainer}
@@ -190,7 +223,16 @@ const SettingsScreen = ({
                   title={i18n.t('common.save')}
                   primary
                   onPress={handleSubmit}
-                  disabled={!isValid}
+                  isLoading={
+                    isUpdatingProfile ||
+                    isChangingEmail ||
+                    isChangingPassword
+                  }
+                  disabled={
+                    isUpdatingProfile ||
+                    isChangingEmail ||
+                    isChangingPassword
+                  }
                 />
               </View>
             </React.Fragment>
@@ -228,12 +270,15 @@ SettingsScreen.navigationOptions = () => ({
 SettingsScreen.propTypes = {
   goToMyProfile: T.func,
   resendVerificationEmail: T.func,
-  emailVerified: T.bool,
   profileValidationSchema: T.any,
   onSave: T.func,
   addPhoto: T.func,
   onChange: T.func,
   activeField: T.string,
+  user: T.object,
+  isUpdatingProfile: T.bool,
+  isChangingEmail: T.bool,
+  isChangingPassword: T.bool,
 };
 
 export default SettingsScreen;

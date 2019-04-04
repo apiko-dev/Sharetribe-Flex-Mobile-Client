@@ -1,10 +1,15 @@
 import { types as t, getRoot } from 'mobx-state-tree';
+import { Image } from './ImageStore';
+
+const UserRelationships = t.model('ProductRelationships', {
+  profileImage: t.maybe(t.reference(t.late(() => Image))),
+});
 
 const PublicData = t.model('PublicData', {
   // age: t.number,
 });
 const ProtectedData = t.model('ProtectedData', {
-  // phoneNumber: t.string,
+  phoneNumber: t.maybe(t.string),
 });
 const PrivateData = t.model('PrivateData', {
   // discoveredServiceVia: t.string,
@@ -33,6 +38,7 @@ export const User = t
     pendingEmail: t.maybe(t.null),
     stripePayoutsEnabled: t.maybe(t.boolean),
     stripeChargesEnabled: t.maybe(t.boolean),
+    relationships: t.maybe(UserRelationships),
   })
 
   .views((store) => ({

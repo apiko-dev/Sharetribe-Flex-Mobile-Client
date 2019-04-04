@@ -102,6 +102,7 @@
     "phoneNumber": "Phone number",
     "newPassword": "New Password",
     "retypeNewPassword": "Re-type New Password",
+    "currentPassword": "Current Password",
     "noVerifiedEmail": "You haven't verified your email address yet.",
     "noVerifiedEmailLink": "Resend verification email",
     "myProfile": "View my profile",

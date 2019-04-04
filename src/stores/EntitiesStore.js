@@ -1,6 +1,7 @@
 import { createEntitiesStore } from './utils/createEntitiesStore';
-import { Product, Image } from './ListingsStore';
+import { Product } from './ListingsStore';
 import { User } from './UserStore';
+import { Image } from './ImageStore';
 
 const EntitiesStore = createEntitiesStore({
   listing: Product,

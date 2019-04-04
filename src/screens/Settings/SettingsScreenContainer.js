@@ -7,15 +7,32 @@ import {
 } from 'recompose';
 import * as Yup from 'yup';
 import ImagePicker from 'react-native-image-crop-picker';
-import { PermissionService } from '../../services';
+import { inject } from 'mobx-react';
+import {
+  PermissionService,
+  NavigationService,
+  AlertService,
+} from '../../services';
 import SettingsScreenView from './SettingsScreenView';
 import { regExp } from '../../utils';
 
 export default hoistStatics(
   compose(
+    inject(({ viewer }) => ({
+      user: viewer.user,
+      changeAvatar: viewer.changeAvatar,
+      updateProfile: viewer.updateProfile,
+      changeEmail: viewer.changeEmail,
+      changePassword: viewer.changePassword,
+      verifyEmail: viewer.verifyEmail,
+      isUpdatingProfile: viewer.updateProfile.inProgress,
+      isChangingEmail: viewer.changeEmail.inProgress,
+      isChangingPassword: viewer.changePassword.inProgress,
+    })),
+
     defaultProps({
       profileValidationSchema: Yup.object().shape({
-        firstName: Yup.string()
+        /* firstName: Yup.string()
           .trim()
           .min(1),
         lastName: Yup.string()
@@ -36,7 +53,7 @@ export default hoistStatics(
         replyPassword: Yup.string()
           .trim()
           .min(0)
-          .oneOf([Yup.ref('newPassword'), null]),
+          .oneOf([Yup.ref('newPassword'), null]), */
       }),
     }),
 
@@ -62,14 +79,62 @@ export default hoistStatics(
     ),
 
     withHandlers({
-      goToMyProfile: () => () => {
-        // Navigate to my profile screen
+      goToMyProfile: ({ user }) => () =>
+        NavigationService.navigateToProfile({
+          user,
+        }),
+
+      resendVerificationEmail: ({ verifyEmail }) => () => {
+        verifyEmail.run();
       },
-      resendVerificationEmail: () => () => {
-        // Resend verification email
-      },
-      onSave: () => (data) => {
+
+      onSave: ({
+        user,
+        updateProfile,
+        changeEmail,
+        changePassword,
+      }) => async (data) => {
         console.log(data);
+        if (
+          data.firstName !== user.profile.firstName ||
+          data.lastName !== user.profile.lastName ||
+          data.bio !== user.profile.bio ||
+          data.phone !== user.profile.protectedData.phoneNumber
+        ) {
+          try {
+            await updateProfile.run({ ...data });
+          } catch (error) {
+            AlertService.showSomethingWentWrong();
+          }
+        }
+
+        if (
+          data.email !== user.email &&
+          data.currentPasswordForEmail
+        ) {
+          try {
+            await changeEmail.run({ ...data });
+          } catch (error) {
+            AlertService.showSomethingWentWrong();
+          }
+        }
+
+        if (
+          data.currentPassword &&
+          data.newPassword &&
+          data.replyPassword &&
+          data.newPassword === data.replyPassword
+        ) {
+          try {
+            await changePassword.run({ ...data });
+          } catch (error) {
+            AlertService.showSomethingWentWrong();
+          }
+        }
+      },
+
+      changeAvatar: (props) => () => {
+        props.changeAvatar.run(props.photo);
       },
 
       addPhotoByCamera: (props) => async () => {
@@ -80,6 +145,8 @@ export default hoistStatics(
             });
 
             props.addPhoto(image);
+            console.log('photo: ', props.photo);
+            props.changeAvatar.run(props.photo);
           }
         } catch (error) {
           if (error.code === 'E_PICKER_CANCELLED') {
@@ -96,6 +163,14 @@ export default hoistStatics(
             });
 
             props.addPhoto(image);
+            console.log('photo: ', props.photo);
+
+            props.changeAvatar.run({
+              id: Math.random(),
+              uri: image.path,
+              name: `image_${Math.floor(Math.random() * 100)}.jpg`,
+              type: image.mime,
+            });
           }
         } catch (error) {
           if (error.code === 'E_PICKER_CANCELLED') {

@@ -14,7 +14,7 @@ export default createDrawerNavigator(
     [screens.SettingsStack]: SettingsNavigator,
   },
   {
-    initialRouteName: screens.HomeStack,
+    initialRouteName: screens.SettingsStack,
     contentComponent: Drawer,
     drawerWidth: 300,
   },
