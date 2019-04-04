@@ -35,6 +35,7 @@ const AddNewItemScreenView = ({
   onChangeLocation,
   locationList,
   isEditing,
+  updateListing,
 }) => (
   <KeyboardAwareScrollView
     keyboardShouldPersistTaps="handled"
@@ -177,6 +178,7 @@ const AddNewItemScreenView = ({
             primary
             title={i18n.t('addNewItem.save')}
             containerStyle={s.marginButton}
+            onPress={updateListing}
           />
         </View>
       ) : (
@@ -236,6 +238,7 @@ AddNewItemScreenView.propTypes = {
   removePhoto: T.func,
   isValidFields: T.bool,
   createListing: T.func,
+  updateListing: T.func,
   isCreatingListing: T.bool,
   onChangeLocation: T.func,
   locationList: T.array,

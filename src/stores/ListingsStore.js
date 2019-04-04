@@ -117,12 +117,76 @@ export const ListingsStore = t
     fetchParticularUserListings: createFlow(
       fetchParticularUserListings,
     ),
+    updateListing: createFlow(updateListing),
   })
   .views((store) => ({
     get Api() {
       return getEnv(store).Api;
     },
   }));
+
+function updateListing(flow, store) {
+  return function* updateListing({
+    id,
+    images,
+    title,
+    category,
+    subCategory,
+    brand,
+    level,
+    description,
+    price,
+    location,
+  }) {
+    try {
+      flow.start();
+      const rez = yield Prom.all(
+        images.map((image) => store.Api.imagesUpload(image)),
+      );
+
+      const imagesId = res.map((item) => item.data.data.id.uuid);
+
+      yield store.Api.createListing({
+        id,
+        title,
+        category,
+        subCategory,
+        brand,
+        level,
+        description,
+        price,
+        location,
+        images: imagesId,
+      });
+
+      flow.success();
+
+      // TODO: move this alert into screen container
+      AlertService.showAlert(
+        i18n.t('alerts.updateListingSuccess.title'),
+        i18n.t('alerts.updateListingSuccess.message'),
+        [
+          {
+            text: i18n.t('common.ok'),
+            onPress: () => NavigationService.navigateToHome(),
+          },
+          {
+            text: i18n.t('common.cancel'),
+            style: 'cancel',
+          },
+        ],
+      );
+    } catch (err) {
+      flow.failed(err);
+
+      // TODO: move this alert into screen container
+      AlertService.showAlert(
+        i18n.t('alerts.updateListingError.title'),
+        i18n.t('alerts.updateListingError.message'),
+      );
+    }
+  };
+}
 
 function createListing(flow, store) {
   return function* createListing({

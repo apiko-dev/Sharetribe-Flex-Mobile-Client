@@ -107,6 +107,43 @@ class SharetribeSdkService {
     const id = new types.UUID(userId);
     return this.sdk.users.show({ id });
   }
+
+  updateOwnListings({
+    id,
+    title,
+    description,
+    price,
+    category,
+    subCategory,
+    brand,
+    level,
+    images,
+    location,
+  }) {
+    return this.sdk.ownListings.update(
+      {
+        id,
+        title,
+        description,
+        price: new types.Money(Number(price), 'USD'),
+        publicData: {
+          category,
+          subCategory,
+          brand,
+          level,
+          location,
+          title,
+          description,
+          price: Number(price),
+        },
+        images,
+      },
+      {
+        expand: true,
+        include: ['marketplace', 'images', 'author'],
+      },
+    );
+  }
 }
 
 export default new SharetribeSdkService();

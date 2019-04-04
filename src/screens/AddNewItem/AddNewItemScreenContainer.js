@@ -44,6 +44,7 @@ export default hoistStatics(
         });
         const arrImage = urlArr.map((item) => body(item));
         return {
+          id: getPublic('id'),
           photos: arrImage,
           title: R.pathOr('', ['product', 'title'], props),
           category: getPublic('category'),
@@ -134,6 +135,21 @@ export default hoistStatics(
 
       createListing: (props) => () => {
         props.listings.createListing.run({
+          images: props.photos,
+          title: props.title,
+          category: props.category,
+          subCategory: props.subCategory,
+          brand: props.brand,
+          level: props.level,
+          description: props.description,
+          price: props.price,
+          location: props.location,
+        });
+      },
+
+      updateListing: (props) => () => {
+        props.listings.createListing.run({
+          id: props.id,
           images: props.photos,
           title: props.title,
           category: props.category,
