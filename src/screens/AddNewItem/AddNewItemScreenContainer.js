@@ -8,6 +8,8 @@ import {
 import R from 'ramda';
 import ImagePicker from 'react-native-image-crop-picker';
 import { inject } from 'mobx-react';
+import uuid from 'uuid/v4';
+
 import AddNewItemScreen from './AddNewItemScreenView';
 import { NavigationService, PermissionService } from '../../services';
 import GoogleApi from '../../libs/google-autocomplete/GoogleAutocompleteApi';
@@ -27,17 +29,22 @@ export default hoistStatics(
       isCreatingListing: stores.listings.createListing.inProgress,
     })),
 
-    // withState('isEditing')
     withStateHandlers(
       (props) => {
         const getPublic = getPublicData(props);
 
+        const urlArr = R.pathOr(
+          [],
+          ['relationships', 'getImages'],
+          props.product,
+        ).map(R.path(['variants', 'default', 'url']));
+        const body = (path) => ({
+          id: uuid(),
+          uri: path,
+        });
+        const arrImage = urlArr.map((item) => body(item));
         return {
-          photos: R.pathOr(
-            [],
-            ['product', 'relationships', 'images'],
-            props,
-          ),
+          photos: arrImage,
           title: R.pathOr('', ['product', 'title'], props),
           category: getPublic('category'),
           subCategory: getPublic('subCategory'),
@@ -48,7 +55,11 @@ export default hoistStatics(
             ['product', 'description'],
             props,
           ),
-          price: R.pathOr('', ['product', 'title'], props),
+          price: R.pathOr(
+            '',
+            ['product', 'price', 'amount'],
+            props,
+          ).toString(),
           location: getPublic('location'),
           locationList: [],
           activeField: '',
@@ -195,7 +206,7 @@ export default hoistStatics(
             props.brand.trim().length > 0 &&
             props.level.trim().length > 0 &&
             props.description.trim().length > 0 &&
-            props.price.trim().length > 0 &&
+            props.price.toString().trim().length > 0 &&
             props.location.trim().length > 0,
         );
       },

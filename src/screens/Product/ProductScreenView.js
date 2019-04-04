@@ -140,7 +140,7 @@ const ProductScreen = ({
 ProductScreen.navigationOptions = ({ navigation }) => ({
   headerTransparent: true,
   headerStyle: s.headerStyle,
-  headerRight: (
+  headerRight: navigation.getParam('navigateToProductEdit') ? (
     <NavigationButton
       name="edit"
       tintColor={colors.text.white}
@@ -148,7 +148,7 @@ ProductScreen.navigationOptions = ({ navigation }) => ({
       onPress={navigation.getParam('navigateToProductEdit')}
       circled
     />
-  ),
+  ) : null,
   headerLeft: (
     <NavigationButton goBack tintColor={colors.text.white} circled />
   ),

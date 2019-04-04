@@ -48,19 +48,29 @@ const ProductRelationships = t
     },
   }));
 
-export const Product = t.model('Product', {
-  id: t.identifier,
-  description: t.string,
-  deleted: t.boolean,
-  geolocation: t.null,
-  createdAt: t.maybe(t.Date),
-  state: t.string,
-  title: t.string,
-  publicData: t.optional(t.maybeNull(ProductPublicData), null),
-  price: t.optional(t.maybeNull(Price), null),
-  metadata: t.model('metadata', {}),
-  relationships: t.maybe(ProductRelationships),
-});
+export const Product = t
+  .model('Product', {
+    id: t.identifier,
+    description: t.string,
+    deleted: t.boolean,
+    geolocation: t.null,
+    createdAt: t.maybe(t.Date),
+    state: t.string,
+    title: t.string,
+    publicData: t.optional(t.maybeNull(ProductPublicData), null),
+    price: t.optional(t.maybeNull(Price), null),
+    metadata: t.model('metadata', {}),
+    relationships: t.maybe(ProductRelationships),
+  })
+
+  .views((store) => ({
+    get canEdit() {
+      return (
+        store.relationships.author.id ===
+        getRoot(store).viewer.user.id
+      );
+    },
+  }));
 
 const ProductList = listModel('ProductList', {
   of: t.reference(Product),

@@ -55,10 +55,12 @@ export default hoistStatics(
     }),
     lifecycle({
       componentDidMount() {
-        this.props.navigation.setParams({
-          navigateToProductEdit: () =>
-            this.props.navigationToEditProduct(),
-        });
+        if (this.props.product.canEdit) {
+          this.props.navigation.setParams({
+            navigateToProductEdit: () =>
+              this.props.navigationToEditProduct(),
+          });
+        }
       },
     }),
   ),
