@@ -17,7 +17,7 @@ import { ListingsView, ReviewsView } from './components';
 import { dimensions } from '../../styles';
 
 const ProfileScreen = ({
-  userToReview,
+  user,
   selectedTabIndex,
   onChangeTabIndex,
   listings,
@@ -25,16 +25,16 @@ const ProfileScreen = ({
 }) => (
   <ScrollView style={s.container}>
     <View style={s.top}>
-      <Avatar user={userToReview} large />
+      <Avatar user={user} large />
       <Text xmediumSize style={s.userName}>
-        {userToReview.displayName}
+        {user.profile.displayName}
       </Text>
       <View style={s.rating}>
         <Rating value={4} />
       </View>
       <DetailsTab
         style={s.bio}
-        text={userToReview.bio || i18n.t('profile.noBio')}
+        text={user.profile.bio || i18n.t('profile.noBio')}
       />
     </View>
     <View style={s.containerTabView}>
@@ -80,7 +80,7 @@ ProfileScreen.navigationOptions = ({ navigation }) => ({
 });
 
 ProfileScreen.propTypes = {
-  userToReview: T.object,
+  user: T.object,
   selectedTabIndex: T.number,
   onChangeTabIndex: T.func,
   listings: T.array,

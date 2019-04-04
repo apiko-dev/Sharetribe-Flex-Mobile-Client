@@ -16,14 +16,12 @@ export default StyleSheet.create({
     marginLeft: dimensions.indent * 0.5,
   },
   buttonContainer: {
-    width: '100%',
-    alignSelf: 'stretch',
+    width: dimensions.width,
+    alignItems: 'center',
     marginTop: dimensions.indent * 1.3,
     marginBottom: isLarge
       ? dimensions.indent * 1.4
       : dimensions.indent,
-    marginLeft: dimensions.indent * 6,
-    marginRight: dimensions.indent * 6,
   },
   button: {
     width: dimensions.indent * 10.5,

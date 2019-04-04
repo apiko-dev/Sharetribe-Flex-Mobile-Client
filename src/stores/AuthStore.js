@@ -4,6 +4,7 @@ import R from 'ramda';
 import { NavigationService, AlertService } from '../services';
 import i18n from '../i18n';
 import createFlow from './helpers/createFlow';
+import { processJsonApiIncluded } from './utils/processJsonApi';
 
 function loginUser(flow, store) {
   return function* loginUser({ email, password }) {
@@ -12,20 +13,13 @@ function loginUser(flow, store) {
 
       yield store.Api.login({ email, password });
 
-      const {
-        data: {
-          data: { id, attributes },
-        },
-      } = yield store.Api.getUser();
+      const res = yield store.Api.getUser();
 
       const rootStore = getRoot(store);
 
-      rootStore.viewer.setUser({
-        id: id.uuid,
-        email: attributes.email,
-        firstName: attributes.profile.firstName,
-        lastName: attributes.profile.lastName,
-      });
+      const user = processJsonApiIncluded(res.data.data);
+
+      rootStore.viewer.setUser(user);
 
       flow.success();
 

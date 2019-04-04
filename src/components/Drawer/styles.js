@@ -46,4 +46,12 @@ export default StyleSheet.create({
     resizeMode: 'cover',
     borderRadius: 70 / 2,
   },
+  viewProfileButton: {
+    paddingHorizontal: 0,
+    alignSelf: 'flex-start',
+    alignItems: 'flex-start',
+  },
+  viewProfileButtonText: {
+    alignSelf: 'flex-start',
+  },
 });

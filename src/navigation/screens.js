@@ -19,6 +19,7 @@ export default {
   AddNewItem: 'AddNewItem',
   Category: 'Category',
   MyListings: 'MyListings',
+  Settings: 'Settings',
   Profile: 'Profile',
   Gallery: 'Gallery',
 
@@ -26,4 +27,5 @@ export default {
   HomeStack: 'HomeStack',
   MyListingsStack: 'MyListingsStack',
   ProfileStack: 'ProfileStack',
+  SettingsStack: 'SettingsStack',
 };

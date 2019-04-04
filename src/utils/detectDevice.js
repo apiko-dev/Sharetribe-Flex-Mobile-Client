@@ -8,4 +8,4 @@ export const isSmallDevice = () =>
 
 export const isLargeDevice = () =>
   Dimensions.get('window').width >= 325 &&
-  Dimensions.get('window').height >= 750;
+  Dimensions.get('window').height >= 700;

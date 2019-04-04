@@ -1,8 +1,9 @@
 import { StyleSheet } from 'react-native';
 import { colors, dimensions } from '../../../../styles';
-import { isSmallDevice } from '../../../../utils';
+import { isSmallDevice, isAndroid } from '../../../../utils';
 
 const smallDevice = isSmallDevice();
+const isAndroidDevice = isAndroid();
 
 export default StyleSheet.create({
   container: {
@@ -12,8 +13,12 @@ export default StyleSheet.create({
     borderRadius: 10,
   },
   heading: {
-    marginTop: dimensions.indent * 0.8,
-    marginBottom: dimensions.indent,
+    marginTop: smallDevice
+      ? dimensions.indent * 0.9
+      : dimensions.indentModerated * 1.1,
+    marginBottom: smallDevice
+      ? dimensions.indent
+      : dimensions.indentModerated * 1.2,
     textAlign: 'center',
   },
   text: {
@@ -24,18 +29,24 @@ export default StyleSheet.create({
   },
   bottom: {
     marginTop: dimensions.indent * 0.5,
-    marginBottom: dimensions.indent,
+    marginBottom: dimensions.indentModerated,
   },
   inputContainerEmail: {
-    marginBottom: dimensions.indent * 0.9,
+    marginBottom: smallDevice
+      ? dimensions.indent * 0.9
+      : dimensions.indent * 1.1,
   },
   inputContainerPassword: {
-    marginBottom: dimensions.indent * 0.5,
+    marginBottom: smallDevice
+      ? dimensions.indent * 0.6
+      : dimensions.indent * 0.8,
   },
   inputContainerFirstAndLastNames: {
     alignItems: 'center',
     flexDirection: 'row',
-    marginBottom: dimensions.indent * 0.9,
+    marginBottom: smallDevice
+      ? dimensions.indent * 0.9
+      : dimensions.indent,
   },
   inputContainer: {
     flex: 1,
@@ -45,7 +56,9 @@ export default StyleSheet.create({
   },
   buttonContainer: {
     marginVertical:
-      (smallDevice && dimensions.indent * 0.6) || dimensions.indent,
+      smallDevice || isAndroidDevice
+        ? dimensions.indent * 0.6
+        : dimensions.indent * 0.8,
   },
   alignCenter: {
     justifyContent: 'center',

@@ -9,7 +9,12 @@ import { NavigationService } from '../../services';
 const HeaderBackButton = ({
   onPress = () => NavigationService.goBack(),
 }) => (
-  <Touchable style={s.button} onPress={onPress} borderless>
+  <Touchable
+    style={s.button}
+    onPress={onPress}
+    borderless
+    hitSlop={{ top: 15, right: 15, bottom: 15, left: 15 }}
+  >
     <IconFonts
       name="back"
       tintColor={colors.header.backButton}

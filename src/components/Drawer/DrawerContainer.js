@@ -25,12 +25,11 @@ export default compose(
     goToLogin: () => () => NavigationService.navigateToAuth(),
     goToAddNewItem: () => () =>
       NavigationService.navigateTo(screens.AddNewItem),
-    goToProfile: () => (userId) => {
+    goToProfile: () => (user) =>
       NavigationService.navigateToProfile({
-        userId,
+        user,
         isDrawerButton: true,
-      });
-    },
+      }),
   }),
 
   withPropsOnChange(['isAuthorized'], (props) => {
@@ -75,7 +74,7 @@ export default compose(
         iconName: 'rentals',
       },
       {
-        screen: screens.Home,
+        screen: screens.Settings,
         title: i18n.t('drawer.settings'),
         iconName: 'settings',
       },

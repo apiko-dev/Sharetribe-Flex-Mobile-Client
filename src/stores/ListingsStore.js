@@ -257,8 +257,10 @@ function fetchListings(flow, store) {
       const res = yield store.Api.fetchListings({
         pub_category: categories,
         pub_title: title,
-        include: ['images', 'author'],
+        include: ['images', 'author', 'profileImage'],
       });
+
+      console.log(res);
 
       const normalizedEntities = normalizedIncluded(
         res.data.included,
@@ -290,18 +292,19 @@ function searchListings(flow, store) {
       const res = yield store.Api.fetchListings({
         pub_category: categories,
         pub_title: title,
-        include: ['images'],
+        include: ['images', 'author', 'profileImage'],
       });
 
       console.log(res);
 
+      const normalizedEntities = normalizedIncluded(
+        res.data.included,
+      );
+
+      getRoot(store).entities.merge(normalizedEntities);
+
       store.searchList.set(res.data.data);
 
-      // TODO: Set directly in entities store
-      if (res.data.included) {
-        store.imageList.set(res.data.included);
-      }
-      // getRoot(store).entities.merge(res.data.included);
       flow.success();
     } catch (err) {
       flow.failed();
@@ -322,20 +325,22 @@ function fetchOwnListings(flow, store) {
 
       const res = yield store.Api.fetchOwnListings({
         pub_category: categories,
-        include: ['images'],
+        include: ['images', 'author', 'profileImage'],
       });
 
       console.log(res);
 
       store.ownList.set(res.data.data);
 
-      // TODO: Set directly in entities store
-      if (res.data.included) {
-        store.imageList.set(res.data.included);
-      }
-      // getRoot(store).entities.merge(res.data.included);
+      const normalizedEntities = normalizedIncluded(
+        res.data.included,
+      );
+
+      getRoot(store).entities.merge(normalizedEntities);
+
       flow.success();
     } catch (err) {
+      console.log(err);
       flow.failed();
 
       // TODO: move this alert into screen container
@@ -354,18 +359,19 @@ function fetchParticularUserListings(flow, store) {
       console.log(userId);
       const res = yield store.Api.fetchListings({
         authorId: userId,
-        include: ['images'],
+        include: ['images', 'author', 'profileImage'],
       });
 
       console.log('fetchParticularUserListings: ', res);
 
+      const normalizedEntities = normalizedIncluded(
+        res.data.included,
+      );
+
+      getRoot(store).entities.merge(normalizedEntities);
+
       store.particularUserList.set(res.data.data);
 
-      // TODO: Set directly in entities store
-      if (res.data.included) {
-        store.imageList.set(res.data.included);
-      }
-      // getRoot(store).entities.merge(res.data.included);
       flow.success();
     } catch (err) {
       flow.failed();
