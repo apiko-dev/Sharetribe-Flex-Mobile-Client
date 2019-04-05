@@ -99,12 +99,10 @@ function updateProduct(flow, store) {
       const imagesId = uploadedImagesIds.map((item) =>
         String(item.data.data.id.uuid),
       );
-      console.log('RES_IN_UPDATE', imagesId);
 
       const body = {
         ...params,
         id: store.id,
-        // images: imagesId,
         images: restImagesIds.concat(imagesId),
       };
 
@@ -166,7 +164,6 @@ export const ListingsStore = t
     fetchParticularUserListings: createFlow(
       fetchParticularUserListings,
     ),
-    // updateListing: createFlow(updateListing),
   })
   .views((store) => ({
     get Api() {
