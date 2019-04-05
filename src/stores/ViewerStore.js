@@ -4,11 +4,19 @@ import { User } from './UserStore';
 import createFlow from './helpers/createFlow';
 import { AlertService } from '../services';
 import i18n from '../i18n';
+import { processJsonApiIncluded } from './utils/processJsonApi';
+
+const Viewer = types.compose(
+  User,
+  types.model('Viewer', {
+    id: types.string,
+  }),
+);
 
 const ViewerStore = types
   .model('ViewerStore', {
-    user: types.maybeNull(User),
-    getUserById: createFlow(getUserById),
+    user: types.optional(types.maybeNull(Viewer), null),
+    getCurrentUser: createFlow(getCurrentUser),
   })
   .views((store) => ({
     get Api() {
@@ -17,6 +25,7 @@ const ViewerStore = types
   }))
   .actions((store) => ({
     setUser(data) {
+      // getRoot(store).entities.user.add(data.id, data);
       store.user = data;
     },
     removeUser() {
@@ -24,29 +33,26 @@ const ViewerStore = types
     },
   }));
 
-function getUserById(flow, store) {
-  return function* getUserById(usedId) {
+function getCurrentUser(flow, store) {
+  return function* getCurrentUser() {
     try {
       flow.start();
-      console.log('user id:', usedId);
 
-      const res = yield store.Api.getUserById(usedId);
-      const { displayName } = res.data.data.attributes.profile;
-      console.log('res: getUserById: ', displayName);
+      const res = yield store.Api.getUser();
+
+      const user = processJsonApiIncluded(res.data.data);
+      console.log(user);
+
+      store.setUser(user);
 
       flow.success();
-
-      return {
-        displayName,
-      };
     } catch (err) {
-      console.log(err);
-      flow.failed();
-
       AlertService.show(
         i18n.t('alerts.somethingWentWrong.title'),
         i18n.t('alerts.somethingWentWrong.message'),
       );
+
+      flow.failed('', true);
     }
   };
 }

@@ -44,6 +44,11 @@ export function createEntitiesStore(definition) {
       merge(normalizedEntities) {
         Object.keys(normalizedEntities).forEach((entityKey) => {
           const storeEntity = store[entityKey];
+
+          if (!storeEntity) {
+            return;
+          }
+
           const entities = normalizedEntities[entityKey];
 
           Object.entries(entities).forEach(([key, value]) => {

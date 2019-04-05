@@ -1,5 +1,10 @@
 /* eslint-disable no-shadow */
-import { types as t, getEnv, getRoot } from 'mobx-state-tree';
+import {
+  types as t,
+  getEnv,
+  getRoot,
+  applySnapshot,
+} from 'mobx-state-tree';
 import createFlow from './helpers/createFlow';
 import { AlertService, NavigationService } from '../services';
 import i18n from '../i18n';
@@ -46,21 +51,73 @@ const ProductRelationships = t
     get getImages() {
       return store.images.slice();
     },
+
+    get imageIds() {
+      return store.images.slice().map((i) => i.id);
+    },
   }));
 
-export const Product = t.model('Product', {
-  id: t.identifier,
-  description: t.string,
-  deleted: t.boolean,
-  geolocation: t.null,
-  createdAt: t.maybe(t.Date),
-  state: t.string,
-  title: t.string,
-  publicData: t.optional(t.maybeNull(ProductPublicData), null),
-  price: t.optional(t.maybeNull(Price), null),
-  metadata: t.model('metadata', {}),
-  relationships: t.maybe(ProductRelationships),
-});
+export const Product = t
+  .model('Product', {
+    id: t.identifier,
+    description: t.string,
+    deleted: t.boolean,
+    geolocation: t.null,
+    createdAt: t.maybe(t.Date),
+    state: t.string,
+    title: t.string,
+    publicData: t.optional(t.maybeNull(ProductPublicData), null),
+    price: t.optional(t.maybeNull(Price), null),
+    metadata: t.model('metadata', {}),
+    relationships: t.maybe(ProductRelationships),
+
+    update: createFlow(updateProduct),
+  })
+
+  .views((store) => ({
+    get canEdit() {
+      return (
+        store.relationships.author.id ===
+        getRoot(store).viewer.user.id
+      );
+    },
+  }));
+
+function updateProduct(flow, store) {
+  return function* updateProduct({ images, ...params }) {
+    try {
+      flow.start();
+
+      const imagesToUpload = images.filter((i) => !!i.type);
+      const restImagesIds = images
+        .filter((i) => !i.type)
+        .map((i) => String(i.id));
+      const uploadedImagesIds = yield Promise.all(
+        imagesToUpload.map((image) => flow.Api.imagesUpload(image)),
+      );
+
+      const imagesId = uploadedImagesIds.map((item) =>
+        String(item.data.data.id.uuid),
+      );
+
+      const body = {
+        ...params,
+        id: store.id,
+        images: restImagesIds.concat(imagesId),
+      };
+
+      const res = yield flow.Api.updateOwnListings(body);
+      const snapshot = processJsonApi(res.data.data);
+      const entities = normalizedIncluded(res.data.included);
+      getRoot(store).entities.merge(entities);
+      applySnapshot(store, snapshot);
+
+      flow.success();
+    } catch (err) {
+      flow.failed(err, true);
+    }
+  };
+}
 
 const ProductList = listModel('ProductList', {
   of: t.reference(Product),
@@ -183,8 +240,10 @@ function fetchListings(flow, store) {
       const res = yield store.Api.fetchListings({
         pub_category: categories,
         pub_title: title,
-        include: ['images', 'author'],
+        include: ['images', 'author', 'profileImage'],
       });
+
+      console.log(res);
 
       const normalizedEntities = normalizedIncluded(
         res.data.included,
@@ -216,18 +275,19 @@ function searchListings(flow, store) {
       const res = yield store.Api.fetchListings({
         pub_category: categories,
         pub_title: title,
-        include: ['images'],
+        include: ['images', 'author', 'profileImage'],
       });
 
       console.log(res);
 
+      const normalizedEntities = normalizedIncluded(
+        res.data.included,
+      );
+
+      getRoot(store).entities.merge(normalizedEntities);
+
       store.searchList.set(res.data.data);
 
-      // TODO: Set directly in entities store
-      if (res.data.included) {
-        store.imageList.set(res.data.included);
-      }
-      // getRoot(store).entities.merge(res.data.included);
       flow.success();
     } catch (err) {
       flow.failed();
@@ -248,20 +308,22 @@ function fetchOwnListings(flow, store) {
 
       const res = yield store.Api.fetchOwnListings({
         pub_category: categories,
-        include: ['images'],
+        include: ['images', 'author', 'profileImage'],
       });
 
       console.log(res);
 
       store.ownList.set(res.data.data);
 
-      // TODO: Set directly in entities store
-      if (res.data.included) {
-        store.imageList.set(res.data.included);
-      }
-      // getRoot(store).entities.merge(res.data.included);
+      const normalizedEntities = normalizedIncluded(
+        res.data.included,
+      );
+
+      getRoot(store).entities.merge(normalizedEntities);
+
       flow.success();
     } catch (err) {
+      console.log(err);
       flow.failed();
 
       // TODO: move this alert into screen container
@@ -280,18 +342,19 @@ function fetchParticularUserListings(flow, store) {
       console.log(userId);
       const res = yield store.Api.fetchListings({
         authorId: userId,
-        include: ['images'],
+        include: ['images', 'author', 'profileImage'],
       });
 
       console.log('fetchParticularUserListings: ', res);
 
+      const normalizedEntities = normalizedIncluded(
+        res.data.included,
+      );
+
+      getRoot(store).entities.merge(normalizedEntities);
+
       store.particularUserList.set(res.data.data);
 
-      // TODO: Set directly in entities store
-      if (res.data.included) {
-        store.imageList.set(res.data.included);
-      }
-      // getRoot(store).entities.merge(res.data.included);
       flow.success();
     } catch (err) {
       flow.failed();

@@ -48,5 +48,10 @@ export default StyleSheet.create({
   },
   viewProfileButton: {
     paddingHorizontal: 0,
+    alignSelf: 'flex-start',
+    alignItems: 'flex-start',
+  },
+  viewProfileButtonText: {
+    alignSelf: 'flex-start',
   },
 });

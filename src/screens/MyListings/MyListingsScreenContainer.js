@@ -25,13 +25,8 @@ export default hoistStatics(
     withHandlers({
       goToAddNewItem: () => () =>
         NavigationService.navigateToAddNewItem(),
-      goToProduct: () => (productId) =>
-        NavigationService.navigateToProduct({ productId }),
-    }),
-
-    withHandlers({
-      goToProduct: () => (productId) =>
-        NavigationService.navigateToProduct({ productId }),
+      goToProduct: () => (product) =>
+        NavigationService.navigateToProduct({ product }),
     }),
 
     lifecycle({

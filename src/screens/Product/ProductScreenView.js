@@ -8,6 +8,7 @@ import {
 import T from 'prop-types';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { Tab, TabView } from 'react-native-easy-tabs';
+import { observer } from 'mobx-react/custom';
 
 import s from './styles';
 import i18n from '../../i18n';
@@ -140,15 +141,15 @@ const ProductScreen = ({
 ProductScreen.navigationOptions = ({ navigation }) => ({
   headerTransparent: true,
   headerStyle: s.headerStyle,
-  headerRight: (
+  headerRight: navigation.getParam('navigateToProductEdit') ? (
     <NavigationButton
       name="edit"
       tintColor={colors.text.white}
       right
-      onPress={() => navigation.getParam('editingProduct')}
+      onPress={navigation.getParam('navigateToProductEdit')}
       circled
     />
-  ),
+  ) : null,
   headerLeft: (
     <NavigationButton goBack tintColor={colors.text.white} circled />
   ),
@@ -165,4 +166,4 @@ ProductScreen.propTypes = {
   navigateToImageScreen: T.func,
   gallery: T.array,
 };
-export default ProductScreen;
+export default observer(ProductScreen);

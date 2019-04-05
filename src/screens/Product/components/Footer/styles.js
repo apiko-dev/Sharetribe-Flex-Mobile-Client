@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
   },
   rentContainer: {
     flex: 1,
-    padding: 5,
+    margin: 5,
   },
 
   containerCall: {
@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
   buttonContact: {
     borderWidth: StyleSheet.hairlineWidth * 3,
     borderColor: colors.button.borderColorPrimary,
+    paddingVertical: dimensions.indent / 2,
     height: theme.button.heightMedium,
   },
   containerChat: {
@@ -41,6 +42,11 @@ const styles = StyleSheet.create({
   buttonRent: {
     flex: 1,
     height: theme.button.heightMedium,
+    padding: null,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: StyleSheet.hairlineWidth * 3,
+    borderColor: colors.button.borderColorPrimary,
   },
   containerRent: {
     flex: 1,

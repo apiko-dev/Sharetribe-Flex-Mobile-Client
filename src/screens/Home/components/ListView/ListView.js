@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, FlatList } from 'react-native';
 import T from 'prop-types';
+import { observer } from 'mobx-react/custom';
 import s from './styles';
 import {
   FlatListVertical,
@@ -102,4 +103,4 @@ ListView.propTypes = {
   listingsFilter: T.func,
 };
 
-export default ListView;
+export default observer(ListView);

@@ -17,7 +17,6 @@ export default StyleSheet.create({
   },
   buttonContainer: {
     width: dimensions.width,
-    flex: 1,
     alignItems: 'center',
     marginTop: dimensions.indent * 1.3,
     marginBottom: isLarge

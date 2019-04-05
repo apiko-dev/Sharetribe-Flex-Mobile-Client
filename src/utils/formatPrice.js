@@ -1,8 +1,5 @@
 /* eslint-disable no-restricted-properties */
-const { pow } = Math;
-const { floor } = Math;
-const { abs } = Math;
-const { log } = Math;
+const { pow, floor, abs, log } = Math;
 
 function round(n, precision) {
   const prec = Math.pow(10, precision);

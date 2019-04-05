@@ -1,5 +1,6 @@
 import React from 'react';
 import T from 'prop-types';
+import { observer } from 'mobx-react/custom';
 import ProductButton from '../ProductButton/ProductButton';
 import IconAppLogo from '../../assets/png/icon-app-logo.png';
 
@@ -23,4 +24,4 @@ RenderProductButton.propTypes = {
   goToProduct: T.func,
 };
 
-export default RenderProductButton;
+export default observer(RenderProductButton);

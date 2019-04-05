@@ -3,6 +3,7 @@ import {
   hoistStatics,
   withStateHandlers,
   withHandlers,
+  lifecycle,
 } from 'recompose';
 import R from 'ramda';
 
@@ -21,7 +22,6 @@ export default hoistStatics(
       gallery: R.path(['relationships', 'getImages'], product).map(
         R.path(['variants', 'default']),
       ),
-
       author: R.path(['relationships', 'author'], product),
     })),
     withStateHandlers(
@@ -44,6 +44,22 @@ export default hoistStatics(
           images,
           currentIndex,
         });
+      },
+      navigationToEditProduct: (props) => () => {
+        props.navigation.navigate('AddNewItem', {
+          product: props.product,
+          isEditing: true,
+        });
+      },
+    }),
+    lifecycle({
+      componentDidMount() {
+        if (this.props.product.canEdit) {
+          this.props.navigation.setParams({
+            navigateToProductEdit: () =>
+              this.props.navigationToEditProduct(),
+          });
+        }
       },
     }),
   ),

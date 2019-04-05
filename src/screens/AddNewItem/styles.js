@@ -38,7 +38,7 @@ export default StyleSheet.create({
     paddingTop: dimensions.indent * 0.5,
     margin: 0,
   },
-  buttonContainer: {
+  publishContainer: {
     marginTop: dimensions.indent * 1.3,
     marginBottom: isLarge
       ? dimensions.indent * 1.4
@@ -73,5 +73,18 @@ export default StyleSheet.create({
     paddingRight: dimensions.indent * 0.8,
     paddingTop: dimensions.indent * 0.4,
     paddingBottom: dimensions.indent * 0.5,
+  },
+  buttonContainer: {
+    flex: 1,
+    flexDirection: 'row',
+  },
+
+  marginButton: {
+    flex: 1,
+    marginTop: dimensions.indent * 1.3,
+    marginBottom: isLarge
+      ? dimensions.indent * 1.4
+      : dimensions.indent,
+    marginHorizontal: dimensions.indent / 2,
   },
 });

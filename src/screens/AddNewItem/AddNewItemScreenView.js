@@ -31,9 +31,11 @@ const AddNewItemScreenView = ({
   removePhoto,
   isValidFields,
   createListing,
-  isCreatingListing,
+  isLoading,
   onChangeLocation,
   locationList,
+  isEditing,
+  updateProduct,
 }) => (
   <KeyboardAwareScrollView
     keyboardShouldPersistTaps="handled"
@@ -165,17 +167,36 @@ const AddNewItemScreenView = ({
           />
         )}
       </View>
-      <Button
-        disabled={!isValidFields || isCreatingListing}
-        primary
-        title={i18n.t('addNewItem.publishListing')}
-        containerStyle={[
-          s.buttonContainer,
-          locationList.length !== 0 && s.buttonContainerBottom,
-        ]}
-        onPress={createListing}
-        isLoading={isCreatingListing}
-      />
+    </View>
+    <View>
+      {isEditing ? (
+        <View style={s.buttonContainer}>
+          <Button
+            title={i18n.t('addNewItem.cancel')}
+            containerStyle={s.marginButton}
+          />
+          <Button
+            primary
+            title={i18n.t('addNewItem.save')}
+            containerStyle={s.marginButton}
+            onPress={updateProduct}
+            isLoading={isLoading}
+            disabled={!isValidFields || isLoading}
+          />
+        </View>
+      ) : (
+        <Button
+          disabled={!isValidFields || isLoading}
+          primary
+          title={i18n.t('addNewItem.publishListing')}
+          containerStyle={[
+            s.publishContainer,
+            locationList.length !== 0 && s.buttonContainerBottom,
+          ]}
+          onPress={createListing}
+          isLoading={isLoading}
+        />
+      )}
     </View>
     <ActionSheet
       ref={(ref) => {
@@ -220,9 +241,11 @@ AddNewItemScreenView.propTypes = {
   removePhoto: T.func,
   isValidFields: T.bool,
   createListing: T.func,
-  isCreatingListing: T.bool,
+  updateProduct: T.func,
+  isLoading: T.bool,
   onChangeLocation: T.func,
   locationList: T.array,
+  isEditing: T.bool,
 };
 
 export default AddNewItemScreenView;

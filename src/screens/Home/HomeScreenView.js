@@ -2,6 +2,8 @@ import React from 'react';
 import { View } from 'react-native';
 import T from 'prop-types';
 import { TabView, Tab } from 'react-native-easy-tabs';
+import { observer } from 'mobx-react/custom';
+
 import s from './styles';
 import { DrawerButton } from '../../components';
 import { ListView, MapView, TabBar, SearchInput } from './components';
@@ -67,4 +69,4 @@ HomeScreen.propTypes = {
   chooseCategory: T.func,
 };
 
-export default HomeScreen;
+export default observer(HomeScreen);
