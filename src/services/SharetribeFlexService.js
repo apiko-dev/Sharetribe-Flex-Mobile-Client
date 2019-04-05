@@ -120,29 +120,27 @@ class SharetribeSdkService {
     images,
     location,
   }) {
-    return this.sdk.ownListings.update(
-      {
-        id,
+    const params = {
+      id: new types.UUID(id),
+      title,
+      description,
+      price: new types.Money(Number(price), 'USD'),
+      publicData: {
+        category,
+        subCategory,
+        brand,
+        level,
+        location,
         title,
         description,
-        price: new types.Money(Number(price), 'USD'),
-        publicData: {
-          category,
-          subCategory,
-          brand,
-          level,
-          location,
-          title,
-          description,
-          price: Number(price),
-        },
-        images,
+        price: Number(price),
       },
-      {
-        expand: true,
-        include: ['marketplace', 'images', 'author'],
-      },
-    );
+      images: images.map((i) => new types.UUID(i)),
+    };
+    return this.sdk.ownListings.update(params, {
+      expand: true,
+      include: ['images', 'author'],
+    });
   }
 }
 

@@ -26,6 +26,14 @@ import {
 const getPublicData = (props) => (name) =>
   R.pathOr('', ['product', 'publicData', name], props);
 
+const getImages = (product) =>
+  R.pathOr([], ['relationships', 'getImages'], product).map(
+    ({ id, variants }) => ({
+      id,
+      uri: R.path(['default', 'url'], variants),
+    }),
+  );
+
 export default hoistStatics(
   compose(
     withParamsToProps('product', 'isEditing'),
@@ -33,26 +41,16 @@ export default hoistStatics(
       listings,
       isLoading:
         listings.createListing.inProgress ||
-        product.update.inProgress,
+        R.path('product', 'update', 'inProgress'),
     })),
 
     withStateHandlers(
       (props) => {
         const getPublic = getPublicData(props);
 
-        const urlArr = R.pathOr(
-          [],
-          ['relationships', 'getImages'],
-          props.product,
-        ).map(R.path(['variants', 'default', 'url']));
-        const body = (path) => ({
-          id: uuid(),
-          uri: path,
-        });
-        const arrImage = urlArr.map((item) => body(item));
         return {
           id: getPublic('id'),
-          photos: arrImage,
+          photos: getImages(props.product),
           title: R.pathOr('', ['product', 'title'], props),
           category: getPublic('category'),
           subCategory: getPublic('subCategory'),
@@ -81,9 +79,9 @@ export default hoistStatics(
 
         addPhoto: (props) => (image) => ({
           photos: props.photos.concat({
-            id: Math.random(),
+            id: uuid(),
             uri: image.path,
-            name: `image_${Math.floor(Math.random() * 100)}.jpg`,
+            name: `image_${uuid()}.jpg`,
             type: image.mime,
           }),
         }),
@@ -175,10 +173,6 @@ export default hoistStatics(
               {
                 text: i18n.t('common.ok'),
                 onPress: () => NavigationService.navigateToHome(),
-              },
-              {
-                text: i18n.t('common.cancel'),
-                style: 'cancel',
               },
             ],
           );

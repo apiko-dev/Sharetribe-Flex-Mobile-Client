@@ -1,5 +1,10 @@
 /* eslint-disable no-shadow */
-import { types as t, getEnv, getRoot } from 'mobx-state-tree';
+import {
+  types as t,
+  getEnv,
+  getRoot,
+  applySnapshot,
+} from 'mobx-state-tree';
 import createFlow from './helpers/createFlow';
 import { AlertService, NavigationService } from '../services';
 import i18n from '../i18n';
@@ -84,19 +89,30 @@ function updateProduct(flow, store) {
       flow.start();
 
       const imagesToUpload = images.filter((i) => !!i.type);
+      const restImagesIds = images
+        .filter((i) => !i.type)
+        .map((i) => String(i.id));
       const uploadedImagesIds = yield Promise.all(
         imagesToUpload.map((image) => flow.Api.imagesUpload(image)),
       );
 
-      const imagesId = uploadedImagesIds.map(
-        (item) => item.data.data.id.uuid,
+      const imagesId = uploadedImagesIds.map((item) =>
+        String(item.data.data.id.uuid),
       );
+      console.log('RES_IN_UPDATE', imagesId);
 
-      const res = yield flow.Api.updateOwnListings({
+      const body = {
         ...params,
         id: store.id,
-        images: store.relationships.imageIds.concat(imagesId),
-      });
+        // images: imagesId,
+        images: restImagesIds.concat(imagesId),
+      };
+
+      const res = yield flow.Api.updateOwnListings(body);
+      const snapshot = processJsonApi(res.data.data);
+      const entities = normalizedIncluded(res.data.included);
+      getRoot(store).entities.merge(entities);
+      applySnapshot(store, snapshot);
 
       flow.success();
     } catch (err) {
