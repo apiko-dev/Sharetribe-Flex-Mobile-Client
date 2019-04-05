@@ -8,6 +8,7 @@ import {
 import T from 'prop-types';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { Tab, TabView } from 'react-native-easy-tabs';
+import { observer } from 'mobx-react/custom';
 
 import s from './styles';
 import i18n from '../../i18n';
@@ -165,4 +166,4 @@ ProductScreen.propTypes = {
   navigateToImageScreen: T.func,
   gallery: T.array,
 };
-export default ProductScreen;
+export default observer(ProductScreen);

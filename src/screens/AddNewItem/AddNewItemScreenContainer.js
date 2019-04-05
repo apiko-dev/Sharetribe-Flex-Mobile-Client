@@ -29,9 +29,11 @@ const getPublicData = (props) => (name) =>
 export default hoistStatics(
   compose(
     withParamsToProps('product', 'isEditing'),
-    inject((stores) => ({
-      listings: stores.listings,
-      isCreatingListing: stores.listings.createListing.inProgress,
+    inject(({ listings }, { product }) => ({
+      listings,
+      isLoading:
+        listings.createListing.inProgress ||
+        product.update.inProgress,
     })),
 
     withStateHandlers(
@@ -181,7 +183,7 @@ export default hoistStatics(
             ],
           );
         } catch (err) {
-          console.log(err)
+          console.log(err);
           AlertService.showAlert(
             i18n.t('alerts.updateProductError.title'),
             i18n.t('alerts.updateProductError.message'),

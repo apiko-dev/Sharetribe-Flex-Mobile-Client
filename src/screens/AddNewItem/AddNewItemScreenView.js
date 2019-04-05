@@ -31,7 +31,7 @@ const AddNewItemScreenView = ({
   removePhoto,
   isValidFields,
   createListing,
-  isCreatingListing,
+  isLoading,
   onChangeLocation,
   locationList,
   isEditing,
@@ -180,11 +180,13 @@ const AddNewItemScreenView = ({
             title={i18n.t('addNewItem.save')}
             containerStyle={s.marginButton}
             onPress={updateProduct}
+            isLoading={isLoading}
+            disabled={!isValidFields || isLoading}
           />
         </View>
       ) : (
         <Button
-          disabled={!isValidFields || isCreatingListing}
+          disabled={!isValidFields || isLoading}
           primary
           title={i18n.t('addNewItem.publishListing')}
           containerStyle={[
@@ -192,7 +194,7 @@ const AddNewItemScreenView = ({
             locationList.length !== 0 && s.buttonContainerBottom,
           ]}
           onPress={createListing}
-          isLoading={isCreatingListing}
+          isLoading={isLoading}
         />
       )}
     </View>
@@ -240,7 +242,7 @@ AddNewItemScreenView.propTypes = {
   isValidFields: T.bool,
   createListing: T.func,
   updateProduct: T.func,
-  isCreatingListing: T.bool,
+  isLoading: T.bool,
   onChangeLocation: T.func,
   locationList: T.array,
   isEditing: T.bool,
