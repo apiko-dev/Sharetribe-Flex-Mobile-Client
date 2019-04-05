@@ -10,9 +10,38 @@ import { normalizedIncluded } from './utils/normalize';
 const Viewer = types.compose(
   User,
   types.model('Viewer', {
-    id: types.string,
+    id: types.maybe(types.string),
   }),
 );
+
+function errorParser(err) {
+  let reason;
+  let fields;
+
+  if (Array.isArray(err.data.errors)) {
+    reason = err.data.errors.map((i) => {
+      if (i.status === 400) {
+        return {
+          fields: i.source.path,
+          code: i.code,
+          details: i.details,
+          title: i.title,
+          status: i.status,
+        };
+      }
+
+      return i;
+    });
+
+    fields = err.data.errors.map((i) => i.source.path[0]);
+  }
+
+  return {
+    message: err.message,
+    reason,
+    fields,
+  };
+}
 
 const ViewerStore = types
   .model('ViewerStore', {
@@ -22,6 +51,7 @@ const ViewerStore = types
     updateProfile: createFlow(updateProfile),
     changeEmail: createFlow(changeEmail),
     changePassword: createFlow(changePassword),
+    sendVerifyEmail: createFlow(sendVerifyEmail),
     verifyEmail: createFlow(verifyEmail),
   })
   .views((store) => ({
@@ -60,7 +90,7 @@ function getCurrentUser(flow, store) {
     } catch (err) {
       console.log(err);
 
-      flow.failed('', true);
+      flow.failed();
     }
   };
 }
@@ -113,12 +143,9 @@ function updateProfile(flow, store) {
 
       flow.success();
     } catch (err) {
-      AlertService.showAlert(
-        i18n.t('alerts.somethingWentWrong.title'),
-        i18n.t('alerts.somethingWentWrong.message'),
-      );
+      const error = errorParser(err);
 
-      flow.failed();
+      flow.failed(error, true);
     }
   };
 }
@@ -128,30 +155,19 @@ function changeEmail(flow, store) {
     try {
       flow.start();
 
-      console.log(
-        'Current password: ',
-        currentPasswordForEmail,
-        ' email: ',
-        email,
-      );
-
-      const res = yield store.Api.changeEmail({
+      yield store.Api.changeEmail({
         currentPassword: currentPasswordForEmail,
         email,
       });
-
-      console.log('change email res: ', res);
 
       yield store.getCurrentUser.run();
 
       flow.success();
     } catch (err) {
-      console.log('change email err: ', err);
-      flow.failed();
-      AlertService.showAlert(
-        i18n.t('alerts.somethingWentWrong.title'),
-        i18n.t('alerts.somethingWentWrong.message'),
-      );
+      console.log('change email error: ', err);
+      const error = errorParser(err);
+
+      flow.failed(error, true);
     }
   };
 }
@@ -171,22 +187,38 @@ function changePassword(flow, store) {
       flow.success();
     } catch (err) {
       console.log('change password error: ', err);
+      const error = errorParser(err);
+
+      flow.failed(error, true);
+    }
+  };
+}
+
+function sendVerifyEmail(flow, store) {
+  return function* sendVerifyEmail() {
+    try {
+      flow.start();
+
+      yield store.Api.sendVerifyEmail();
+
+      flow.success();
+    } catch (err) {
       AlertService.showAlert(
         i18n.t('alerts.somethingWentWrong.title'),
         i18n.t('alerts.somethingWentWrong.message'),
       );
 
-      flow.failed('');
+      flow.failed();
     }
   };
 }
 
 function verifyEmail(flow, store) {
-  return function* verifyEmail() {
+  return function* verifyEmail(token) {
     try {
       flow.start();
 
-      yield store.Api.sendVerifyEmail();
+      yield store.Api.verifyEmail(token);
 
       flow.success();
     } catch (err) {
@@ -196,7 +228,7 @@ function verifyEmail(flow, store) {
         i18n.t('alerts.somethingWentWrong.message'),
       );
 
-      flow.failed('');
+      flow.failed();
     }
   };
 }

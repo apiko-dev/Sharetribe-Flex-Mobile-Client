@@ -1,11 +1,12 @@
+import React from 'react';
 import {
   compose,
   hoistStatics,
   withHandlers,
-  defaultProps,
   withStateHandlers,
+  defaultProps,
+  withProps,
 } from 'recompose';
-import * as Yup from 'yup';
 import ImagePicker from 'react-native-image-crop-picker';
 import { inject } from 'mobx-react';
 import {
@@ -14,7 +15,7 @@ import {
   AlertService,
 } from '../../services';
 import SettingsScreenView from './SettingsScreenView';
-import { regExp } from '../../utils';
+import i18n from '../../i18n';
 
 export default hoistStatics(
   compose(
@@ -24,43 +25,21 @@ export default hoistStatics(
       updateProfile: viewer.updateProfile,
       changeEmail: viewer.changeEmail,
       changePassword: viewer.changePassword,
-      verifyEmail: viewer.verifyEmail,
+      sendVerifyEmail: viewer.sendVerifyEmail,
       isUpdatingProfile: viewer.updateProfile.inProgress,
       isChangingEmail: viewer.changeEmail.inProgress,
       isChangingPassword: viewer.changePassword.inProgress,
     })),
 
     defaultProps({
-      profileValidationSchema: Yup.object().shape({
-        /* firstName: Yup.string()
-          .trim()
-          .min(1),
-        lastName: Yup.string()
-          .trim()
-          .min(1),
-        bio: Yup.string()
-          .trim()
-          .min(0),
-        email: Yup.string()
-          .trim()
-          .matches(regExp.emailRegexp),
-        phone: Yup.string()
-          .trim()
-          .min(10),
-        newPassword: Yup.string()
-          .trim()
-          .min(9),
-        replyPassword: Yup.string()
-          .trim()
-          .min(0)
-          .oneOf([Yup.ref('newPassword'), null]), */
-      }),
+      formRef: React.createRef(),
     }),
 
     withStateHandlers(
       {
         photo: {},
         activeField: '',
+        errors: {},
       },
       {
         onChange: () => (field, value) => ({
@@ -84,8 +63,8 @@ export default hoistStatics(
           user,
         }),
 
-      resendVerificationEmail: ({ verifyEmail }) => () => {
-        verifyEmail.run();
+      resendVerificationEmail: ({ sendVerifyEmail }) => () => {
+        sendVerifyEmail.run();
       },
 
       onSave: ({
@@ -93,6 +72,7 @@ export default hoistStatics(
         updateProfile,
         changeEmail,
         changePassword,
+        ...props
       }) => async (data) => {
         console.log(data);
         if (
@@ -103,7 +83,15 @@ export default hoistStatics(
         ) {
           try {
             await updateProfile.run({ ...data });
-          } catch (error) {
+          } catch (err) {
+            console.log('error in settings screen container, ', err);
+            if (err.fields.includes('phone')) {
+              props.formRef.current.form.setFieldError(
+                'phone',
+                i18n.t('errors.incorrectPhone'),
+              );
+            }
+
             AlertService.showSomethingWentWrong();
           }
         }
@@ -114,7 +102,22 @@ export default hoistStatics(
         ) {
           try {
             await changeEmail.run({ ...data });
-          } catch (error) {
+          } catch (err) {
+            console.log(err);
+            if (err.fields.includes('email')) {
+              props.formRef.current.form.setFieldError(
+                'email',
+                i18n.t('errors.incorrectEmail'),
+              );
+            }
+
+            if (err.fields.includes('currentPassword')) {
+              props.formRef.current.form.setFieldError(
+                'currentPasswordForEmail',
+                i18n.t('errors.incorrectPassword'),
+              );
+            }
+
             AlertService.showSomethingWentWrong();
           }
         }
@@ -145,8 +148,13 @@ export default hoistStatics(
             });
 
             props.addPhoto(image);
-            console.log('photo: ', props.photo);
-            props.changeAvatar.run(props.photo);
+
+            props.changeAvatar.run({
+              id: Math.random(),
+              uri: image.path,
+              name: `image_${Math.floor(Math.random() * 100)}.jpg`,
+              type: image.mime,
+            });
           }
         } catch (error) {
           if (error.code === 'E_PICKER_CANCELLED') {
@@ -163,7 +171,6 @@ export default hoistStatics(
             });
 
             props.addPhoto(image);
-            console.log('photo: ', props.photo);
 
             props.changeAvatar.run({
               id: Math.random(),
@@ -189,5 +196,7 @@ export default hoistStatics(
         }
       },
     }),
+
+    withProps(console.log),
   ),
 )(SettingsScreenView);

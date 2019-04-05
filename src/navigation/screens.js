@@ -21,6 +21,7 @@ export default {
   MyListings: 'MyListings',
   Settings: 'Settings',
   Profile: 'Profile',
+  VerifyEmail: 'VerifyEmail',
 
   // Stacks
   HomeStack: 'HomeStack',

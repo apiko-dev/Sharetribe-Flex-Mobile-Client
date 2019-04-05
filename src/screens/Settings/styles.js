@@ -14,7 +14,7 @@ export default StyleSheet.create({
   },
   inputContainerFirstAndLastNames: {
     alignSelf: 'stretch',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     flexDirection: 'row',
     marginBottom: dimensions.indent * 1.1,
   },

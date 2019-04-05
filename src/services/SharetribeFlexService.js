@@ -131,12 +131,6 @@ class SharetribeSdkService {
   }
 
   changeEmail({ currentPassword, email }) {
-    console.log(
-      'Current password: ',
-      currentPassword,
-      ' email: ',
-      email,
-    );
     return this.sdk.currentUser.changeEmail({
       currentPassword,
       email,
@@ -144,7 +138,13 @@ class SharetribeSdkService {
   }
 
   sendVerifyEmail() {
-    return this.sdk.currentUser.verifyEmail();
+    return this.sdk.currentUser.sendVerificationEmail();
+  }
+
+  verifyEmail(verificationToken) {
+    return this.sdk.currentUser.verifyEmail({
+      verificationToken,
+    });
   }
 }
 

@@ -38,6 +38,8 @@ export { default as Avatar } from './Avatar/Avatar';
 export {
   default as DetailsTab,
 } from './DetailsTab/DetailsTabContainer';
+export { default as Form } from './Form/Form';
+export { default as FormInput } from './FormInput/FormInput';
 
 /* eslint-disable */
 export { default as Touchable } from './Touchable/Touchable';

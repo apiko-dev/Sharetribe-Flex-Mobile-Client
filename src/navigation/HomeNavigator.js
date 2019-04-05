@@ -6,6 +6,7 @@ import {
   AddNewItemScreen,
   CategoryScreen,
   ProductScreen,
+  VerifyEmailScreen,
 } from '../screens';
 import { defaultNavigationOptions } from './NavigationOptions';
 
@@ -13,12 +14,13 @@ export default createStackNavigator(
   {
     [screens.Home]: HomeScreen,
     [screens.UpdatePassword]: UpdatePasswordScreen,
+    [screens.VerifyEmail]: VerifyEmailScreen,
     [screens.AddNewItem]: AddNewItemScreen,
     [screens.Category]: CategoryScreen,
     [screens.Product]: ProductScreen,
   },
   {
-    initialRouteKey: screens.Home,
+    initialRouteKey: screens.HomeScreen,
     defaultNavigationOptions,
   },
 );

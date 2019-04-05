@@ -5,32 +5,31 @@ import { SafeAreaView } from 'react-navigation';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { ActionSheetCustom as ActionSheet } from 'react-native-actionsheet';
 import T from 'prop-types';
-import { Formik } from 'formik';
 import s from './styles';
 import {
   DrawerButton,
   Text,
   FormContainer,
-  InputForm,
   Button,
   Avatar,
+  FormInput,
+  Form,
 } from '../../components';
 import { EmailVerifiedMessage } from './components';
 import i18n from '../../i18n';
 import { colors } from '../../styles';
+import { ProfileSchema } from '../../validators/schemes';
 
 const SettingsScreen = ({
   goToMyProfile,
   resendVerificationEmail,
-  profileValidationSchema,
   onSave,
   addPhoto,
-  onChange,
-  activeField,
   user,
   isUpdatingProfile,
   isChangingEmail,
   isChangingPassword,
+  formRef,
 }) => (
   <SafeAreaView>
     <KeyboardAwareScrollView
@@ -38,7 +37,9 @@ const SettingsScreen = ({
       extraScrollHeight={30}
     >
       <View style={s.container}>
-        <Formik
+        <Form
+          validationSchema={ProfileSchema}
+          ref={formRef}
           initialValues={{
             firstName: user.profile.firstName,
             lastName: user.profile.lastName,
@@ -48,10 +49,9 @@ const SettingsScreen = ({
               user.profile.protectedData &&
               user.profile.protectedData.phoneNumber,
           }}
-          validationSchema={profileValidationSchema}
           onSubmit={onSave}
         >
-          {({ values, handleChange, handleSubmit }) => (
+          {({ handleSubmit, handleReset }) => (
             <React.Fragment>
               <FormContainer
                 headerTitle={i18n.t('settings.profileSettings')}
@@ -82,39 +82,24 @@ const SettingsScreen = ({
                 </View>
 
                 <View style={s.inputContainerFirstAndLastNames}>
-                  <InputForm
+                  <FormInput.Field
                     placeholder={i18n.t('settings.firstName')}
                     containerStyle={s.inputLeft}
-                    value={values.firstName || ''}
-                    active={activeField === 'firstName'}
-                    onFocus={() =>
-                      onChange('activeField', 'firstName')
-                    }
-                    onBlur={() => onChange('activeField', '')}
-                    onChangeText={handleChange('firstName')}
+                    name="firstName"
                   />
-                  <InputForm
+                  <FormInput.Field
                     placeholder={i18n.t('settings.lastName')}
                     containerStyle={s.inputRight}
-                    value={values.lastName || ''}
-                    active={activeField === 'lastName'}
-                    onFocus={() =>
-                      onChange('activeField', 'lastName')
-                    }
-                    onBlur={() => onChange('activeField', '')}
-                    onChangeText={handleChange('lastName')}
+                    name="lastName"
                   />
                 </View>
-                <InputForm
+                <FormInput.Field
                   containerStyle={s.bioInputContainer}
+                  inputContainerStyle={s.bioInputContainer}
                   labelStyle={s.bioLabel}
                   inputStyle={s.bioInput}
                   placeholder={i18n.t('settings.bio')}
-                  value={values.bio || ''}
-                  active={activeField === 'bio'}
-                  onFocus={() => onChange('activeField', 'bio')}
-                  onBlur={() => onChange('activeField', '')}
-                  onChangeText={handleChange('bio')}
+                  name="bio"
                   multiline
                   maxLength={1200}
                 />
@@ -123,29 +108,17 @@ const SettingsScreen = ({
               <FormContainer
                 headerTitle={i18n.t('settings.contactDetails')}
               >
-                <InputForm
+                <FormInput.Field
                   placeholder={i18n.t('settings.currentPassword')}
                   containerStyle={s.inputContainer}
-                  value={values.currentPasswordForEmail || ''}
-                  onFocus={() =>
-                    onChange('activeField', 'currentPasswordForEmail')
-                  }
-                  onBlur={() => onChange('activeField', '')}
-                  onChangeText={handleChange(
-                    'currentPasswordForEmail',
-                  )}
-                  active={activeField === 'currentPasswordForEmail'}
+                  name="currentPasswordForEmail"
                   secureTextEntry
                   autoCapitalize="none"
                 />
                 <View style={s.inputContainer}>
-                  <InputForm
+                  <FormInput.Field
                     placeholder={i18n.t('settings.email')}
-                    value={values.email || ''}
-                    active={activeField === 'email'}
-                    onFocus={() => onChange('activeField', 'email')}
-                    onBlur={() => onChange('activeField', '')}
-                    onChangeText={handleChange('email')}
+                    name="email"
                     autoCapitalize="none"
                     keyboardType="email-address"
                   />
@@ -158,13 +131,9 @@ const SettingsScreen = ({
                   )}
                 </View>
 
-                <InputForm
+                <FormInput.Field
                   placeholder={i18n.t('settings.phoneNumber')}
-                  value={values.phone || ''}
-                  active={activeField === 'phone'}
-                  onFocus={() => onChange('activeField', 'phone')}
-                  onBlur={() => onChange('activeField', '')}
-                  onChangeText={handleChange('phone')}
+                  name="phone"
                   keyboardType="phone-pad"
                   autoCapitalize="none"
                 />
@@ -173,41 +142,23 @@ const SettingsScreen = ({
               <FormContainer
                 headerTitle={i18n.t('settings.passwordSettings')}
               >
-                <InputForm
+                <FormInput.Field
                   placeholder={i18n.t('settings.currentPassword')}
                   containerStyle={s.inputContainer}
-                  value={values.currentPassword || ''}
-                  onFocus={() =>
-                    onChange('activeField', 'currentPassword')
-                  }
-                  onBlur={() => onChange('activeField', '')}
-                  onChangeText={handleChange('currentPassword')}
-                  active={activeField === 'currentPassword'}
+                  name="currentPassword"
                   secureTextEntry
                   autoCapitalize="none"
                 />
-                <InputForm
+                <FormInput.Field
                   placeholder={i18n.t('settings.newPassword')}
                   containerStyle={s.inputContainer}
-                  value={values.newPassword || ''}
-                  onFocus={() =>
-                    onChange('activeField', 'newPassword')
-                  }
-                  onBlur={() => onChange('activeField', '')}
-                  onChangeText={handleChange('newPassword')}
-                  active={activeField === 'newPassword'}
+                  name="newPassword"
                   secureTextEntry
                   autoCapitalize="none"
                 />
-                <InputForm
+                <FormInput.Field
                   placeholder={i18n.t('settings.retypeNewPassword')}
-                  value={values.replyPassword || ''}
-                  onFocus={() =>
-                    onChange('activeField', 'replyPassword')
-                  }
-                  onBlur={() => onChange('activeField', '')}
-                  onChangeText={handleChange('replyPassword')}
-                  active={activeField === 'replyPassword'}
+                  name="replyPassword"
                   secureTextEntry
                   autoCapitalize="none"
                 />
@@ -217,6 +168,7 @@ const SettingsScreen = ({
                 <Button
                   containerStyle={s.buttonContainer}
                   title={i18n.t('common.cancel')}
+                  onPress={handleReset}
                 />
                 <Button
                   containerStyle={s.buttonContainer}
@@ -237,7 +189,7 @@ const SettingsScreen = ({
               </View>
             </React.Fragment>
           )}
-        </Formik>
+        </Form>
       </View>
     </KeyboardAwareScrollView>
     <ActionSheet
@@ -270,15 +222,13 @@ SettingsScreen.navigationOptions = () => ({
 SettingsScreen.propTypes = {
   goToMyProfile: T.func,
   resendVerificationEmail: T.func,
-  profileValidationSchema: T.any,
   onSave: T.func,
   addPhoto: T.func,
-  onChange: T.func,
-  activeField: T.string,
   user: T.object,
   isUpdatingProfile: T.bool,
   isChangingEmail: T.bool,
   isChangingPassword: T.bool,
+  formRef: T.any,
 };
 
 export default SettingsScreen;

@@ -18,6 +18,9 @@ export {
 export {
   default as SettingsScreen,
 } from './Settings/SettingsScreenContainer';
-export {  
+export {
   default as ProfileScreen,
 } from './Profile/ProfileScreenContainer';
+export {
+  default as VerifyEmailScreen,
+} from './VerifyEmail/VerifyEmailScreenContainer';

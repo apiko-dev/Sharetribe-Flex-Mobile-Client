@@ -120,6 +120,13 @@
     "reviews": "Reviews",
     "testTextBio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, seddo eiusmod tempor incididu..."
   },
+  "verifyEmail": {
+    "verifyEmail": "Verify email",
+    "verifyEmailSuccess": "Verify email completed",
+    "someInstruction": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, seddo eiusmod tempor incididu...",
+    "goToApp": "Go to app"
+    
+  },
   "alerts": {
     "signInError": {
       "title": "Sign In",
@@ -175,5 +182,14 @@
     "camera": "We need camera permission",
     "mediaLibrary": "We need media library permission",
     "error": "Permission error"
+  }, 
+  "errors": {
+    "passwordMustBe": "Password must be between 8 and 256 symbols",
+    "confirmPassword": "Password don't the same",
+    "incorrectPassword": "Incorrect password",
+    "incorrectPhone": "Incorrect phone number",
+    "incorrectEmail": "Incorrect email",
+    "requireFirstName": "First name must be minimum 1 symbol",
+    "requireLastName": "Last name must be minimum 1 symbol"
   }
 }
