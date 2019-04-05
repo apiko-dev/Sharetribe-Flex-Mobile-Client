@@ -41,7 +41,7 @@ export default hoistStatics(
       listings,
       isLoading:
         listings.createListing.inProgress ||
-        R.path('product', 'update', 'inProgress'),
+        R.pathOr(false, ['update', 'inProgress'], product),
     })),
 
     withStateHandlers(
