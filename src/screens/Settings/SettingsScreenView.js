@@ -19,6 +19,7 @@ import { EmailVerifiedMessage } from './components';
 import i18n from '../../i18n';
 import { colors } from '../../styles';
 import { ProfileSchema } from '../../validators/schemes';
+import { actionSheetSettingsOptions } from '../../constants/options';
 
 const SettingsScreen = ({
   goToMyProfile,
@@ -197,15 +198,9 @@ const SettingsScreen = ({
         this.actionSheetRefAvatar = ref;
       }}
       title={i18n.t('common.select')}
-      message={i18n.t(
-        'settings.choosePhotosFromLibraryOrMakeNewPhoto',
-      )}
+      message={i18n.t('settings.choosePhotos')}
       tintColor={colors.settingsScreen.actionSheetTintColor}
-      options={[
-        i18n.t('settings.choosePhotosFromLibrary'),
-        i18n.t('settings.makeNewPhoto'),
-        i18n.t('common.cancel'),
-      ]}
+      options={actionSheetSettingsOptions}
       onPress={(index) => {
         setTimeout(() => addPhoto(index), 500);
       }}

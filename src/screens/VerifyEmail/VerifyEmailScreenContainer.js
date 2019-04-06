@@ -5,6 +5,7 @@ import {
   lifecycle,
   branch,
   renderComponent,
+  withStateHandlers,
 } from 'recompose';
 import { inject } from 'mobx-react';
 import VerifyEmailScreen from './VerifyEmailScreenView';
@@ -21,13 +22,40 @@ export default hoistStatics(
       verifyEmail: viewer.verifyEmail,
     })),
 
+    withStateHandlers(
+      {
+        isError: false,
+      },
+      {
+        setError: () => (value) => ({
+          isError: value,
+        }),
+      },
+    ),
+
+    withHandlers({
+      sendTokenToVerifyEmail: ({
+        verifyEmail,
+        token,
+        setError,
+      }) => () => {
+        try {
+          setError(false);
+          verifyEmail.run(token);
+        } catch (err) {
+          setError(true);
+        }
+      },
+    }),
+
     withHandlers({
       goToApp: () => () => NavigationService.navigateToApp(),
+      tryAgain: (props) => () => props.sendTokenToVerifyEmail(),
     }),
 
     lifecycle({
       componentDidMount() {
-        this.props.verifyEmail.run(this.props.token);
+        this.props.sendTokenToVerifyEmail();
       },
     }),
 

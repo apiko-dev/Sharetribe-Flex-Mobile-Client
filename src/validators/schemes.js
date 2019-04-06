@@ -6,12 +6,14 @@ export const ProfileSchema = Yup.object().shape({
   firstName: Yup.string()
     .trim()
     .min(1)
+    .max(100)
     .required(i18n.t('errors.requireFirstName')),
   lastName: Yup.string()
     .trim()
     .min(1)
+    .max(100)
     .required(i18n.t('errors.requireLastName')),
-  passwordForEmail: Yup.string().min(
+  currentPasswordForEmail: Yup.string().min(
     8,
     i18n.t('errors.passwordMustBe'),
   ),
@@ -29,8 +31,8 @@ export const ProfileSchema = Yup.object().shape({
     is: (val) => !!val,
     then: Yup.string()
       .trim()
-      .min(8)
-      .max(256)
+      .min(8, i18n.t('errors.passwordMustBe'))
+      .max(256, i18n.t('errors.passwordMustBe'))
       .required(i18n.t('errors.passwordMustBe')),
     otherwise: Yup.string().min(0),
   }),

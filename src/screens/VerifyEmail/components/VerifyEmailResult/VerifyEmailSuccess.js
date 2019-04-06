@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import T from 'prop-types';
 import { Text, IconFonts, Button } from '../../../../components';
 import i18n from '../../../../i18n';
-import s from './styles';
+import s from '../../styles';
 import { colors } from '../../../../styles';
 
 const VerifyEmailSuccess = ({ goToApp }) => (

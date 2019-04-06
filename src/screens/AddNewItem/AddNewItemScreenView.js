@@ -11,6 +11,7 @@ import i18n from '../../i18n';
 import SelectButton from '../../components/SelectButton/SelectButton';
 import { colors } from '../../styles';
 import { isAndroid } from '../../utils';
+import { actionSheetAddNewItemOptions } from '../../constants/options';
 
 const isAndroidDevice = isAndroid();
 
@@ -182,15 +183,9 @@ const AddNewItemScreenView = ({
         this.actionSheetRef = ref;
       }}
       title={i18n.t('common.select')}
-      message={i18n.t(
-        'addNewItem.choosePhotosFromLibraryOrMakeNewPhoto',
-      )}
+      message={i18n.t('addNewItem.choosePhotos')}
       tintColor={colors.addNewItemScreen.actionSheetTintColor}
-      options={[
-        i18n.t('addNewItem.choosePhotosFromLibrary'),
-        i18n.t('addNewItem.makeNewPhoto'),
-        i18n.t('common.cancel'),
-      ]}
+      options={actionSheetAddNewItemOptions}
       onPress={(index) => {
         setTimeout(() => addPhoto(index), 500);
       }}

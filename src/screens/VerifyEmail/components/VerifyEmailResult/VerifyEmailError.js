@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import T from 'prop-types';
 import { Text, IconFonts, Button } from '../../../../components';
 import i18n from '../../../../i18n';
-import s from './styles';
+import s from '../../styles';
 import { colors } from '../../../../styles';
 
 const VerifyEmailError = ({ goToApp, tryAgain }) => (
@@ -15,7 +15,7 @@ const VerifyEmailError = ({ goToApp, tryAgain }) => (
       tintColor={colors.icon.tintColorOrange}
     />
     <Text bold largeSize black style={s.heading}>
-      {i18n.t('verifyEmail.verifyEmailSuccess')}
+      {i18n.t('verifyEmail.verifyEmailError')}
     </Text>
     <Text back style={s.instructionContainer}>
       {i18n.t('verifyEmail.someInstruction')}
@@ -24,7 +24,7 @@ const VerifyEmailError = ({ goToApp, tryAgain }) => (
       primary
       containerStyle={s.buttonContainer}
       title={i18n.t('verifyEmail.tryAgain')}
-      onPress={goToApp}
+      onPress={tryAgain}
     />
     <Button
       containerStyle={s.buttonContainer}
@@ -36,6 +36,7 @@ const VerifyEmailError = ({ goToApp, tryAgain }) => (
 
 VerifyEmailError.propTypes = {
   goToApp: T.func,
+  tryAgain: T.func,
 };
 
 export default VerifyEmailError;

@@ -2,10 +2,9 @@
 import { types, getEnv, getRoot } from 'mobx-state-tree';
 import { User } from './UserStore';
 import createFlow from './helpers/createFlow';
-import { AlertService } from '../services';
-import i18n from '../i18n';
 import processJsonApi from './utils/processJsonApi';
 import { normalizedIncluded } from './utils/normalize';
+import normalizeError from './utils/normalizeError';
 
 const Viewer = types.compose(
   User,
@@ -13,35 +12,6 @@ const Viewer = types.compose(
     id: types.maybe(types.string),
   }),
 );
-
-function errorParser(err) {
-  let reason;
-  let fields;
-
-  if (Array.isArray(err.data.errors)) {
-    reason = err.data.errors.map((i) => {
-      if (i.status === 400) {
-        return {
-          fields: i.source.path,
-          code: i.code,
-          details: i.details,
-          title: i.title,
-          status: i.status,
-        };
-      }
-
-      return i;
-    });
-
-    fields = err.data.errors.map((i) => i.source.path[0]);
-  }
-
-  return {
-    message: err.message,
-    reason,
-    fields,
-  };
-}
 
 const ViewerStore = types
   .model('ViewerStore', {
@@ -74,9 +44,7 @@ function getCurrentUser(flow, store) {
       flow.start();
 
       const res = yield store.Api.getUser();
-      console.log('res: ', res);
       const user = processJsonApi(res.data.data);
-      console.log(user);
 
       const normalizedEntities = normalizedIncluded(
         res.data.included,
@@ -88,8 +56,6 @@ function getCurrentUser(flow, store) {
 
       flow.success();
     } catch (err) {
-      console.log(err);
-
       flow.failed();
     }
   };
@@ -99,23 +65,17 @@ function changeAvatar(flow, store) {
   return function* changeAvatar(avatar) {
     try {
       flow.start();
-      console.log('start changeAvatar ', avatar);
 
       const imagesRes = yield store.Api.imagesUpload(avatar);
       const avatarId = imagesRes.data.data.id.uuid;
 
-      const res = yield store.Api.updateAvatar(avatarId);
-      console.log('update avatar res: ', res);
+      yield store.Api.updateAvatar(avatarId);
+
       yield store.getCurrentUser.run();
 
       flow.success();
     } catch (err) {
-      AlertService.showAlert(
-        i18n.t('alerts.somethingWentWrong.title'),
-        i18n.t('alerts.somethingWentWrong.message'),
-      );
-
-      flow.failed();
+      flow.failed(err, true);
     }
   };
 }
@@ -143,7 +103,7 @@ function updateProfile(flow, store) {
 
       flow.success();
     } catch (err) {
-      const error = errorParser(err);
+      const error = normalizeError(err);
 
       flow.failed(error, true);
     }
@@ -165,7 +125,8 @@ function changeEmail(flow, store) {
       flow.success();
     } catch (err) {
       console.log('change email error: ', err);
-      const error = errorParser(err);
+      const error = normalizeError(err);
+      console.log(error);
 
       flow.failed(error, true);
     }
@@ -186,10 +147,7 @@ function changePassword(flow, store) {
 
       flow.success();
     } catch (err) {
-      console.log('change password error: ', err);
-      const error = errorParser(err);
-
-      flow.failed(error, true);
+      flow.failed(err, true);
     }
   };
 }
@@ -203,12 +161,7 @@ function sendVerifyEmail(flow, store) {
 
       flow.success();
     } catch (err) {
-      AlertService.showAlert(
-        i18n.t('alerts.somethingWentWrong.title'),
-        i18n.t('alerts.somethingWentWrong.message'),
-      );
-
-      flow.failed();
+      flow.failed(err, true);
     }
   };
 }
@@ -222,13 +175,7 @@ function verifyEmail(flow, store) {
 
       flow.success();
     } catch (err) {
-      console.log(err);
-      AlertService.showAlert(
-        i18n.t('alerts.somethingWentWrong.title'),
-        i18n.t('alerts.somethingWentWrong.message'),
-      );
-
-      flow.failed();
+      flow.failed(err, true);
     }
   };
 }

@@ -3,12 +3,12 @@ import {
   compose,
   hoistStatics,
   withHandlers,
-  withStateHandlers,
   defaultProps,
   withProps,
 } from 'recompose';
 import ImagePicker from 'react-native-image-crop-picker';
 import { inject } from 'mobx-react';
+import uuid from 'uuid/v4';
 import {
   PermissionService,
   NavigationService,
@@ -35,109 +35,88 @@ export default hoistStatics(
       formRef: React.createRef(),
     }),
 
-    withStateHandlers(
-      {
-        photo: {},
-        activeField: '',
-        errors: {},
-      },
-      {
-        onChange: () => (field, value) => ({
-          [field]: value,
-        }),
-
-        addPhoto: () => (image) => ({
-          photo: {
-            id: Math.random(),
-            uri: image.path,
-            name: `image_${Math.floor(Math.random() * 100)}.jpg`,
-            type: image.mime,
-          },
-        }),
-      },
-    ),
-
     withHandlers({
       goToMyProfile: ({ user }) => () =>
         NavigationService.navigateToProfile({
           user,
         }),
 
-      resendVerificationEmail: ({ sendVerifyEmail }) => () => {
-        sendVerifyEmail.run();
+      resendVerificationEmail: ({ sendVerifyEmail }) => async () => {
+        try {
+          await sendVerifyEmail.run();
+
+          AlertService.showAlert(
+            i18n.t('settings.verifyEmail'),
+            i18n.t('settings.verifyEmailSent'),
+          );
+        } catch (error) {
+          AlertService.showSomethingWentWrong();
+        }
       },
 
-      onSave: ({
-        user,
-        updateProfile,
-        changeEmail,
-        changePassword,
-        ...props
-      }) => async (data) => {
-        console.log(data);
-        if (
-          data.firstName !== user.profile.firstName ||
-          data.lastName !== user.profile.lastName ||
-          data.bio !== user.profile.bio ||
-          data.phone !== user.profile.protectedData.phoneNumber
-        ) {
-          try {
-            await updateProfile.run({ ...data });
-          } catch (err) {
-            console.log('error in settings screen container, ', err);
-            if (err.fields.includes('phone')) {
-              props.formRef.current.form.setFieldError(
-                'phone',
-                i18n.t('errors.incorrectPhone'),
-              );
-            }
-
-            AlertService.showSomethingWentWrong();
+      updateProfile: ({ updateProfile, formRef }) => async (data) => {
+        try {
+          await updateProfile.run({ ...data });
+        } catch (err) {
+          if (err.fields && err.fields.includes('phone')) {
+            formRef.current.form.setFieldError(
+              'phone',
+              i18n.t('errors.incorrectPhone'),
+            );
           }
+
+          AlertService.showSomethingWentWrong();
         }
+      },
 
-        if (
-          data.email !== user.email &&
-          data.currentPasswordForEmail
-        ) {
-          try {
-            await changeEmail.run({ ...data });
-          } catch (err) {
-            console.log(err);
-            if (err.fields.includes('email')) {
-              props.formRef.current.form.setFieldError(
-                'email',
-                i18n.t('errors.incorrectEmail'),
-              );
-            }
-
-            if (err.fields.includes('currentPassword')) {
-              props.formRef.current.form.setFieldError(
-                'currentPasswordForEmail',
-                i18n.t('errors.incorrectPassword'),
-              );
-            }
-
-            AlertService.showSomethingWentWrong();
+      changeEmail: ({ changeEmail, formRef }) => async (data) => {
+        try {
+          if (
+            !data.currentPasswordForEmail ||
+            data.currentPasswordForEmail.length < 8
+          ) {
+            formRef.current.form.setFieldError(
+              'currentPasswordForEmail',
+              i18n.t('errors.passwordMustBe'),
+            );
+            return;
           }
-        }
 
-        if (
-          data.currentPassword &&
-          data.newPassword &&
-          data.replyPassword &&
-          data.newPassword === data.replyPassword
-        ) {
-          try {
-            await changePassword.run({ ...data });
-          } catch (error) {
+          await changeEmail.run({ ...data });
+        } catch (err) {
+          if (err.fields && err.fields.includes('email')) {
+            formRef.current.form.setFieldError(
+              'email',
+              i18n.t('errors.incorrectEmail'),
+            );
+          }
+
+          if (err.status === 403) {
+            formRef.current.form.setFieldError(
+              'currentPasswordForEmail',
+              i18n.t('errors.incorrectPassword'),
+            );
+          } else {
             AlertService.showSomethingWentWrong();
           }
         }
       },
 
-      changeAvatar: (props) => () => {
-        props.changeAvatar.run(props.photo);
+      changePassword: ({ changePassword, formRef }) => async (
+        data,
+      ) => {
+        try {
+          await changePassword.run({ ...data });
+        } catch (err) {
+          if (err.status === 403) {
+            formRef.current.form.setFieldError(
+              'currentPassword',
+              i18n.t('errors.incorrectPassword'),
+            );
+          } else {
+            AlertService.showSomethingWentWrong();
+          }
+        }
       },
 
       addPhotoByCamera: (props) => async () => {
@@ -147,12 +126,10 @@ export default hoistStatics(
               cropping: true,
             });
 
-            props.addPhoto(image);
-
             props.changeAvatar.run({
-              id: Math.random(),
+              id: uuid(),
               uri: image.path,
-              name: `image_${Math.floor(Math.random() * 100)}.jpg`,
+              name: `image_${uuid()}.jpg`,
               type: image.mime,
             });
           }
@@ -170,12 +147,10 @@ export default hoistStatics(
               cropping: true,
             });
 
-            props.addPhoto(image);
-
             props.changeAvatar.run({
-              id: Math.random(),
+              id: uuid(),
               uri: image.path,
-              name: `image_${Math.floor(Math.random() * 100)}.jpg`,
+              name: `image_${uuid()}.jpg`,
               type: image.mime,
             });
           }
@@ -195,8 +170,35 @@ export default hoistStatics(
           props.addPhotoByCamera();
         }
       },
-    }),
 
-    withProps(console.log),
+      onSave: ({
+        user,
+        updateProfile,
+        changeEmail,
+        changePassword,
+      }) => async (data) => {
+        if (
+          data.firstName !== user.profile.firstName ||
+          data.lastName !== user.profile.lastName ||
+          data.bio !== user.profile.bio ||
+          data.phone !== user.profile.protectedData.phoneNumber
+        ) {
+          updateProfile(data);
+        }
+
+        if (data.email !== user.email) {
+          changeEmail(data);
+        }
+
+        if (
+          data.currentPassword &&
+          data.newPassword &&
+          data.replyPassword &&
+          data.newPassword === data.replyPassword
+        ) {
+          changePassword(data);
+        }
+      },
+    }),
   ),
 )(SettingsScreenView);

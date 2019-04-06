@@ -142,10 +142,6 @@ function createListing(flow, store) {
             text: i18n.t('common.ok'),
             onPress: () => NavigationService.navigateToHome(),
           },
-          {
-            text: i18n.t('common.cancel'),
-            style: 'cancel',
-          },
         ],
       );
     } catch (err) {

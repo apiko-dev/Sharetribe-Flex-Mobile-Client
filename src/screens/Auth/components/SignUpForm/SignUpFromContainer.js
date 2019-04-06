@@ -47,7 +47,7 @@ export default compose(
       props.onChange(
         'isValidFields',
         isValidEmail(props.email) &&
-          props.password.trim().length > 8 &&
+          props.password.trim().length >= 8 &&
           props.firstName.trim().length > 0 &&
           props.lastName.trim().length > 0,
       );

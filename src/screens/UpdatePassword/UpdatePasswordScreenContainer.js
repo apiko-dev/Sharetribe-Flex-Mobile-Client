@@ -42,7 +42,7 @@ export default hoistStatics(
     withPropsOnChange(['newPassword', 'replyPassword'], (props) => {
       props.onChange(
         'isValidFields',
-        props.newPassword.trim().length > 8 &&
+        props.newPassword.trim().length >= 8 &&
           props.newPassword === props.replyPassword,
       );
     }),
