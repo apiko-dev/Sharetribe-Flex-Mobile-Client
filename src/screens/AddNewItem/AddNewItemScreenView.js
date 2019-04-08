@@ -4,6 +4,7 @@ import { View, FlatList } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import T from 'prop-types';
 import { ActionSheetCustom as ActionSheet } from 'react-native-actionsheet';
+import { NavigationService } from '../../services';
 import { Text, Button, InputForm, Touchable } from '../../components';
 import { AddPhotoButton, PhotoItem } from './components';
 import s from './styles';
@@ -36,6 +37,7 @@ const AddNewItemScreenView = ({
   locationList,
   isEditing,
   updateProduct,
+  setGeolocation,
 }) => (
   <KeyboardAwareScrollView
     keyboardShouldPersistTaps="handled"
@@ -157,6 +159,7 @@ const AddNewItemScreenView = ({
                   onPress={() => {
                     onChange('location', item.description);
                     onChange('locationList', []);
+                    setGeolocation(item);
                   }}
                   style={s.locationDropDownListItem}
                 >
@@ -174,6 +177,7 @@ const AddNewItemScreenView = ({
           <Button
             title={i18n.t('addNewItem.cancel')}
             containerStyle={s.marginButton}
+            onPress={() => NavigationService.goBack()}
           />
           <Button
             primary
@@ -220,8 +224,10 @@ const AddNewItemScreenView = ({
   </KeyboardAwareScrollView>
 );
 
-AddNewItemScreenView.navigationOptions = () => ({
-  title: i18n.t('addNewItem.addGoods'),
+AddNewItemScreenView.navigationOptions = ({ navigation }) => ({
+  title: navigation.getParam('isEditing')
+    ? i18n.t('addNewItem.editGoods')
+    : i18n.t('addNewItem.addGoods'),
 });
 
 AddNewItemScreenView.propTypes = {
@@ -246,6 +252,7 @@ AddNewItemScreenView.propTypes = {
   onChangeLocation: T.func,
   locationList: T.array,
   isEditing: T.bool,
+  setGeolocation: T.func,
 };
 
 export default AddNewItemScreenView;

@@ -9,8 +9,8 @@ import R from 'ramda';
 import ImagePicker from 'react-native-image-crop-picker';
 import { inject } from 'mobx-react';
 import uuid from 'uuid/v4';
-import i18n from '../../i18n';
 
+import i18n from '../../i18n';
 import AddNewItemScreen from './AddNewItemScreenView';
 import {
   NavigationService,
@@ -70,6 +70,7 @@ export default hoistStatics(
           locationList: [],
           activeField: '',
           isValidFields: false,
+          geolocation: {},
         };
       },
       {
@@ -93,6 +94,12 @@ export default hoistStatics(
         chooseCategory: () => (category, subCategory) => ({
           category,
           subCategory,
+        }),
+        setLocation: () => ({ lat, lng }) => ({
+          geolocation: {
+            lat,
+            lng,
+          },
         }),
       },
     ),
@@ -149,6 +156,7 @@ export default hoistStatics(
           description: props.description,
           price: props.price,
           location: props.location,
+          geolocation: props.geolocation,
         });
       },
 
@@ -165,6 +173,7 @@ export default hoistStatics(
             description: props.description,
             price: props.price,
             location: props.location,
+            geolocation: props.geolocation,
           });
           AlertService.showAlert(
             i18n.t('alerts.updateProductSuccess.title'),
@@ -193,6 +202,21 @@ export default hoistStatics(
           props.onChange('locationList', res.data.predictions);
         } catch (error) {
           props.onChange('locationList', []);
+        }
+      },
+
+      setGeolocation: (props) => async (item) => {
+        try {
+          const res = await GoogleApi.getPlaceDetails({
+            placeid: item.place_id,
+            language: 'eng',
+          });
+
+          props.setLocation(
+            R.path(['data', 'result', 'geometry', 'location'], res),
+          );
+        } catch (err) {
+          console.log(err.message);
         }
       },
     }),

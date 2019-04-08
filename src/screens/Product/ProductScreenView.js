@@ -125,6 +125,8 @@ const ProductScreen = ({
             <DescriptionTab
               text={product.description}
               user={author.profile}
+              location={product.publicData.location}
+              geolocation={product.geolocation}
             />
           </View>
         </Tab>

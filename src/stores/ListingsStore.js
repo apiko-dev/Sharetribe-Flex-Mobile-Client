@@ -14,6 +14,10 @@ import listModel from './utils/listModel';
 import { User } from './UserStore';
 import { normalizedIncluded } from './utils/normalize';
 
+const Geolocation = t.model('Geolocation', {
+  lat: t.maybe(t.number),
+  lng: t.maybe(t.number),
+});
 const ProductPublicData = t.model('ProductPublicData', {
   brand: t.maybe(t.string),
   category: t.maybe(t.string),
@@ -63,7 +67,7 @@ export const Product = t
     id: t.identifier,
     description: t.string,
     deleted: t.boolean,
-    geolocation: t.null,
+    geolocation: t.optional(t.maybeNull(Geolocation), null),
     createdAt: t.maybe(t.Date),
     state: t.string,
     title: t.string,
@@ -183,6 +187,7 @@ function createListing(flow, store) {
     description,
     price,
     location,
+    geolocation,
   }) {
     try {
       flow.start();
@@ -202,6 +207,7 @@ function createListing(flow, store) {
         price,
         location,
         images: imagesId,
+        geolocation,
       });
 
       flow.success();
