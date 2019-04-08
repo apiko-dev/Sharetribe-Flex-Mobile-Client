@@ -36,6 +36,10 @@ class NavigationService {
     this.navigate(screens.UpdatePassword, props);
   }
 
+  navigateToVerifyEmail(props) {
+    this.navigate(screens.VerifyEmail, props);
+  }
+
   navigateToAddNewItem(props) {
     this.navigate(screens.AddNewItem, props);
   }
@@ -89,6 +93,12 @@ class NavigationService {
       const email = route.match(/e=([^&]*)/)[1].replace('%40', '@');
 
       this.navigateToUpdatePassword({ token, email });
+    }
+
+    if (routeName === 'verify-email') {
+      const token = route.match(/t=([^&]*)/)[1];
+
+      this.navigateToVerifyEmail({ token });
     }
   }
 }

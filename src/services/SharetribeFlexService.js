@@ -35,7 +35,9 @@ class SharetribeSdkService {
   }
 
   getUser() {
-    return this.sdk.currentUser.show();
+    return this.sdk.currentUser.show({
+      include: ['profileImage'],
+    });
   }
 
   resetPassword({ email }) {
@@ -91,6 +93,19 @@ class SharetribeSdkService {
     });
   }
 
+  updateProfile(query) {
+    return this.sdk.currentUser.updateProfile(query, {
+      include: ['profileImage'],
+    });
+  }
+
+  updateAvatar(avatarId) {
+    const profileImageId = new types.UUID(avatarId);
+    return this.sdk.currentUser.updateProfile({
+      profileImageId,
+    });
+  }
+
   getOwnListing(id) {
     return this.sdk.ownListings.show({ id });
   }
@@ -106,6 +121,30 @@ class SharetribeSdkService {
   getUserById(userId) {
     const id = new types.UUID(userId);
     return this.sdk.users.show({ id });
+  }
+
+  changePassword({ currentPassword, newPassword }) {
+    return this.sdk.currentUser.changePassword({
+      currentPassword,
+      newPassword,
+    });
+  }
+
+  changeEmail({ currentPassword, email }) {
+    return this.sdk.currentUser.changeEmail({
+      currentPassword,
+      email,
+    });
+  }
+
+  sendVerifyEmail() {
+    return this.sdk.currentUser.sendVerificationEmail();
+  }
+
+  verifyEmail(verificationToken) {
+    return this.sdk.currentUser.verifyEmail({
+      verificationToken,
+    });
   }
 
   updateOwnListings({

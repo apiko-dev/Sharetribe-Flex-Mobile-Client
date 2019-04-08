@@ -25,11 +25,13 @@ export default compose(
     goToLogin: () => () => NavigationService.navigateToAuth(),
     goToAddNewItem: () => () =>
       NavigationService.navigateTo(screens.AddNewItem),
-    goToProfile: () => (user) =>
+    goToProfile: () => (user) => {
       NavigationService.navigateToProfile({
         user,
         isDrawerButton: true,
-      }),
+      });
+      NavigationService.closeDrawer();
+    },
   }),
 
   withPropsOnChange(['isAuthorized'], (props) => {

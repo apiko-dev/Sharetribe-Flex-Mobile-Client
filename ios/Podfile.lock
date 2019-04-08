@@ -91,9 +91,9 @@ PODS:
     - React
   - RNOpenAppSettings (1.0.0):
     - React
-  - RNReanimated (1.0.0-alpha.12):
+  - RNReanimated (1.0.0):
     - React
-  - RNSVG (9.3.6):
+  - RNSVG (9.3.7):
     - React
   - RNVectorIcons (6.4.2):
     - React
@@ -182,8 +182,8 @@ SPEC CHECKSUMS:
   RNImageCropPicker: a4c8db5757926bda8b04ba6796cc2a21cc6fd783
   RNLanguages: 962e562af0d34ab1958d89bcfdb64fafc37c513e
   RNOpenAppSettings: 1169b90a275e9e18c5973e1608949f97d426e7f3
-  RNReanimated: b7adc1a5e4eca563966cfcbd982429ebd70d6b17
-  RNSVG: 172d33eda196063a6a94900d93a4a2cbb126bf33
+  RNReanimated: 9497464b378759f538c539df105cda235de496c5
+  RNSVG: 2cc66383316fa84d4c672ccfa5e3bac271b6a2af
   RNVectorIcons: 6607bd3a30291d0edb56f9bbe7ae411ee2b928b0
   RSKImageCropper: 98296ad26b41753f796b6898d015509598f13d97
   yoga: 3768a3026ade0fb46a68f3a31a917cf86bc34fc4

@@ -11,6 +11,7 @@ import i18n from '../../i18n';
 import SelectButton from '../../components/SelectButton/SelectButton';
 import { colors } from '../../styles';
 import { isAndroid } from '../../utils';
+import { actionSheetAddNewItemOptions } from '../../constants/options';
 
 const isAndroidDevice = isAndroid();
 
@@ -69,6 +70,7 @@ const AddNewItemScreenView = ({
         onFocus={() => onChange('activeField', 'title')}
         onBlur={() => onChange('activeField', '')}
         onChangeText={(text) => onChange('title', text)}
+        maxLength={100}
       />
       <SelectButton
         label={i18n.t('addNewItem.category')}
@@ -88,6 +90,7 @@ const AddNewItemScreenView = ({
             onFocus={() => onChange('activeField', 'brand')}
             onBlur={() => onChange('activeField', '')}
             onChangeText={(text) => onChange('brand', text)}
+            maxLength={100}
           />
           <InputForm
             containerStyle={s.inputContainer}
@@ -97,6 +100,7 @@ const AddNewItemScreenView = ({
             onFocus={() => onChange('activeField', 'level')}
             onBlur={() => onChange('activeField', '')}
             onChangeText={(text) => onChange('level', text)}
+            maxLength={100}
           />
         </React.Fragment>
       )}
@@ -128,6 +132,7 @@ const AddNewItemScreenView = ({
           onChange('price', text)
         }
         keyboardType="numeric"
+        maxLength={9}
       />
       <View
         style={[
@@ -142,6 +147,7 @@ const AddNewItemScreenView = ({
           onFocus={() => onChange('activeField', 'location')}
           onBlur={() => onChange('activeField', '')}
           onChangeText={(text) => onChangeLocation(text)}
+          maxLength={100}
         />
 
         {activeField === 'location' && locationList.length !== 0 && (
@@ -203,15 +209,9 @@ const AddNewItemScreenView = ({
         this.actionSheetRef = ref;
       }}
       title={i18n.t('common.select')}
-      message={i18n.t(
-        'addNewItem.choosePhotosFromLibraryOrMakeNewPhoto',
-      )}
+      message={i18n.t('addNewItem.choosePhotos')}
       tintColor={colors.addNewItemScreen.actionSheetTintColor}
-      options={[
-        i18n.t('addNewItem.choosePhotosFromLibrary'),
-        i18n.t('addNewItem.makeNewPhoto'),
-        i18n.t('common.cancel'),
-      ]}
+      options={actionSheetAddNewItemOptions}
       onPress={(index) => {
         setTimeout(() => addPhoto(index), 500);
       }}

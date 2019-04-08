@@ -13,3 +13,4 @@ export { scalingUtils, regExp, objectUtils, hocs };
 export { default as delay } from './delay';
 export { default as getImageUrl } from './getImageUrl';
 export { default as formatPrice } from './formatPrice';
+export { default as trim } from './trim';
