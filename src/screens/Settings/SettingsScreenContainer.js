@@ -69,17 +69,6 @@ export default hoistStatics(
 
       changeEmail: ({ changeEmail, formRef }) => async (data) => {
         try {
-          if (
-            !data.currentPasswordForEmail ||
-            data.currentPasswordForEmail.length < 8
-          ) {
-            formRef.current.form.setFieldError(
-              'currentPasswordForEmail',
-              i18n.t('errors.passwordMustBe'),
-            );
-            return;
-          }
-
           await changeEmail.run({ ...data });
         } catch (err) {
           if (err.fields && err.fields.includes('email')) {
