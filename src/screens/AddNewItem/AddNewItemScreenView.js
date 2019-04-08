@@ -70,6 +70,7 @@ const AddNewItemScreenView = ({
         onFocus={() => onChange('activeField', 'title')}
         onBlur={() => onChange('activeField', '')}
         onChangeText={(text) => onChange('title', text)}
+        maxLength={100}
       />
       <SelectButton
         label={i18n.t('addNewItem.category')}
@@ -89,6 +90,7 @@ const AddNewItemScreenView = ({
             onFocus={() => onChange('activeField', 'brand')}
             onBlur={() => onChange('activeField', '')}
             onChangeText={(text) => onChange('brand', text)}
+            maxLength={100}
           />
           <InputForm
             containerStyle={s.inputContainer}
@@ -98,6 +100,7 @@ const AddNewItemScreenView = ({
             onFocus={() => onChange('activeField', 'level')}
             onBlur={() => onChange('activeField', '')}
             onChangeText={(text) => onChange('level', text)}
+            maxLength={100}
           />
         </React.Fragment>
       )}
@@ -129,6 +132,7 @@ const AddNewItemScreenView = ({
           onChange('price', text)
         }
         keyboardType="numeric"
+        maxLength={9}
       />
       <View
         style={[
@@ -143,6 +147,7 @@ const AddNewItemScreenView = ({
           onFocus={() => onChange('activeField', 'location')}
           onBlur={() => onChange('activeField', '')}
           onChangeText={(text) => onChangeLocation(text)}
+          maxLength={100}
         />
 
         {activeField === 'location' && locationList.length !== 0 && (
