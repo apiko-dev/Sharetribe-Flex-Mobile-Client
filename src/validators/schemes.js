@@ -1,6 +1,43 @@
+/* eslint-disable func-names */
 import * as Yup from 'yup';
+import {
+  parsePhoneNumber,
+  parsePhoneNumberFromString,
+  ParseError,
+} from 'libphonenumber-js';
 import { regExp } from '../utils';
 import i18n from '../i18n';
+
+Yup.addMethod(Yup.string, 'phoneNumber', function(message) {
+  return this.test('phoneNumberTest', message, function(value = '') {
+    let isError = false;
+    let phoneNumber;
+
+    const { path, createError } = this;
+
+    try {
+      isError = false;
+
+      parsePhoneNumber(value);
+
+      phoneNumber = parsePhoneNumberFromString(value);
+    } catch (error) {
+      if (error instanceof ParseError) {
+        isError = true;
+      }
+    }
+
+    if (!value) {
+      return true;
+    }
+
+    return (
+      (!isError &&
+        (phoneNumber !== undefined && phoneNumber.isValid())) ||
+      createError({ path, message })
+    );
+  });
+});
 
 export const ProfileSchema = Yup.object().shape({
   firstName: Yup.string()
@@ -23,7 +60,7 @@ export const ProfileSchema = Yup.object().shape({
     .required(i18n.t('errors.incorrectEmail')),
   phone: Yup.string()
     .trim()
-    .min(10, i18n.t('errors.incorrectPhone')),
+    .phoneNumber(i18n.t('errors.incorrectPhone')),
   currentPassword: Yup.string()
     .trim()
     .min(8, i18n.t('errors.passwordMustBe')),

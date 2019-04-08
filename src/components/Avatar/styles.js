@@ -65,6 +65,8 @@ export default StyleSheet.create({
     paddingTop: dimensions.indent * 0.4,
     paddingBottom: dimensions.indent * 0.4,
     padding: dimensions.indent * 0.6,
+    width: 85,
+    justifyContent: 'center',
   },
   view: {
     borderColor: colors.button.borderColor,

@@ -9,6 +9,7 @@ import Touchable from '../Touchable/Touchable';
 import Text from '../Text/Text';
 import IconFonts from '../IconFonts/IconFonts';
 import i18n from '../../i18n';
+import Loader from '../Loader/Loader';
 
 const Avatar = ({
   user,
@@ -16,6 +17,7 @@ const Avatar = ({
   small,
   canChange,
   onPressChange,
+  isLoading,
   ...props
 }) => (
   <View>
@@ -51,10 +53,16 @@ const Avatar = ({
             style={s.container}
           >
             <View style={[s.button, s.view]}>
-              <IconFonts name="edit" size={15} />
-              <Text style={s.text} bold gray xxsmallSize>
-                {i18n.t('settings.change')}
-              </Text>
+              {isLoading ? (
+                <Loader />
+              ) : (
+                <React.Fragment>
+                  <IconFonts name="edit" size={15} />
+                  <Text style={s.text} bold gray xxsmallSize>
+                    {i18n.t('settings.change')}
+                  </Text>
+                </React.Fragment>
+              )}
             </View>
           </Touchable>
         </View>
@@ -68,6 +76,7 @@ Avatar.propTypes = {
   large: T.bool,
   small: T.bool,
   canChange: T.bool,
+  isLoading: T.bool,
   onPressChange: T.func,
 };
 

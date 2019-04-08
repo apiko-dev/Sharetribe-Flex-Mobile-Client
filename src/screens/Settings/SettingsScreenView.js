@@ -30,6 +30,7 @@ const SettingsScreen = ({
   isUpdatingProfile,
   isChangingEmail,
   isChangingPassword,
+  isChangingAvatar,
   formRef,
 }) => (
   <SafeAreaView>
@@ -52,7 +53,7 @@ const SettingsScreen = ({
           }}
           onSubmit={onSave}
         >
-          {({ handleSubmit, handleReset }) => (
+          {({ handleSubmit, handleReset, isValid }) => (
             <React.Fragment>
               <FormContainer
                 headerTitle={i18n.t('settings.profileSettings')}
@@ -70,6 +71,7 @@ const SettingsScreen = ({
                       onPressChange={() => {
                         this.actionSheetRefAvatar.show();
                       }}
+                      isLoading={isChangingAvatar}
                     />
                   </View>
                   <View style={s.tipContainer}>
@@ -87,15 +89,16 @@ const SettingsScreen = ({
                     placeholder={i18n.t('settings.firstName')}
                     containerStyle={s.inputLeft}
                     name="firstName"
+                    maxLength={100}
                   />
                   <FormInput.Field
                     placeholder={i18n.t('settings.lastName')}
                     containerStyle={s.inputRight}
                     name="lastName"
+                    maxLength={100}
                   />
                 </View>
                 <FormInput.Field
-                  containerStyle={s.bioInputContainer}
                   inputContainerStyle={s.bioInputContainer}
                   labelStyle={s.bioLabel}
                   inputStyle={s.bioInput}
@@ -122,6 +125,7 @@ const SettingsScreen = ({
                     name="email"
                     autoCapitalize="none"
                     keyboardType="email-address"
+                    maxLength={100}
                   />
                   {!user.emailVerified && (
                     <EmailVerifiedMessage
@@ -182,6 +186,7 @@ const SettingsScreen = ({
                     isChangingPassword
                   }
                   disabled={
+                    !isValid ||
                     isUpdatingProfile ||
                     isChangingEmail ||
                     isChangingPassword
@@ -221,6 +226,7 @@ SettingsScreen.propTypes = {
   addPhoto: T.func,
   user: T.object,
   isUpdatingProfile: T.bool,
+  isChangingAvatar: T.bool,
   isChangingEmail: T.bool,
   isChangingPassword: T.bool,
   formRef: T.any,

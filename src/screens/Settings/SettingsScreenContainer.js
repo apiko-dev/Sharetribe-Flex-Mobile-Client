@@ -4,7 +4,6 @@ import {
   hoistStatics,
   withHandlers,
   defaultProps,
-  withProps,
 } from 'recompose';
 import ImagePicker from 'react-native-image-crop-picker';
 import { inject } from 'mobx-react';
@@ -29,6 +28,7 @@ export default hoistStatics(
       isUpdatingProfile: viewer.updateProfile.inProgress,
       isChangingEmail: viewer.changeEmail.inProgress,
       isChangingPassword: viewer.changePassword.inProgress,
+      isChangingAvatar: viewer.changeAvatar.inProgress,
     })),
 
     defaultProps({
@@ -64,8 +64,6 @@ export default hoistStatics(
               i18n.t('errors.incorrectPhone'),
             );
           }
-
-          AlertService.showSomethingWentWrong();
         }
       },
 
