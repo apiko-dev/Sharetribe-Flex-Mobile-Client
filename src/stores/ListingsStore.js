@@ -5,6 +5,7 @@ import {
   getRoot,
   applySnapshot,
 } from 'mobx-state-tree';
+import R from 'ramda';
 import createFlow from './helpers/createFlow';
 import { AlertService, NavigationService } from '../services';
 import i18n from '../i18n';
@@ -78,7 +79,7 @@ export const Product = t
     get canEdit() {
       return (
         store.relationships.author.id ===
-        getRoot(store).viewer.user.id
+        R.path(['viewer', 'user', 'id'], getRoot(store))
       );
     },
   }));
