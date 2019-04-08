@@ -19,14 +19,14 @@ const Seller = ({ image, name, rating }) => (
         <View style={s.avatarContainer}>
           <ImageBackground
             source={placeholderImage}
-            style={s.carouselBackgroundImage}
+            style={s.avatarBackgroundImage}
           >
             <Image style={s.avatar} source={{ uri: image }} />
           </ImageBackground>
         </View>
         <View style={s.infoContainer}>
           <View style={s.name}>
-            <Text>{name}</Text>
+            <Text medium>{name}</Text>
           </View>
           <Rating value={rating} />
         </View>

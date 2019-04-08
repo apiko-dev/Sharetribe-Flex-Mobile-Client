@@ -1,7 +1,7 @@
 import React from 'react';
 import T from 'prop-types';
-import { View, Text } from 'react-native';
-import { MapView } from '../../../../components';
+import { View } from 'react-native';
+import { MapView, Text } from '../../../../components';
 import s from './styles';
 
 const Location = ({ location, geolocation }) => {
