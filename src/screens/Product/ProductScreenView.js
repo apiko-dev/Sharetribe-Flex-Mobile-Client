@@ -56,6 +56,7 @@ const ProductScreen = ({
         data={images}
         renderItem={({ item }) => (
           <Touchable
+            activeOpacity={1}
             style={s.slide}
             onPress={() =>
               navigateToImageScreen(gallery, currentIndex)
