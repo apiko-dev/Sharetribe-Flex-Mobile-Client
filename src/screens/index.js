@@ -24,3 +24,6 @@ export {
 export {
   default as VerifyEmailScreen,
 } from './VerifyEmail/VerifyEmailScreenContainer';
+export {
+  default as GalleryScreen,
+} from './Gallery/GalleryScreenContainer';

@@ -8,10 +8,11 @@ import {
 import T from 'prop-types';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { Tab, TabView } from 'react-native-easy-tabs';
+import { observer } from 'mobx-react/custom';
 
 import s from './styles';
 import i18n from '../../i18n';
-import { width, height } from '../../styles/dimensions';
+import { width } from '../../styles/dimensions';
 import {
   NavigationButton,
   Rating,
@@ -46,20 +47,27 @@ const ProductScreen = ({
   images,
   onChangeTabIndex,
   tabIndex,
+  navigateToImageScreen,
+  gallery,
 }) => (
   <ScrollView style={s.container} bounces={false}>
     <View style={s.carouselContainer}>
       <Carousel
         data={images}
         renderItem={({ item }) => (
-          <View style={s.slide}>
+          <Touchable
+            style={s.slide}
+            onPress={() =>
+              navigateToImageScreen(gallery, currentIndex)
+            }
+          >
             <ImageBackground
               source={placeholderImage}
               style={s.carouselBackgroundImage}
             >
               <Image source={{ uri: item }} style={s.image} />
             </ImageBackground>
-          </View>
+          </Touchable>
         )}
         sliderWidth={width}
         sliderHeight={325}
@@ -85,11 +93,6 @@ const ProductScreen = ({
             {`/${i18n.t('home.day')}`}
           </Text>
         </View>
-        {/* <View style={s.availabilityContainer}>
-          <Text mediumSize red>
-            lease
-          </Text>
-        </View> */}
       </View>
       <View style={s.titleTextContainer}>
         <Text largeSize black>
@@ -138,15 +141,15 @@ const ProductScreen = ({
 ProductScreen.navigationOptions = ({ navigation }) => ({
   headerTransparent: true,
   headerStyle: s.headerStyle,
-  headerRight: (
+  headerRight: navigation.getParam('navigateToProductEdit') ? (
     <NavigationButton
       name="edit"
       tintColor={colors.text.white}
       right
-      onPress={() => navigation.getParam('editingProduct')}
+      onPress={navigation.getParam('navigateToProductEdit')}
       circled
     />
-  ),
+  ) : null,
   headerLeft: (
     <NavigationButton goBack tintColor={colors.text.white} circled />
   ),
@@ -160,5 +163,7 @@ ProductScreen.propTypes = {
   images: T.array,
   onChangeTabIndex: T.func,
   tabIndex: T.number,
+  navigateToImageScreen: T.func,
+  gallery: T.array,
 };
-export default ProductScreen;
+export default observer(ProductScreen);

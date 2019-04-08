@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { colors, theme, dimensions } from '../../../../styles';
+import { colors, dimensions } from '../../../../styles';
 
 export default StyleSheet.create({
   container: {
@@ -9,20 +9,12 @@ export default StyleSheet.create({
     backgroundColor: colors.productScreen.white,
     borderBottomColor: colors.input.borderColor,
     borderBottomWidth: 2 * StyleSheet.hairlineWidth,
-    // marginBottom: dimensions.indent,
   },
   textContainer: {
-    margin: 16,
+    margin: dimensions.indent,
     marginBottom: 0,
   },
-  maxHeight: {
-    minHeight: dimensions.indent,
-    maxHeight: 100,
-  },
 
-  // text: {
-  //   flex: 1,
-  // },
   flex: {
     flex: 1,
   },

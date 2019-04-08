@@ -5,34 +5,72 @@ import {
   withHandlers,
   withPropsOnChange,
 } from 'recompose';
+import R from 'ramda';
 import ImagePicker from 'react-native-image-crop-picker';
 import { inject } from 'mobx-react';
+import uuid from 'uuid/v4';
+import i18n from '../../i18n';
+
 import AddNewItemScreen from './AddNewItemScreenView';
-import { NavigationService, PermissionService } from '../../services';
+import {
+  NavigationService,
+  PermissionService,
+  AlertService,
+} from '../../services';
 import GoogleApi from '../../libs/google-autocomplete/GoogleAutocompleteApi';
-import { withDebounce } from '../../utils/enhancers';
+import {
+  withDebounce,
+  withParamsToProps,
+} from '../../utils/enhancers';
+
+const getPublicData = (props) => (name) =>
+  R.pathOr('', ['product', 'publicData', name], props);
+
+const getImages = (product) =>
+  R.pathOr([], ['relationships', 'getImages'], product).map(
+    ({ id, variants }) => ({
+      id,
+      uri: R.path(['default', 'url'], variants),
+    }),
+  );
 
 export default hoistStatics(
   compose(
-    inject((stores) => ({
-      listings: stores.listings,
-      isCreatingListing: stores.listings.createListing.inProgress,
+    withParamsToProps('product', 'isEditing'),
+    inject(({ listings }, { product }) => ({
+      listings,
+      isLoading:
+        listings.createListing.inProgress ||
+        R.pathOr(false, ['update', 'inProgress'], product),
     })),
 
     withStateHandlers(
-      {
-        photos: [],
-        title: '',
-        category: '',
-        subCategory: '',
-        brand: '',
-        level: '',
-        description: '',
-        price: '',
-        location: '',
-        locationList: [],
-        activeField: '',
-        isValidFields: false,
+      (props) => {
+        const getPublic = getPublicData(props);
+
+        return {
+          id: getPublic('id'),
+          photos: getImages(props.product),
+          title: R.pathOr('', ['product', 'title'], props),
+          category: getPublic('category'),
+          subCategory: getPublic('subCategory'),
+          brand: getPublic('subCategory'),
+          level: getPublic('subCategory'),
+          description: R.pathOr(
+            '',
+            ['product', 'description'],
+            props,
+          ),
+          price: R.pathOr(
+            '',
+            ['product', 'price', 'amount'],
+            props,
+          ).toString(),
+          location: getPublic('location'),
+          locationList: [],
+          activeField: '',
+          isValidFields: false,
+        };
       },
       {
         onChange: () => (field, value) => ({
@@ -41,9 +79,9 @@ export default hoistStatics(
 
         addPhoto: (props) => (image) => ({
           photos: props.photos.concat({
-            id: Math.random(),
+            id: uuid(),
             uri: image.path,
-            name: `image_${Math.floor(Math.random() * 100)}.jpg`,
+            name: `image_${uuid()}.jpg`,
             type: image.mime,
           }),
         }),
@@ -114,6 +152,39 @@ export default hoistStatics(
         });
       },
 
+      updateProduct: (props) => async () => {
+        try {
+          await props.product.update.run({
+            id: props.id,
+            images: props.photos,
+            title: props.title,
+            category: props.category,
+            subCategory: props.subCategory,
+            brand: props.brand,
+            level: props.level,
+            description: props.description,
+            price: props.price,
+            location: props.location,
+          });
+          AlertService.showAlert(
+            i18n.t('alerts.updateProductSuccess.title'),
+            i18n.t('alerts.updateProductSuccess.message'),
+            [
+              {
+                text: i18n.t('common.ok'),
+                onPress: () => NavigationService.navigateToHome(),
+              },
+            ],
+          );
+        } catch (err) {
+          console.log(err);
+          AlertService.showAlert(
+            i18n.t('alerts.updateProductError.title'),
+            i18n.t('alerts.updateProductError.message'),
+          );
+        }
+      },
+
       getPredictions: (props) => async () => {
         try {
           const res = await GoogleApi.getPredictions({
@@ -174,7 +245,7 @@ export default hoistStatics(
             props.brand.trim().length > 0 &&
             props.level.trim().length > 0 &&
             props.description.trim().length > 0 &&
-            props.price.trim().length > 0 &&
+            props.price.toString().trim().length > 0 &&
             props.location.trim().length > 0,
         );
       },

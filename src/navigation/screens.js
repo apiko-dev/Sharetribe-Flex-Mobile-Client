@@ -22,6 +22,7 @@ export default {
   Settings: 'Settings',
   Profile: 'Profile',
   VerifyEmail: 'VerifyEmail',
+  Gallery: 'Gallery',
 
   // Stacks
   HomeStack: 'HomeStack',

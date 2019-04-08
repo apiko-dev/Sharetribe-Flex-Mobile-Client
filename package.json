@@ -39,6 +39,7 @@
     "react-native-google-autocomplete": "^0.1.5",
     "react-native-google-places-autocomplete": "^1.3.9",
     "react-native-image-crop-picker": "^0.23.0",
+    "react-native-image-zoom-viewer": "^2.2.25",
     "react-native-keyboard-aware-scroll-view": "^0.8.0",
     "react-native-languages": "^3.0.2",
     "react-native-maps": "github:jerolimov/react-native-maps#fix-rn59rc-compile-issues",
