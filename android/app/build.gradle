@@ -77,6 +77,12 @@ project.ext.react = [
 ]
 
 apply from: "../../node_modules/react-native/react.gradle"
+apply from: "../../node_modules/react-native-sentry/sentry.gradle"
+
+project.ext.sentryCli = [
+    logLevel: "debug",
+    flavorAware: true
+]
 
 /**
  * Set this to true to create two separate APKs instead of one:
@@ -164,6 +170,8 @@ dependencies {
     }
     implementation 'com.google.android.gms:play-services-base:16.1.0'
     implementation 'com.google.android.gms:play-services-maps:16.1.0'
+
+    implementation project(':react-native-sentry')
    
     
 }

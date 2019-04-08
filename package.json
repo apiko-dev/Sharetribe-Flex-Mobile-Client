@@ -47,6 +47,7 @@
     "react-native-permissions": "^1.1.1",
     "react-native-reanimatable": "^0.4.3",
     "react-native-reanimated": "^1.0.0-alpha.12",
+    "react-native-sentry": "^0.42.0",
     "react-native-snap-carousel": "^3.7.5",
     "react-native-splash-screen": "^3.2.0",
     "react-native-svg": "^9.2.4",
