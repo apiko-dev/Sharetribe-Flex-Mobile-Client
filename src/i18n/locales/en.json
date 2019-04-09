@@ -69,7 +69,7 @@
     "publishListing": "Publish listing",
     "brand": "Brand",
     "level": "Level",
-    "choosePhotosFromLibraryOrMakeNewPhoto": "Choose photos from library or make new photo?",
+    "choosePhotos": "Choose photos from library or make new photo?",
     "choosePhotosFromLibrary": "Choose photos from library",
     "makeNewPhoto": "Make new photo by camera",
     "reviews": "Reviews",
@@ -105,13 +105,16 @@
     "phoneNumber": "Phone number",
     "newPassword": "New Password",
     "retypeNewPassword": "Re-type New Password",
+    "currentPassword": "Current Password",
     "noVerifiedEmail": "You haven't verified your email address yet.",
     "noVerifiedEmailLink": "Resend verification email",
     "myProfile": "View my profile",
     "change": "Change",
-    "choosePhotosFromLibraryOrMakeNewPhoto": "Choose photos from library or make new photo?",
+    "choosePhotos": "Choose photos from library or make new photo?",
     "choosePhotosFromLibrary": "Choose photos from library",
-    "makeNewPhoto": "Make new photo by camera"
+    "makeNewPhoto": "Make new photo by camera",
+    "verifyEmailSent": "Email with verify link sent. Check your email",
+    "verifyEmail": "Verify email"
   },
   "profile": {
     "profile": "Profile",
@@ -121,6 +124,14 @@
     "listings": "Listings",
     "reviews": "Reviews",
     "testTextBio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, seddo eiusmod tempor incididu..."
+  },
+  "verifyEmail": {
+    "verifyEmail": "Verify email",
+    "verifyEmailSuccess": "Verify email completed",
+    "verifyEmailError": "Something went wrong, you already verified email or token is not valid",
+    "someInstruction": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, seddo eiusmod tempor incididu...",
+    "goToApp": "Go to app",
+    "tryAgain": "Try again"
   },
   "alerts": {
     "signInError": {
@@ -185,5 +196,18 @@
     "camera": "We need camera permission",
     "mediaLibrary": "We need media library permission",
     "error": "Permission error"
+  }, 
+  "errors": {
+    "error": "Error",
+    "passwordMustBe": "Password must be between 8 and 256 symbols",
+    "confirmPassword": "Password don't the same",
+    "incorrectPassword": "Incorrect password",
+    "incorrectPhone": "Incorrect phone number",
+    "incorrectEmail": "Incorrect email",
+    "requireFirstName": "First name must be minimum 1 symbol",
+    "requireLastName": "Last name must be minimum 1 symbol",
+    "currentPasswordIncorrect": "You type incorrect current password",
+    "passwordIncorrectForEmail": "You type incorrect current password for changing email",
+    "passwordIncorrectForNewPassword": "You type incorrect current password for changing password"
   }
 }

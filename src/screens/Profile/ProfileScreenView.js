@@ -8,13 +8,13 @@ import {
   Avatar,
   TabHeader,
   Rating,
-  DetailsTab,
   DrawerButton,
   HeaderBackButton,
+  ExpandableText,
 } from '../../components';
 import i18n from '../../i18n';
 import { ListingsView, ReviewsView } from './components';
-import { dimensions } from '../../styles';
+import { dimensions, fontSizes } from '../../styles';
 
 const ProfileScreen = ({
   user,
@@ -32,10 +32,15 @@ const ProfileScreen = ({
       <View style={s.rating}>
         <Rating value={4} />
       </View>
-      <DetailsTab
-        style={s.bio}
-        text={user.profile.bio || i18n.t('profile.noBio')}
-      />
+      <ExpandableText
+        containerStyle={s.bio}
+        numberOfLines={5}
+        fontSize={fontSizes.medium}
+        lineHeight={fontSizes.medium}
+        ellipsizeMode="tail"
+      >
+        {user.profile.bio || i18n.t('profile.noBio')}
+      </ExpandableText>
     </View>
     <View style={s.containerTabView}>
       <TabHeader

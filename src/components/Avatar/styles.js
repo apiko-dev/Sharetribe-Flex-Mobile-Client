@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { dimensions } from '../../styles';
+import { dimensions, colors } from '../../styles';
 
 export default StyleSheet.create({
   addGoodsButtonContainer: {
@@ -44,5 +44,40 @@ export default StyleSheet.create({
   logoBackgroundLarge: {
     resizeMode: 'cover',
     borderRadius: 90 / 2,
+  },
+  wrapper: {
+    borderRadius: 10,
+    overflow: 'hidden',
+    position: 'absolute',
+    bottom: -15,
+    alignSelf: 'center',
+  },
+  container: {
+    borderRadius: 10,
+    overflow: 'hidden',
+
+    alignSelf: 'center',
+    backgroundColor: colors.button.backgroundColor,
+  },
+  button: {
+    borderRadius: 10,
+    overflow: 'hidden',
+    paddingTop: dimensions.indent * 0.4,
+    paddingBottom: dimensions.indent * 0.4,
+    padding: dimensions.indent * 0.6,
+    width: 85,
+    justifyContent: 'center',
+  },
+  view: {
+    borderColor: colors.button.borderColor,
+    borderWidth: 1,
+    flexDirection: 'row',
+  },
+  text: {
+    textAlign: 'center',
+  },
+  image: {
+    position: 'absolute',
+    zIndex: 1,
   },
 });

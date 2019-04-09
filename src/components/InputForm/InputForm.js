@@ -44,7 +44,7 @@ const AnimatedFormInput = ({
   labelStyle,
   onInputPress,
   chevronRight,
-  value,
+  value = '',
   placeholder,
   active,
   ...props

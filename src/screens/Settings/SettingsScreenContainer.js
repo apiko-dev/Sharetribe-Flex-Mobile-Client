@@ -1,75 +1,109 @@
+import React from 'react';
 import {
   compose,
   hoistStatics,
   withHandlers,
   defaultProps,
-  withStateHandlers,
 } from 'recompose';
-import * as Yup from 'yup';
 import ImagePicker from 'react-native-image-crop-picker';
-import { PermissionService } from '../../services';
+import { inject } from 'mobx-react';
+import uuid from 'uuid/v4';
+import {
+  PermissionService,
+  NavigationService,
+  AlertService,
+} from '../../services';
 import SettingsScreenView from './SettingsScreenView';
-import { regExp } from '../../utils';
+import i18n from '../../i18n';
 
 export default hoistStatics(
   compose(
+    inject(({ viewer }) => ({
+      user: viewer.user,
+      changeAvatar: viewer.changeAvatar,
+      updateProfile: viewer.updateProfile,
+      changeEmail: viewer.changeEmail,
+      changePassword: viewer.changePassword,
+      sendVerifyEmail: viewer.sendVerifyEmail,
+      isUpdatingProfile: viewer.updateProfile.inProgress,
+      isChangingEmail: viewer.changeEmail.inProgress,
+      isChangingPassword: viewer.changePassword.inProgress,
+      isChangingAvatar: viewer.changeAvatar.inProgress,
+    })),
+
     defaultProps({
-      profileValidationSchema: Yup.object().shape({
-        firstName: Yup.string()
-          .trim()
-          .min(1),
-        lastName: Yup.string()
-          .trim()
-          .min(1),
-        bio: Yup.string()
-          .trim()
-          .min(0),
-        email: Yup.string()
-          .trim()
-          .matches(regExp.emailRegexp),
-        phone: Yup.string()
-          .trim()
-          .min(10),
-        newPassword: Yup.string()
-          .trim()
-          .min(9),
-        replyPassword: Yup.string()
-          .trim()
-          .min(0)
-          .oneOf([Yup.ref('newPassword'), null]),
-      }),
+      formRef: React.createRef(),
     }),
 
-    withStateHandlers(
-      {
-        photo: {},
-        activeField: '',
-      },
-      {
-        onChange: () => (field, value) => ({
-          [field]: value,
-        }),
-
-        addPhoto: () => (image) => ({
-          photo: {
-            id: Math.random(),
-            uri: image.path,
-            name: `image_${Math.floor(Math.random() * 100)}.jpg`,
-            type: image.mime,
-          },
-        }),
-      },
-    ),
-
     withHandlers({
-      goToMyProfile: () => () => {
-        // Navigate to my profile screen
+      goToMyProfile: ({ user }) => () =>
+        NavigationService.navigateToProfile({
+          user,
+        }),
+
+      resendVerificationEmail: ({ sendVerifyEmail }) => async () => {
+        try {
+          await sendVerifyEmail.run();
+
+          AlertService.showAlert(
+            i18n.t('settings.verifyEmail'),
+            i18n.t('settings.verifyEmailSent'),
+          );
+        } catch (error) {
+          AlertService.showSomethingWentWrong();
+        }
       },
-      resendVerificationEmail: () => () => {
-        // Resend verification email
+
+      updateProfile: ({ updateProfile, formRef }) => async (data) => {
+        try {
+          await updateProfile.run({ ...data });
+        } catch (err) {
+          if (err.fields && err.fields.includes('phone')) {
+            formRef.current.form.setFieldError(
+              'phone',
+              i18n.t('errors.incorrectPhone'),
+            );
+          }
+        }
       },
-      onSave: () => (data) => {
-        console.log(data);
+
+      changeEmail: ({ changeEmail, formRef }) => async (data) => {
+        try {
+          await changeEmail.run({ ...data });
+        } catch (err) {
+          if (err.fields && err.fields.includes('email')) {
+            formRef.current.form.setFieldError(
+              'email',
+              i18n.t('errors.incorrectEmail'),
+            );
+          }
+
+          if (err.status === 403) {
+            formRef.current.form.setFieldError(
+              'currentPasswordForEmail',
+              i18n.t('errors.incorrectPassword'),
+            );
+          } else {
+            AlertService.showSomethingWentWrong();
+          }
+        }
+      },
+
+      changePassword: ({ changePassword, formRef }) => async (
+        data,
+      ) => {
+        try {
+          await changePassword.run({ ...data });
+        } catch (err) {
+          if (err.status === 403) {
+            formRef.current.form.setFieldError(
+              'currentPassword',
+              i18n.t('errors.incorrectPassword'),
+            );
+          } else {
+            AlertService.showSomethingWentWrong();
+          }
+        }
       },
 
       addPhotoByCamera: (props) => async () => {
@@ -79,7 +113,12 @@ export default hoistStatics(
               cropping: true,
             });
 
-            props.addPhoto(image);
+            props.changeAvatar.run({
+              id: uuid(),
+              uri: image.path,
+              name: `image_${uuid()}.jpg`,
+              type: image.mime,
+            });
           }
         } catch (error) {
           if (error.code === 'E_PICKER_CANCELLED') {
@@ -95,7 +134,12 @@ export default hoistStatics(
               cropping: true,
             });
 
-            props.addPhoto(image);
+            props.changeAvatar.run({
+              id: uuid(),
+              uri: image.path,
+              name: `image_${uuid()}.jpg`,
+              type: image.mime,
+            });
           }
         } catch (error) {
           if (error.code === 'E_PICKER_CANCELLED') {
@@ -111,6 +155,35 @@ export default hoistStatics(
           props.addPhotoFormLibrary();
         } else if (index === 1) {
           props.addPhotoByCamera();
+        }
+      },
+
+      onSave: ({
+        user,
+        updateProfile,
+        changeEmail,
+        changePassword,
+      }) => async (data) => {
+        if (
+          data.firstName !== user.profile.firstName ||
+          data.lastName !== user.profile.lastName ||
+          data.bio !== user.profile.bio ||
+          data.phone !== user.profile.protectedData.phoneNumber
+        ) {
+          updateProfile(data);
+        }
+
+        if (data.email !== user.email) {
+          changeEmail(data);
+        }
+
+        if (
+          data.currentPassword &&
+          data.newPassword &&
+          data.replyPassword &&
+          data.newPassword === data.replyPassword
+        ) {
+          changePassword(data);
         }
       },
     }),

@@ -14,6 +14,13 @@ class AlertService {
     this.showAlert('Oops', err, [{ text: 'Ok', style: 'cancel' }]);
   }
 
+  showSomethingWentWrong() {
+    this.showAlert(
+      i18n.t('alerts.somethingWentWrong.title'),
+      i18n.t('alerts.somethingWentWrong.message'),
+    );
+  }
+
   showErrorAlertWithTimeout(err) {
     setTimeout(() => this.showErrorAlert(err), 700);
   }

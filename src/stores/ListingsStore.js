@@ -11,6 +11,7 @@ import { AlertService, NavigationService } from '../services';
 import i18n from '../i18n';
 import processJsonApi from './utils/processJsonApi';
 import listModel from './utils/listModel';
+import { Image } from './ImageStore';
 import { User } from './UserStore';
 import { normalizedIncluded } from './utils/normalize';
 
@@ -31,25 +32,9 @@ const Price = t.model('Price', {
   currency: t.string,
 });
 
-const ImageData = t.model('ImageData', {
-  height: t.number,
-  name: t.string,
-  url: t.string,
-  width: t.number,
-});
-
-const ImageVariants = t.model('ImageVariants', {
-  default: t.maybe(ImageData),
-});
-
-export const Image = t.model('Image', {
-  id: t.identifier,
-  variants: t.maybe(ImageVariants),
-});
-
 const ProductRelationships = t
   .model('ProductRelationships', {
-    images: t.maybe(t.array(t.reference(Image))),
+    images: t.maybe(t.array(t.reference(t.late(() => Image)))),
     author: t.maybe(t.reference(User)),
   })
   .views((store) => ({
@@ -220,10 +205,6 @@ function createListing(flow, store) {
           {
             text: i18n.t('common.ok'),
             onPress: () => NavigationService.navigateToHome(),
-          },
-          {
-            text: i18n.t('common.cancel'),
-            style: 'cancel',
           },
         ],
       );

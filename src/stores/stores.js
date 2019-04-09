@@ -12,7 +12,7 @@ const createStore = (initialState = {}) => {
   });
 
   const persist = createPersist(store, {
-    whitelist: ['viewer'],
+    whitelist: [],
   });
   makeInspectable(store);
 
