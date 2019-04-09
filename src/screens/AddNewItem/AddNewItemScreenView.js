@@ -1,6 +1,6 @@
 /* eslint-disable react/no-this-in-sfc */
 import React from 'react';
-import { View, FlatList } from 'react-native';
+import { View, FlatList, ActivityIndicator } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import T from 'prop-types';
 import { ActionSheetCustom as ActionSheet } from 'react-native-actionsheet';
@@ -38,6 +38,8 @@ const AddNewItemScreenView = ({
   isEditing,
   updateProduct,
   setGeolocation,
+  isLoadingPlaceDetails,
+  isErrorPlaceDetails,
 }) => (
   <KeyboardAwareScrollView
     keyboardShouldPersistTaps="handled"
@@ -137,6 +139,16 @@ const AddNewItemScreenView = ({
           !isAndroidDevice && s.locationInputContainer,
         ]}
       >
+        <View style={s.locationLoaderContainer}>
+          {isLoadingPlaceDetails && (
+            <ActivityIndicator
+              style={s.locationLoader}
+              size="large"
+              color={colors.loader.secondary}
+            />
+          )}
+        </View>
+
         <InputForm
           placeholder={i18n.t('addNewItem.location')}
           value={location}
@@ -185,7 +197,9 @@ const AddNewItemScreenView = ({
             containerStyle={s.marginButton}
             onPress={updateProduct}
             isLoading={isLoading}
-            disabled={!isValidFields || isLoading}
+            disabled={
+              !isValidFields || isLoadingPlaceDetails || isLoading
+            }
           />
         </View>
       ) : (

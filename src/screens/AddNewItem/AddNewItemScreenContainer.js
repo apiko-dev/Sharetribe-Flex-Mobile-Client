@@ -71,6 +71,8 @@ export default hoistStatics(
           activeField: '',
           isValidFields: false,
           geolocation: {},
+          isLoadingPlaceDetails: false,
+          // isErrorPlaceDetails: false,
         };
       },
       {
@@ -95,12 +97,18 @@ export default hoistStatics(
           category,
           subCategory,
         }),
-        setLocation: () => ({ lat, lng }) => ({
+        setLocation: () => ({ lat, lng } = {}) => ({
           geolocation: {
             lat,
             lng,
           },
         }),
+        setIsLoadingPlaceDetails: () => (value) => ({
+          isLoadingPlaceDetails: value,
+        }),
+        // setIsErrorPlaceDetails: () => (value) => ({
+        //   isLoadingPlaceDetails: value,
+        // }),
       },
     ),
 
@@ -186,6 +194,7 @@ export default hoistStatics(
             ],
           );
         } catch (err) {
+          // props.onChange('isErrorPlaceDetails', true);
           console.log(err);
           AlertService.showAlert(
             i18n.t('alerts.updateProductError.title'),
@@ -207,6 +216,8 @@ export default hoistStatics(
 
       setGeolocation: (props) => async (item) => {
         try {
+          // props.onChange('isErrorPlaceDetails', false);
+          props.onChange('isLoadingPlaceDetails', true);
           const res = await GoogleApi.getPlaceDetails({
             placeid: item.place_id,
             language: 'eng',
@@ -215,6 +226,8 @@ export default hoistStatics(
           props.setLocation(
             R.path(['data', 'result', 'geometry', 'location'], res),
           );
+
+          props.onChange('isLoadingPlaceDetails', false);
         } catch (err) {
           console.log(err.message);
         }
