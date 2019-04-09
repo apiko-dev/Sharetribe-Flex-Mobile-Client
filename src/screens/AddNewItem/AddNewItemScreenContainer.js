@@ -216,30 +216,28 @@ export default hoistStatics(
           props.onChange('isErrorPlaceDetails', false);
           props.onChange('isLoadingPlaceDetails', true);
 
-          if (typeof item === 'undefined') {
-            const res = await GoogleApi.getPlaceDetails({
-              placeid: props.placeid,
-              language: 'eng',
-            });
-            props.setLocation(
-              R.path(['data', 'result', 'geometry', 'location'], res),
-            );
+          const res = await GoogleApi.getPlaceDetails({
+            placeid: R.pathOr(props.placeid, ['place_id'], item),
+            language: 'eng',
+          });
 
-            props.onChange('isLoadingPlaceDetails', false);
-          }
-          if (item.place_id.length > 0) {
-            const res = await GoogleApi.getPlaceDetails({
-              placeid: item.place_id,
-              language: 'eng',
-            });
-            props.setLocation(
-              R.path(['data', 'result', 'geometry', 'location'], res),
-            );
+          const location = R.path(
+            ['data', 'result', 'geometry', 'location'],
+            res,
+          );
 
-            props.onChange('isLoadingPlaceDetails', false);
+          if (typeof location === 'undefined') {
+            throw new Error(
+              'Cannot get location from google autocomplete',
+            );
           }
+
+          props.setLocation(location);
         } catch (err) {
+          props.onChange('isErrorPlaceDetails', true);
           console.log(err.message);
+        } finally {
+          props.onChange('isLoadingPlaceDetails', false);
         }
       },
       // repeatRequestLocation:

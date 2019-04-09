@@ -217,7 +217,12 @@ const AddNewItemScreenView = ({
         </View>
       ) : (
         <Button
-          disabled={!isValidFields || isLoading}
+          disabled={
+            !isValidFields ||
+            isLoading ||
+            isErrorPlaceDetails ||
+            isLoadingPlaceDetails
+          }
           primary
           title={i18n.t('addNewItem.publishListing')}
           containerStyle={[
