@@ -1,6 +1,7 @@
 import qs from 'qs';
 import axios from 'axios';
 import config from '../../../config';
+import { detailsResponse } from './mock';
 // import { UserDataService } from '../../../services';
 
 class GoogleAutocompleteApi {
@@ -170,17 +171,29 @@ class GoogleAutocompleteApi {
   //   },
   //   "status": "OK"
   // }
-  getPlaceDetails({ placeid, language }, options) {
+  async getPlaceDetails({ placeid, language }, options) {
     const parsedQuery = this._stringifyQuery({ placeid, language });
     const url = `https://maps.googleapis.com/maps/api/place/details/json?${parsedQuery}`;
 
-    return this._request(
-      {
-        url,
-        method: 'GET',
-      },
-      options,
-    );
+    // This is a huge workaround in order to fetch place details
+    // since we are using free places api key
+
+    return new Promise((res) => {
+      this._request(
+        {
+          url,
+          method: 'GET',
+        },
+        options,
+      )
+        .then((response) => {
+          if (response.data.error_message) {
+            res(detailsResponse);
+          }
+          res(response);
+        })
+        .catch(() => res(detailsResponse));
+    });
   }
 
   getCurrentLocation({ enableHighAccuracyLocation = false } = {}) {
