@@ -54,3 +54,4 @@ ios/letapp.xcworkspace/xcuserdata/terry.xcuserdatad/UserInterfaceState.xcusersta
 .vscode
 *.hprof
 config/
+sentry.properties
