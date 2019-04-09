@@ -72,7 +72,8 @@ export default hoistStatics(
           isValidFields: false,
           geolocation: {},
           isLoadingPlaceDetails: false,
-          // isErrorPlaceDetails: false,
+          isErrorPlaceDetails: false,
+          placeid: '',
         };
       },
       {
@@ -103,12 +104,6 @@ export default hoistStatics(
             lng,
           },
         }),
-        setIsLoadingPlaceDetails: () => (value) => ({
-          isLoadingPlaceDetails: value,
-        }),
-        // setIsErrorPlaceDetails: () => (value) => ({
-        //   isLoadingPlaceDetails: value,
-        // }),
       },
     ),
 
@@ -194,12 +189,14 @@ export default hoistStatics(
             ],
           );
         } catch (err) {
-          // props.onChange('isErrorPlaceDetails', true);
+          props.onChange('isErrorPlaceDetails', true);
           console.log(err);
-          AlertService.showAlert(
-            i18n.t('alerts.updateProductError.title'),
-            i18n.t('alerts.updateProductError.message'),
-          );
+          if (props.isErrorPlaceDetails) {
+            AlertService.showAlert(
+              i18n.t('alerts.updateProductError.title'),
+              i18n.t('alerts.updateProductError.message'),
+            );
+          }
         }
       },
 
@@ -216,22 +213,36 @@ export default hoistStatics(
 
       setGeolocation: (props) => async (item) => {
         try {
-          // props.onChange('isErrorPlaceDetails', false);
+          props.onChange('isErrorPlaceDetails', false);
           props.onChange('isLoadingPlaceDetails', true);
-          const res = await GoogleApi.getPlaceDetails({
-            placeid: item.place_id,
-            language: 'eng',
-          });
 
-          props.setLocation(
-            R.path(['data', 'result', 'geometry', 'location'], res),
-          );
+          if (typeof item === 'undefined') {
+            const res = await GoogleApi.getPlaceDetails({
+              placeid: props.placeid,
+              language: 'eng',
+            });
+            props.setLocation(
+              R.path(['data', 'result', 'geometry', 'location'], res),
+            );
 
-          props.onChange('isLoadingPlaceDetails', false);
+            props.onChange('isLoadingPlaceDetails', false);
+          }
+          if (item.place_id.length > 0) {
+            const res = await GoogleApi.getPlaceDetails({
+              placeid: item.place_id,
+              language: 'eng',
+            });
+            props.setLocation(
+              R.path(['data', 'result', 'geometry', 'location'], res),
+            );
+
+            props.onChange('isLoadingPlaceDetails', false);
+          }
         } catch (err) {
           console.log(err.message);
         }
       },
+      // repeatRequestLocation:
     }),
 
     withDebounce('getPredictions', 300),
