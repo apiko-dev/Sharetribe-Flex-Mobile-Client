@@ -56,6 +56,7 @@ const ProductScreen = ({
         data={images}
         renderItem={({ item }) => (
           <Touchable
+            activeOpacity={1}
             style={s.slide}
             onPress={() =>
               navigateToImageScreen(gallery, currentIndex)
@@ -124,6 +125,8 @@ const ProductScreen = ({
             <DescriptionTab
               text={product.description}
               user={author.profile}
+              location={product.publicData.location}
+              geolocation={product.geolocation}
             />
           </View>
         </Tab>

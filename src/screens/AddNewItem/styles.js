@@ -43,8 +43,8 @@ export default StyleSheet.create({
     marginBottom: isLarge
       ? dimensions.indent * 1.4
       : dimensions.indent,
-    marginLeft: dimensions.indent,
-    marginRight: dimensions.indent,
+    marginLeft: dimensions.indent * 2,
+    marginRight: dimensions.indent * 2,
   },
   buttonContainerBottom: {
     marginBottom: dimensions.indent * 2,
@@ -86,5 +86,12 @@ export default StyleSheet.create({
       ? dimensions.indent * 1.4
       : dimensions.indent,
     marginHorizontal: dimensions.indent / 2,
+  },
+  locationLoaderContainer: {
+    height: '100%',
+    position: 'absolute',
+    alignItems: 'center',
+    justifyContent: 'center',
+    right: dimensions.indent * 0.5,
   },
 });

@@ -4,8 +4,8 @@ import { dimensions, colors } from '../../../../styles';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    height: dimensions.indent * 7,
-    marginTop: dimensions.indent / 2,
+    height: dimensions.indent * 8.5,
+    marginTop: dimensions.indent * 0.7,
   },
 
   bannerContainer: {
@@ -19,8 +19,8 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
   banner: {
-    height: dimensions.indent * 3,
-    width: dimensions.width * 0.7,
+    height: dimensions.indent * 3.7,
+    width: dimensions.width * 0.86,
     backgroundColor: colors.location.background,
     alignItems: 'center',
     justifyContent: 'center',

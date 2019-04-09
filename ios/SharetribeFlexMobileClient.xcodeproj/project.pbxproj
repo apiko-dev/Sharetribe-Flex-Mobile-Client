@@ -1283,13 +1283,14 @@
 					"\"$(SRCROOT)/../node_modules/react-native-splash-screen/ios\"",
 				);
 				INFOPLIST_FILE = SharetribeFlexMobileClient/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.sharetribe.flexmobile;
+				PRODUCT_BUNDLE_IDENTIFIER = com.apiko.marketplace;
 				PRODUCT_NAME = SharetribeFlexMobileClient;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1306,7 +1307,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = QAZ47L5338;
+				DEVELOPMENT_TEAM = 2LUTPLWZMT;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_ROOT}/Headers/Public\"",
@@ -1326,17 +1327,18 @@
 					"\"${PODS_ROOT}/Headers/Public/glog\"",
 					"\"${PODS_ROOT}/Headers/Public/react-native-google-maps\"",
 					"\"${PODS_ROOT}/Headers/Public/react-native-maps\"",
-					"\"$(SRCROOT)/../node_modules/react-native-splash-screen/ios\"",
+					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
 					"\"${PODS_ROOT}/Headers/Public/yoga\"",
 				);
 				INFOPLIST_FILE = SharetribeFlexMobileClient/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.sharetribe.flexmobile;
+				PRODUCT_BUNDLE_IDENTIFIER = com.apiko.marketplace;
 				PRODUCT_NAME = SharetribeFlexMobileClient;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;

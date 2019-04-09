@@ -62,12 +62,17 @@ class SharetribeSdkService {
     level,
     images,
     location,
+    geolocation,
   }) {
     return this.sdk.ownListings.create(
       {
         title,
         description,
         price: new types.Money(Number(price), 'USD'),
+        geolocation: new types.LatLng(
+          geolocation.lat,
+          geolocation.lng,
+        ),
         publicData: {
           category,
           subCategory,
@@ -158,12 +163,14 @@ class SharetribeSdkService {
     level,
     images,
     location,
+    geolocation,
   }) {
     const params = {
       id: new types.UUID(id),
       title,
       description,
       price: new types.Money(Number(price), 'USD'),
+      geolocation: new types.LatLng(geolocation.lat, geolocation.lng),
       publicData: {
         category,
         subCategory,
