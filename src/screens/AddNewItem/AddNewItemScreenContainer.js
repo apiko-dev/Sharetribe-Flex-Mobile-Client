@@ -9,8 +9,8 @@ import R from 'ramda';
 import ImagePicker from 'react-native-image-crop-picker';
 import { inject } from 'mobx-react';
 import uuid from 'uuid/v4';
-import i18n from '../../i18n';
 
+import i18n from '../../i18n';
 import AddNewItemScreen from './AddNewItemScreenView';
 import {
   NavigationService,
@@ -70,6 +70,9 @@ export default hoistStatics(
           locationList: [],
           activeField: '',
           isValidFields: false,
+          geolocation: {},
+          isLoadingPlaceDetails: false,
+          // isErrorPlaceDetails: false,
         };
       },
       {
@@ -94,6 +97,18 @@ export default hoistStatics(
           category,
           subCategory,
         }),
+        setLocation: () => ({ lat, lng } = {}) => ({
+          geolocation: {
+            lat,
+            lng,
+          },
+        }),
+        setIsLoadingPlaceDetails: () => (value) => ({
+          isLoadingPlaceDetails: value,
+        }),
+        // setIsErrorPlaceDetails: () => (value) => ({
+        //   isLoadingPlaceDetails: value,
+        // }),
       },
     ),
 
@@ -149,6 +164,7 @@ export default hoistStatics(
           description: props.description,
           price: props.price,
           location: props.location,
+          geolocation: props.geolocation,
         });
       },
 
@@ -165,6 +181,7 @@ export default hoistStatics(
             description: props.description,
             price: props.price,
             location: props.location,
+            geolocation: props.geolocation,
           });
           AlertService.showAlert(
             i18n.t('alerts.updateProductSuccess.title'),
@@ -177,6 +194,7 @@ export default hoistStatics(
             ],
           );
         } catch (err) {
+          // props.onChange('isErrorPlaceDetails', true);
           console.log(err);
           AlertService.showAlert(
             i18n.t('alerts.updateProductError.title'),
@@ -193,6 +211,25 @@ export default hoistStatics(
           props.onChange('locationList', res.data.predictions);
         } catch (error) {
           props.onChange('locationList', []);
+        }
+      },
+
+      setGeolocation: (props) => async (item) => {
+        try {
+          // props.onChange('isErrorPlaceDetails', false);
+          props.onChange('isLoadingPlaceDetails', true);
+          const res = await GoogleApi.getPlaceDetails({
+            placeid: item.place_id,
+            language: 'eng',
+          });
+
+          props.setLocation(
+            R.path(['data', 'result', 'geometry', 'location'], res),
+          );
+
+          props.onChange('isLoadingPlaceDetails', false);
+        } catch (err) {
+          console.log(err.message);
         }
       },
     }),

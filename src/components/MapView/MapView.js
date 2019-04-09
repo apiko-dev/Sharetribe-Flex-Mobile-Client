@@ -7,15 +7,15 @@ const MapView = (props) => (
   <View style={s.container}>
     <Map
       style={s.map}
-      {...props}
-      provider={PROVIDER_GOOGLE}
-      // Test region
       initialRegion={{
         latitude: 37.78825,
         longitude: -122.4324,
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421,
       }}
+      {...props}
+      provider={PROVIDER_GOOGLE}
+      // Test region
     />
   </View>
 );
