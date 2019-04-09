@@ -10,7 +10,7 @@ import {
 } from '../../../../components';
 import { fontSizes } from '../../../../styles';
 
-const DescriptionTab = ({ text, user }) => (
+const DescriptionTab = ({ text, user, location, geolocation }) => (
   <View style={s.container}>
     <ShadowContainer>
       <View style={s.description}>
@@ -27,7 +27,7 @@ const DescriptionTab = ({ text, user }) => (
       </View>
     </ShadowContainer>
     <ShadowContainer>
-      <Location />
+      <Location location={location} geolocation={geolocation} />
     </ShadowContainer>
     <ShadowContainer>
       <Seller
@@ -42,6 +42,8 @@ const DescriptionTab = ({ text, user }) => (
 DescriptionTab.propTypes = {
   text: T.string,
   user: T.object,
+  location: T.string,
+  geolocation: T.object,
 };
 
 export default DescriptionTab;

@@ -1,9 +1,10 @@
 /* eslint-disable react/no-this-in-sfc */
 import React from 'react';
-import { View, FlatList } from 'react-native';
+import { View, FlatList, ActivityIndicator } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import T from 'prop-types';
 import { ActionSheetCustom as ActionSheet } from 'react-native-actionsheet';
+import { NavigationService } from '../../services';
 import { Text, Button, InputForm, Touchable } from '../../components';
 import { AddPhotoButton, PhotoItem } from './components';
 import s from './styles';
@@ -37,6 +38,9 @@ const AddNewItemScreenView = ({
   locationList,
   isEditing,
   updateProduct,
+  setGeolocation,
+  isLoadingPlaceDetails,
+  isErrorPlaceDetails,
 }) => (
   <KeyboardAwareScrollView
     keyboardShouldPersistTaps="handled"
@@ -140,6 +144,16 @@ const AddNewItemScreenView = ({
           !isAndroidDevice && s.locationInputContainer,
         ]}
       >
+        <View style={s.locationLoaderContainer}>
+          {isLoadingPlaceDetails && (
+            <ActivityIndicator
+              style={s.locationLoader}
+              size="large"
+              color={colors.loader.secondary}
+            />
+          )}
+        </View>
+
         <InputForm
           placeholder={i18n.t('addNewItem.location')}
           value={location}
@@ -163,6 +177,7 @@ const AddNewItemScreenView = ({
                   onPress={() => {
                     onChange('location', item.description);
                     onChange('locationList', []);
+                    setGeolocation(item);
                   }}
                   style={s.locationDropDownListItem}
                 >
@@ -180,6 +195,7 @@ const AddNewItemScreenView = ({
           <Button
             title={i18n.t('addNewItem.cancel')}
             containerStyle={s.marginButton}
+            onPress={() => NavigationService.goBack()}
           />
           <Button
             primary
@@ -187,7 +203,9 @@ const AddNewItemScreenView = ({
             containerStyle={s.marginButton}
             onPress={updateProduct}
             isLoading={isLoading}
-            disabled={!isValidFields || isLoading}
+            disabled={
+              !isValidFields || isLoadingPlaceDetails || isLoading
+            }
           />
         </View>
       ) : (
@@ -220,8 +238,10 @@ const AddNewItemScreenView = ({
   </KeyboardAwareScrollView>
 );
 
-AddNewItemScreenView.navigationOptions = () => ({
-  title: i18n.t('addNewItem.addGoods'),
+AddNewItemScreenView.navigationOptions = ({ navigation }) => ({
+  title: navigation.getParam('isEditing')
+    ? i18n.t('addNewItem.editGoods')
+    : i18n.t('addNewItem.addGoods'),
 });
 
 AddNewItemScreenView.propTypes = {
@@ -246,6 +266,7 @@ AddNewItemScreenView.propTypes = {
   onChangeLocation: T.func,
   locationList: T.array,
   isEditing: T.bool,
+  setGeolocation: T.func,
 };
 
 export default AddNewItemScreenView;
