@@ -1,4 +1,8 @@
-import { processJsonApiIncluded } from './processJsonApi';
+import R from 'ramda';
+import {
+  processJsonApiIncluded,
+  processRelationships,
+} from './processJsonApi';
 
 export default function normalize(items, key = 'id') {
   if (!Array.isArray(items)) {
@@ -21,8 +25,15 @@ export default function normalize(items, key = 'id') {
   );
 }
 
-export function normalizedIncluded(objectArray = []) {
+export function normalizedIncluded(
+  objectArray = [],
+  resultObject = {},
+) {
   return objectArray.reduce((acc, obj) => {
+    if (obj === null) {
+      return acc;
+    }
+
     let key = obj.type;
     if (key === 'currentUser') {
       key = 'user';
@@ -33,6 +44,13 @@ export function normalizedIncluded(objectArray = []) {
 
     const record = processJsonApiIncluded(obj);
     acc[key][record.id] = record;
+
+    if (!R.isEmpty(record.relationships)) {
+      acc[key][record.id].relationships = processRelationships(
+        record.relationships,
+      );
+    }
+
     return acc;
-  }, {});
+  }, resultObject);
 }

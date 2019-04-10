@@ -228,7 +228,7 @@ function fetchListings(flow, store) {
       const res = yield store.Api.fetchListings({
         pub_category: categories,
         pub_title: title,
-        include: ['images', 'author', 'profileImage'],
+        include: ['images', 'author', 'author.profileImage'],
       });
 
       console.log(res);
@@ -263,7 +263,7 @@ function searchListings(flow, store) {
       const res = yield store.Api.fetchListings({
         pub_category: categories,
         pub_title: title,
-        include: ['images', 'author', 'profileImage'],
+        include: ['images', 'author', 'author.profileImage'],
       });
 
       console.log(res);
@@ -296,7 +296,7 @@ function fetchOwnListings(flow, store) {
 
       const res = yield store.Api.fetchOwnListings({
         pub_category: categories,
-        include: ['images', 'author', 'profileImage'],
+        include: ['images', 'author', 'author.profileImage'],
       });
 
       console.log(res);
