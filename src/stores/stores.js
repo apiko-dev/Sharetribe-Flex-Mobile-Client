@@ -12,8 +12,9 @@ const createStore = (initialState = {}) => {
   });
 
   const persist = createPersist(store, {
-    whitelist: [],
+    whitelist: ['viewer'],
   });
+
   makeInspectable(store);
 
   persist.rehydrate();

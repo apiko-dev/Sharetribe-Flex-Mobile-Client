@@ -24,7 +24,10 @@ function processJsonApi(record) {
       const currentRelations = record.relationships[current];
 
       // TODO: Handle real relationships
-      if (typeof currentRelations.data === 'undefined') {
+      if (
+        typeof currentRelations.data === 'undefined' ||
+        currentRelations.data === null
+      ) {
         return acc;
       }
 
