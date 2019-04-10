@@ -29,9 +29,8 @@ const Drawer = ({
           {isAuthorized ? (
             <View>
               <Text bold black>
-                {`${i18n.t('common.hello')}, ${
-                  user.profile.firstName
-                }`}
+                {`${i18n.t('common.hello')}, ${user &&
+                  user.profile.firstName}`}
               </Text>
               <TextTouchable
                 onPress={() => goToProfile(user)}

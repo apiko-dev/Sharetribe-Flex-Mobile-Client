@@ -6,18 +6,18 @@ export default StyleSheet.create({
     flex: 1,
     paddingHorizontal: dimensions.indent,
     alignItems: 'center',
-    paddingTop: dimensions.indentModerated * 5,
+    paddingTop: dimensions.indentModerated * 5.4,
   },
   heading: {
     textAlign: 'center',
-    marginTop: dimensions.indent * 3.3,
-    marginBottom: dimensions.indent * 0.8,
+    marginTop: dimensions.indent * 1.5,
+    marginBottom: dimensions.indent * 1.5,
   },
   instructionContainer: {
     textAlign: 'center',
-    marginBottom: dimensions.indent * 2,
+    marginBottom: dimensions.indent * 2.5,
   },
-  buttonContainer: {
-    marginTop: dimensions.indent * 1.4,
+  button: {
+    paddingHorizontal: dimensions.indent * 2.5,
   },
 });

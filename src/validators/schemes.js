@@ -56,7 +56,7 @@ export const ProfileSchema = Yup.object().shape({
   ),
   email: Yup.string()
     .trim()
-    .matches(regExp.emailRegexp)
+    .matches(regExp.emailRegexp, i18n.t('errors.incorrectEmail'))
     .required(i18n.t('errors.incorrectEmail')),
   phone: Yup.string()
     .trim()
