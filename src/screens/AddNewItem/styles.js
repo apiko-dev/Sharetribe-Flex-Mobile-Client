@@ -88,10 +88,26 @@ export default StyleSheet.create({
     marginHorizontal: dimensions.indent / 2,
   },
   locationLoaderContainer: {
+    zIndex: 1,
     height: '100%',
     position: 'absolute',
     alignItems: 'center',
     justifyContent: 'center',
     right: dimensions.indent * 0.5,
+  },
+
+  retryButtonContainer: {
+    margin: dimensions.indent * 0.3,
+  },
+  retryButtonStyle: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1,
+    padding: 0,
+    borderWidth: 0,
+  },
+
+  retryTitleStyle: {
+    color: colors.text.red,
   },
 });

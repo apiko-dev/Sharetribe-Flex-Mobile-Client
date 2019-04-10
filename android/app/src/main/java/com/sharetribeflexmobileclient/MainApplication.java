@@ -20,6 +20,7 @@ import com.oblador.vectoricons.VectorIconsPackage;
 import com.reactnative.ivpusic.imagepicker.PickerPackage;
 import com.krazylabs.OpenAppSettingsPackage;
 import com.airbnb.android.react.maps.MapsPackage;
+import io.sentry.RNSentryPackage;
 
 
 public class MainApplication extends Application implements ReactApplication {
@@ -42,7 +43,8 @@ public class MainApplication extends Application implements ReactApplication {
           new VectorIconsPackage(),
           new PickerPackage(),
           new OpenAppSettingsPackage(),
-          new MapsPackage()
+          new MapsPackage(),
+          new RNSentryPackage()
       );
     }
 
