@@ -32,7 +32,7 @@ const DescriptionTab = ({ text, user, location, geolocation }) => (
     <ShadowContainer>
       <Seller
         // image={image}
-        name={user.displayName}
+        user={user}
         rating={4}
       />
     </ShadowContainer>

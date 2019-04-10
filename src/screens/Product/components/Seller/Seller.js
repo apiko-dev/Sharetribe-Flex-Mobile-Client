@@ -1,18 +1,21 @@
 import React from 'react';
 import T from 'prop-types';
 import { View, Image, ImageBackground } from 'react-native';
+
+import { NavigationService } from '../../../../services';
 import s from './styles';
 import {
   Touchable,
   Text,
   Rating,
   ShadowContainer,
+  TextTouchable,
 } from '../../../../components';
 import i18n from '../../../../i18n';
 
 const placeholderImage = require('../../../../assets/png/icon-app-logo.png');
 
-const Seller = ({ image, name, rating }) => (
+const Seller = ({ image, rating, user }) => (
   <ShadowContainer>
     <View style={s.container}>
       <View style={s.mainContainer}>
@@ -26,13 +29,23 @@ const Seller = ({ image, name, rating }) => (
         </View>
         <View style={s.infoContainer}>
           <View style={s.name}>
-            <Text medium>{name}</Text>
+            <Text medium>{user.displayName}</Text>
           </View>
           <Rating value={rating} />
         </View>
       </View>
       <Touchable style={s.button}>
-        <Text orange>{i18n.t('common.viewProfile')}</Text>
+        <TextTouchable
+          onPress={() =>
+            NavigationService.navigateToProfile({
+              user,
+            })
+          }
+          containerStyle={s.viewProfileButton}
+          textStyle={s.viewProfileButtonText}
+        >
+          {i18n.t('common.viewProfile')}
+        </TextTouchable>
       </Touchable>
     </View>
   </ShadowContainer>
@@ -40,8 +53,8 @@ const Seller = ({ image, name, rating }) => (
 
 Seller.propTypes = {
   image: T.string,
-  name: T.string,
   rating: T.number,
+  user: T.object,
 };
 
 export default Seller;
