@@ -6,11 +6,23 @@ import { Provider } from 'mobx-react/native';
 import { lifecycle } from 'recompose';
 import RootNavigation from './navigation/RootNavigation';
 import createStore from './stores/stores';
-import { SharetribeFlexService, NavigationService } from './services';
+import {
+  SharetribeFlexService,
+  NavigationService,
+  SentryIoService,
+} from './services';
 import { colors } from './styles';
 
 if (__DEV__) {
   SplashScreen.hide();
+  /*   SentryIoService.setOptions({
+    environment: 'development',
+  }); */
+} else {
+  SentryIoService.setOptions({
+    environment: 'production',
+  });
+  SentryIoService.init();
 }
 
 const store = createStore();
