@@ -85,7 +85,7 @@ export default hoistStatics(
           photos: props.photos.concat({
             id: uuid(),
             uri: image.path,
-            name: `image_${uuid()}.jpg`,
+            name: `image_${uuid()}`,
             type: image.mime,
           }),
         }),
@@ -112,8 +112,8 @@ export default hoistStatics(
         try {
           if (await PermissionService.getCameraPermission()) {
             const images = await ImagePicker.openCamera({
-              width: 1024,
-              height: 1024,
+              width: 2500,
+              height: 2500,
               compressImageQuality: 1,
               cropping: true,
             });
