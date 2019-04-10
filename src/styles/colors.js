@@ -12,6 +12,7 @@ export default {
     labelBackgroundColor: '#FFF',
     activeBorderColor: '#FF9900',
     activeLabelColor: '#FF9900',
+    errorBorderColor: '#EB5757',
   },
   textTouchable: {
     textColor: '#FF9900',
@@ -42,7 +43,7 @@ export default {
     gray: '#8F8F8F',
     white: '#FFF',
     orange: '#FF9900',
-    red: '#ff0000',
+    red: '#EB5757',
   },
   loader: {
     primary: '#FFF',
@@ -148,8 +149,10 @@ export default {
   seller: {
     background: '#FFF',
   },
-
   location: {
     background: '#FFF',
+  },
+  formError: {
+    iconColor: '#EB5757',
   },
 };

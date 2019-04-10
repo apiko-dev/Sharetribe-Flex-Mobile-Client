@@ -28,10 +28,19 @@ export default StyleSheet.create({
     paddingTop: dimensions.indent,
     paddingBottom: dimensions.indent,
   },
+  inputWithIcon: {
+    paddingRight: dimensions.indent * 3,
+  },
   activeContainer: {
     borderColor: colors.input.activeBorderColor,
   },
   activeLabel: {
     color: colors.input.activeLabelColor,
+  },
+  icon: {
+    position: 'absolute',
+    right: dimensions.indent,
+    top: dimensions.indent,
+    paddingHorizontal: dimensions.indent * 0.2,
   },
 });

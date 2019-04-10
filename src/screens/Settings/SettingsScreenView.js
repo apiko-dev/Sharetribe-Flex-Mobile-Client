@@ -116,7 +116,7 @@ const SettingsScreen = ({
                   placeholder={i18n.t('settings.currentPassword')}
                   containerStyle={s.inputContainer}
                   name="currentPasswordForEmail"
-                  secureTextEntry
+                  inputType="password"
                   autoCapitalize="none"
                 />
                 <View style={s.inputContainer}>
@@ -151,7 +151,7 @@ const SettingsScreen = ({
                   placeholder={i18n.t('settings.currentPassword')}
                   containerStyle={s.inputContainer}
                   name="currentPassword"
-                  secureTextEntry
+                  inputType="password"
                   autoCapitalize="none"
                 />
                 <FormInput.Field

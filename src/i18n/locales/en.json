@@ -129,11 +129,10 @@
   },
   "verifyEmail": {
     "verifyEmail": "Verify email",
-    "verifyEmailSuccess": "Verify email completed",
-    "verifyEmailError": "Something went wrong, you already verified email or token is not valid",
-    "someInstruction": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, seddo eiusmod tempor incididu...",
-    "goToApp": "Go to app",
-    "tryAgain": "Try again"
+    "verifyEmailSuccess": "Your email is verified",
+    "verifyEmailError": "You already verified email or token is not valid",
+    "someInstruction": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
+    "goToSettings": "Go to settings"
   },
   "alerts": {
     "signInError": {

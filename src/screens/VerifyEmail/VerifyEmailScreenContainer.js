@@ -12,6 +12,7 @@ import VerifyEmailScreen from './VerifyEmailScreenView';
 import { ScreenLoader } from '../../components';
 import { withParamsToProps } from '../../utils/enhancers';
 import { NavigationService } from '../../services';
+import screens from '../../navigation/screens';
 
 export default hoistStatics(
   compose(
@@ -24,7 +25,7 @@ export default hoistStatics(
 
     withStateHandlers(
       {
-        isError: false,
+        isError: true,
       },
       {
         setError: () => (value) => ({
@@ -38,10 +39,10 @@ export default hoistStatics(
         verifyEmail,
         token,
         setError,
-      }) => () => {
+      }) => async () => {
         try {
           setError(false);
-          verifyEmail.run(token);
+          await verifyEmail.run(token);
         } catch (err) {
           setError(true);
         }
@@ -49,8 +50,8 @@ export default hoistStatics(
     }),
 
     withHandlers({
-      goToApp: () => () => NavigationService.navigateToApp(),
-      tryAgain: (props) => () => props.sendTokenToVerifyEmail(),
+      goToSettings: () => () =>
+        NavigationService.navigateTo(screens.Settings),
     }),
 
     lifecycle({

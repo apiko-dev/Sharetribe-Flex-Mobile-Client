@@ -14,6 +14,7 @@ import {
 import { isAndroid } from '../../utils';
 import s from './styles';
 import { dimensions } from '../../styles';
+import IconFonts from '../IconFonts/IconFonts';
 
 const AnimatedTextInput = A.createAnimatedComponent(TextInput);
 
@@ -47,6 +48,8 @@ const AnimatedFormInput = ({
   value = '',
   placeholder,
   active,
+  iconName,
+  onPressIcon,
   ...props
 }) => (
   <TouchableWithoutFeedback>
@@ -58,7 +61,7 @@ const AnimatedFormInput = ({
       ]}
     >
       <Reanimatable
-        value={active || value.length > 0}
+        value={active || (!!value && value.length > 0)}
         config={animationConfig}
       >
         {({ fontSize, translateYLabel, translateY2Input }) => (
@@ -71,7 +74,10 @@ const AnimatedFormInput = ({
                   fontSize,
                   transform: [{ translateY: translateYLabel }],
                 },
-                !active && value.length === 0 && s.placeholder,
+                !active &&
+                  !!value &&
+                  value.length === 0 &&
+                  s.placeholder,
                 active && s.activeLabel,
               ]}
             >
@@ -88,6 +94,7 @@ const AnimatedFormInput = ({
               value={value}
               style={[
                 s.input,
+                !!iconName && s.inputWithIcon,
                 inputStyle,
                 {
                   transform: [{ translateY: translateY2Input }],
@@ -95,6 +102,14 @@ const AnimatedFormInput = ({
               ]}
               ref={textInputRef}
             />
+            {!!iconName && (
+              <IconFonts
+                name={iconName}
+                size={16}
+                style={s.icon}
+                onPress={onPressIcon}
+              />
+            )}
           </View>
         )}
       </Reanimatable>
@@ -116,6 +131,8 @@ AnimatedFormInput.propTypes = {
   value: T.string,
   placeholder: T.string,
   active: T.bool,
+  iconName: T.string,
+  onPressIcon: T.func,
 };
 
 export default AnimatedFormInput;

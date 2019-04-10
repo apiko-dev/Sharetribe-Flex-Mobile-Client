@@ -18,7 +18,7 @@ const RootStore = types
 
       if (authInfo && authInfo.grantType === 'refresh_token') {
         try {
-          yield store.viewer.getCurrentUser.run();
+          store.viewer.getCurrentUser.run();
           store.auth.setAuthorizationStatus(true);
           NavigationService.navigateToApp();
         } catch (err) {

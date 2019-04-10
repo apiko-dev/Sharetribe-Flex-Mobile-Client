@@ -1,15 +1,24 @@
 import React from 'react';
-import { ViewPropTypes } from 'react-native';
-import { Text } from '..';
+import { View, ViewPropTypes } from 'react-native';
 import T from 'prop-types';
+import Text from '../Text/Text';
+import IconFonts from '../IconFonts/IconFonts';
 import s from './styles';
+import { colors } from '../../styles';
 
 const FormError = ({ showError, error, textStyle, ...props }) => (
   <React.Fragment>
     {showError && (
-      <Text style={[s.text, textStyle]} red {...props} smallSize>
-        {error}
-      </Text>
+      <View style={s.container}>
+        <IconFonts
+          name="error"
+          size={15}
+          tintColor={colors.formError.iconColor}
+        />
+        <Text style={[s.text, textStyle]} red {...props} xsmallSize>
+          {error}
+        </Text>
+      </View>
     )}
   </React.Fragment>
 );
