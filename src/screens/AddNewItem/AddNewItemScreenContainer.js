@@ -112,6 +112,9 @@ export default hoistStatics(
         try {
           if (await PermissionService.getCameraPermission()) {
             const images = await ImagePicker.openCamera({
+              width: 1024,
+              height: 1024,
+              compressImageQuality: 1,
               cropping: true,
             });
 

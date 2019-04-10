@@ -172,6 +172,8 @@ dependencies {
     implementation project(':react-native-image-crop-picker')
     implementation project(':react-native-app-settings')
     implementation project(':react-native-sentry')
+    implementation project(':react-native-devmenu')
+
 
     implementation(project(':react-native-maps')) {
         exclude group: 'com.google.android.gms', module: 'play-services-base'

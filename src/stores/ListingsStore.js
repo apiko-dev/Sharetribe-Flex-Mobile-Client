@@ -176,13 +176,15 @@ function createListing(flow, store) {
   }) {
     try {
       flow.start();
-      const res = yield Promise.all(
+      const resImages = yield Promise.all(
         images.map((image) => store.Api.imagesUpload(image)),
       );
 
-      const imagesId = res.map((item) => item.data.data.id.uuid);
+      const imagesId = resImages.map(
+        (item) => item.data.data.id.uuid,
+      );
 
-      yield store.Api.createListing({
+      const res = yield store.Api.createListing({
         title,
         category,
         subCategory,
@@ -195,6 +197,10 @@ function createListing(flow, store) {
         geolocation,
       });
 
+      const data = processJsonApi(res.data.data);
+      const entities = normalizedIncluded(res.data.included);
+      getRoot(store).entities.merge(entities);
+      store.ownList.addToBegin(data);
       flow.success();
 
       // TODO: move this alert into screen container

@@ -12,6 +12,7 @@
     "clean": "npm run clean:android && npm run clean:ios && npm run clean:js"
   },
   "dependencies": {
+    "@terrysahaidak/react-native-devmenu": "^2.0.0",
     "axios": "^0.18.0",
     "formik": "^1.5.1",
     "i18n-js": "^3.2.1",
