@@ -75,7 +75,9 @@
     "reviews": "Reviews",
     "cancel": "Cancel",
     "save": "Save",
-    "editGoods": "Edit goods"
+    "editGoods": "Edit goods",
+    "retry": "Retry"
+
   },
   "category": {
     "category": "Category",

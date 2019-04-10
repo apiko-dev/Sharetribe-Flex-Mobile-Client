@@ -152,6 +152,15 @@ const AddNewItemScreenView = ({
               color={colors.loader.secondary}
             />
           )}
+          {isErrorPlaceDetails && (
+            <Button
+              onPress={() => setGeolocation()}
+              title={i18n.t('addNewItem.retry')}
+              containerStyle={s.retryButtonContainer}
+              buttonStyle={s.retryButtonStyle}
+              titleStyle={s.retryTitleStyle}
+            />
+          )}
         </View>
 
         <InputForm
@@ -177,6 +186,7 @@ const AddNewItemScreenView = ({
                   onPress={() => {
                     onChange('location', item.description);
                     onChange('locationList', []);
+                    onChange('placeid', item.place_id);
                     setGeolocation(item);
                   }}
                   style={s.locationDropDownListItem}
@@ -204,13 +214,21 @@ const AddNewItemScreenView = ({
             onPress={updateProduct}
             isLoading={isLoading}
             disabled={
-              !isValidFields || isLoadingPlaceDetails || isLoading
+              !isValidFields ||
+              isErrorPlaceDetails ||
+              isLoadingPlaceDetails ||
+              isLoading
             }
           />
         </View>
       ) : (
         <Button
-          disabled={!isValidFields || isLoading}
+          disabled={
+            !isValidFields ||
+            isLoading ||
+            isErrorPlaceDetails ||
+            isLoadingPlaceDetails
+          }
           primary
           title={i18n.t('addNewItem.publishListing')}
           containerStyle={[
@@ -267,6 +285,8 @@ AddNewItemScreenView.propTypes = {
   locationList: T.array,
   isEditing: T.bool,
   setGeolocation: T.func,
+  isLoadingPlaceDetails: T.bool,
+  isErrorPlaceDetails: T.bool,
 };
 
 export default AddNewItemScreenView;
