@@ -2,6 +2,7 @@ import React from 'react';
 import { View, ImageBackground } from 'react-native';
 import T from 'prop-types';
 import { observer } from 'mobx-react';
+import R from 'ramda';
 import IconAppLogo from '../../assets/png/icon-app-logo.png';
 import s from './styles';
 import { colors } from '../../styles';
@@ -10,6 +11,7 @@ import Text from '../Text/Text';
 import IconFonts from '../IconFonts/IconFonts';
 import i18n from '../../i18n';
 import Loader from '../Loader/Loader';
+import { createAvatar } from '../../utils';
 
 const Avatar = ({
   user,
@@ -19,57 +21,91 @@ const Avatar = ({
   onPressChange,
   isLoading,
   ...props
-}) => (
-  <View>
-    <ImageBackground
-      source={
-        user && user.relationships && user.relationships.profileImage
-          ? {
-              uri:
-                user.relationships.profileImage.variants.default.url,
-            }
-          : IconAppLogo
-      }
-      style={[
-        s.logoImageBackground,
-        s.logoImageBackgroundMedium,
-        small && s.logoImageBackgroundSmall,
-        large && s.logoImageBackgroundLarge,
-      ]}
-      imageStyle={[
-        s.logoBackground,
-        s.logoBackgroundMedium,
-        small && s.logoBackgroundSmall,
-        large && s.logoBackgroundLarge,
-      ]}
-    >
-      {canChange && (
-        <View style={s.wrapper}>
-          <Touchable
-            useForeground
-            rippleColor={colors.button.rippleColor}
-            onPress={onPressChange}
-            {...props}
-            style={s.container}
+}) => {
+  let avatarPlaceholder;
+
+  if (user) {
+    avatarPlaceholder = createAvatar({
+      firstName: user.profile.firstName,
+      lastName: user.profile.lastName,
+      abbreviatedName: user.profile.abbreviatedName,
+      colorsArray: colors.avatars,
+    });
+  }
+
+  const avatarSrc = R.pathOr(
+    false,
+    ['relationships', 'profileImage', 'variants', 'default', 'url'],
+    user,
+  );
+
+  return (
+    <View>
+      <ImageBackground
+        source={
+          avatarSrc
+            ? {
+                uri: avatarSrc,
+              }
+            : IconAppLogo
+        }
+        style={[
+          s.logoImageBackground,
+          s.logoImageBackgroundMedium,
+          small && s.logoImageBackgroundSmall,
+          large && s.logoImageBackgroundLarge,
+        ]}
+        imageStyle={[
+          s.logoBackground,
+          s.logoBackgroundMedium,
+          small && s.logoBackgroundSmall,
+          large && s.logoBackgroundLarge,
+        ]}
+      >
+        {!!user && !avatarSrc && (
+          <View
+            style={[
+              s.avatarPlaceholderContainer,
+              { backgroundColor: avatarPlaceholder.color },
+              s.logoImageBackground,
+              s.logoImageBackgroundMedium,
+              small && s.logoImageBackgroundSmall,
+              large && s.logoImageBackgroundLarge,
+            ]}
           >
-            <View style={[s.button, s.view]}>
-              {isLoading ? (
-                <Loader />
-              ) : (
-                <React.Fragment>
-                  <IconFonts name="edit" size={15} />
-                  <Text style={s.text} bold gray xxsmallSize>
-                    {i18n.t('settings.change')}
-                  </Text>
-                </React.Fragment>
-              )}
-            </View>
-          </Touchable>
-        </View>
-      )}
-    </ImageBackground>
-  </View>
-);
+            <Text xlargeSize white>
+              {avatarPlaceholder.abbreviatedName}
+            </Text>
+          </View>
+        )}
+        {canChange && (
+          <View style={s.wrapper}>
+            <Touchable
+              useForeground
+              rippleColor={colors.button.rippleColor}
+              onPress={onPressChange}
+              {...props}
+              style={s.container}
+            >
+              <View style={[s.button, s.view]}>
+                {isLoading ? (
+                  <Loader />
+                ) : (
+                  <React.Fragment>
+                    <IconFonts name="edit" size={15} />
+                    <Text style={s.text} bold gray xxsmallSize>
+                      {i18n.t('settings.change')}
+                    </Text>
+                  </React.Fragment>
+                )}
+              </View>
+            </Touchable>
+          </View>
+        )}
+      </ImageBackground>
+    </View>
+  );
+};
 
 Avatar.propTypes = {
   user: T.object,
