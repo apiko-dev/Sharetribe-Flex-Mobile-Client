@@ -16,7 +16,7 @@ const VerifyEmailScreenView = ({ isError, goToSettings }) => (
   <View style={s.container}>
     <IconFonts
       style={s.icon}
-      name={isError ? 'error' : 'success'}
+      name={isError ? 'sad' : 'verified'}
       size={80}
       tintColor={colors.icon.tintColorOrange}
     />

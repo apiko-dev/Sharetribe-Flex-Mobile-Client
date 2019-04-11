@@ -17,12 +17,15 @@ export default hoistStatics(
   compose(
     withParamsToProps('user'),
 
-    inject(({ listings }) => ({
-      listings: listings.particularUserList.asArray,
+    inject(({ listings }, { user }) => ({
+      listings: user.isViewer
+        ? listings.ownList.asArray
+        : listings.particularUserList.asArray,
       isLoadingListings:
         listings.fetchParticularUserListings.inProgress,
       fetchParticularUserListings:
         listings.fetchParticularUserListings,
+      fetchOwnListings: listings.fetchOwnListings,
     })),
 
     withStateHandlers(
@@ -41,6 +44,12 @@ export default hoistStatics(
         props.navigation.setParams({
           userName: props.user.profile.displayName,
         });
+
+        if (props.user.isViewer) {
+          props.fetchOwnListings.run();
+
+          return;
+        }
 
         props.fetchParticularUserListings.run(props.user.id);
       } catch (error) {

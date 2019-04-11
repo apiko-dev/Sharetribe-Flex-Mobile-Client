@@ -21,6 +21,7 @@ import com.reactnative.ivpusic.imagepicker.PickerPackage;
 import com.krazylabs.OpenAppSettingsPackage;
 import com.airbnb.android.react.maps.MapsPackage;
 import io.sentry.RNSentryPackage;
+import com.mands.reactnativedevmenu.DevMenuPackage;
 
 
 public class MainApplication extends Application implements ReactApplication {
@@ -44,7 +45,8 @@ public class MainApplication extends Application implements ReactApplication {
           new PickerPackage(),
           new OpenAppSettingsPackage(),
           new MapsPackage(),
-          new RNSentryPackage()
+          new RNSentryPackage(),
+          new DevMenuPackage(this)
       );
     }
 

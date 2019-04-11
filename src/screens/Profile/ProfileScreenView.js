@@ -48,11 +48,13 @@ const ProfileScreen = ({
         onChangeTabIndex={onChangeTabIndex}
         tabs={[
           {
+            id: 1,
             text: `${i18n.t('profile.listings')} (${
               listings.length
             })`,
           },
           {
+            id: 2,
             text: i18n.t('profile.reviews'),
           },
         ]}
