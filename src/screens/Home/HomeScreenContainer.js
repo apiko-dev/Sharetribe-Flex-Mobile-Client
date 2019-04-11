@@ -40,6 +40,7 @@ export default hoistStatics(
       {
         category: '',
         subCategory: '',
+        isRefreshing: false,
       },
       {
         onChange: () => (field, value) => ({
@@ -89,6 +90,17 @@ export default hoistStatics(
           title,
           categories,
         });
+      },
+
+      fetchAllListings: (props) => async () => {
+        props.onChange('isRefreshing', true);
+
+        await props.listings.fetchListings.run({
+          categories: props.category || categories,
+          subCategories: props.subCategory,
+        });
+
+        props.onChange('isRefreshing', false);
       },
     }),
 

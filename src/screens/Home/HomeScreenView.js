@@ -18,6 +18,8 @@ const HomeScreen = ({
   onChangeTabIndex,
   search,
   chooseCategory,
+  fetchAllListings,
+  isRefreshing,
 }) => (
   <View style={s.container}>
     <TabBar
@@ -38,6 +40,8 @@ const HomeScreen = ({
             subCategory={subCategory}
             search={search}
             chooseCategory={chooseCategory}
+            fetchAllListings={fetchAllListings}
+            isRefreshing={isRefreshing}
           />
         </Tab>
         <Tab lazy>
@@ -67,6 +71,8 @@ HomeScreen.propTypes = {
   subCategory: T.string,
   search: T.string,
   chooseCategory: T.func,
+  fetchAllListings: T.func,
+  isRefreshing: T.bool,
 };
 
 export default observer(HomeScreen);
