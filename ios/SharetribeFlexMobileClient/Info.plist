@@ -2,7 +2,7 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-<key>NSAppleMusicUsageDescription</key>
+	<key>NSAppleMusicUsageDescription</key>
 	<string>Some description</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>Some description</string>
@@ -26,6 +26,10 @@
 	<string>Some description</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
 	<string>Some description</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>custom message</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>custom message</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -41,7 +45,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.1.0</string>
+	<string>0.1.1</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>

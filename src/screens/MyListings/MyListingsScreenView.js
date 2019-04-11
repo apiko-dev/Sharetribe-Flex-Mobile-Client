@@ -1,5 +1,6 @@
+/* eslint-disable react/jsx-wrap-multilines  */
 import React from 'react';
-import { View } from 'react-native';
+import { View, RefreshControl } from 'react-native';
 import T from 'prop-types';
 import s from './styles';
 import {
@@ -10,11 +11,14 @@ import {
   RenderProductButton,
 } from '../../components';
 import i18n from '../../i18n';
+import { colors } from '../../styles';
 
 const MyListingsScreen = ({
   listings,
   goToAddNewItem,
   goToProduct,
+  isRefreshing,
+  fetchAllListings,
 }) => (
   <View style={s.container}>
     <FlatListVertical
@@ -45,6 +49,13 @@ const MyListingsScreen = ({
           buttonStyle={s.button}
         />
       )}
+      refreshControl={
+        <RefreshControl
+          refreshing={isRefreshing}
+          onRefresh={fetchAllListings}
+          tintColor={colors.loader.secondary}
+        />
+      }
     />
   </View>
 );
@@ -58,6 +69,8 @@ MyListingsScreen.propTypes = {
   listings: T.array,
   goToAddNewItem: T.func,
   goToProduct: T.func,
+  fetchAllListings: T.func,
+  isRefreshing: T.bool,
 };
 
 export default MyListingsScreen;

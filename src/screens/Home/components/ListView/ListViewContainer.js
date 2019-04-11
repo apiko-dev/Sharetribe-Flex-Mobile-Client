@@ -30,7 +30,8 @@ export default compose(
   }),
 
   branch(
-    (props) => props.isLoading || props.isSearching,
+    (props) =>
+      !props.isRefreshing && (props.isLoading || props.isSearching),
     renderComponent(ScreenLoader),
   ),
 

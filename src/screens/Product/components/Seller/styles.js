@@ -26,10 +26,6 @@ const styles = StyleSheet.create({
     marginBottom: dimensions.indent / 1.6,
   },
   avatarContainer: {
-    width: dimensions.avatarSize,
-    height: dimensions.avatarSize,
-    borderRadius: dimensions.avatarSize / 2,
-    overflow: 'hidden',
     marginRight: dimensions.indent * 0.75,
   },
   avatarBackgroundImage: {

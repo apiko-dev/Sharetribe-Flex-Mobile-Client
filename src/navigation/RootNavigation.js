@@ -18,6 +18,7 @@ const Navigator = createSwitchNavigator(
   },
   {
     initialRouteName: screens.Init,
+    headerMode: 'screen',
   },
 );
 

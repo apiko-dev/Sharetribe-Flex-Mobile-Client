@@ -124,7 +124,7 @@ const ProductScreen = ({
           <View style={s.tabDescription}>
             <DescriptionTab
               text={product.description}
-              user={author.profile}
+              user={author}
               location={product.publicData.location}
               geolocation={product.geolocation}
             />

@@ -5,6 +5,7 @@ import {
   withHandlers,
   branch,
   renderComponent,
+  withStateHandlers,
 } from 'recompose';
 import { inject } from 'mobx-react';
 import MyListingsScreenView from './MyListingsScreenView';
@@ -19,11 +20,31 @@ export default hoistStatics(
       isLoading: listings.fetchOwnListings.inProgress,
     })),
 
+    withStateHandlers(
+      {
+        isRefreshing: false,
+      },
+      {
+        onChange: () => (field, value) => ({
+          [field]: value,
+        }),
+      },
+    ),
+
     withHandlers({
       goToAddNewItem: () => () =>
         NavigationService.navigateToAddNewItem(),
       goToProduct: () => (product) =>
         NavigationService.navigateToProduct({ product }),
+
+      fetchAllListings: (props) => async () => {
+        props.onChange('isRefreshing', true);
+
+        await props.fetchOwnListings.run({
+          categories,
+        });
+        props.onChange('isRefreshing', false);
+      },
     }),
 
     lifecycle({
@@ -32,6 +53,9 @@ export default hoistStatics(
       },
     }),
 
-    branch((props) => props.isLoading, renderComponent(ScreenLoader)),
+    branch(
+      (props) => !props.isRefreshing && props.isLoading,
+      renderComponent(ScreenLoader),
+    ),
   ),
 )(MyListingsScreenView);

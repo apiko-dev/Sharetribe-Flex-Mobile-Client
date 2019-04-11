@@ -17,5 +17,6 @@ export default createDrawerNavigator(
     initialRouteName: screens.HomeStack,
     contentComponent: Drawer,
     drawerWidth: 300,
+    headerMode: 'screen',
   },
 );

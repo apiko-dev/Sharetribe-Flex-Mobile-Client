@@ -8,5 +8,6 @@ export default createStackNavigator(
   },
   {
     initialRouteKey: screens.Auth,
+    headerMode: 'screen',
   },
 );

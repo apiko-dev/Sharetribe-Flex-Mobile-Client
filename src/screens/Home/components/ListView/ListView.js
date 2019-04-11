@@ -1,5 +1,6 @@
+/* eslint-disable react/jsx-wrap-multilines  */
 import React from 'react';
-import { View, FlatList } from 'react-native';
+import { View, FlatList, RefreshControl } from 'react-native';
 import T from 'prop-types';
 import { observer } from 'mobx-react/custom';
 import s from './styles';
@@ -9,6 +10,7 @@ import {
 } from '../../../../components';
 import FlatListHorizontal from '../FlatListHorizontal/FlatListHorizontal';
 import i18n from '../../../../i18n';
+import { colors } from '../../../../styles';
 
 const ListView = React.memo(
   ({
@@ -22,6 +24,8 @@ const ListView = React.memo(
     data,
     sectionList,
     listingsFilter,
+    isRefreshing,
+    fetchAllListings,
   }) => (
     <View style={s.container}>
       {!!search && (
@@ -38,6 +42,13 @@ const ListView = React.memo(
               forTwoColumns
             />
           )}
+          refreshControl={
+            <RefreshControl
+              refreshing={isRefreshing}
+              onRefresh={fetchAllListings}
+              tintColor={colors.loader.secondary}
+            />
+          }
         />
       )}
       {!search && !!category && !!subCategory && (
@@ -53,6 +64,13 @@ const ListView = React.memo(
               forTwoColumns
             />
           )}
+          refreshControl={
+            <RefreshControl
+              refreshing={isRefreshing}
+              onRefresh={fetchAllListings}
+              tintColor={colors.loader.secondary}
+            />
+          }
         />
       )}
       {!search && !(!!category && !!subCategory) && (
@@ -61,10 +79,19 @@ const ListView = React.memo(
           data={sectionList}
           keyExtractor={(item) => item}
           emptyListMessage={i18n.t('home.emptyList')}
+          refreshControl={
+            <RefreshControl
+              refreshing={isRefreshing}
+              onRefresh={fetchAllListings}
+              tintColor={colors.loader.secondary}
+            />
+          }
           renderItem={({ item: categoryItem }) =>
             !!listingsFilter(listings, categoryItem).length && (
               <FlatListHorizontal
                 data={listingsFilter(listings, categoryItem)}
+                isRefreshing={isRefreshing}
+                fetchAllListings={fetchAllListings}
                 headerTitle={categoryItem}
                 headerTitleTextTouchable={i18n.t('home.seeAll')}
                 headerOnPressTextTouchable={() =>
@@ -101,6 +128,8 @@ ListView.propTypes = {
   data: T.array,
   sectionList: T.array,
   listingsFilter: T.func,
+  fetchAllListings: T.func,
+  isRefreshing: T.bool,
 };
 
 export default observer(ListView);
