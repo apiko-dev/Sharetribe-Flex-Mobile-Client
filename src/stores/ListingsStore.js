@@ -302,10 +302,7 @@ function fetchOwnListings(flow, store) {
       flow.start();
 
       const res = yield store.Api.fetchOwnListings({
-
-        pub_category: categories,
         include: ['images', 'author', 'author.profileImage'],
-
       });
 
       console.log(res);
