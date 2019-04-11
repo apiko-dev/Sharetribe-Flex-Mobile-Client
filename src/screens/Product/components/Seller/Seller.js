@@ -15,20 +15,13 @@ import {
 } from '../../../../components';
 import i18n from '../../../../i18n';
 
-const placeholderImage = require('../../../../assets/png/icon-app-logo.png');
-
 const Seller = ({ image, rating, user }) => {
   return (
     <ShadowContainer>
       <View style={s.container}>
         <View style={s.mainContainer}>
           <View style={s.avatarContainer}>
-            <ImageBackground
-              source={placeholderImage}
-              style={s.avatarBackgroundImage}
-            >
-              <Avatar user={user} />
-            </ImageBackground>
+            <Avatar user={user} />
           </View>
           <View style={s.infoContainer}>
             <View style={s.name}>
