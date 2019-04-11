@@ -40,9 +40,7 @@ export default hoistStatics(
       fetchAllListings: (props) => async () => {
         props.onChange('isRefreshing', true);
 
-        await props.fetchOwnListings.run({
-          categories,
-        });
+        await props.fetchOwnListings.run();
         props.onChange('isRefreshing', false);
       },
     }),
