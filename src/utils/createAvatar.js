@@ -15,9 +15,6 @@ const createAvatar = ({
   const charIndex = abbreviatedName.charCodeAt(0) - 65;
   const colorIndex = charIndex % colorsArray.length;
 
-  console.log('colors array: ', colorsArray);
-  console.log('colors index: ', colorIndex);
-
   return {
     abbreviatedName,
     color: colorsArray[colorIndex],
