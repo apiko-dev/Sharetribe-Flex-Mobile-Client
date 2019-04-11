@@ -201,6 +201,7 @@ function createListing(flow, store) {
       const entities = normalizedIncluded(res.data.included);
       getRoot(store).entities.merge(entities);
       store.ownList.addToBegin(data);
+
       flow.success();
 
       // TODO: move this alert into screen container
@@ -296,12 +297,11 @@ function searchListings(flow, store) {
 }
 
 function fetchOwnListings(flow, store) {
-  return function* fetchOwnListings({ categories }) {
+  return function* fetchOwnListings() {
     try {
       flow.start();
 
       const res = yield store.Api.fetchOwnListings({
-        pub_category: categories,
         include: ['images', 'author', 'profileImage'],
       });
 

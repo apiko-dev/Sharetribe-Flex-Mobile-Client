@@ -40,7 +40,7 @@ export default StyleSheet.create({
   icon: {
     position: 'absolute',
     right: dimensions.indent,
-    top: dimensions.indent,
+    top: dimensions.indent * 0.85,
     paddingHorizontal: dimensions.indent * 0.2,
   },
 });

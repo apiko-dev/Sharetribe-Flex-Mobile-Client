@@ -41,7 +41,7 @@ const FormInput = ({
         ]}
         secureTextEntry={secureTextEntryStatus}
         onPressIcon={onPress}
-        iconName={iconName || (inputType === 'password' && 'gps')}
+        iconName={iconName || (inputType === 'password' && 'eye')}
       />
       <FormError showError={isError} error={error} />
     </View>

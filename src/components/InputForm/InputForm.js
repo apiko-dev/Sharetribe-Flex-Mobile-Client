@@ -105,7 +105,7 @@ const AnimatedFormInput = ({
             {!!iconName && (
               <IconFonts
                 name={iconName}
-                size={16}
+                size={20}
                 style={s.icon}
                 onPress={onPressIcon}
               />

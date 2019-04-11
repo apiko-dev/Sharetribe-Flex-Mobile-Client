@@ -9,7 +9,6 @@ import R from 'ramda';
 import ImagePicker from 'react-native-image-crop-picker';
 import { inject } from 'mobx-react';
 import uuid from 'uuid/v4';
-
 import i18n from '../../i18n';
 import AddNewItemScreen from './AddNewItemScreenView';
 import {
@@ -112,9 +111,9 @@ export default hoistStatics(
         try {
           if (await PermissionService.getCameraPermission()) {
             const images = await ImagePicker.openCamera({
+              compressImageQuality: 1,
               width: 2500,
               height: 2500,
-              compressImageQuality: 1,
               cropping: true,
             });
 
