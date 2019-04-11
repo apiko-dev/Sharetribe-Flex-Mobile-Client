@@ -176,13 +176,15 @@ function createListing(flow, store) {
   }) {
     try {
       flow.start();
-      const res = yield Promise.all(
+      const resImages = yield Promise.all(
         images.map((image) => store.Api.imagesUpload(image)),
       );
 
-      const imagesId = res.map((item) => item.data.data.id.uuid);
+      const imagesId = resImages.map(
+        (item) => item.data.data.id.uuid,
+      );
 
-      yield store.Api.createListing({
+      const res = yield store.Api.createListing({
         title,
         category,
         subCategory,
@@ -194,6 +196,11 @@ function createListing(flow, store) {
         images: imagesId,
         geolocation,
       });
+
+      const data = processJsonApi(res.data.data);
+      const entities = normalizedIncluded(res.data.included);
+      getRoot(store).entities.merge(entities);
+      store.ownList.addToBegin(data);
 
       flow.success();
 
@@ -290,13 +297,15 @@ function searchListings(flow, store) {
 }
 
 function fetchOwnListings(flow, store) {
-  return function* fetchOwnListings({ categories }) {
+  return function* fetchOwnListings() {
     try {
       flow.start();
 
       const res = yield store.Api.fetchOwnListings({
+
         pub_category: categories,
         include: ['images', 'author', 'author.profileImage'],
+
       });
 
       console.log(res);
