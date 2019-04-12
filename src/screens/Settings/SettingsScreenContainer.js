@@ -4,6 +4,7 @@ import {
   hoistStatics,
   withHandlers,
   defaultProps,
+  withProps,
 } from 'recompose';
 import ImagePicker from 'react-native-image-crop-picker';
 import { inject } from 'mobx-react';
@@ -187,5 +188,32 @@ export default hoistStatics(
         }
       },
     }),
+
+    withProps(
+      ({
+        user,
+        isUpdatingProfile,
+        isChangingEmail,
+        isChangingPassword,
+      }) => {
+        const initialValues = {
+          firstName: user.profile.firstName,
+          lastName: user.profile.lastName,
+          bio: user.profile.bio,
+          email: user.email,
+          phone:
+            user.profile.protectedData &&
+            user.profile.protectedData.phoneNumber,
+        };
+
+        const isLoading =
+          isUpdatingProfile || isChangingEmail || isChangingPassword;
+
+        return {
+          initialValues,
+          isLoading,
+        };
+      },
+    ),
   ),
 )(SettingsScreenView);

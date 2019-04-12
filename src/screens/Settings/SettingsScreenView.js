@@ -5,6 +5,7 @@ import { SafeAreaView } from 'react-navigation';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { ActionSheetCustom as ActionSheet } from 'react-native-actionsheet';
 import T from 'prop-types';
+import { observer } from 'mobx-react/custom';
 import s from './styles';
 import {
   DrawerButton,
@@ -27,13 +28,12 @@ const SettingsScreen = ({
   onSave,
   addPhoto,
   user,
-  isUpdatingProfile,
-  isChangingEmail,
-  isChangingPassword,
   isChangingAvatar,
+  initialValues,
+  isLoading,
   formRef,
 }) => (
-  <SafeAreaView>
+  <SafeAreaView style={s.safeAreaViewContainer}>
     <KeyboardAwareScrollView
       keyboardShouldPersistTaps="handled"
       extraScrollHeight={30}
@@ -42,15 +42,8 @@ const SettingsScreen = ({
         <Form
           validationSchema={ProfileSchema}
           ref={formRef}
-          initialValues={{
-            firstName: user.profile.firstName,
-            lastName: user.profile.lastName,
-            bio: user.profile.bio,
-            email: user.email,
-            phone:
-              user.profile.protectedData &&
-              user.profile.protectedData.phoneNumber,
-          }}
+          initialValues={initialValues}
+          isInitialValid={false}
           onSubmit={onSave}
         >
           {({ handleSubmit, handleReset, isValid }) => (
@@ -168,31 +161,23 @@ const SettingsScreen = ({
                   autoCapitalize="none"
                 />
               </FormContainer>
-
-              <View style={s.footer}>
-                <Button
-                  containerStyle={s.buttonContainer}
-                  title={i18n.t('common.cancel')}
-                  onPress={handleReset}
-                />
-                <Button
-                  containerStyle={s.buttonContainer}
-                  title={i18n.t('common.save')}
-                  primary
-                  onPress={handleSubmit}
-                  isLoading={
-                    isUpdatingProfile ||
-                    isChangingEmail ||
-                    isChangingPassword
-                  }
-                  disabled={
-                    !isValid ||
-                    isUpdatingProfile ||
-                    isChangingEmail ||
-                    isChangingPassword
-                  }
-                />
-              </View>
+              <FormContainer>
+                <View style={s.buttonsFormContainer}>
+                  <Button
+                    containerStyle={s.buttonContainer}
+                    title={i18n.t('common.cancel')}
+                    onPress={handleReset}
+                  />
+                  <Button
+                    containerStyle={s.buttonContainer}
+                    title={i18n.t('common.save')}
+                    primary
+                    onPress={handleSubmit}
+                    isLoading={isLoading}
+                    disabled={!isValid || isLoading}
+                  />
+                </View>
+              </FormContainer>
             </React.Fragment>
           )}
         </Form>
@@ -225,11 +210,10 @@ SettingsScreen.propTypes = {
   onSave: T.func,
   addPhoto: T.func,
   user: T.object,
-  isUpdatingProfile: T.bool,
   isChangingAvatar: T.bool,
-  isChangingEmail: T.bool,
-  isChangingPassword: T.bool,
+  isLoading: T.bool,
+  initialValues: T.object,
   formRef: T.any,
 };
 
-export default SettingsScreen;
+export default observer(SettingsScreen);

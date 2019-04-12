@@ -45,9 +45,10 @@ function registerUser(flow, store) {
         email,
         lastName,
         password,
+        displayName: `${firstName} ${lastName}`,
       });
 
-      store.loginUser.run({ email, password });
+      yield store.loginUser.run({ email, password });
 
       flow.success();
 

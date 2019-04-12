@@ -9,6 +9,9 @@ export default StyleSheet.create({
     alignItems: 'center',
     backgroundColor: colors.settingsScreen.backgroundColor,
   },
+  safeAreaViewContainer: {
+    backgroundColor: colors.settingsScreen.backgroundColor,
+  },
   inputContainer: {
     marginBottom: dimensions.indent * 1.1,
   },
@@ -78,5 +81,11 @@ export default StyleSheet.create({
   },
   buttonContainer: {
     width: '48%',
+  },
+  buttonsFormContainer: {
+    alignSelf: 'stretch',
+    alignItems: 'flex-start',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 });

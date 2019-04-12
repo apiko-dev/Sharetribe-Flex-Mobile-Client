@@ -201,6 +201,7 @@ function createListing(flow, store) {
       const entities = normalizedIncluded(res.data.included);
       getRoot(store).entities.merge(entities);
       store.ownList.addToBegin(data);
+      store.list.addToBegin(data, false);
 
       flow.success();
 

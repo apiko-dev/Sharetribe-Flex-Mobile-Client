@@ -1,5 +1,6 @@
+/* eslint-disable react/jsx-wrap-multilines  */
 import React from 'react';
-import { ScrollView, View } from 'react-native';
+import { ScrollView, View, RefreshControl } from 'react-native';
 import T from 'prop-types';
 import { TabView, Tab } from 'react-native-easy-tabs';
 import s from './styles';
@@ -14,7 +15,7 @@ import {
 } from '../../components';
 import i18n from '../../i18n';
 import { ListingsView, ReviewsView } from './components';
-import { dimensions, fontSizes } from '../../styles';
+import { dimensions, fontSizes, colors } from '../../styles';
 
 const ProfileScreen = ({
   user,
@@ -22,8 +23,19 @@ const ProfileScreen = ({
   onChangeTabIndex,
   listings,
   goToProduct,
+  isRefreshing,
+  refresh,
 }) => (
-  <ScrollView style={s.container}>
+  <ScrollView
+    style={s.container}
+    refreshControl={
+      <RefreshControl
+        refreshing={isRefreshing}
+        onRefresh={refresh}
+        tintColor={colors.loader.secondary}
+      />
+    }
+  >
     <View style={s.top}>
       <Avatar user={user} large />
       <Text xmediumSize style={s.userName}>
@@ -92,6 +104,8 @@ ProfileScreen.propTypes = {
   onChangeTabIndex: T.func,
   listings: T.array,
   goToProduct: T.func,
+  isRefreshing: T.bool,
+  refresh: T.func,
 };
 
 export default ProfileScreen;
