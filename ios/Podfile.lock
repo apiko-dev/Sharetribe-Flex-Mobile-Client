@@ -83,7 +83,7 @@ PODS:
     - React
   - RNGestureHandler (1.1.0):
     - React
-  - RNImageCropPicker (0.23.1):
+  - RNImageCropPicker (0.23.0):
     - QBImagePickerController
     - React/Core
     - RSKImageCropper
@@ -189,7 +189,7 @@ SPEC CHECKSUMS:
   react-native-maps: 7525a32bcd025af8cf3b6c469af9b8758245db72
   ReactNativePermissions: 2e324bb3baf12702e3ec27f76c8ae1158fa69fc6
   RNGestureHandler: b65d391f4f570178d657b99a16ec99d09b8656b0
-  RNImageCropPicker: a4c8db5757926bda8b04ba6796cc2a21cc6fd783
+  RNImageCropPicker: e56deca5b463b9493d22e966cfd83cb1fc5c99bb
   RNLanguages: 962e562af0d34ab1958d89bcfdb64fafc37c513e
   RNOpenAppSettings: 1169b90a275e9e18c5973e1608949f97d426e7f3
   RNReanimated: 9497464b378759f538c539df105cda235de496c5
