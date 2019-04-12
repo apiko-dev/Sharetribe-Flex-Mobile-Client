@@ -2,12 +2,6 @@ import { StyleSheet } from 'react-native';
 import { dimensions, colors } from '../../styles';
 
 export default StyleSheet.create({
-  addGoodsButtonContainer: {
-    marginTop: dimensions.indent,
-    marginLeft: dimensions.indent,
-    marginRight: dimensions.indent,
-    marginBottom: dimensions.indent * 1.5,
-  },
   logoImageBackground: {
     alignItems: 'center',
     justifyContent: 'center',
@@ -55,7 +49,6 @@ export default StyleSheet.create({
   container: {
     borderRadius: 10,
     overflow: 'hidden',
-
     alignSelf: 'center',
     backgroundColor: colors.button.backgroundColor,
   },
@@ -79,5 +72,11 @@ export default StyleSheet.create({
   image: {
     position: 'absolute',
     zIndex: 1,
+  },
+  avatarPlaceholderContainer: {
+    flex: 1,
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

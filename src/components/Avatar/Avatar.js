@@ -2,6 +2,8 @@ import React from 'react';
 import { View, ImageBackground } from 'react-native';
 import T from 'prop-types';
 import { observer } from 'mobx-react';
+import R from 'ramda';
+import { compose, withProps } from 'recompose';
 import IconAppLogo from '../../assets/png/icon-app-logo.png';
 import s from './styles';
 import { colors } from '../../styles';
@@ -10,6 +12,7 @@ import Text from '../Text/Text';
 import IconFonts from '../IconFonts/IconFonts';
 import i18n from '../../i18n';
 import Loader from '../Loader/Loader';
+import { createAvatar } from '../../utils';
 
 const Avatar = ({
   user,
@@ -18,15 +21,16 @@ const Avatar = ({
   canChange,
   onPressChange,
   isLoading,
+  avatarPlaceholder,
+  avatarSrc,
   ...props
 }) => (
   <View>
     <ImageBackground
       source={
-        user && user.relationships && user.relationships.profileImage
+        avatarSrc
           ? {
-              uri:
-                user.relationships.profileImage.variants.default.url,
+              uri: avatarSrc,
             }
           : IconAppLogo
       }
@@ -43,6 +47,22 @@ const Avatar = ({
         large && s.logoBackgroundLarge,
       ]}
     >
+      {!!user && !avatarSrc && (
+        <View
+          style={[
+            s.avatarPlaceholderContainer,
+            { backgroundColor: avatarPlaceholder.color },
+            s.logoImageBackground,
+            s.logoImageBackgroundMedium,
+            small && s.logoImageBackgroundSmall,
+            large && s.logoImageBackgroundLarge,
+          ]}
+        >
+          <Text xlargeSize white>
+            {avatarPlaceholder.abbreviatedName}
+          </Text>
+        </View>
+      )}
       {canChange && (
         <View style={s.wrapper}>
           <Touchable
@@ -78,6 +98,31 @@ Avatar.propTypes = {
   canChange: T.bool,
   isLoading: T.bool,
   onPressChange: T.func,
+  avatarPlaceholder: T.any,
+  avatarSrc: T.any,
 };
 
-export default observer(Avatar);
+export default compose(
+  withProps(({ user }) => {
+    const avatarPlaceholder =
+      !!user &&
+      createAvatar({
+        firstName: user.profile.firstName,
+        lastName: user.profile.lastName,
+        abbreviatedName: user.profile.abbreviatedName,
+        colorsArray: colors.avatars,
+      });
+
+    const avatarSrc = R.pathOr(
+      false,
+      ['relationships', 'profileImage', 'variants', 'default', 'url'],
+      user,
+    );
+
+    return {
+      avatarPlaceholder,
+      avatarSrc,
+    };
+  }),
+  observer,
+)(Avatar);

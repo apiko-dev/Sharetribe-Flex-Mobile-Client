@@ -336,7 +336,7 @@ function fetchParticularUserListings(flow, store) {
       console.log(userId);
       const res = yield store.Api.fetchListings({
         authorId: userId,
-        include: ['images', 'author', 'profileImage'],
+        include: ['images', 'author', 'author.profileImage'],
       });
 
       console.log('fetchParticularUserListings: ', res);
