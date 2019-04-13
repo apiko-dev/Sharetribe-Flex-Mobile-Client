@@ -4,6 +4,7 @@ import { StatusBar } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import { Provider } from 'mobx-react/native';
 import { lifecycle } from 'recompose';
+
 import RootNavigation from './navigation/RootNavigation';
 import createStore from './stores/stores';
 import {
@@ -13,8 +14,13 @@ import {
 } from './services';
 import { colors } from './styles';
 
+const store = createStore();
+
 if (__DEV__) {
   SplashScreen.hide();
+  // eslint-disable-next-line global-require
+  const Reactotron = require('./ReactotronConfig').default;
+  Reactotron.trackMstNode(store);
   /*   SentryIoService.setOptions({
     environment: 'development',
   }); */
@@ -24,8 +30,6 @@ if (__DEV__) {
   });
   SentryIoService.init();
 }
-
-const store = createStore();
 
 const InitApp = () => (
   <Provider {...store}>
