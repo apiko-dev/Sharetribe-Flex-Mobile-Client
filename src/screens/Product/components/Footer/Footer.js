@@ -1,5 +1,4 @@
 import React from 'react';
-import R from 'ramda';
 import T from 'prop-types';
 import { View } from 'react-native';
 import s from './styles';
