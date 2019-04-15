@@ -5,6 +5,7 @@ import {
   withHandlers,
   lifecycle,
 } from 'recompose';
+import { Linking } from 'react-native';
 import R from 'ramda';
 
 import { inject } from 'mobx-react/native';
@@ -61,6 +62,9 @@ export default hoistStatics(
           product: props.product,
           isEditing: true,
         });
+      },
+      onCall: (props) => () => {
+        Linking.openURL(`tel:${props.phoneNumber}`);
       },
     }),
     lifecycle({

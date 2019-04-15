@@ -4,7 +4,7 @@ import { View } from 'react-native';
 import s from './styles';
 import { Button, IconFonts } from '../../../../components';
 
-const Footer = ({ phone }) => (
+const Footer = ({ phone, onCall }) => (
   <View style={s.container}>
     <View style={s.contactContainer}>
       {phone && (
@@ -13,6 +13,7 @@ const Footer = ({ phone }) => (
           containerStyle={s.containerCall}
           buttonStyle={s.buttonContact}
           borderless={false}
+          onPress={onCall}
         >
           <IconFonts name="call" size={22} tintColor="orange" />
         </Button>
@@ -45,6 +46,7 @@ const Footer = ({ phone }) => (
 
 Footer.propTypes = {
   phone: T.string,
+  onCall: T.func,
 };
 
 export default Footer;
