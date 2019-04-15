@@ -89,12 +89,12 @@ function updateProfile(flow, store) {
   }) {
     try {
       flow.start();
-
+      
       yield store.Api.updateProfile({
         firstName,
         lastName,
         bio,
-        protectedData: {
+        publicData: {
           phoneNumber: phone,
         },
       });

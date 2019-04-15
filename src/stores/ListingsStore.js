@@ -25,6 +25,7 @@ const ProductPublicData = t.model('ProductPublicData', {
   level: t.maybe(t.string),
   location: t.maybe(t.string),
   subCategory: t.maybe(t.string),
+  phoneNumber: t.maybe(t.string),
 });
 
 const Price = t.model('Price', {

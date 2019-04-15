@@ -23,6 +23,17 @@ export default hoistStatics(
         R.path(['variants', 'default']),
       ),
       author: R.path(['relationships', 'author'], product),
+
+      phoneNumber: R.path(
+        [
+          'relationships',
+          'author',
+          'profile',
+          'publicData',
+          'phoneNumber',
+        ],
+        product,
+      ),
     })),
     withStateHandlers(
       {

@@ -48,8 +48,8 @@ const SettingsScreen = ({
             bio: user.profile.bio,
             email: user.email,
             phone:
-              user.profile.protectedData &&
-              user.profile.protectedData.phoneNumber,
+              user.profile.publicData &&
+              user.profile.publicData.phoneNumber,
           }}
           onSubmit={onSave}
         >

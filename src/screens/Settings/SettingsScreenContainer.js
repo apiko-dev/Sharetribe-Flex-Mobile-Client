@@ -168,7 +168,7 @@ export default hoistStatics(
           data.firstName !== user.profile.firstName ||
           data.lastName !== user.profile.lastName ||
           data.bio !== user.profile.bio ||
-          data.phone !== user.profile.protectedData.phoneNumber
+          data.phone !== user.profile.publicData.phoneNumber
         ) {
           updateProfile(data);
         }

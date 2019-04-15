@@ -49,6 +49,7 @@ const ProductScreen = ({
   tabIndex,
   navigateToImageScreen,
   gallery,
+  phoneNumber,
 }) => (
   <ScrollView style={s.container} bounces={false}>
     <View style={s.carouselContainer}>
@@ -137,7 +138,7 @@ const ProductScreen = ({
         </Tab>
       </TabView>
     </View>
-    <Footer />
+    <Footer phone={phoneNumber} />
   </ScrollView>
 );
 
@@ -168,5 +169,6 @@ ProductScreen.propTypes = {
   tabIndex: T.number,
   navigateToImageScreen: T.func,
   gallery: T.array,
+  phoneNumber: T.string,
 };
 export default observer(ProductScreen);
