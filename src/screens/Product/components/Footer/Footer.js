@@ -8,7 +8,7 @@ import { Button, IconFonts } from '../../../../components';
 const Footer = ({ phone }) => (
   <View style={s.container}>
     <View style={s.contactContainer}>
-      {!R.isNil(phone) && (
+      {phone && (
         <Button
           style={s.paddingButton}
           containerStyle={s.containerCall}
