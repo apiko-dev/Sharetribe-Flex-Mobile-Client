@@ -10,12 +10,13 @@ class SharetribeSdkService {
     });
   }
 
-  register({ firstName, lastName, email, password }) {
+  register({ firstName, lastName, email, password, displayName }) {
     return this.sdk.currentUser.create({
       firstName,
       lastName,
       email,
       password,
+      displayName,
     });
   }
 

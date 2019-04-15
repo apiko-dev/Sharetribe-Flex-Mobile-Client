@@ -30,11 +30,16 @@ export default hoistStatics(
 
     withStateHandlers(
       {
+        isRefreshing: false,
         selectedTabIndex: 0,
       },
       {
         onChangeTabIndex: () => (index) => ({
           selectedTabIndex: index,
+        }),
+
+        onChange: () => (field, value) => ({
+          [field]: value,
         }),
       },
     ),
@@ -46,12 +51,12 @@ export default hoistStatics(
         });
 
         if (props.user.isViewer) {
-          props.fetchOwnListings.run();
+          await props.fetchOwnListings.run();
 
           return;
         }
 
-        props.fetchParticularUserListings.run(props.user.id);
+        await props.fetchParticularUserListings.run(props.user.id);
       } catch (error) {
         console.log(error);
       }
@@ -60,10 +65,28 @@ export default hoistStatics(
     withHandlers({
       goToProduct: () => (product) =>
         NavigationService.navigateToProduct({ product }),
+
+      refresh: (props) => async () => {
+        try {
+          props.onChange('isRefreshing', true);
+
+          if (props.user.isViewer) {
+            await props.fetchOwnListings.run();
+
+            return;
+          }
+
+          await props.fetchParticularUserListings.run(props.user.id);
+
+          props.onChange('isRefreshing', false);
+        } catch (error) {
+          console.log(error);
+        }
+      },
     }),
 
     branch(
-      (props) => props.isLoadingListings,
+      (props) => !props.isRefreshing && props.isLoadingListings,
       renderComponent(ScreenLoader),
     ),
   ),
