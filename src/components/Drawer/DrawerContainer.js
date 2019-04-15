@@ -9,12 +9,14 @@ import DrawerView from './DrawerView';
 import { AlertService, NavigationService } from '../../services';
 import i18n from '../../i18n';
 import screens from '../../navigation/screens';
+import { withLoadingModal } from '../../utils/enhancers';
 
 export default compose(
   inject((stores) => ({
     isAuthorized: stores.auth.isAuthorized,
     logout: stores.auth.logout,
     user: stores.viewer.user,
+    isLogout: stores.auth.logout.inProgress,
   })),
 
   withState('items', 'setItems', []),
@@ -99,4 +101,6 @@ export default compose(
       props.setItems(unauthorizedItems);
     }
   }),
+
+  withLoadingModal((props) => props.isLogout),
 )(DrawerView);

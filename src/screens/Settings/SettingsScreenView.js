@@ -40,6 +40,7 @@ const SettingsScreen = ({
     >
       <View style={s.container}>
         <Form
+          enableReinitialize
           validationSchema={ProfileSchema}
           ref={formRef}
           initialValues={initialValues}
