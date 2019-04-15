@@ -8,11 +8,14 @@ import {
   ProductScreen,
   VerifyEmailScreen,
   GalleryScreen,
+  RequestToRentScreen,
 } from '../screens';
 import { defaultNavigationOptions } from './NavigationOptions';
 
 export default createStackNavigator(
   {
+    [screens.RequestToRent]: RequestToRentScreen,
+
     [screens.Home]: HomeScreen,
     [screens.UpdatePassword]: UpdatePasswordScreen,
     [screens.VerifyEmail]: VerifyEmailScreen,
@@ -22,7 +25,7 @@ export default createStackNavigator(
     [screens.Gallery]: GalleryScreen,
   },
   {
-    initialRouteKey: screens.HomeScreen,
+    initialRouteKey: screens.RequestToRent,
     defaultNavigationOptions,
   },
 );

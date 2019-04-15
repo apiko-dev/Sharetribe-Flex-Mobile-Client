@@ -27,3 +27,6 @@ export {
 export {
   default as GalleryScreen,
 } from './Gallery/GalleryScreenContainer';
+export {
+  default as RequestToRentScreen,
+} from './RequestToRent/RequestToRentScreenContainer';

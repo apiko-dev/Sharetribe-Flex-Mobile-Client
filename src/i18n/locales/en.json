@@ -134,6 +134,13 @@
     "someInstruction": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
     "goToSettings": "Go to settings"
   },
+  "requestToRent": {
+    "requestToRent": "Request to rent",
+    "when": "When do you want it?",
+    "bookingBreakdown": "Booking breakdown",
+    "priceADay": "Price per day",
+    "totalPrice": "Total price"
+  },
   "alerts": {
     "signInError": {
       "title": "Sign In",
@@ -184,7 +191,9 @@
     "settings": "Settings",
     "save": "Save",
     "more": "More",
-    "less": "Less"
+    "less": "Less",
+    "availableDate": "Available date",
+    "employedDate": "Employed date"
   },
   "permissions": {
     "iosRestrictedPermission": "Restricted Permission",

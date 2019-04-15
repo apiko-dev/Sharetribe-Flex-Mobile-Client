@@ -49,6 +49,7 @@ const ProductScreen = ({
   tabIndex,
   navigateToImageScreen,
   gallery,
+  navigationToRequestToRent,
 }) => (
   <ScrollView style={s.container} bounces={false}>
     <View style={s.carouselContainer}>
@@ -137,7 +138,7 @@ const ProductScreen = ({
         </Tab>
       </TabView>
     </View>
-    <Footer />
+    <Footer navigationToRequestToRent={navigationToRequestToRent} />
   </ScrollView>
 );
 
@@ -168,5 +169,6 @@ ProductScreen.propTypes = {
   tabIndex: T.number,
   navigateToImageScreen: T.func,
   gallery: T.array,
+  navigationToRequestToRent: T.func,
 };
 export default observer(ProductScreen);

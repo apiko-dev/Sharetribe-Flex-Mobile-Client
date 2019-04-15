@@ -4,7 +4,7 @@ import { View } from 'react-native';
 import s from './styles';
 import { Button, IconFonts } from '../../../../components';
 
-const Footer = () => (
+const Footer = ({ navigationToRequestToRent }) => (
   <View style={s.container}>
     <View style={s.contactContainer}>
       <Button
@@ -36,11 +36,14 @@ const Footer = () => (
         title="Request to rent"
         primary
         buttonStyle={s.buttonRent}
+        onPress={navigationToRequestToRent}
       />
     </View>
   </View>
 );
 
-Footer.propTypes = {};
+Footer.propTypes = {
+  navigationToRequestToRent: T.func,
+};
 
 export default Footer;

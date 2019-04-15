@@ -15,7 +15,7 @@ const withLoadingModal = (propsMapper) => (BaseComponent) => (
 ) => (
   <SafeAreaView
     style={styles.container}
-    forceInset={{ top: 'always', horizontal: 'never' }}
+    forceInset={{ top: 'never', horizontal: 'never' }}
   >
     <BaseComponent {...props} />
     <Modal isVisible={propsMapper(props)}>

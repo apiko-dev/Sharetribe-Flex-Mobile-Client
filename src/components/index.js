@@ -55,3 +55,6 @@ export {
 export {
   default as ExpandableText,
 } from './ExpandableText/ExpandableText';
+export {
+  default as Calendar,
+} from './Calendar/Calendar';

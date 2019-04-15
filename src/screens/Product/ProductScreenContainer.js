@@ -10,6 +10,7 @@ import R from 'ramda';
 import { inject } from 'mobx-react/native';
 import ProductScreenView from './ProductScreenView';
 import { withParamsToProps } from '../../utils/enhancers';
+import screens from '../../navigation/screens';
 
 export default hoistStatics(
   compose(
@@ -49,6 +50,11 @@ export default hoistStatics(
         props.navigation.navigate('AddNewItem', {
           product: props.product,
           isEditing: true,
+        });
+      },
+      navigationToRequestToRent: (props) => () => {
+        props.navigation.navigate(screens.RequestToRent, {
+          product: props.product,
         });
       },
     }),

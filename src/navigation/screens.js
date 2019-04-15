@@ -23,6 +23,7 @@ export default {
   Profile: 'Profile',
   VerifyEmail: 'VerifyEmail',
   Gallery: 'Gallery',
+  RequestToRent: 'RequestToRent',
 
   // Stacks
   HomeStack: 'HomeStack',
