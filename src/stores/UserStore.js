@@ -6,10 +6,10 @@ const UserRelationships = t.model('ProductRelationships', {
 });
 
 const PublicData = t.model('PublicData', {
-  // age: t.number,
+  phoneNumber: t.maybe(t.string),
 });
 const ProtectedData = t.model('ProtectedData', {
-  phoneNumber: t.maybe(t.string),
+  // phoneNumber: t.maybe(t.string),
 });
 const PrivateData = t.model('PrivateData', {
   // discoveredServiceVia: t.string,

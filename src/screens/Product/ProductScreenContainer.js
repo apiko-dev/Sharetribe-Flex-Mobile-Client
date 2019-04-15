@@ -22,7 +22,18 @@ export default hoistStatics(
       gallery: R.path(['relationships', 'getImages'], product).map(
         R.path(['variants', 'default']),
       ),
-      author: R.path(['relationships', 'author'], product),
+      author: R.pathOr(false, ['relationships', 'author'], product),
+
+      phoneNumber: R.path(
+        [
+          'relationships',
+          'author',
+          'profile',
+          'publicData',
+          'phoneNumber',
+        ],
+        product,
+      ),
     })),
     withStateHandlers(
       {
