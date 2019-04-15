@@ -45,9 +45,10 @@ function registerUser(flow, store) {
         email,
         lastName,
         password,
+        displayName: `${firstName} ${lastName}`,
       });
 
-      store.loginUser.run({ email, password });
+      yield store.loginUser.run({ email, password });
 
       flow.success();
 
@@ -105,15 +106,20 @@ function updatePassword(flow, store) {
 function logout(flow, store) {
   return function* logout() {
     try {
+      flow.start();
+
       yield store.Api.logout();
 
       const rootStore = getRoot(store);
 
       rootStore.viewer.removeUser();
 
+      flow.success();
+
       store.setAuthorizationStatus(false);
       NavigationService.navigateToAuth();
     } catch (err) {
+      flow.failed();
       AlertService.showAlert(
         i18n.t('alerts.signOutError.title'),
         i18n.t('alerts.signOutError.message'),

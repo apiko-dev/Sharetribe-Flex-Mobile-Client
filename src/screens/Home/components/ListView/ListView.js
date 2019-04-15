@@ -35,6 +35,7 @@ const ListView = React.memo(
           numColumns={2}
           emptyListIconName="search"
           emptyListMessage={i18n.t('home.nothingWasFound')}
+          contentContainerStyle={s.list}
           renderItem={({ item }) => (
             <RenderProductButton
               item={item}
@@ -57,6 +58,7 @@ const ListView = React.memo(
           keyExtractor={(item) => item.id}
           numColumns={2}
           emptyListMessage={i18n.t('home.emptyList')}
+          contentContainerStyle={s.list}
           renderItem={({ item }) => (
             <RenderProductButton
               item={item}
@@ -79,6 +81,7 @@ const ListView = React.memo(
           data={sectionList}
           keyExtractor={(item) => item}
           emptyListMessage={i18n.t('home.emptyList')}
+          contentContainerStyle={s.list}
           refreshControl={
             <RefreshControl
               refreshing={isRefreshing}

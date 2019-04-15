@@ -1,50 +1,48 @@
 import React from 'react';
+import R from 'ramda';
 import T from 'prop-types';
 import { View } from 'react-native';
 import s from './styles';
 import { Button, IconFonts } from '../../../../components';
 
-const Footer = ({ phone }) => {
-  const isVisible = typeof phone !== 'undefined';
-  return (
-    <View style={s.container}>
-      <View style={s.contactContainer}>
-        {isVisible && (
-          <Button
-            style={s.paddingButton}
-            containerStyle={s.containerCall}
-            buttonStyle={s.buttonContact}
-            borderless={false}
-          >
-            <IconFonts name="call" size={22} tintColor="orange" />
-          </Button>
-        )}
+const Footer = ({ phone }) => (
+  <View style={s.container}>
+    <View style={s.contactContainer}>
+      {!R.isNil(phone) && (
         <Button
           style={s.paddingButton}
-          title="Chat"
-          containerStyle={s.containerChat}
+          containerStyle={s.containerCall}
           buttonStyle={s.buttonContact}
-          titleStyle={s.textChat}
           borderless={false}
         >
-          <IconFonts
-            name="message"
-            size={22}
-            style={s.iconChat}
-            tintColor="orange"
-          />
+          <IconFonts name="call" size={22} tintColor="orange" />
         </Button>
-      </View>
-      <View style={s.rentContainer}>
-        <Button
-          title="Request to rent"
-          primary
-          buttonStyle={s.buttonRent}
+      )}
+      <Button
+        style={s.paddingButton}
+        title="Chat"
+        containerStyle={s.containerChat}
+        buttonStyle={s.buttonContact}
+        titleStyle={s.textChat}
+        borderless={false}
+      >
+        <IconFonts
+          name="message"
+          size={22}
+          style={s.iconChat}
+          tintColor="orange"
         />
-      </View>
+      </Button>
     </View>
-  );
-};
+    <View style={s.rentContainer}>
+      <Button
+        title="Request to rent"
+        primary
+        buttonStyle={s.buttonRent}
+      />
+    </View>
+  </View>
+);
 
 Footer.propTypes = {
   phone: T.string,

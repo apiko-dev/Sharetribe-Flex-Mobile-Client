@@ -1,5 +1,6 @@
 import makeInspectable from 'mobx-devtools-mst';
 import { connectToDevTools } from 'mobx-devtools/lib/mobxDevtoolsBackend';
+
 import createPersist from './persist/createPersist';
 import RootStore from './RootStore';
 import { SharetribeFlexService } from '../services';

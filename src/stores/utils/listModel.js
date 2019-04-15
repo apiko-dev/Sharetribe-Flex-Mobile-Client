@@ -32,8 +32,10 @@ export default function listModel(name, options) {
         store.array.push(item.id);
       },
 
-      addToBegin(item) {
-        store.mergeSingle(item);
+      addToBegin(item, shouldMerge = true) {
+        if (shouldMerge) {
+          store.mergeSingle(item);
+        }
         store.array.unshift(item.id);
       },
 

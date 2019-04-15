@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { dimensions } from '../../../../styles';
 
 export default StyleSheet.create({
   container: {
@@ -11,5 +12,8 @@ export default StyleSheet.create({
   },
   flatListContentContainer: {
     paddingHorizontal: 0,
+  },
+  list: {
+    paddingBottom: dimensions.indentModerated * 1.9,
   },
 });

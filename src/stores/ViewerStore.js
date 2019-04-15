@@ -97,6 +97,7 @@ function updateProfile(flow, store) {
         publicData: {
           phoneNumber: phone,
         },
+        displayName: `${firstName} ${lastName}`,
       });
 
       yield store.getCurrentUser.run();
