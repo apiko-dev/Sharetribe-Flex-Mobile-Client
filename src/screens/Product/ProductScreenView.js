@@ -50,6 +50,7 @@ const ProductScreen = ({
   navigateToImageScreen,
   gallery,
   phoneNumber,
+  onCall,
 }) => (
   <ScrollView style={s.container} bounces={false}>
     <View style={s.carouselContainer}>
@@ -138,7 +139,9 @@ const ProductScreen = ({
         </Tab>
       </TabView>
     </View>
-    <Footer phone={phoneNumber} />
+    {!product.canEdit && (
+      <Footer phone={phoneNumber} onCall={onCall} />
+    )}
   </ScrollView>
 );
 
@@ -168,6 +171,7 @@ ProductScreen.propTypes = {
   onChangeTabIndex: T.func,
   tabIndex: T.number,
   navigateToImageScreen: T.func,
+  onCall: T.func,
   gallery: T.array,
   phoneNumber: T.string,
 };
