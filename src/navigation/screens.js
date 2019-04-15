@@ -23,6 +23,7 @@ export default {
   Profile: 'Profile',
   VerifyEmail: 'VerifyEmail',
   Gallery: 'Gallery',
+  Help: 'Help',
 
   // Stacks
   HomeStack: 'HomeStack',

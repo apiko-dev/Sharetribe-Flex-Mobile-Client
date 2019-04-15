@@ -8,6 +8,7 @@ import {
   ProductScreen,
   VerifyEmailScreen,
   GalleryScreen,
+  HelpScreen,
 } from '../screens';
 import { defaultNavigationOptions } from './NavigationOptions';
 
@@ -20,6 +21,7 @@ export default createStackNavigator(
     [screens.Category]: CategoryScreen,
     [screens.Product]: ProductScreen,
     [screens.Gallery]: GalleryScreen,
+    [screens.Help]: HelpScreen,
   },
   {
     initialRouteKey: screens.HomeScreen,
