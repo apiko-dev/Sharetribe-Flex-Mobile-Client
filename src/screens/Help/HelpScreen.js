@@ -1,10 +1,10 @@
 import React from 'react';
-import T from 'prop-types';
-import { View } from 'react-native';
+import { View, ScrollView } from 'react-native';
 
 import { Text } from '../../components';
+import Accordion from './components/Accordion/Accordion';
+import i18n from '../../i18n';
 import s from './styles';
-import Accordion from './components/Accordion';
 
 const data = [
   {
@@ -15,34 +15,47 @@ const data = [
   },
   {
     id: 2,
-    title: 'About ',
+    title: 'Profile',
+    text:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur',
+  },
+  {
+    id: 3,
+    title: 'Settings',
+    text:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur',
+  },
+  {
+    id: 4,
+    title: 'Some',
     text:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur',
   },
 ];
 
-const HelpScreen = () => {
+function HomeScreen() {
   return (
-    <View style={s.container}>
+    <ScrollView style={s.container}>
       <View style={s.headerContainer}>
-        <View style={s.headerText}>
-          <Text largeSize bold>
-            Help Center
-          </Text>
-          <Text>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit
-          </Text>
-        </View>
+        <Text largeSize bold>
+          {`${i18n.t('helpScreen.helpCenter')}`}
+        </Text>
+        <Text style={s.headerText}>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit
+        </Text>
       </View>
-      <Text>Help</Text>
-      {/* {data.map((i) => (
-        <Accordion item={i} />
-      ))} */}
-      <Accordion />
-    </View>
+      {data.map((item) => (
+        <Accordion {...item} />
+      ))}
+      <Text light gray style={s.footerText}>
+        {`${i18n.t('helpScreen.privacyPolicy')}`}
+      </Text>
+    </ScrollView>
   );
-};
+}
 
-HelpScreen.propTypes = {};
+HomeScreen.navigationOptions = () => ({
+  title: 'Help',
+});
 
-export default HelpScreen;
+export default HomeScreen;

@@ -1,14 +1,25 @@
 import { StyleSheet } from 'react-native';
+import { colors, dimensions } from '../../styles';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: colors.helpScreen.backgroundColor,
+  },
+  headerContainer: {
+    padding: dimensions.indent,
+    justifyContent: 'center',
+    paddingHorizontal: dimensions.indent,
+    alignItems: 'center',
   },
   headerText: {
-    // flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '70%',
+    marginTop: dimensions.indent,
+    width: '90%',
+    textAlign: 'center',
+  },
+  footerText: {
+    textAlign: 'center',
+    padding: dimensions.indent,
   },
 });
 

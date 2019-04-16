@@ -176,4 +176,9 @@ export default {
     '#bdc3c7',
     '#7f8c8d',
   ],
+  helpScreen: {
+    backgroundColorTop: '#FFF',
+    backgroundColor: '#F8F8F8',
+    borderColor: '#E9E9E9',
+  },
 };
