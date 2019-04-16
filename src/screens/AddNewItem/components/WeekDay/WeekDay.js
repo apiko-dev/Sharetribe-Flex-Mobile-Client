@@ -9,7 +9,14 @@ import { colors } from '../../../../styles';
 
 import s from './styles';
 
-const WeekDay = ({ onSelectWeek, selectedWeekOptions, options }) => {
+const WeekDay = ({
+  onSelectWeek,
+  // selectedWeekOptions,
+  entries,
+  setEntries,
+  //
+  options,
+}) => {
   return (
     <View style={s.availableDaysContainer}>
       <Text light style={s.availableDaysTitle}>
@@ -20,11 +27,16 @@ const WeekDay = ({ onSelectWeek, selectedWeekOptions, options }) => {
         separatorWidth={5}
         separatorTint={colors.weekDay.white}
         containerBorderWidth={0}
-        selectedOption={selectedWeekOptions}
-        testOptionEqual={(selectedValue, option) =>
-          R.contains(option, selectedWeekOptions)
+        selectedOption={entries}
+        // selectedOption={selectedWeekOptions}
+        testOptionEqual={(selectedArray, currentOption) =>
+          !!selectedArray.find((i) => i.key === currentOption.key)
         }
-        onSelection={(option) => onSelectWeek(option)}
+        // testOptionEqual={(selectedValue, option) =>
+        //   R.contains(option, selectedWeekOptions)
+        // }
+        onSelection={(option) => setEntries(option)}
+        // onSelection={(option) => onSelectWeek(option)}
         renderOption={(option, selected) => (
           <View
             style={[
@@ -34,11 +46,11 @@ const WeekDay = ({ onSelectWeek, selectedWeekOptions, options }) => {
           >
             {selected ? (
               <Text light orange style={s.weekDayName}>
-                {option.dayOfWeek}
+                {option.title}
               </Text>
             ) : (
               <Text light style={s.weekDayName}>
-                {option.dayOfWeek}
+                {option.title}
               </Text>
             )}
           </View>
@@ -49,6 +61,5 @@ const WeekDay = ({ onSelectWeek, selectedWeekOptions, options }) => {
     </View>
   );
 };
-
 
 export default WeekDay;

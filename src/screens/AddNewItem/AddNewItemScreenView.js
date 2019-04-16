@@ -18,7 +18,6 @@ import { actionSheetAddNewItemOptions } from '../../constants/options';
 import WeekDay from './components/WeekDay/WeekDayContainer';
 
 const isAndroidDevice = isAndroid();
-const options = ['Se', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
 
 const AddNewItemScreenView = ({
   title,
@@ -45,6 +44,8 @@ const AddNewItemScreenView = ({
   setGeolocation,
   isLoadingPlaceDetails,
   isErrorPlaceDetails,
+  entries,
+  setEntries,
 }) => (
   <KeyboardAwareScrollView
     keyboardShouldPersistTaps="handled"
@@ -202,38 +203,7 @@ const AddNewItemScreenView = ({
           />
         )}
       </View>
-      <WeekDay />
-      {/* <View style={s.availableDaysContainer}>
-        <Text light style={s.availableDaysTitle}>
-          Available days
-        </Text>
-        <SegmentedControls
-          tint={colors.weekDay.white}
-          separatorWidth={5}
-          separatorTint={colors.weekDay.white}
-          containerBorderWidth={0}
-          renderOption={(option, selected) => (
-            <View
-              style={[
-                s.weekDayContainer,
-                selected && s.selectedWeekDay,
-              ]}
-            >
-              {selected ? (
-                <Text light orange style={s.weekDayName}>
-                  {option}
-                </Text>
-              ) : (
-                <Text light style={s.weekDayName}>
-                  {option}
-                </Text>
-              )}
-            </View>
-          )}
-          options={options}
-          allowFontScaling={false} // default: true
-        />
-      </View> */}
+      <WeekDay entries={entries} setEntries={setEntries} />
     </View>
     <View>
       {isEditing ? (

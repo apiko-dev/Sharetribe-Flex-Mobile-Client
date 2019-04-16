@@ -1,36 +1,44 @@
 import { compose, withStateHandlers, hoistStatics } from 'recompose';
 import R from 'ramda';
 
+import { dayOfWeek } from '../../../../constants';
 import WeekDay from './WeekDay';
 
 export default hoistStatics(
   compose(
     withStateHandlers(
       {
-        // options: ['Se', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
-        options: [
-          {
-            dayOfWeek: 'Se',
-          },
-          {
-            dayOfWeek: 'Mo',
-          },
-          {
-            dayOfWeek: 'Tu',
-          },
-          {
-            dayOfWeek: 'We',
-          },
-          {
-            dayOfWeek: 'Th',
-          },
-          {
-            dayOfWeek: 'Fr',
-          },
-          {
-            dayOfWeek: 'Sa',
-          },
-        ],
+        options: dayOfWeek,
+        // options: [
+        //   {
+        //     dayOfWeek: 'sun',
+        //     seats: 0,
+        //   },
+        //   {
+        //     dayOfWeek: 'mon',
+        //     seats: 0,
+        //   },
+        //   {
+        //     dayOfWeek: 'tue',
+        //     seats: 0,
+        //   },
+        //   {
+        //     dayOfWeek: 'wed',
+        //     seats: 0,
+        //   },
+        //   {
+        //     dayOfWeek: 'thu',
+        //     seats: 0,
+        //   },
+        //   {
+        //     dayOfWeek: 'fri',
+        //     seats: 0,
+        //   },
+        //   {
+        //     dayOfWeek: 'sat',
+        //     seats: 0,
+        //   },
+        // ],
         selectedWeekOptions: [],
       },
       {
@@ -41,6 +49,7 @@ export default hoistStatics(
           //   selectedWeekOptions: props.selectedWeekOptions.filter((i) => i !== option);
           // } else {
           props.selectedWeekOptions.push(option);
+
           // }
           // selectedWeekOptions: option,
           // console.log(props.selectedWeekOptions);

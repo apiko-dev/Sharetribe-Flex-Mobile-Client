@@ -4,6 +4,7 @@ import {
   withStateHandlers,
   withHandlers,
   withPropsOnChange,
+  lifecycle,
 } from 'recompose';
 import R from 'ramda';
 import ImagePicker from 'react-native-image-crop-picker';
@@ -32,6 +33,12 @@ const getImages = (product) =>
       uri: R.path(['default', 'url'], variants),
     }),
   );
+
+const transformEntries = (entries) =>
+  entries.map(({ key }) => ({
+    dayOfWeek: key,
+    seats: 1,
+  }));
 
 export default hoistStatics(
   compose(
@@ -77,12 +84,35 @@ export default hoistStatics(
           isLoadingPlaceDetails: false,
           isErrorPlaceDetails: false,
           placeid: '',
+          entries: [],
         };
       },
       {
         onChange: () => (field, value) => ({
           [field]: value,
         }),
+        setEntries: (props) => (option) => {
+          if (Array.isArray(option)) {
+            return {
+              entries: option,
+            };
+          }
+
+          const entries = [...props.entries];
+
+          const index = entries.findIndex(
+            (i) => i.key === option.key,
+          );
+          if (index > -1) {
+            entries.splice(index, 1);
+          } else {
+            entries.push(option);
+          }
+
+          return {
+            entries,
+          };
+        },
 
         addPhoto: (props) => (image) => ({
           photos: props.photos.concat({
@@ -166,6 +196,7 @@ export default hoistStatics(
           price: props.price,
           location: props.location,
           geolocation: props.geolocation,
+          entriesDay: transformEntries(props.entries),
         });
       },
 
@@ -183,6 +214,7 @@ export default hoistStatics(
             price: props.price,
             location: props.location,
             geolocation: props.geolocation,
+            entriesDay: transformEntries(props.entries),
           });
           AlertService.showAlert(
             i18n.t('alerts.updateProductSuccess.title'),
@@ -302,5 +334,20 @@ export default hoistStatics(
         );
       },
     ),
+    lifecycle({
+      async componentDidMount() {
+        if (this.props.isEditing) {
+          await this.props.product.getOwnFields.run();
+
+          const entries = R.pathOr(
+            [],
+            ['availabilityPlan', 'entries'],
+            this.props.product,
+          ).map((i) => ({ key: i.dayOfWeek }));
+
+          this.props.setEntries(entries);
+        }
+      },
+    }),
   ),
 )(AddNewItemScreen);
