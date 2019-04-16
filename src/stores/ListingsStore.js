@@ -5,6 +5,7 @@ import {
   getRoot,
   applySnapshot,
 } from 'mobx-state-tree';
+import Reactotron from 'reactotron-react-native';
 import R from 'ramda';
 import createFlow from './helpers/createFlow';
 import { AlertService, NavigationService } from '../services';
@@ -14,6 +15,20 @@ import listModel from './utils/listModel';
 import { Image } from './ImageStore';
 import { User } from './UserStore';
 import { normalizedIncluded } from './utils/normalize';
+
+const DayOfWeek = t.model('DayOfWeek', {
+  dayOfWeek: t.string,
+  seats: t.number,
+});
+
+const AvailabilityPlanTypes = t.enumeration('AvailabilityPlanTypes', [
+  'availability-plan/day',
+]);
+
+const AvailabilityPlan = t.model('AvailabilityPlan', {
+  type: AvailabilityPlanTypes,
+  entries: t.array(DayOfWeek),
+});
 
 const Geolocation = t.model('Geolocation', {
   lat: t.maybe(t.number),
@@ -41,6 +56,7 @@ const ProductRelationships = t
   .views((store) => ({
     get getImages() {
       return store.images.slice();
+      Reactotron.log('image');
     },
 
     get imageIds() {
@@ -62,7 +78,10 @@ export const Product = t
     metadata: t.model('metadata', {}),
     relationships: t.maybe(ProductRelationships),
 
+    availabilityPlan: t.optional(t.maybeNull(AvailabilityPlan), null),
+
     update: createFlow(updateProduct),
+    getOwnFields: createFlow(getOwnFields),
   })
 
   .views((store) => ({
@@ -93,6 +112,7 @@ function updateProduct(flow, store) {
 
       const body = {
         ...params,
+        availabilityPlanType: 'availability-plan/day',
         id: store.id,
         images: restImagesIds.concat(imagesId),
       };
@@ -101,6 +121,26 @@ function updateProduct(flow, store) {
       const snapshot = processJsonApi(res.data.data);
       const entities = normalizedIncluded(res.data.included);
       getRoot(store).entities.merge(entities);
+      applySnapshot(store, snapshot);
+
+      flow.success();
+    } catch (err) {
+      flow.failed(err, true);
+    }
+  };
+}
+
+function getOwnFields(flow, store) {
+  return function* updateProduct() {
+    try {
+      flow.start();
+
+      const res = yield flow.Api.getOwnListing({
+        id: store.id,
+        include: ['images', 'author', 'author.profileImage'],
+      });
+
+      const snapshot = processJsonApi(res.data.data);
       applySnapshot(store, snapshot);
 
       flow.success();
@@ -174,6 +214,7 @@ function createListing(flow, store) {
     price,
     location,
     geolocation,
+    entriesDay,
   }) {
     try {
       flow.start();
@@ -196,6 +237,8 @@ function createListing(flow, store) {
         location,
         images: imagesId,
         geolocation,
+        entriesDay,
+        availabilityPlanType: 'availability-plan/day',
       });
 
       const data = processJsonApi(res.data.data);

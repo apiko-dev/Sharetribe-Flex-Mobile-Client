@@ -44,7 +44,9 @@ function processJsonApi(record) {
     {},
   );
 
-  const relationships = processRelationships(record.relationships);
+  const relationships = processRelationships(
+    R.pathOr({}, ['relationships'], record),
+  );
 
   return {
     ...data,
