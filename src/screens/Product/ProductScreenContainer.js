@@ -5,10 +5,11 @@ import {
   withHandlers,
   lifecycle,
 } from 'recompose';
-import { Linking } from 'react-native';
+
 import R from 'ramda';
 
 import { inject } from 'mobx-react/native';
+import call from 'react-native-phone-call';
 import ProductScreenView from './ProductScreenView';
 import { withParamsToProps } from '../../utils/enhancers';
 
@@ -64,7 +65,12 @@ export default hoistStatics(
         });
       },
       onCall: (props) => () => {
-        Linking.openURL(`tel:${props.phoneNumber}`);
+        const args = {
+          number: props.phoneNumber,
+          prompt: false,
+        };
+
+        call(args).catch(console.error);
       },
     }),
     lifecycle({

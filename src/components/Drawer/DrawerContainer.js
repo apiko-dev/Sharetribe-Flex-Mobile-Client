@@ -44,7 +44,7 @@ export default compose(
         iconName: 'home',
       },
       {
-        screen: screens.Home,
+        screen: screens.Help,
         title: i18n.t('drawer.help'),
         iconName: 'help',
       },
@@ -83,7 +83,7 @@ export default compose(
         iconName: 'settings',
       },
       {
-        screen: screens.Home,
+        screen: screens.Help,
         title: i18n.t('drawer.help'),
         iconName: 'help',
       },

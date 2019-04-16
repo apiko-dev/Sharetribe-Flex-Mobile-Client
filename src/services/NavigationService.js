@@ -72,6 +72,10 @@ class NavigationService {
     this.navigate(screens.Profile, props);
   }
 
+  navigateToHelp(props) {
+    this.navigate(screens.Home, props);
+  }
+
   initDeepLinking() {
     if (isAndroid()) {
       Linking.getInitialURL().then((url) => {

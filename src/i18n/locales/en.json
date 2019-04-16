@@ -210,5 +210,9 @@
     "currentPasswordIncorrect": "You type incorrect current password",
     "passwordIncorrectForEmail": "You type incorrect current password for changing email",
     "passwordIncorrectForNewPassword": "You type incorrect current password for changing password"
+  },
+  "helpScreen": {
+    "helpCenter": "Help Center",
+    "privacyPolicy": "Privacy policy"
   }
 }
