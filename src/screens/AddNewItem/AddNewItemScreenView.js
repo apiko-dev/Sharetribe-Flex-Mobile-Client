@@ -4,6 +4,8 @@ import { View, FlatList, ActivityIndicator } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import T from 'prop-types';
 import { ActionSheetCustom as ActionSheet } from 'react-native-actionsheet';
+import { SegmentedControls } from 'react-native-radio-buttons';
+
 import { NavigationService } from '../../services';
 import { Text, Button, InputForm, Touchable } from '../../components';
 import { AddPhotoButton, PhotoItem } from './components';
@@ -13,8 +15,10 @@ import SelectButton from '../../components/SelectButton/SelectButton';
 import { colors } from '../../styles';
 import { isAndroid } from '../../utils';
 import { actionSheetAddNewItemOptions } from '../../constants/options';
+import WeekDay from './components/WeekDay/WeekDayContainer';
 
 const isAndroidDevice = isAndroid();
+const options = ['Se', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
 
 const AddNewItemScreenView = ({
   title,
@@ -198,6 +202,38 @@ const AddNewItemScreenView = ({
           />
         )}
       </View>
+      <WeekDay />
+      {/* <View style={s.availableDaysContainer}>
+        <Text light style={s.availableDaysTitle}>
+          Available days
+        </Text>
+        <SegmentedControls
+          tint={colors.weekDay.white}
+          separatorWidth={5}
+          separatorTint={colors.weekDay.white}
+          containerBorderWidth={0}
+          renderOption={(option, selected) => (
+            <View
+              style={[
+                s.weekDayContainer,
+                selected && s.selectedWeekDay,
+              ]}
+            >
+              {selected ? (
+                <Text light orange style={s.weekDayName}>
+                  {option}
+                </Text>
+              ) : (
+                <Text light style={s.weekDayName}>
+                  {option}
+                </Text>
+              )}
+            </View>
+          )}
+          options={options}
+          allowFontScaling={false} // default: true
+        />
+      </View> */}
     </View>
     <View>
       {isEditing ? (
