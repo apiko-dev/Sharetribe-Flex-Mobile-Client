@@ -48,16 +48,13 @@ const ProductScreen = ({
   tabIndex,
   navigateToImageScreen,
   gallery,
-<<<<<<< HEAD
   isLoadingDates,
   navigationToRequestToRent,
   navigationToCalendar,
   isOnLease,
   nearestAvailableDate,
-=======
   phoneNumber,
   onCall,
->>>>>>> 6b62eb43344c1794f4b055621914244e72ff0ae5
 }) => (
   <ScrollView style={s.container} bounces={false}>
     <View style={s.carouselContainer}>
@@ -158,7 +155,11 @@ const ProductScreen = ({
       </TabView>
     </View>
     {!product.canEdit && (
-      <Footer phone={phoneNumber} onCall={onCall} />
+      <Footer
+        phone={phoneNumber}
+        onCall={onCall}
+        navigationToRequestToRent={navigationToRequestToRent}
+      />
     )}
   </ScrollView>
 );

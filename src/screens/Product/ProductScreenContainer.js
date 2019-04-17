@@ -6,14 +6,10 @@ import {
   lifecycle,
   withProps,
 } from 'recompose';
-
 import R from 'ramda';
 import { inject } from 'mobx-react/native';
-<<<<<<< HEAD
 import XDate from 'xdate';
-=======
 import call from 'react-native-phone-call';
->>>>>>> 6b62eb43344c1794f4b055621914244e72ff0ae5
 import ProductScreenView from './ProductScreenView';
 import { withParamsToProps } from '../../utils/enhancers';
 import { dates } from '../../utils';
@@ -32,11 +28,8 @@ export default hoistStatics(
       gallery: R.path(['relationships', 'getImages'], product).map(
         R.path(['variants', 'default']),
       ),
-<<<<<<< HEAD
-      author: R.path(['relationships', 'author'], product),
       getAvailableDays: stores.listings.getAvailableDays,
       isLoadingDates: stores.listings.getAvailableDays.inProgress,
-=======
       author: R.pathOr(false, ['relationships', 'author'], product),
 
       phoneNumber: R.path(
@@ -49,7 +42,6 @@ export default hoistStatics(
         ],
         product,
       ),
->>>>>>> 6b62eb43344c1794f4b055621914244e72ff0ae5
     })),
 
     withStateHandlers(
@@ -78,7 +70,7 @@ export default hoistStatics(
           currentIndex,
         });
       },
-      
+
       navigationToEditProduct: (props) => () => {
         props.navigation.navigate('AddNewItem', {
           product: props.product,
