@@ -110,4 +110,10 @@ export default StyleSheet.create({
   retryTitleStyle: {
     color: colors.text.red,
   },
+
+  loaderUpdateDay: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: dimensions.indent * 4,
+  },
 });

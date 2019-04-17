@@ -4,9 +4,16 @@ import { View, FlatList, ActivityIndicator } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import T from 'prop-types';
 import { ActionSheetCustom as ActionSheet } from 'react-native-actionsheet';
+
 import { NavigationService } from '../../services';
-import { Text, Button, InputForm, Touchable } from '../../components';
-import { AddPhotoButton, PhotoItem } from './components';
+import {
+  Text,
+  Button,
+  InputForm,
+  Touchable,
+  Loader,
+} from '../../components';
+import { AddPhotoButton, PhotoItem, WeekDay } from './components';
 import s from './styles';
 import i18n from '../../i18n';
 import SelectButton from '../../components/SelectButton/SelectButton';
@@ -41,6 +48,9 @@ const AddNewItemScreenView = ({
   setGeolocation,
   isLoadingPlaceDetails,
   isErrorPlaceDetails,
+  entries,
+  setEntries,
+  isUpdateDay,
 }) => (
   <KeyboardAwareScrollView
     keyboardShouldPersistTaps="handled"
@@ -198,6 +208,11 @@ const AddNewItemScreenView = ({
           />
         )}
       </View>
+      {isUpdateDay ? (
+        <Loader style={s.loaderUpdateDay} />
+      ) : (
+        <WeekDay entries={entries} setEntries={setEntries} />
+      )}
     </View>
     <View>
       {isEditing ? (
@@ -287,6 +302,9 @@ AddNewItemScreenView.propTypes = {
   setGeolocation: T.func,
   isLoadingPlaceDetails: T.bool,
   isErrorPlaceDetails: T.bool,
+  entries: T.array,
+  setEntries: T.func,
+  isUpdateDay: T.bool,
 };
 
 export default AddNewItemScreenView;
