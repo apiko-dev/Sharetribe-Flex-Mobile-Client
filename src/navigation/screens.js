@@ -24,6 +24,8 @@ export default {
   VerifyEmail: 'VerifyEmail',
   Gallery: 'Gallery',
   Help: 'Help',
+  Inbox: 'Inbox',
+  Chat: 'Chat',
 
   // Stacks
   HomeStack: 'HomeStack',

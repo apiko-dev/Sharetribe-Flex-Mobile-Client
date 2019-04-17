@@ -28,3 +28,5 @@ export {
   default as GalleryScreen,
 } from './Gallery/GalleryScreenContainer';
 export { default as HelpScreen } from './Help/HelpScreen';
+export { default as InboxScreen } from './Inbox/InboxScreenContainer';
+export { default as ChatScreen } from './Chat/ChatScreenContainer';

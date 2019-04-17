@@ -9,6 +9,8 @@ import {
   VerifyEmailScreen,
   GalleryScreen,
   HelpScreen,
+  InboxScreen,
+  ChatScreen,
 } from '../screens';
 import { defaultNavigationOptions } from './NavigationOptions';
 
@@ -22,6 +24,8 @@ export default createStackNavigator(
     [screens.Product]: ProductScreen,
     [screens.Gallery]: GalleryScreen,
     [screens.Help]: HelpScreen,
+    [screens.Inbox]: InboxScreen,
+    [screens.Chat]: ChatScreen,
   },
   {
     initialRouteKey: screens.HomeScreen,
