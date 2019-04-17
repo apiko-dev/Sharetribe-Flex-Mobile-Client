@@ -44,6 +44,7 @@ export default {
     white: '#FFF',
     orange: '#FF9900',
     red: '#EB5757',
+    lightGray: '#D9D9D9',
   },
   loader: {
     primary: '#FFF',
@@ -186,5 +187,11 @@ export default {
     primary: '#FF9900',
     borderColor: '#E9E9E9',
     white: '#FFF',
+  },
+
+  inbox: {
+    backgroundColor: '#E5E5E5',
+    messageBackgroundColor: '#FFF',
+    borderColor: '#E9E9E9',
   },
 };
