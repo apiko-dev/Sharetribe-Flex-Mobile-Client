@@ -87,6 +87,7 @@ export default hoistStatics(
 
       navigationToCalendar: (props) => () => {
         props.navigation.navigate(screens.Calendar, {
+          product: props.product,
           availableDates: props.availableDates,
         });
       },

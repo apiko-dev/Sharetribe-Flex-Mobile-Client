@@ -60,6 +60,7 @@ const RequestToRentScreen = ({
         title={i18n.t('requestToRent.requestToRent')}
         primary
         containerStyle={s.buttonContainer}
+        disabled={!startRent}
       />
     </ScrollView>
   </SafeAreaView>

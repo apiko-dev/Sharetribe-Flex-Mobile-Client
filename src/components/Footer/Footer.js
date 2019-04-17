@@ -2,7 +2,8 @@ import React from 'react';
 import T from 'prop-types';
 import { View } from 'react-native';
 import s from './styles';
-import { Button, IconFonts } from '../../../../components';
+import IconFonts from '../IconFonts/IconFonts';
+import Button from '../Button/Button';
 
 const Footer = ({ phone, onCall, navigationToRequestToRent }) => (
   <View style={s.container}>

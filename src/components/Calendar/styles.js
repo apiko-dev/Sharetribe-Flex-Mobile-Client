@@ -1,5 +1,8 @@
 import { StyleSheet } from 'react-native';
 import { dimensions, colors } from '../../styles';
+import { isSmallDevice } from '../../utils';
+
+const isSmall = isSmallDevice();
 
 export default StyleSheet.create({
   calendarContainer: {},
@@ -20,7 +23,7 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   labelRight: {
-    marginRight: dimensions.indent * 2,
+    marginRight: isSmall ? 0 : dimensions.indent * 2,
   },
   circle: {
     width: dimensions.indent,

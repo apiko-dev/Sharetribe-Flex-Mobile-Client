@@ -18,9 +18,9 @@ import {
   Text,
   Touchable,
   TabHeader,
+  Footer,
 } from '../../components';
 import Label from './components/Label/Label';
-import Footer from './components/Footer/Footer';
 import DescriptionTab from './components/DescriptionTab/DescriptionTabContainer';
 
 import { colors } from '../../styles';
