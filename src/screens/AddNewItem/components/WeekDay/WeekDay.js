@@ -4,6 +4,7 @@ import { View } from 'react-native';
 import { SegmentedControls } from 'react-native-radio-buttons';
 import T from 'prop-types';
 
+import i18n from '../../../../i18n';
 import { Text } from '../../../../components';
 import { colors } from '../../../../styles';
 import { dayOfWeek } from '../../../../constants';
@@ -13,7 +14,7 @@ const WeekDay = ({ entries, setEntries }) => {
   return (
     <View style={s.availableDaysContainer}>
       <Text light style={s.availableDaysTitle}>
-        Available days
+        {i18n.t('dayOfWeek.availableDays')}
       </Text>
       <SegmentedControls
         tint={colors.weekDay.white}
@@ -32,15 +33,9 @@ const WeekDay = ({ entries, setEntries }) => {
               selected && s.selectedWeekDay,
             ]}
           >
-            {selected ? (
-              <Text light orange style={s.weekDayName}>
-                {option.title}
-              </Text>
-            ) : (
-              <Text light style={s.weekDayName}>
-                {option.title}
-              </Text>
-            )}
+            <Text light orange={selected} style={s.weekDayName}>
+              {option.title}
+            </Text>
           </View>
         )}
         options={dayOfWeek}
