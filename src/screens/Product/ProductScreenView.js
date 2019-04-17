@@ -48,11 +48,16 @@ const ProductScreen = ({
   tabIndex,
   navigateToImageScreen,
   gallery,
+<<<<<<< HEAD
   isLoadingDates,
   navigationToRequestToRent,
   navigationToCalendar,
   isOnLease,
   nearestAvailableDate,
+=======
+  phoneNumber,
+  onCall,
+>>>>>>> 6b62eb43344c1794f4b055621914244e72ff0ae5
 }) => (
   <ScrollView style={s.container} bounces={false}>
     <View style={s.carouselContainer}>
@@ -152,7 +157,9 @@ const ProductScreen = ({
         </Tab>
       </TabView>
     </View>
-    <Footer navigationToRequestToRent={navigationToRequestToRent} />
+    {!product.canEdit && (
+      <Footer phone={phoneNumber} onCall={onCall} />
+    )}
   </ScrollView>
 );
 
@@ -182,11 +189,13 @@ ProductScreen.propTypes = {
   onChangeTabIndex: T.func,
   tabIndex: T.number,
   navigateToImageScreen: T.func,
+  onCall: T.func,
   gallery: T.array,
   isLoadingDates: T.bool,
   navigationToRequestToRent: T.func,
   navigationToCalendar: T.func,
   isOnLease: T.bool,
   nearestAvailableDate: T.bool,
+  phoneNumber: T.string,
 };
 export default observer(ProductScreen);

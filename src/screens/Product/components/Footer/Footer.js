@@ -4,17 +4,20 @@ import { View } from 'react-native';
 import s from './styles';
 import { Button, IconFonts } from '../../../../components';
 
-const Footer = ({ navigationToRequestToRent }) => (
+const Footer = ({ phone, onCall, navigationToRequestToRent }) => (
   <View style={s.container}>
     <View style={s.contactContainer}>
-      <Button
-        style={s.paddingButton}
-        containerStyle={s.containerCall}
-        buttonStyle={s.buttonContact}
-        borderless={false}
-      >
-        <IconFonts name="call" size={22} tintColor="orange" />
-      </Button>
+      {phone && (
+        <Button
+          style={s.paddingButton}
+          containerStyle={s.containerCall}
+          buttonStyle={s.buttonContact}
+          borderless={false}
+          onPress={onCall}
+        >
+          <IconFonts name="call" size={22} tintColor="orange" />
+        </Button>
+      )}
       <Button
         style={s.paddingButton}
         title="Chat"
@@ -44,6 +47,8 @@ const Footer = ({ navigationToRequestToRent }) => (
 
 Footer.propTypes = {
   navigationToRequestToRent: T.func,
+  phone: T.string,
+  onCall: T.func,
 };
 
 export default Footer;

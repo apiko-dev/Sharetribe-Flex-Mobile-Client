@@ -16,6 +16,20 @@ import { User } from './UserStore';
 import { normalizedIncluded } from './utils/normalize';
 import { dates } from '../utils';
 
+const DayOfWeek = t.model('DayOfWeek', {
+  dayOfWeek: t.string,
+  seats: t.number,
+});
+
+const AvailabilityPlanTypes = t.enumeration('AvailabilityPlanTypes', [
+  'availability-plan/day',
+]);
+
+const AvailabilityPlan = t.model('AvailabilityPlan', {
+  type: AvailabilityPlanTypes,
+  entries: t.array(DayOfWeek),
+});
+
 const Geolocation = t.model('Geolocation', {
   lat: t.maybe(t.number),
   lng: t.maybe(t.number),
@@ -27,6 +41,7 @@ const ProductPublicData = t.model('ProductPublicData', {
   level: t.maybe(t.string),
   location: t.maybe(t.string),
   subCategory: t.maybe(t.string),
+  phoneNumber: t.maybe(t.string),
 });
 
 const Price = t.model('Price', {
@@ -65,7 +80,10 @@ export const Product = t
     availableDates: t.maybe(t.array(t.string)),
     employedDates: t.maybe(t.array(t.string)),
 
+    availabilityPlan: t.optional(t.maybeNull(AvailabilityPlan), null),
+
     update: createFlow(updateProduct),
+    getOwnFields: createFlow(getOwnFields),
   })
 
   .views((store) => ({
@@ -96,6 +114,7 @@ function updateProduct(flow, store) {
 
       const body = {
         ...params,
+        availabilityPlanType: 'availability-plan/day',
         id: store.id,
         images: restImagesIds.concat(imagesId),
       };
@@ -104,6 +123,26 @@ function updateProduct(flow, store) {
       const snapshot = processJsonApi(res.data.data);
       const entities = normalizedIncluded(res.data.included);
       getRoot(store).entities.merge(entities);
+      applySnapshot(store, snapshot);
+
+      flow.success();
+    } catch (err) {
+      flow.failed(err, true);
+    }
+  };
+}
+
+function getOwnFields(flow, store) {
+  return function* updateProduct() {
+    try {
+      flow.start();
+
+      const res = yield flow.Api.getOwnListing({
+        id: store.id,
+        include: ['images', 'author', 'author.profileImage'],
+      });
+
+      const snapshot = processJsonApi(res.data.data);
       applySnapshot(store, snapshot);
 
       flow.success();
@@ -178,6 +217,7 @@ function createListing(flow, store) {
     price,
     location,
     geolocation,
+    entriesDay,
   }) {
     try {
       flow.start();
@@ -200,6 +240,8 @@ function createListing(flow, store) {
         location,
         images: imagesId,
         geolocation,
+        entriesDay,
+        availabilityPlanType: 'availability-plan/day',
       });
 
       const data = processJsonApi(res.data.data);

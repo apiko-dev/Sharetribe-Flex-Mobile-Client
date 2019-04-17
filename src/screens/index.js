@@ -33,3 +33,4 @@ export {
 export {
   default as CalendarScreen,
 } from './Calendar/CalendarScreenContainer';
+export { default as HelpScreen } from './Help/HelpScreen';

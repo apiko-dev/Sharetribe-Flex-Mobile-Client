@@ -10,6 +10,7 @@ import {
   GalleryScreen,
   RequestToRentScreen,
   CalendarScreen,
+  HelpScreen,
 } from '../screens';
 import { defaultNavigationOptions } from './NavigationOptions';
 
@@ -24,6 +25,7 @@ export default createStackNavigator(
     [screens.Product]: ProductScreen,
     [screens.Gallery]: GalleryScreen,
     [screens.RequestToRent]: RequestToRentScreen,
+    [screens.Help]: HelpScreen,
   },
   {
     initialRouteKey: screens.Home,

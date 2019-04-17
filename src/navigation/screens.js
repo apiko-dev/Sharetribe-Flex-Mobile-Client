@@ -25,6 +25,7 @@ export default {
   Gallery: 'Gallery',
   RequestToRent: 'RequestToRent',
   Calendar: 'Calendar',
+  Help: 'Help',
 
   // Stacks
   HomeStack: 'HomeStack',

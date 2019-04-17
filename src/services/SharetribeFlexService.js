@@ -64,6 +64,8 @@ class SharetribeSdkService {
     images,
     location,
     geolocation,
+    entriesDay,
+    availabilityPlanType,
   }) {
     return this.sdk.ownListings.create(
       {
@@ -83,6 +85,10 @@ class SharetribeSdkService {
           title,
           description,
           price: Number(price),
+        },
+        availabilityPlan: {
+          type: availabilityPlanType,
+          entries: entriesDay,
         },
         images,
       },
@@ -112,8 +118,8 @@ class SharetribeSdkService {
     });
   }
 
-  getOwnListing(id) {
-    return this.sdk.ownListings.show({ id });
+  getOwnListing({ id, include }) {
+    return this.sdk.ownListings.show({ id, include });
   }
 
   fetchListings(query) {
@@ -165,6 +171,8 @@ class SharetribeSdkService {
     images,
     location,
     geolocation,
+    entriesDay,
+    availabilityPlanType,
   }) {
     const params = {
       id: new types.UUID(id),
@@ -181,6 +189,10 @@ class SharetribeSdkService {
         title,
         description,
         price: Number(price),
+      },
+      availabilityPlan: {
+        type: availabilityPlanType,
+        entries: entriesDay,
       },
       images: images.map((i) => new types.UUID(i)),
     };
