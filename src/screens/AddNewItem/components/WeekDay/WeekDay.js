@@ -2,21 +2,14 @@
 import React from 'react';
 import { View } from 'react-native';
 import { SegmentedControls } from 'react-native-radio-buttons';
-import R from 'ramda';
+import T from 'prop-types';
 
 import { Text } from '../../../../components';
 import { colors } from '../../../../styles';
-
+import { dayOfWeek } from '../../../../constants';
 import s from './styles';
 
-const WeekDay = ({
-  onSelectWeek,
-  // selectedWeekOptions,
-  entries,
-  setEntries,
-  //
-  options,
-}) => {
+const WeekDay = ({ entries, setEntries }) => {
   return (
     <View style={s.availableDaysContainer}>
       <Text light style={s.availableDaysTitle}>
@@ -28,15 +21,10 @@ const WeekDay = ({
         separatorTint={colors.weekDay.white}
         containerBorderWidth={0}
         selectedOption={entries}
-        // selectedOption={selectedWeekOptions}
         testOptionEqual={(selectedArray, currentOption) =>
           !!selectedArray.find((i) => i.key === currentOption.key)
         }
-        // testOptionEqual={(selectedValue, option) =>
-        //   R.contains(option, selectedWeekOptions)
-        // }
         onSelection={(option) => setEntries(option)}
-        // onSelection={(option) => onSelectWeek(option)}
         renderOption={(option, selected) => (
           <View
             style={[
@@ -55,11 +43,16 @@ const WeekDay = ({
             )}
           </View>
         )}
-        options={options}
+        options={dayOfWeek}
         allowFontScaling={false}
       />
     </View>
   );
+};
+
+WeekDay.propTypes = {
+  entries: T.array,
+  setEntries: T.func,
 };
 
 export default WeekDay;

@@ -4,7 +4,6 @@ import { View, FlatList, ActivityIndicator } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import T from 'prop-types';
 import { ActionSheetCustom as ActionSheet } from 'react-native-actionsheet';
-import { SegmentedControls } from 'react-native-radio-buttons';
 
 import { NavigationService } from '../../services';
 import { Text, Button, InputForm, Touchable } from '../../components';
@@ -15,7 +14,7 @@ import SelectButton from '../../components/SelectButton/SelectButton';
 import { colors } from '../../styles';
 import { isAndroid } from '../../utils';
 import { actionSheetAddNewItemOptions } from '../../constants/options';
-import WeekDay from './components/WeekDay/WeekDayContainer';
+import WeekDay from './components/WeekDay/WeekDay';
 
 const isAndroidDevice = isAndroid();
 
@@ -293,6 +292,8 @@ AddNewItemScreenView.propTypes = {
   setGeolocation: T.func,
   isLoadingPlaceDetails: T.bool,
   isErrorPlaceDetails: T.bool,
+  entries: T.array,
+  setEntries: T.func,
 };
 
 export default AddNewItemScreenView;

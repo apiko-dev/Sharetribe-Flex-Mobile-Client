@@ -5,7 +5,6 @@ import {
   getRoot,
   applySnapshot,
 } from 'mobx-state-tree';
-import Reactotron from 'reactotron-react-native';
 import R from 'ramda';
 import createFlow from './helpers/createFlow';
 import { AlertService, NavigationService } from '../services';
@@ -56,7 +55,6 @@ const ProductRelationships = t
   .views((store) => ({
     get getImages() {
       return store.images.slice();
-      Reactotron.log('image');
     },
 
     get imageIds() {

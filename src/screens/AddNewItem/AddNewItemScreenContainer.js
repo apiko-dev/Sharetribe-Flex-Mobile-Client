@@ -222,7 +222,7 @@ export default hoistStatics(
             [
               {
                 text: i18n.t('common.ok'),
-                onPress: () => NavigationService.navigateToHome(),
+                onPress: () => NavigationService.goBack(),
               },
             ],
           );
