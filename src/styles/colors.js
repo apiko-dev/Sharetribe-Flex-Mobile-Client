@@ -190,7 +190,7 @@ export default {
   },
 
   inbox: {
-    backgroundColor: '#E5E5E5',
+    backgroundColor: '#F8F8F8',
     messageBackgroundColor: '#FFF',
     borderColor: '#E9E9E9',
   },

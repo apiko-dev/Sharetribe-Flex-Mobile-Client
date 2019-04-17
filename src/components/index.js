@@ -55,3 +55,4 @@ export {
 export {
   default as ExpandableText,
 } from './ExpandableText/ExpandableText';
+export { default as RentItem } from './RentItem/RentItem';

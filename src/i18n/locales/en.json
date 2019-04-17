@@ -225,5 +225,12 @@
   "fr": "Fr",
   "sa": "Sa",
   "availableDays": "Available days"
+  },
+
+  "chat": {
+    "accept": "Accept",
+    "deny": "Deny",
+    "viewGoods": "View goods",
+    "viewDetails": "View details"
   }
 }
