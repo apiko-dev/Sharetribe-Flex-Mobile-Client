@@ -2,21 +2,25 @@ import { StyleSheet } from 'react-native';
 import { dimensions, colors } from '../../styles';
 
 export default StyleSheet.create({
-  calendarContainer: {
-    // margin: dimensions.indent * 2,
-  },
+  calendarContainer: {},
+  calendar: {},
   labels: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     borderBottomWidth: 1,
+    paddingTop: 0,
     borderBottomColor: colors.calendar.labelBorderColor,
     paddingHorizontal: dimensions.indent,
     paddingBottom: dimensions.indent,
+    marginBottom: dimensions.indent * 0.8,
   },
   label: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  labelRight: {
+    marginRight: dimensions.indent * 2,
   },
   circle: {
     width: dimensions.indent,

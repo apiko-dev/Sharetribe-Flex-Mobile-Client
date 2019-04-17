@@ -30,3 +30,6 @@ export {
 export {
   default as RequestToRentScreen,
 } from './RequestToRent/RequestToRentScreenContainer';
+export {
+  default as CalendarScreen,
+} from './Calendar/CalendarScreenContainer';

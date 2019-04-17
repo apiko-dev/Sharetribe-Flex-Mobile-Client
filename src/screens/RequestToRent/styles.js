@@ -8,6 +8,7 @@ export default StyleSheet.create({
   container: {
     alignItems: 'center',
     backgroundColor: colors.requestToRentScreen.backgroundColor,
+    paddingTop: dimensions.indent * 0.2,
   },
   safeAreaViewContainer: {
     backgroundColor: colors.settingsScreen.backgroundColor,

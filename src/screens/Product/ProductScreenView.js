@@ -9,7 +9,6 @@ import T from 'prop-types';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { Tab, TabView } from 'react-native-easy-tabs';
 import { observer } from 'mobx-react/custom';
-
 import s from './styles';
 import i18n from '../../i18n';
 import { width } from '../../styles/dimensions';
@@ -49,7 +48,11 @@ const ProductScreen = ({
   tabIndex,
   navigateToImageScreen,
   gallery,
+  isLoadingDates,
   navigationToRequestToRent,
+  navigationToCalendar,
+  isOnLease,
+  nearestAvailableDate,
 }) => (
   <ScrollView style={s.container} bounces={false}>
     <View style={s.carouselContainer}>
@@ -95,6 +98,13 @@ const ProductScreen = ({
             {`/${i18n.t('home.day')}`}
           </Text>
         </View>
+        {isOnLease && (
+          <View style={s.leaseContainer}>
+            <Text bold red>
+              {i18n.t('common.nowOnLease')}
+            </Text>
+          </View>
+        )}
       </View>
       <View style={s.titleTextContainer}>
         <Text largeSize black>
@@ -128,6 +138,10 @@ const ProductScreen = ({
               user={author}
               location={product.publicData.location}
               geolocation={product.geolocation}
+              isLoadingDates={isLoadingDates}
+              navigationToCalendar={navigationToCalendar}
+              isOnLease={isOnLease}
+              nearestAvailableDate={nearestAvailableDate}
             />
           </View>
         </Tab>
@@ -169,6 +183,10 @@ ProductScreen.propTypes = {
   tabIndex: T.number,
   navigateToImageScreen: T.func,
   gallery: T.array,
+  isLoadingDates: T.bool,
   navigationToRequestToRent: T.func,
+  navigationToCalendar: T.func,
+  isOnLease: T.bool,
+  nearestAvailableDate: T.bool,
 };
 export default observer(ProductScreen);

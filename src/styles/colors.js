@@ -168,6 +168,10 @@ export default {
     selectedDateText: '#FFF',
     arrows: '#333333',
   },
+  calendarScreen: {
+    backgroundColor: '#FFF',
+  },
+
   avatars: [
     '#1abc9c',
     '#2ecc71',

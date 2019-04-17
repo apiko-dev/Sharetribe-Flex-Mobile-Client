@@ -4,13 +4,23 @@ import T from 'prop-types';
 import s from './styles';
 import Location from '../Location/Location';
 import Seller from '../Seller/Seller';
+import LeaseStatus from '../LeaseStatus/LeaseStatus';
 import {
   ShadowContainer,
   ExpandableText,
 } from '../../../../components';
 import { fontSizes } from '../../../../styles';
 
-const DescriptionTab = ({ text, user, location, geolocation }) => (
+const DescriptionTab = ({
+  text,
+  user,
+  location,
+  geolocation,
+  isLoadingDates,
+  navigationToCalendar,
+  nearestAvailableDate,
+  isOnLease,
+}) => (
   <View style={s.container}>
     <ShadowContainer>
       <View style={s.description}>
@@ -25,6 +35,14 @@ const DescriptionTab = ({ text, user, location, geolocation }) => (
           </ExpandableText>
         </View>
       </View>
+    </ShadowContainer>
+    <ShadowContainer>
+      <LeaseStatus
+        isLoading={isLoadingDates}
+        navigationToCalendar={navigationToCalendar}
+        isOnLease={isOnLease}
+        date={nearestAvailableDate}
+      />
     </ShadowContainer>
     <ShadowContainer>
       <Location location={location} geolocation={geolocation} />
@@ -44,6 +62,10 @@ DescriptionTab.propTypes = {
   user: T.object,
   location: T.string,
   geolocation: T.object,
+  isLoadingDates: T.bool,
+  isOnLease: T.bool,
+  navigationToCalendar: T.func,
+  nearestAvailableDate: T.string,
 };
 
 export default DescriptionTab;

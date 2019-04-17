@@ -1,77 +1,42 @@
 import React from 'react';
 import { View } from 'react-native';
 import T from 'prop-types';
-import CalendarPicker from 'react-native-calendar-picker';
-// import { Calendar as CalendarPicker } from 'react-native-calendars';
 import s from './styles';
 import { colors } from '../../styles';
 import Text from '../Text/Text';
 import IconFonts from '../IconFonts/IconFonts';
 import i18n from '../../i18n';
-import DateRangePicker from './DateRangePicker';
+import CalendarPicker from './CalendarPicker';
 
-const weekdays = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
-
-const Calendar = ({ onDayPress, markedDates }) => (
+const Calendar = ({
+  getStartAndEndDate,
+  disablePicker,
+  availableDates,
+}) => (
   <View>
     <View style={s.labels}>
       <View style={s.label}>
         <View style={[s.circle, s.availableCircle]} />
         <Text green>{i18n.t('common.availableDate')}</Text>
       </View>
-      <View style={s.label}>
+      <View style={[s.label, s.labelRight]}>
         <View style={[s.circle, s.employedCircle]} />
         <Text red>{i18n.t('common.employedDate')}</Text>
       </View>
     </View>
     <View style={s.calendarContainer}>
-      {/* <CalendarPicker
-        onDayPress={onDayPress}
-        renderArrow={(direction) => (
-          <IconFonts
-            name={direction}
-            tintColor={colors.calendar.arrows}
-            size={25}
-            style={[
-              direction === 'left' && s.monthArrowLeft,
-              direction === 'right' && s.monthArrowRight,
-            ]}
-          />
-        )}
-        markedDates={{
-          '2019-04-23': {
-            selected: true,
-            startingDay: true,
-            color: colors.calendar.selectedDate,
-            textColor: 'white',
-          },
-          '2019-04-24': {
-            selected: true,
-            color: colors.calendar.selectedDate,
-            textColor: 'white',
-          },
-          '2019-04-25': {
-            selected: true,
-            color: colors.calendar.selectedDate,
-            endingDay: true,
-            textColor: 'white',
-          },
-        }}
-        markingType="period"
-      /> */}
-      {/* <CalendarPicker
-        allowRangeSelection
+      <CalendarPicker
+        disablePicker={disablePicker}
+        style={s.calendar}
         minDate={new Date()}
-        weekdays={weekdays}
-        selectedDayColor={colors.calendar.selectedDate}
-        selectedDayTextColor={colors.calendar.selectedDateText}
-      /> */}
-      <DateRangePicker
-        initialRange={['2018-04-16', '2018-04-20']}
-        onSuccess={(s, e) => console.log('s')}
+        onSuccess={(start, end, diffDays) =>
+          getStartAndEndDate(start, end, diffDays)
+        }
         theme={{
           markColor: colors.calendar.selectedDate,
           markTextColor: colors.calendar.selectedDateText,
+          dayTextColor: colors.calendar.availableDate,
+          employedDayTextColor: colors.calendar.employedDate,
         }}
         renderArrow={(direction) => (
           <IconFonts
@@ -84,13 +49,16 @@ const Calendar = ({ onDayPress, markedDates }) => (
             ]}
           />
         )}
+        employedDate={availableDates.employedDates}
       />
     </View>
   </View>
 );
 
 Calendar.propTypes = {
-  onDayPress: T.func,
+  getStartAndEndDate: T.func,
+  disablePicker: T.bool,
+  availableDates: T.object,
 };
 
 export default Calendar;

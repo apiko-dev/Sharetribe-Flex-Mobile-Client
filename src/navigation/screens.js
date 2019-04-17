@@ -24,6 +24,7 @@ export default {
   VerifyEmail: 'VerifyEmail',
   Gallery: 'Gallery',
   RequestToRent: 'RequestToRent',
+  Calendar: 'Calendar',
 
   // Stacks
   HomeStack: 'HomeStack',

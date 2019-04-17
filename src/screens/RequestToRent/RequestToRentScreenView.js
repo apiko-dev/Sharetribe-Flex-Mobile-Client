@@ -5,7 +5,6 @@ import T from 'prop-types';
 import { observer } from 'mobx-react/custom';
 import s from './styles';
 import {
-  DrawerButton,
   Text,
   FormContainer,
   Calendar,
@@ -13,14 +12,24 @@ import {
 } from '../../components';
 import i18n from '../../i18n';
 
-const RequestToRentScreen = ({ onDayPress, price }) => (
+const RequestToRentScreen = ({
+  getStartAndEndDate,
+  price,
+  startRent,
+  diffDays,
+  availableDates,
+  formatedDate,
+}) => (
   <SafeAreaView style={s.safeAreaViewContainer}>
     <ScrollView containerStyle={s.container}>
       <FormContainer
         headerTitle={i18n.t('requestToRent.when')}
         containerStyle={s.formContainer}
       >
-        <Calendar onDayPress={onDayPress} />
+        <Calendar
+          getStartAndEndDate={getStartAndEndDate}
+          availableDates={availableDates}
+        />
       </FormContainer>
       <FormContainer
         containerStyle={s.formContainer}
@@ -30,17 +39,21 @@ const RequestToRentScreen = ({ onDayPress, price }) => (
           <Text gray>{i18n.t('requestToRent.priceADay')}</Text>
           <Text>{`$${price}`}</Text>
         </View>
-        <View style={s.label}>
-          <Text gray>10/12/2018-11/12/2018</Text>
-          <Text>1 day</Text>
-        </View>
+        {!!startRent && (
+          <View style={s.label}>
+            <Text gray>{formatedDate}</Text>
+            <Text>{`${diffDays} ${i18n.t('common.day')}`}</Text>
+          </View>
+        )}
         <View style={[s.label, s.totalPrice]}>
           <Text black xmediumSize>
             {i18n.t('requestToRent.totalPrice')}
           </Text>
-          <Text black xmediumSize>
-            $56
-          </Text>
+          {!!diffDays && (
+            <Text black xmediumSize>
+              {`$ ${diffDays * price}`}
+            </Text>
+          )}
         </View>
       </FormContainer>
       <Button
@@ -53,13 +66,16 @@ const RequestToRentScreen = ({ onDayPress, price }) => (
 );
 
 RequestToRentScreen.navigationOptions = () => ({
-  headerLeft: <DrawerButton />,
   title: i18n.t('requestToRent.requestToRent'),
 });
 
 RequestToRentScreen.propTypes = {
-  onDayPress: T.func,
-  price: T.any,
+  getStartAndEndDate: T.func,
+  price: T.number,
+  startRent: T.string,
+  formatedDate: T.string,
+  diffDays: T.number,
+  availableDates: T.object,
 };
 
 export default observer(RequestToRentScreen);

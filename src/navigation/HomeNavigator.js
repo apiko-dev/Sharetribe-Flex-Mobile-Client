@@ -9,23 +9,24 @@ import {
   VerifyEmailScreen,
   GalleryScreen,
   RequestToRentScreen,
+  CalendarScreen,
 } from '../screens';
 import { defaultNavigationOptions } from './NavigationOptions';
 
 export default createStackNavigator(
   {
-    [screens.RequestToRent]: RequestToRentScreen,
-
     [screens.Home]: HomeScreen,
+    [screens.Calendar]: CalendarScreen,
     [screens.UpdatePassword]: UpdatePasswordScreen,
     [screens.VerifyEmail]: VerifyEmailScreen,
     [screens.AddNewItem]: AddNewItemScreen,
     [screens.Category]: CategoryScreen,
     [screens.Product]: ProductScreen,
     [screens.Gallery]: GalleryScreen,
+    [screens.RequestToRent]: RequestToRentScreen,
   },
   {
-    initialRouteKey: screens.RequestToRent,
+    initialRouteKey: screens.Home,
     defaultNavigationOptions,
   },
 );

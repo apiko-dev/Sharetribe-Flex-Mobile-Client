@@ -193,7 +193,15 @@
     "more": "More",
     "less": "Less",
     "availableDate": "Available date",
-    "employedDate": "Employed date"
+    "employedDate": "Employed date",
+    "day": "day",
+    "days": "days",
+    "viewCalendar": "View calendar",
+    "nowOnLease": "Now on lease",
+    "canLease": "You can lease",
+    "nextAvailableDate": "Next available date:",
+    "availableUntil": "Available until:",
+    "calendar": "Calendar"
   },
   "permissions": {
     "iosRestrictedPermission": "Restricted Permission",
@@ -219,5 +227,36 @@
     "currentPasswordIncorrect": "You type incorrect current password",
     "passwordIncorrectForEmail": "You type incorrect current password for changing email",
     "passwordIncorrectForNewPassword": "You type incorrect current password for changing password"
-  }
+  },
+
+  "monthNames": [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+  ],
+  "monthNamesShort": [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "June",
+    "July",
+    "Aug",
+    "Sept",
+    "Oct",
+    "Nov",
+    "Dec"
+  ],
+  "dayNames": ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+  "dayNamesShort": ["S", "M", "T", "W", "T", "F", "S"]
 }
