@@ -48,6 +48,11 @@ export default hoistStatics(
       isLoading:
         listings.createListing.inProgress ||
         R.pathOr(false, ['update', 'inProgress'], product),
+      isUpdateDay: R.pathOr(
+        false,
+        ['getOwnFields', 'inProgress'],
+        product,
+      ),
     })),
 
     withStateHandlers(
