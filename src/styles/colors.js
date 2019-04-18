@@ -194,4 +194,8 @@ export default {
     messageBackgroundColor: '#FFF',
     borderColor: '#E9E9E9',
   },
+
+  chat: {
+    backgroundColor: '#F8F8F8',
+  },
 };

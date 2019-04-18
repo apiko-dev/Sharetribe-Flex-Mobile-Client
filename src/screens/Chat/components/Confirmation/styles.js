@@ -4,16 +4,13 @@ import { dimensions, colors, theme } from '../../../../styles';
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    height: dimensions.indent * 10,
+    minHeight: dimensions.indent * 10.5,
+    backgroundColor: colors.inbox.messageBackgroundColor,
     borderBottomColor: colors.text.gray,
-    borderBottomWidth: StyleSheet.hairlineWidth * 3,
+    borderBottomWidth: StyleSheet.hairlineWidth,
   },
 
   buttonContainer: {
-    flex: 1,
-    // height: theme.button.heightSmall,
-    // padding: dimensions.indent,
-    // paddingTop: 0,
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '100%',
@@ -21,31 +18,34 @@ const styles = StyleSheet.create({
     paddingRight: dimensions.indent,
   },
   buttonStyle: {
-    // flex: 1,
-    // height: theme.button.heightMedium,
-    // padding: null,
-    // alignItems: 'center',
-    // justifyContent: 'center',
-    // borderWidth: StyleSheet.hairlineWidth * 3,
-    // borderColor: colors.button.borderColorPrimary,
+    paddingVertical: dimensions.indent * 0.4,
+    margin: 0,
   },
+  containerStyle: {
+    flex: 1,
+    height: theme.button.heightMedium,
+  },
+
   accept: {
     flex: 1,
     marginRight: dimensions.indent * 0.75,
-    // marginTop: dimensions.indent,
-    // marginLeft: dimensions.indent,
-    // marginRight: dimensions.indent,
-    // marginBottom: dimensions.indent * 1.5,
+    height: theme.button.heightSmall,
   },
   deny: {
     flex: 1,
+    height: theme.button.heightSmall,
   },
   viewGoods: {
     flex: 1,
+    paddingLeft: dimensions.indent * 0.75,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 
-  containerStyle: {
-    flex: 1,
+  detailsContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: dimensions.indent / 2,
   },
 });
 

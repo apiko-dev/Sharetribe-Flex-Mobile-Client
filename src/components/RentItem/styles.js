@@ -2,7 +2,8 @@ import { StyleSheet } from 'react-native';
 import { dimensions, colors } from '../../styles';
 
 const styles = StyleSheet.create({
-  container: {
+  container: {},
+  containerMessage: {
     flexDirection: 'row',
     padding: 16,
     height: dimensions.indent * 6,
@@ -24,6 +25,29 @@ const styles = StyleSheet.create({
   totalPriceContainer: {
     flexDirection: 'row',
     marginTop: dimensions.indent * 0.25,
+  },
+  containerDetails: {
+    margin: dimensions.indent,
+    marginTop: 0,
+  },
+  dayPrice: {
+    flexDirection: 'row',
+    marginBottom: dimensions.indent,
+    marginTop: dimensions.indent,
+    justifyContent: 'space-between',
+  },
+  rentPeriod: {
+    flexDirection: 'row',
+    marginBottom: dimensions.indent,
+    paddingBottom: dimensions.indent,
+    justifyContent: 'space-between',
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: colors.inbox.borderColor,
+  },
+  totalPrice: {
+    flexDirection: 'row',
+    marginBottom: dimensions.indent,
+    justifyContent: 'space-between',
   },
 });
 

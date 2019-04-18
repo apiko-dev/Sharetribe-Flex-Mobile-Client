@@ -232,5 +232,13 @@
     "deny": "Deny",
     "viewGoods": "View goods",
     "viewDetails": "View details"
+  },
+
+  "inbox": {
+    "bookingBreakdown": "Booking breakdown",
+    "pricePerDay": "Price per day",
+    "day": "day",
+    "totalPrice": "Total price"
+
   }
 }
