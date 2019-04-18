@@ -38,20 +38,21 @@ const Confirmation = ({ setShowDetails, isShowDetails }) => (
             View goods
           </Text>
         </Touchable>
-        {/* <Button
-          title={i18n.t('chat.viewGoods')}
-          style={s.buttonStyle}
-          containerStyle={s.containerStyle}
-        /> */}
       </View>
     </View>
     <Touchable
       style={s.detailsContainer}
       onPress={() => setShowDetails()}
     >
-      <Text xxsmallSize orange>
-        View details
-      </Text>
+      {isShowDetails ? (
+        <Text xxsmallSize orange>
+          Close details
+        </Text>
+      ) : (
+        <Text xxsmallSize orange>
+          View details
+        </Text>
+      )}
     </Touchable>
   </View>
 );

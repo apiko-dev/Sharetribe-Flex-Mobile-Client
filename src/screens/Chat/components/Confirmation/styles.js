@@ -6,8 +6,6 @@ const styles = StyleSheet.create({
     width: '100%',
     minHeight: dimensions.indent * 10.5,
     backgroundColor: colors.inbox.messageBackgroundColor,
-    borderBottomColor: colors.text.gray,
-    borderBottomWidth: StyleSheet.hairlineWidth,
   },
 
   buttonContainer: {

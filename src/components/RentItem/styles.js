@@ -27,8 +27,8 @@ const styles = StyleSheet.create({
     marginTop: dimensions.indent * 0.25,
   },
   containerDetails: {
-    margin: dimensions.indent,
-    marginTop: 0,
+    marginLeft: dimensions.indent,
+    marginRight: dimensions.indent,
   },
   dayPrice: {
     flexDirection: 'row',
