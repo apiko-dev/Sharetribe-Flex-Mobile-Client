@@ -45,6 +45,7 @@ export default {
     orange: '#FF9900',
     red: '#EB5757',
     lightGray: '#D9D9D9',
+    green: '#27AE60',
   },
   loader: {
     primary: '#FFF',
@@ -197,5 +198,9 @@ export default {
 
   chat: {
     backgroundColor: '#F8F8F8',
+    backgroundColorWhite: '#FFF',
+    borderColor: '#E9E9E9',
+    backgroundColorMessageUser: '#F2F6FF',
+    backgroundColorMessage: '#FFF',
   },
 };

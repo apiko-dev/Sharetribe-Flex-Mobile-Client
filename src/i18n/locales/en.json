@@ -238,6 +238,8 @@
     "bookingBreakdown": "Booking breakdown",
     "pricePerDay": "Price per day",
     "day": "day",
+    "request": "Request",
+    "accepted": "Accepted",
     "totalPrice": "Total price"
 
   }

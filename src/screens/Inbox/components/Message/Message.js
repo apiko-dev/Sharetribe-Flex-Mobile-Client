@@ -9,6 +9,7 @@ import {
   ShadowContainer,
 } from '../../../../components';
 import { NavigationService } from '../../../../services';
+import i18n from '../../../../i18n';
 
 const messageImage = require('../../../../assets/png/message_image.png');
 
@@ -22,8 +23,11 @@ const Message = () => (
         <Image source={messageImage} style={s.image} />
         <View style={s.requestContainer}>
           <Text orange style={s.request} bold xxsmallSize>
-            Request
+            {i18n.t('inbox.request')}
           </Text>
+          {/* <Text green style={s.request} bold xxsmallSize>
+            {i18n.t('inbox.accepted')}
+          </Text> */}
         </View>
       </View>
       <View style={s.messageMainInfo}>
