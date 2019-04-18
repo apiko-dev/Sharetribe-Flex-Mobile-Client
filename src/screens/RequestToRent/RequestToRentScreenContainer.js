@@ -5,11 +5,12 @@ import {
   withStateHandlers,
   withProps,
 } from 'recompose';
-import {} from '../../services';
 import R from 'ramda';
+import { NavigationService } from '../../services';
 import RequestToRentScreenView from './RequestToRentScreenView';
 import { withParamsToProps } from '../../utils/enhancers';
 import { dates } from '../../utils';
+import screens from '../../navigation/screens';
 
 export default hoistStatics(
   compose(
@@ -35,6 +36,17 @@ export default hoistStatics(
     ),
 
     withHandlers({
+      goToRequestToRentPayment: ({
+        product,
+        startRent,
+        endRent,
+      }) => () =>
+        NavigationService.navigateTo(screens.RequestToRentPayment, {
+          product,
+          startRent,
+          endRent,
+        }),
+
       getStartAndEndDate: (props) => (
         startRent,
         endRent,

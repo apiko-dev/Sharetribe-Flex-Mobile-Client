@@ -209,6 +209,35 @@ class SharetribeSdkService {
       end: new Date(end),
     });
   }
+
+  initiateTransaction({ listingId, start, end }) {
+    console.log('run service... ');
+    return this.sdk.transactions.initiate(
+      {
+        processAlias: 'preauth-with-nightly-booking/release-1',
+        transition: 'transition/enquire',
+        params: {
+          listingId: new types.UUID(listingId),
+          start: new Date(start),
+          end: new Date(end),
+        },
+      },
+      {
+        expand: true,
+      },
+    );
+  }
+
+  fetchTransactions() {
+    return this.sdk.transactions.query({});
+  }
+
+  sendMessage({ transactionId, content }) {
+    return this.sdk.messages.send({
+      transactionId,
+      content,
+    });
+  }
 }
 
 export default new SharetribeSdkService();

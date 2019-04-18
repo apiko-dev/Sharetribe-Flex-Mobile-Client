@@ -31,6 +31,9 @@ export {
   default as RequestToRentScreen,
 } from './RequestToRent/RequestToRentScreenContainer';
 export {
+  default as RequestToRentPaymentScreen,
+} from './RequestToRentPayment/RequestToRentPaymentScreenContainer';
+export {
   default as CalendarScreen,
 } from './Calendar/CalendarScreenContainer';
 export { default as HelpScreen } from './Help/HelpScreen';

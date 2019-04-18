@@ -11,11 +11,13 @@ import {
   RequestToRentScreen,
   CalendarScreen,
   HelpScreen,
+  RequestToRentPaymentScreen,
 } from '../screens';
 import { defaultNavigationOptions } from './NavigationOptions';
 
 export default createStackNavigator(
   {
+    [screens.RequestToRentPayment]: RequestToRentPaymentScreen,
     [screens.Home]: HomeScreen,
     [screens.UpdatePassword]: UpdatePasswordScreen,
     [screens.VerifyEmail]: VerifyEmailScreen,

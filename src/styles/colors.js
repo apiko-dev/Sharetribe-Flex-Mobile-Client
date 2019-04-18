@@ -156,6 +156,9 @@ export default {
   formError: {
     iconColor: '#EB5757',
   },
+  formInfo: {
+    backgroundColor: '#FFF',
+  },
   requestToRentScreen: {
     backgroundColor: '#F8F8F8',
     labelBorderColor: '#E9E9E9',

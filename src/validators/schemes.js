@@ -86,3 +86,21 @@ export const ProfileSchema = Yup.object().shape({
     otherwise: Yup.string().min(0),
   }),
 });
+
+export const PaymentSchema = Yup.object().shape({
+  cardNumber: Yup.string()
+    .trim()
+    .min(19, i18n.t('errors.incorrectCardNumber'))
+    .max(22, i18n.t('errors.incorrectCardNumber'))
+    .required(i18n.t('errors.incorrectCardNumber')),
+  cardExpiration: Yup.string()
+    .trim()
+    .min(5, i18n.t('errors.incorrectCardExpiration'))
+    .max(5, i18n.t('errors.incorrectCardExpiration'))
+    .required(i18n.t('errors.incorrectCardExpiration')),
+  cardCVC: Yup.string()
+    .trim()
+    .min(3, i18n.t('errors.incorrectCardCVC'))
+    .max(4, i18n.t('errors.incorrectCardCVC'))
+    .required(i18n.t('errors.incorrectCardCVC')),
+});

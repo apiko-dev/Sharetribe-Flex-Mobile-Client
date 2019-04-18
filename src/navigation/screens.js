@@ -24,6 +24,7 @@ export default {
   VerifyEmail: 'VerifyEmail',
   Gallery: 'Gallery',
   RequestToRent: 'RequestToRent',
+  RequestToRentPayment: 'RequestToRentPayment',
   Calendar: 'Calendar',
   Help: 'Help',
 

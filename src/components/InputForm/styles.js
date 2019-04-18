@@ -31,6 +31,12 @@ export default StyleSheet.create({
   inputWithIcon: {
     paddingRight: dimensions.indent * 3,
   },
+  inputWithLeftIcon: {
+    paddingLeft: dimensions.indent * 2.2,
+  },
+  inputLabelWithLeftIcon: {
+    left: dimensions.indent * 2.2,
+  },
   activeContainer: {
     borderColor: colors.input.activeBorderColor,
   },
@@ -40,6 +46,15 @@ export default StyleSheet.create({
   icon: {
     position: 'absolute',
     right: dimensions.indent,
+    top: dimensions.indent * 0.85,
+    paddingHorizontal: dimensions.indent * 0.2,
+  },
+  iconInPlaceholder: {
+    paddingLeft: dimensions.indent,
+  },
+  iconLeft: {
+    position: 'absolute',
+    left: dimensions.indent * 0.5,
     top: dimensions.indent * 0.85,
     paddingHorizontal: dimensions.indent * 0.2,
   },

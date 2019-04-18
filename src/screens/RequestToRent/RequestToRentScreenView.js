@@ -19,6 +19,7 @@ const RequestToRentScreen = ({
   diffDays,
   availableDates,
   formatedDate,
+  goToRequestToRentPayment,
 }) => (
   <SafeAreaView style={s.safeAreaViewContainer}>
     <ScrollView containerStyle={s.container}>
@@ -61,6 +62,7 @@ const RequestToRentScreen = ({
         primary
         containerStyle={s.buttonContainer}
         disabled={!startRent}
+        onPress={goToRequestToRentPayment}
       />
     </ScrollView>
   </SafeAreaView>
@@ -72,6 +74,7 @@ RequestToRentScreen.navigationOptions = () => ({
 
 RequestToRentScreen.propTypes = {
   getStartAndEndDate: T.func,
+  goToRequestToRentPayment: T.func,
   price: T.number,
   startRent: T.string,
   formatedDate: T.string,

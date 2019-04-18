@@ -5,8 +5,10 @@ import { View, ViewPropTypes } from 'react-native';
 import _ from 'lodash';
 import Field from '../Field/Field';
 import FormError from '../FormError/FormError';
+import FormInfo from '../FormInfo/FormInfo';
 import InputForm from '../InputForm/InputForm';
 import s from './styles';
+import { payments } from '../../utils';
 
 const FormInput = ({
   containerStyle,
@@ -16,11 +18,28 @@ const FormInput = ({
   inputType,
   onPressIcon,
   iconName,
+  iconNameLeft,
+  onChangeText,
+  infoMessage,
   ...props
 }) => {
   const [secureTextEntryStatus, setSecureTextEntryStatus] = useState(
     inputType === 'password',
   );
+
+  const [infoStatus, setInfoStatus] = useState(false);
+
+  const onChangeTextWithParser = (value) => {
+    if (inputType === 'card-number') {
+      value = payments.formatCreditCardNumber(value);
+    } else if (inputType === 'card-expiration') {
+      value = payments.formatExpirationDate(value);
+    } else if (inputType === 'card-cvc') {
+      value = payments.formatCVC(value);
+    }
+
+    onChangeText(value);
+  };
 
   const onPress = () => {
     if (inputType === 'password') {
@@ -28,6 +47,11 @@ const FormInput = ({
     }
 
     return onPressIcon;
+  };
+
+  const onPressIconInInputPlaceholder = () => {
+    console.log('press...');
+    setInfoStatus(!infoStatus);
   };
 
   return (
@@ -41,9 +65,13 @@ const FormInput = ({
         ]}
         secureTextEntry={secureTextEntryStatus}
         onPressIcon={onPress}
+        iconNameLeft={iconNameLeft}
         iconName={iconName || (inputType === 'password' && 'eye')}
+        onChangeText={onChangeTextWithParser}
+        onPressIconInInputPlaceholder={onPressIconInInputPlaceholder}
       />
       <FormError showError={isError} error={error} />
+      <FormInfo message={infoMessage} showInfo={infoStatus} />
     </View>
   );
 };
@@ -82,6 +110,9 @@ FormInput.propTypes = {
   inputType: T.string,
   onPressIcon: T.func,
   iconName: T.string,
+  iconNameLeft: T.string,
+  infoMessage: T.string,
+  onChangeText: T.func,
 };
 
 export default FormInput;
