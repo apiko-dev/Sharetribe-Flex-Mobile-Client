@@ -134,6 +134,13 @@
     "someInstruction": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
     "goToSettings": "Go to settings"
   },
+  "requestToRent": {
+    "requestToRent": "Request to rent",
+    "when": "When do you want it?",
+    "bookingBreakdown": "Booking breakdown",
+    "priceADay": "Price per day",
+    "totalPrice": "Total price"
+  },
   "alerts": {
     "signInError": {
       "title": "Sign In",
@@ -184,7 +191,17 @@
     "settings": "Settings",
     "save": "Save",
     "more": "More",
-    "less": "Less"
+    "less": "Less",
+    "availableDate": "Available date",
+    "employedDate": "Employed date",
+    "day": "day",
+    "days": "days",
+    "viewCalendar": "View calendar",
+    "nowOnLease": "Now on lease",
+    "canLease": "You can lease",
+    "nextAvailableDate": "Next available date:",
+    "availableUntil": "Available until:",
+    "calendar": "Calendar"
   },
   "permissions": {
     "iosRestrictedPermission": "Restricted Permission",
@@ -225,5 +242,52 @@
   "fr": "Fr",
   "sa": "Sa",
   "availableDays": "Available days"
-  }
+  },
+
+  "monthNames": [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+  ],
+  "monthNamesShort": [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "June",
+    "July",
+    "Aug",
+    "Sept",
+    "Oct",
+    "Nov",
+    "Dec"
+  ],
+  "dayNames": [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday"
+  ],
+  "dayNamesShort": [
+    "S",
+    "M",
+    "T",
+    "W",
+    "T",
+    "F",
+    "S"
+  ]
 }

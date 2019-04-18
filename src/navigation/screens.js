@@ -23,6 +23,8 @@ export default {
   Profile: 'Profile',
   VerifyEmail: 'VerifyEmail',
   Gallery: 'Gallery',
+  RequestToRent: 'RequestToRent',
+  Calendar: 'Calendar',
   Help: 'Help',
 
   // Stacks

@@ -201,6 +201,14 @@ class SharetribeSdkService {
       include: ['images', 'author'],
     });
   }
+
+  getAvailableDays({ listingId, start, end }) {
+    return this.sdk.timeslots.query({
+      listingId: new types.UUID(listingId),
+      start: new Date(start),
+      end: new Date(end),
+    });
+  }
 }
 
 export default new SharetribeSdkService();

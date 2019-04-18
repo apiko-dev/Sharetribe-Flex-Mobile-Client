@@ -8,6 +8,8 @@ import {
   ProductScreen,
   VerifyEmailScreen,
   GalleryScreen,
+  RequestToRentScreen,
+  CalendarScreen,
   HelpScreen,
 } from '../screens';
 import { defaultNavigationOptions } from './NavigationOptions';
@@ -21,10 +23,12 @@ export default createStackNavigator(
     [screens.Category]: CategoryScreen,
     [screens.Product]: ProductScreen,
     [screens.Gallery]: GalleryScreen,
+    [screens.RequestToRent]: RequestToRentScreen,
+    [screens.Calendar]: CalendarScreen,
     [screens.Help]: HelpScreen,
   },
   {
-    initialRouteKey: screens.HomeScreen,
+    initialRouteKey: screens.Home,
     defaultNavigationOptions,
   },
 );
