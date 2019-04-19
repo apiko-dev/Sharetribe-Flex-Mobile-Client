@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ImageBackground } from 'react-native';
+import { View, ImageBackground, ViewPropTypes } from 'react-native';
 import T from 'prop-types';
 import { observer } from 'mobx-react';
 import R from 'ramda';
@@ -15,6 +15,7 @@ import Loader from '../Loader/Loader';
 import { createAvatar } from '../../utils';
 
 const Avatar = ({
+  styleContainer,
   user,
   large,
   small,
@@ -25,7 +26,7 @@ const Avatar = ({
   avatarSrc,
   ...props
 }) => (
-  <View>
+  <View style={styleContainer}>
     <ImageBackground
       source={
         avatarSrc
@@ -100,6 +101,7 @@ Avatar.propTypes = {
   onPressChange: T.func,
   avatarPlaceholder: T.any,
   avatarSrc: T.any,
+  styleContainer: ViewPropTypes.style,
 };
 
 export default compose(
