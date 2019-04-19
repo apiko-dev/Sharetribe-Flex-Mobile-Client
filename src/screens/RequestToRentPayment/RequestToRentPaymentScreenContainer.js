@@ -59,7 +59,7 @@ export default hoistStatics(
 
     withPropsOnChange(['product'], (props) => {
       props.navigation.setParams({
-        // productName: props.product.title,
+        productName: props.product.title,
       });
     }),
   ),
