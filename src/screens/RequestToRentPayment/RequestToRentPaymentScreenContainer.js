@@ -4,8 +4,8 @@ import {
   withHandlers,
   withPropsOnChange,
 } from 'recompose';
-import {} from '../../services';
 import { inject } from 'mobx-react';
+import { AlertService } from '../../services';
 import RequestToRentPaymentScreenView from './RequestToRentPaymentScreenView';
 import { withParamsToProps } from '../../utils/enhancers';
 import { payments } from '../../utils';
@@ -49,8 +49,10 @@ export default hoistStatics(
             cardCVC: values.cardCVC,
             message: values.message,
           });
+          AlertService.showInDevelopmentAlert();
         } catch (err) {
           console.log('error: ', err);
+          AlertService.showInDevelopmentAlert();
         }
       },
     }),

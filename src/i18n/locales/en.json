@@ -184,6 +184,10 @@
     "somethingWentWrong": {
       "title": "Error",
       "message": "Something went wrong"
+    },
+    "inDevelopment": {
+      "title": "Error",
+      "message": "This functional in development"
     }
   },
 
