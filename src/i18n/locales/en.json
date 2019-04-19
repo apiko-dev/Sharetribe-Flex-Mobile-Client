@@ -148,6 +148,27 @@
     "cardCVC": "CVC",
     "cardCVCInfo": "The 3-digit security code is found on the back of most credit and debit cards"
   },
+  "payoutPreferences": {
+    "payoutPreferences": "Payout Preferences",
+    "personalDetails": "Personal details",
+    "oneMoreThing": "One more thing: Payout preferences",
+    "oneMoreThingDescription": "Since this was the first listing you created, we need to know bit more about you in order to send you money. We only ask these once.",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "country": "Country",
+    "address": "Address",
+    "streetAddress": "Street address",
+    "postalCode": "Postal code",
+    "city": "City",
+    "saveAndPublish": "Save details & Publish listing",
+    "birthDate": "Birth date",
+    "month": "Month",
+    "year": "Year",
+    "payment": "Payment"
+  },
+  "cardList": {
+    "cardList": "Your cards"
+  },
   "alerts": {
     "signInError": {
       "title": "Sign In",

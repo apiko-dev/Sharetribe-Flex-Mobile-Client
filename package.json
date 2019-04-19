@@ -61,6 +61,7 @@
     "react-navigation": "^3.3.0",
     "recompose": "^0.30.0",
     "sharetribe-flex-sdk": "^1.2.0",
+    "tipsi-stripe": "^7.4.0",
     "uuid": "^3.3.2",
     "xdate": "^0.8.2",
     "yup": "^0.27.0"

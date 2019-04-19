@@ -104,3 +104,16 @@ export const PaymentSchema = Yup.object().shape({
     .max(4, i18n.t('errors.incorrectCardCVC'))
     .required(i18n.t('errors.incorrectCardCVC')),
 });
+
+export const PayoutSchema = Yup.object().shape({
+  firstName: Yup.string()
+    .trim()
+    .min(1)
+    .max(100)
+    .required(i18n.t('errors.requireFirstName')),
+  lastName: Yup.string()
+    .trim()
+    .min(1)
+    .max(100)
+    .required(i18n.t('errors.requireLastName')),
+});

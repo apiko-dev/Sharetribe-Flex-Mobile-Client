@@ -8,7 +8,7 @@ import FormError from '../FormError/FormError';
 import FormInfo from '../FormInfo/FormInfo';
 import InputForm from '../InputForm/InputForm';
 import s from './styles';
-import { payments } from '../../utils';
+import { payments, dates } from '../../utils';
 
 const FormInput = ({
   containerStyle,
@@ -36,6 +36,12 @@ const FormInput = ({
       value = payments.formatExpirationDate(value);
     } else if (inputType === 'card-cvc') {
       value = payments.formatCVC(value);
+    } else if (inputType === 'date') {
+      value = dates.formatDate(value);
+    } else if (inputType === 'month') {
+      value = dates.formatMonth(value);
+    } else if (inputType === 'year') {
+      value = dates.formatYear(value);
     }
 
     onChangeText(value);
