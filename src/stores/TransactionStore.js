@@ -60,14 +60,25 @@ export const TransactionStore = t
   }));
 
 function initiateTransaction(flow, store) {
-  return function* initiateTransaction({ listingId, start, end }) {
+  return function* initiateTransaction({
+    listingId,
+    startRent,
+    endRent,
+  }) {
     try {
       flow.start();
 
+      console.log(
+        'initiateTransaction data: ',
+        listingId,
+        startRent,
+        endRent,
+      );
+
       const res = yield store.Api.initiateTransaction({
         listingId,
-        start,
-        end,
+        startRent,
+        endRent,
       });
 
       console.log('initiateTransaction res: ', res);

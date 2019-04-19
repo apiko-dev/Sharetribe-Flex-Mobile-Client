@@ -7,6 +7,7 @@ import Text from '../Text/Text';
 import IconFonts from '../IconFonts/IconFonts';
 import i18n from '../../i18n';
 import CalendarPicker from './CalendarPicker';
+import { dates } from '../../utils';
 
 const Calendar = ({
   getStartAndEndDate,
@@ -29,6 +30,7 @@ const Calendar = ({
         disablePicker={disablePicker}
         style={s.calendar}
         minDate={new Date()}
+        maxDate={dates.getEndDateByStart(new Date(), 90).end}
         onSuccess={(start, end, diffDays) =>
           getStartAndEndDate(start, end, diffDays)
         }

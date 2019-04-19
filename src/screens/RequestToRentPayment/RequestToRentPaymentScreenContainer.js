@@ -30,13 +30,13 @@ export default hoistStatics(
         endRent,
       }) => async (values) => {
         try {
-          console.log('onRequest: ', values);
+          console.log('onRequest: ', startRent, endRent);
 
           const {
             cardDate,
             cardExpiration,
           } = payments.normalizeCardData(
-            values.cardDate,
+            values.cardNumber,
             values.cardExpiration,
           );
 

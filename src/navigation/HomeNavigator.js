@@ -17,7 +17,6 @@ import { defaultNavigationOptions } from './NavigationOptions';
 
 export default createStackNavigator(
   {
-    [screens.RequestToRentPayment]: RequestToRentPaymentScreen,
     [screens.Home]: HomeScreen,
     [screens.UpdatePassword]: UpdatePasswordScreen,
     [screens.VerifyEmail]: VerifyEmailScreen,
@@ -26,6 +25,7 @@ export default createStackNavigator(
     [screens.Product]: ProductScreen,
     [screens.Gallery]: GalleryScreen,
     [screens.RequestToRent]: RequestToRentScreen,
+    [screens.RequestToRentPayment]: RequestToRentPaymentScreen,
     [screens.Calendar]: CalendarScreen,
     [screens.Help]: HelpScreen,
   },

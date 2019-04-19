@@ -69,9 +69,14 @@ const FormInput = ({
         iconName={iconName || (inputType === 'password' && 'eye')}
         onChangeText={onChangeTextWithParser}
         onPressIconInInputPlaceholder={onPressIconInInputPlaceholder}
+        isShowingFormInfo={infoStatus}
       />
       <FormError showError={isError} error={error} />
-      <FormInfo message={infoMessage} showInfo={infoStatus} />
+      <FormInfo
+        message={infoMessage}
+        showInfo={infoStatus}
+        onHideFormInfo={() => setInfoStatus(false)}
+      />
     </View>
   );
 };

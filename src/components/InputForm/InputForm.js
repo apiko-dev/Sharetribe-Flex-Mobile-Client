@@ -13,7 +13,7 @@ import {
 } from 'react-native-reanimatable';
 import { isAndroid } from '../../utils';
 import s from './styles';
-import { dimensions } from '../../styles';
+import { dimensions, colors } from '../../styles';
 import IconFonts from '../IconFonts/IconFonts';
 
 const AnimatedTextInput = A.createAnimatedComponent(TextInput);
@@ -54,6 +54,7 @@ const AnimatedFormInput = ({
   onPressIconLeft,
   iconInInputPlaceholder,
   onPressIconInInputPlaceholder,
+  isShowingFormInfo,
   ...props
 }) => (
   <TouchableWithoutFeedback>
@@ -99,6 +100,11 @@ const AnimatedFormInput = ({
                 <IconFonts
                   name={iconInInputPlaceholder}
                   size={14}
+                  tintColor={
+                    isShowingFormInfo
+                      ? colors.icon.tintColorOrange
+                      : colors.icon.tintColorGray
+                  }
                   style={s.iconInPlaceholder}
                   onPress={onPressIconInInputPlaceholder}
                 />
@@ -160,6 +166,7 @@ AnimatedFormInput.propTypes = {
   onPressIconLeft: T.func,
   iconInInputPlaceholder: T.string,
   onPressIconInInputPlaceholder: T.func,
+  isShowingFormInfo: T.bool,
 };
 
 export default AnimatedFormInput;

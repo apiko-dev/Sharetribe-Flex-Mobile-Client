@@ -50,7 +50,9 @@ export default StyleSheet.create({
     paddingHorizontal: dimensions.indent * 0.2,
   },
   iconInPlaceholder: {
+    position: 'absolute',
     paddingLeft: dimensions.indent,
+    zIndex: 1,
   },
   iconLeft: {
     position: 'absolute',
