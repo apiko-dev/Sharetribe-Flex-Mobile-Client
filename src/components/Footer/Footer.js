@@ -5,7 +5,13 @@ import s from './styles';
 import IconFonts from '../IconFonts/IconFonts';
 import Button from '../Button/Button';
 
-const Footer = ({ phone, onCall, navigationToRequestToRent }) => (
+const Footer = ({
+  phone,
+  onCall,
+  navigationToRequestToRent,
+  // onSend,
+  // fakeMessage,
+}) => (
   <View style={s.container}>
     <View style={s.contactContainer}>
       {phone && (
@@ -32,6 +38,7 @@ const Footer = ({ phone, onCall, navigationToRequestToRent }) => (
           size={22}
           style={s.iconChat}
           tintColor="orange"
+          // onPress={onSend}
         />
       </Button>
     </View>
@@ -41,6 +48,7 @@ const Footer = ({ phone, onCall, navigationToRequestToRent }) => (
         primary
         buttonStyle={s.buttonRent}
         onPress={navigationToRequestToRent}
+        // onPress={fakeMessage}
       />
     </View>
   </View>
