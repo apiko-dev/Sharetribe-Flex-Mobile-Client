@@ -14,6 +14,7 @@ import listModel from './utils/listModel';
 import { Image } from './ImageStore';
 import { User } from './UserStore';
 import { normalizedIncluded } from './utils/normalize';
+import { dates } from '../utils';
 
 // const TypeSender = t.model('TypeSender', {
 //   type: t.string,
@@ -59,6 +60,7 @@ const Geolocation = t.model('Geolocation', {
   lat: t.maybe(t.number),
   lng: t.maybe(t.number),
 });
+
 const ProductPublicData = t.model('ProductPublicData', {
   brand: t.maybe(t.string),
   category: t.maybe(t.string),
@@ -68,7 +70,7 @@ const ProductPublicData = t.model('ProductPublicData', {
   phoneNumber: t.maybe(t.string),
 });
 
-const Price = t.model('Price', {
+export const Price = t.model('Price', {
   amount: t.number,
   currency: t.string,
 });
@@ -106,6 +108,8 @@ export const Product = t
     price: t.optional(t.maybeNull(Price), null),
     metadata: t.model('metadata', {}),
     relationships: t.maybe(ProductRelationships),
+    availableDates: t.maybe(t.array(t.string)),
+    employedDates: t.maybe(t.array(t.string)),
 
     availabilityPlan: t.optional(t.maybeNull(AvailabilityPlan), null),
 
@@ -293,6 +297,7 @@ export const ListingsStore = t
     fetchParticularUserListings: createFlow(
       fetchParticularUserListings,
     ),
+    getAvailableDays: createFlow(getAvailableDays),
   })
   .views((store) => ({
     get Api() {
@@ -501,6 +506,34 @@ function fetchParticularUserListings(flow, store) {
         i18n.t('alerts.somethingWentWrong.title'),
         i18n.t('alerts.somethingWentWrong.message'),
       );
+    }
+  };
+}
+
+function getAvailableDays(flow, store) {
+  return function* getAvailableDays(listingId) {
+    try {
+      flow.start();
+
+      const { start, end } = dates.getEndDateByStart(new Date(), 89);
+
+      const res = yield store.Api.getAvailableDays({
+        listingId,
+        start,
+        end,
+      });
+
+      const data = dates.getAvailableAndEmployedDates(
+        res.data.data,
+        start,
+        end,
+      );
+
+      flow.success();
+
+      return data;
+    } catch (err) {
+      flow.failed(err, true);
     }
   };
 }

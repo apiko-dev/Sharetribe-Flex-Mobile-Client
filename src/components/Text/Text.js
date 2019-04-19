@@ -42,7 +42,15 @@ const getFontSize = (
   return { fontSize };
 };
 
-const getFontColor = (black, gray, white, orange, red, lightGray, green) => {
+const getFontColor = (
+  black,
+  gray,
+  white,
+  orange,
+  red,
+  lightGray,
+  green,
+) => {
   let color = colors.text.black;
 
   if (black) color = colors.text.black;

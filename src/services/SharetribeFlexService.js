@@ -202,64 +202,106 @@ class SharetribeSdkService {
     });
   }
 
-  initiateTransaction({ listingId, start, end }) {
-    console.log('run service... ');
-    return this.sdk.transactions.initiate(
-      {
-        processAlias: 'preauth-with-nightly-booking/release-1',
-        transition: 'transition/enquire',
-        params: {
-          listingId: new types.UUID(listingId),
-          start: new Date(start),
-          end: new Date(end),
-        },
-      },
-      {
-        expand: true,
-      },
-    );
-  }
+  // initiateTransaction({ listingId, start, end }) {
+  //   console.log('run service... ');
+  //   return this.sdk.transactions.initiate(
+  //     {
+  //       processAlias: 'preauth-with-nightly-booking/release-1',
+  //       transition: 'transition/enquire',
+  //       params: {
+  //         listingId: new types.UUID(listingId),
+  //         start: new Date(start),
+  //         end: new Date(end),
 
-  initiateMessageTransaction(listId) {
-    console.log('run service... ');
-    return this.sdk.transactions.initiate(
-      {
-        processAlias: 'preauth-with-nightly-booking/release-1',
-        transition: 'transition/enquire',
-        params: {
-          listingId: new types.UUID(listId),
-        },
-      },
-      {
-        expand: true,
-      },
-    );
-  }
-
-  fetchMessage({ transactionId }) {
-    console.log('run service... ');
-    return this.sdk.messages.query({
-      transactionId: new types.UUID(transactionId),
-      include: ['sender', 'sender.profileImage'],
+  getAvailableDays({ listingId, start, end }) {
+    return this.sdk.timeslots.query({
+      listingId: new types.UUID(listingId),
+      start: new Date(start),
+      end: new Date(end),
     });
   }
 
-  sendMessage({ transactionId, content }) {
-    console.log('run service... ');
-    return this.sdk.messages.send(
+  initiateTransaction({ listingId, startRent, endRent, cardToken }) {
+    console.log(
+      'run service... ',
+      listingId,
+      startRent,
+      endRent,
+      cardToken,
+    );
+    return this.sdk.transactions.initiateSpeculative(
       {
-        transactionId: new types.UUID(transactionId),
-        content,
+        processAlias: 'preauth-with-nightly-booking/release-1',
+        transition: 'transition/request',
+        params: {
+          listingId: new types.UUID(listingId),
+          bookingStart: new Date(startRent),
+          bookingEnd: new Date(endRent),
+          cardToken,
+        },
       },
       {
         expand: true,
       },
     );
   }
+
+  // initiateMessageTransaction(listId) {
+  //   console.log('run service... ');
+  //   return this.sdk.transactions.initiate(
+  //     {
+  //       processAlias: 'preauth-with-nightly-booking/release-1',
+  //       transition: 'transition/enquire',
+  //       params: {
+  //         listingId: new types.UUID(listId),
+  //       },
+  //     },
+  //     {
+  //       expand: true,
+  //     },
+  //   );
+  // }
+
+  // fetchMessage({ transactionId }) {
+  //   console.log('run service... ');
+  //   return this.sdk.messages.query({
+  //     transactionId: new types.UUID(transactionId),
+  //     include: ['sender', 'sender.profileImage'],
+  //   });
+  // }
+
+  // sendMessage({ transactionId, content }) {
+  //   console.log('run service... ');
+  //   return this.sdk.messages.send(
+  //     {
+  //       transactionId: new types.UUID(transactionId),
+  //       content,
 
   fetchTransactions() {
     return this.sdk.transactions.query({});
   }
+
+  sendMessage({ transactionId, content }) {
+    return this.sdk.messages.send({
+      transactionId,
+      content,
+    });
+  }
+
+  createStripeAccount() {
+    return this.sdk.stripeAccount.create(
+      {
+        accountToken: 'ct_stripeaccounttoken',
+      },
+      {
+        expand: true,
+      },
+    );
+  }
+
+  // fetchTransactions() {
+  //   return this.sdk.transactions.query({});
+  // }
 }
 
 export default new SharetribeSdkService();

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Keyboard } from 'react-native';
 import IconFonts from '../IconFonts/IconFonts';
 import Touchable from '../Touchable/Touchable';
 import { colors } from '../../styles';
@@ -8,7 +9,10 @@ import { NavigationService } from '../../services';
 const DrawerButton = () => (
   <Touchable
     style={s.button}
-    onPress={() => NavigationService.openDrawer()}
+    onPress={() => {
+      Keyboard.dismiss();
+      NavigationService.openDrawer();
+    }}
     borderless
     hitSlop={{ top: 15, right: 15, bottom: 15, left: 15 }}
   >

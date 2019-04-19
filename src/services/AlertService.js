@@ -68,6 +68,13 @@ class AlertService {
     );
   }
 
+  showInDevelopmentAlert() {
+    this.showAlert(
+      i18n.t('alerts.inDevelopment.title'),
+      i18n.t('alerts.inDevelopment.message'),
+    );
+  }
+
   logOut(onPress) {
     this.showAlert(
       i18n.t('drawer.logOut'),

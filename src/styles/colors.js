@@ -157,6 +157,25 @@ export default {
   formError: {
     iconColor: '#EB5757',
   },
+  formInfo: {
+    backgroundColor: '#FFF',
+  },
+  requestToRentScreen: {
+    backgroundColor: '#F8F8F8',
+    labelBorderColor: '#E9E9E9',
+  },
+  calendar: {
+    availableDate: '#27AE60',
+    employedDate: '#EB5757',
+    labelBorderColor: '#E9E9E9',
+    selectedDate: '#FF9900',
+    selectedDateText: '#FFF',
+    arrows: '#333333',
+  },
+  calendarScreen: {
+    backgroundColor: '#FFF',
+  },
+
   avatars: [
     '#1abc9c',
     '#2ecc71',
