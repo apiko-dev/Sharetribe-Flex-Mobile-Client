@@ -11,6 +11,7 @@ import {
   RequestToRentScreen,
   CalendarScreen,
   HelpScreen,
+  RequestToRentPaymentScreen,
 } from '../screens';
 import { defaultNavigationOptions } from './NavigationOptions';
 
@@ -24,6 +25,7 @@ export default createStackNavigator(
     [screens.Product]: ProductScreen,
     [screens.Gallery]: GalleryScreen,
     [screens.RequestToRent]: RequestToRentScreen,
+    [screens.RequestToRentPayment]: RequestToRentPaymentScreen,
     [screens.Calendar]: CalendarScreen,
     [screens.Help]: HelpScreen,
   },

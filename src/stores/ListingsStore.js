@@ -44,7 +44,7 @@ const ProductPublicData = t.model('ProductPublicData', {
   phoneNumber: t.maybe(t.string),
 });
 
-const Price = t.model('Price', {
+export const Price = t.model('Price', {
   amount: t.number,
   currency: t.string,
 });

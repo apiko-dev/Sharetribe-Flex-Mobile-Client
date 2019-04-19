@@ -136,10 +136,17 @@
   },
   "requestToRent": {
     "requestToRent": "Request to rent",
+    "sendRequest": "Send request",
     "when": "When do you want it?",
     "bookingBreakdown": "Booking breakdown",
     "priceADay": "Price per day",
-    "totalPrice": "Total price"
+    "totalPrice": "Total price",
+    "payment": "Payment",
+    "message": "Message",
+    "cardNumber": "Card number",
+    "cardExpiration": "MM/YY",
+    "cardCVC": "CVC",
+    "cardCVCInfo": "The 3-digit security code is found on the back of most credit and debit cards"
   },
   "alerts": {
     "signInError": {
@@ -177,6 +184,10 @@
     "somethingWentWrong": {
       "title": "Error",
       "message": "Something went wrong"
+    },
+    "inDevelopment": {
+      "title": "Error",
+      "message": "This functional in development"
     }
   },
 
@@ -224,9 +235,12 @@
     "incorrectEmail": "Incorrect email",
     "requireFirstName": "First name must be minimum 1 symbol",
     "requireLastName": "Last name must be minimum 1 symbol",
-    "currentPasswordIncorrect": "You type incorrect current password",
-    "passwordIncorrectForEmail": "You type incorrect current password for changing email",
-    "passwordIncorrectForNewPassword": "You type incorrect current password for changing password"
+    "currentPasswordIncorrect": "You typed incorrect current password",
+    "passwordIncorrectForEmail": "You typed incorrect current password for changing email",
+    "passwordIncorrectForNewPassword": "You typed incorrect current password for changing password",
+    "incorrectCardNumber": "You typed incorrect card number",
+    "incorrectCardExpiration": "You typed incorrect card expiration",
+    "incorrectCardCVC": "You typed incorrect card CVC"
   },
   "helpScreen": {
     "helpCenter": "Help Center",
