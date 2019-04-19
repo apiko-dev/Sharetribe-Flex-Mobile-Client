@@ -1,11 +1,11 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 
-import { ShadowContainer } from '../../../../components';
+import { ShadowContainer, Avatar } from '../../../../components';
 import s from './styles';
 // import moment from 'moment';
 
-const RenderItem = ({ item, index, messages }) => {
+const RenderItem = ({ item, index, messages, user, isUser }) => {
   // const itemIndex = (index) => {
   //   if (index < messages.length - 1) {
   //     return index + 1;
@@ -18,15 +18,15 @@ const RenderItem = ({ item, index, messages }) => {
   //   const timeNow = new Date().getTime();
   //   const timeNowDifference = timeNow - currentMessage;
   //   const timeDifference = currentMessage - prevMessage;
-  //   if (timeNowDifference > 86400000) {
-  //     if (timeDifference > 86400000) {
-  //       titleTime = moment(item.dateTime, 'x').format('MMM Do YY');
-  //       return true;
-  //     }
-  //   } else if (timeDifference > 10800000) {
-  //     titleTime = moment(item.dateTime, 'x').format('LT');
+  // if (timeNowDifference > 86400000) {
+  //   if (timeDifference > 86400000) {
+  //     titleTime = moment(item.dateTime, 'x').format('MMM Do YY');
   //     return true;
   //   }
+  // } else if (timeDifference > 10800000) {
+  //   titleTime = moment(item.dateTime, 'x').format('LT');
+  //   return true;
+  // }
   // };
 
   // const firstMessageDate = index === messages.length - 1;
@@ -47,9 +47,8 @@ const RenderItem = ({ item, index, messages }) => {
   const fromUser = item.fromUser === 'Taras';
   const fromInterlocutor = item.fromUser !== 'Taras';
   return (
-    <ShadowContainer>
-      <View style={s.container}>
-        {/* <View>{title}</View> */}
+    <View style={s.container}>
+      <ShadowContainer>
         <View
           key={index}
           style={[
@@ -57,6 +56,13 @@ const RenderItem = ({ item, index, messages }) => {
             fromUser ? s.userSend : s.interlocutor,
           ]}
         >
+          {!isUser && (
+            <Avatar
+              user={user}
+              small
+              styleContainer={s.avatarCustomer}
+            />
+          )}
           <View
             style={[
               s.message,
@@ -72,9 +78,15 @@ const RenderItem = ({ item, index, messages }) => {
               {item.message}
             </Text>
           </View>
+          {isUser && (
+            <Avatar user={user} small styleContainer={s.avatar} />
+          )}
+          {/* <View style={[isUser && s.timer]}>
+          <Text>09:31</Text>
+        </View> */}
         </View>
-      </View>
-    </ShadowContainer>
+      </ShadowContainer>
+    </View>
   );
 };
 

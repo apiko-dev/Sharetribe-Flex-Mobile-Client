@@ -12,6 +12,7 @@ import { inject } from 'mobx-react/native';
 import call from 'react-native-phone-call';
 import ProductScreenView from './ProductScreenView';
 import { withParamsToProps } from '../../utils/enhancers';
+import { NavigationService } from '../../services';
 
 export default hoistStatics(
   compose(
@@ -72,41 +73,46 @@ export default hoistStatics(
 
         call(args).catch(console.error);
       },
-      onSend: (props) => async () => {
-        try {
-          await props.product.messageTransaction.run(
-            props.product.id,
-          );
-          debugger;
-        } catch (err) {
-          debugger;
-        }
-      },
-      fakeMessage: (props) => async () => {
-        // const data = {
-        //   transactionId: '5cb885d1-734b-44c7-ad5e-ae9f4f5eefa1',
-        //   content: 'this is a TEST message ',
-        // };
-        // try {
-        //   await props.product.sendMessage.run(
-        //     data.transactionId,
-        //     data.content,
-        //   );
-        //   debugger;
-        // } catch (err) {
-        //   debugger;
-        // }
-        // //////
-        const data = {
-          transactionId: '5cb885d1-734b-44c7-ad5e-ae9f4f5eefa1',
-        };
-        try {
-          await props.product.fetchMessage.run(data.transactionId);
-          debugger;
-        } catch (err) {
-          debugger;
-        }
-      },
+      // onSend: ({ product }) => async () => {
+      //   NavigationService.navigateToChat({ product });
+      //   // NavigationService.navigateToChat();
+      //   // try {
+      //   //   await props.product.messageTransaction.run(
+      //   //     props.product.id,
+      //   //   );
+      //   //   debugger;
+      //   //   const g = props.product.transactionId;
+      //   // } catch (err) {
+      //   //   debugger;
+      //   // }
+      // },
+      // fakeMessage: (props) => async () => {
+      //   const data = {
+      //     transactionId: '5cb885d1-734b-44c7-ad5e-ae9f4f5eefa1',
+      //     content: 'this is a TEST message ',
+      //   };
+
+      //   try {
+      //     await props.product.sendMessage.run(
+      //       // data.transactionId,
+      //       props.product.transactionId,
+      //       data.content,
+      //     );
+      //     debugger;
+      //   } catch (err) {
+      //     debugger;
+      //   }
+      //   // //////
+      //   // const data = {
+      //   //   transactionId: '5cb885d1-734b-44c7-ad5e-ae9f4f5eefa1',
+      //   // };
+      //   // try {
+      //   //   await props.product.fetchMessage.run(data.transactionId);
+      //   //   debugger;
+      //   // } catch (err) {
+      //   //   debugger;
+      //   // }
+      // },
     }),
     lifecycle({
       componentDidMount() {

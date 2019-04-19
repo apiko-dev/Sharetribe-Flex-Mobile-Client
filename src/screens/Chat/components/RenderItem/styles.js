@@ -4,6 +4,25 @@ import { colors, dimensions } from '../../../../styles';
 const styles = StyleSheet.create({
   container: {
     // flex: 1,
+    flexDirection: 'row',
+  },
+  avatar: {
+    margin: dimensions.smallIndent,
+    marginRight: dimensions.indent,
+    // margin: dimensions.indent
+  },
+  avatarCustomer: {
+    margin: dimensions.smallIndent,
+    marginLeft: dimensions.indent,
+  },
+
+  // timer: {
+  //   width: 20,
+  // },
+
+  messageContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   message: {
     // margin: 10,
@@ -13,11 +32,12 @@ const styles = StyleSheet.create({
     minHeight: 30,
     minWidth: '5%',
     maxWidth: '65%',
-    margin: 9,
+    // margin: 9,
     // margin: dimensions.indent / 2,
   },
   fromInterlocutor: {
-    backgroundColor: 'white',
+    // padding: 7,
+    // backgroundColor: colors.chat.backgroundColorWhite,
     backgroundColor: colors.chat.backgroundColorMessage,
   },
   textFromInterlocutor: {
@@ -25,10 +45,12 @@ const styles = StyleSheet.create({
   },
 
   userSend: {
-    alignItems: 'flex-end',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
   },
   interlocutor: {
-    alignItems: 'flex-start',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
   },
 
   input: {

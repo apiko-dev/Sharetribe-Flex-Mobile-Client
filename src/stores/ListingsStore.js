@@ -15,6 +15,32 @@ import { Image } from './ImageStore';
 import { User } from './UserStore';
 import { normalizedIncluded } from './utils/normalize';
 
+// const TypeSender = t.model('TypeSender', {
+//   type: t.string,
+// });
+// const Sender = t.model('Sender', {
+//   sender: t.optional(t.maybeNull(TypeSender), null),
+// });
+// const MessageRelationships = t.model('MessageRelationships', {
+//   sender: t.optional(t.maybeNull(Sender), null),
+// });
+
+// const MessageId = t.model('MessageId', {
+//   uuid: t.string,
+// });
+
+// const MessageAttributes = t.model('MessageAtributes', {
+//   createdAt: t.string,
+//   content: t.string,
+// });
+
+// const Message = t.model('Message', {
+//   attributes: t.optional(t.maybeNull(MessageAttributes), null),
+//   id: t.optional(t.maybeNull(MessageId), null),
+//   relationships: t.optional(t.maybeNull(MessageRelationships), null),
+//   type: t.string,
+// });
+
 const DayOfWeek = t.model('DayOfWeek', {
   dayOfWeek: t.string,
   seats: t.number,
@@ -71,6 +97,11 @@ export const Product = t
     createdAt: t.maybe(t.Date),
     state: t.string,
     title: t.string,
+    // transactionId: t.optional(t.maybeNull(t.string), null),
+    // //
+    // messages: t.array(Message),
+    // // messages: t.optional(t.array(Message), null),
+    // //
     publicData: t.optional(t.maybeNull(ProductPublicData), null),
     price: t.optional(t.maybeNull(Price), null),
     metadata: t.model('metadata', {}),
@@ -80,6 +111,10 @@ export const Product = t
 
     update: createFlow(updateProduct),
     getOwnFields: createFlow(getOwnFields),
+
+    // messageTransaction: createFlow(messageTransaction),
+    // sendMessage: createFlow(sendMessage),
+    // fetchMessage: createFlow(fetchMessage),
   })
 
   .views((store) => ({
@@ -89,7 +124,72 @@ export const Product = t
         R.path(['viewer', 'user', 'id'], getRoot(store))
       );
     },
+  }))
+
+  .actions((store) => ({
+    setTransactionId({ uuid }) {
+      store.transactionId = uuid;
+    },
   }));
+
+// function fetchMessage(flow, store) {
+//   return function* fetchMessage(transactionId) {
+//     try {
+//       flow.start();
+
+//       const res = yield flow.Api.fetchMessage({
+//         transactionId,
+//         include: ['sender', 'sender.profileImage'],
+//       });
+//       console.log('MessaMessaMessaMessaMessaMessaMessage_/', res);
+
+//       const snapshot = res.data.data;
+//       // const snapshot2 = processJsonApi(res.data.data);
+//       // const entities = normalizedIncluded(res.data.included);
+//       applySnapshot(store.messages, snapshot);
+//       debugger;
+//       flow.success();
+//     } catch (err) {
+//       flow.failed(err, true);
+//     }
+//   };
+// }
+// function sendMessage(flow, store) {
+//   return function* sendMessage(transactionId, content) {
+//     try {
+//       flow.start();
+
+//       const res = yield flow.Api.sendMessage({
+//         transactionId,
+//         content,
+//         include: ['sender', 'sender.profileImage'],
+//       });
+//       console.log('MessaMessaMessaMessaMessaMessaMessage_/', res);
+//       debugger;
+//       flow.success();
+//     } catch (err) {
+//       flow.failed(err, true);
+//     }
+//   };
+// }
+// function messageTransaction(flow, store) {
+//   return function* messageTransaction(listingId) {
+//     try {
+//       flow.start();
+
+//       const res = yield flow.Api.initiateMessageTransaction(
+//         listingId,
+//       );
+//       console.log(res);
+//       const transactionId = res.data.data.id;
+//       store.setTransactionId(transactionId);
+//       // debugger;
+//       flow.success();
+//     } catch (err) {
+//       flow.failed(err, true);
+//     }
+//   };
+// }
 
 function updateProduct(flow, store) {
   return function* updateProduct({ images, ...params }) {

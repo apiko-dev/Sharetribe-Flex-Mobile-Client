@@ -10,6 +10,7 @@ import s from './styles';
 const messages = [
   {
     id: uuid(),
+    isUser: true,
     fromUser: 'Taras',
     toUser: 'Reeves',
     message: 'text',
@@ -24,6 +25,23 @@ const messages = [
   },
   {
     id: uuid(),
+    isUser: true,
+    fromUser: 'Taras',
+    toUser: 'Reeves',
+    message:
+      'texttexttexttexttexttext texttexttexttext texttexttexttext texttexttext',
+    dateTime: new Date().getTime(),
+  },
+  {
+    id: uuid(),
+    fromUser: 'Reeves',
+    toUser: 'Taras',
+    message: 'text',
+    dateTime: new Date().getTime(),
+  },
+  {
+    id: uuid(),
+    isUser: true,
     fromUser: 'Taras',
     toUser: 'Reeves',
     message: 'text',
@@ -38,6 +56,7 @@ const messages = [
   },
   {
     id: uuid(),
+    isUser: true,
     fromUser: 'Taras',
     toUser: 'Reeves',
     message: 'text',
@@ -45,13 +64,7 @@ const messages = [
   },
   {
     id: uuid(),
-    fromUser: 'Reeves',
-    toUser: 'Taras',
-    message: 'text',
-    dateTime: new Date().getTime(),
-  },
-  {
-    id: uuid(),
+    isUser: true,
     fromUser: 'Taras',
     toUser: 'Reeves',
     message: 'text',
@@ -59,13 +72,7 @@ const messages = [
   },
   {
     id: uuid(),
-    fromUser: 'Taras',
-    toUser: 'Reeves',
-    message: 'text',
-    dateTime: new Date().getTime(),
-  },
-  {
-    id: uuid(),
+    isUser: true,
     fromUser: 'Taras',
     toUser: 'Reeves',
     message: 'text',
@@ -94,6 +101,7 @@ const ChatScreen = ({
   // setMessageInputText,
   // messages,
   // state,
+  author,
 }) => (
   <View style={s.container}>
     {isVisibleConformation && (
@@ -109,10 +117,13 @@ const ChatScreen = ({
         data={messages}
         style={s.listContainer}
         renderItem={({ item, index }) => (
-          // <View item={item} index={index}>
-          //   <Text>Item</Text>
-          // </View>
-          <RenderItem item={item} index={index} messages={messages} />
+          <RenderItem
+            item={item}
+            index={index}
+            messages={messages}
+            user={author}
+            isUser={item.isUser}
+          />
         )}
         keyExtractor={(item, index) => item + index}
         inverted

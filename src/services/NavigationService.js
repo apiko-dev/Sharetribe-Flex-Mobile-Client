@@ -76,6 +76,10 @@ class NavigationService {
     this.navigate(screens.Home, props);
   }
 
+  navigateToChat(props) {
+    this.navigate(screens.Chat, props);
+  }
+
   initDeepLinking() {
     if (isAndroid()) {
       Linking.getInitialURL().then((url) => {
