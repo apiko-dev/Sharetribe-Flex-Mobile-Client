@@ -13,34 +13,10 @@ import processJsonApi from './utils/processJsonApi';
 import listModel from './utils/listModel';
 import { Image } from './ImageStore';
 import { User } from './UserStore';
+import { Message } from './MessagesStore';
 import { normalizedIncluded } from './utils/normalize';
 import { dates } from '../utils';
-
-// const TypeSender = t.model('TypeSender', {
-//   type: t.string,
-// });
-// const Sender = t.model('Sender', {
-//   sender: t.optional(t.maybeNull(TypeSender), null),
-// });
-// const MessageRelationships = t.model('MessageRelationships', {
-//   sender: t.optional(t.maybeNull(Sender), null),
-// });
-
-// const MessageId = t.model('MessageId', {
-//   uuid: t.string,
-// });
-
-// const MessageAttributes = t.model('MessageAtributes', {
-//   createdAt: t.string,
-//   content: t.string,
-// });
-
-// const Message = t.model('Message', {
-//   attributes: t.optional(t.maybeNull(MessageAttributes), null),
-//   id: t.optional(t.maybeNull(MessageId), null),
-//   relationships: t.optional(t.maybeNull(MessageRelationships), null),
-//   type: t.string,
-// });
+// import { denormalisedResponseEntities } from './utils/data';
 
 const DayOfWeek = t.model('DayOfWeek', {
   dayOfWeek: t.string,
@@ -103,7 +79,7 @@ export const Product = t
     transactionId: t.optional(t.maybeNull(t.string), null),
     // //
     // messages: t.array(Message),
-    // // messages: t.optional(t.array(Message), null),
+    messages: t.optional(t.array(Message), null),
     // //
     publicData: t.optional(t.maybeNull(ProductPublicData), null),
     price: t.optional(t.maybeNull(Price), null),
@@ -150,10 +126,20 @@ function fetchMessage(flow, store) {
       });
       console.log('MessaMessaMessaMessaMessaMessaMessage_/', res);
 
-      const snapshot = res.data.data;
+      // const snapshot = res.data.data;
       // const snapshot = processJsonApi(res.data.data);
       // const entities = normalizedIncluded(res.data.included);
       // applySnapshot(store.messages, snapshot);
+
+      debugger;
+      // const snapshot = processJsonApi(res.data.data);
+      debugger;
+      const entities = normalizedIncluded(res.data.data);
+      // const entities = normalizedIncluded(res.data.included);
+      debugger;
+      getRoot(store).entities.merge(entities);
+      // applySnapshot(store, snapshot);
+
       flow.success();
     } catch (err) {
       flow.failed(err, true);
