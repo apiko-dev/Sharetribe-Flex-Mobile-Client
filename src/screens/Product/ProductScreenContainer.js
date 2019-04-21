@@ -102,37 +102,25 @@ export default hoistStatics(
 
         call(args).catch(console.error);
       },
+
       onSend: ({ product }) => async () => {
         NavigationService.navigateToChat({ product });
-        // NavigationService.navigateToChat();
       },
-      fakeMessage: (props) => async () => {
-        const data = {
-          transactionId: '5cb885d1-734b-44c7-ad5e-ae9f4f5eefa1',
-          content: 'this is a TEST message ',
-        };
 
-        try {
-          await props.product.sendMessage.run(
-            // data.transactionId,
-            props.product.transactionId,
-            data.content,
-          );
-          debugger;
-        } catch (err) {
-          debugger;
-        }
-        // //////
-        // const data = {
-        //   transactionId: '5cb885d1-734b-44c7-ad5e-ae9f4f5eefa1',
-        // };
-        // try {
-        //   await props.product.fetchMessage.run(data.transactionId);
-        //   debugger;
-        // } catch (err) {
-        //   debugger;
-        // }
-      },
+      // fakeMessage: (props) => async () => {
+      //   const data = {
+      //     content: 'this is a TEST message ',
+      //   };
+
+      //   try {
+      //     await props.product.sendMessage.run(
+      //       props.product.transactionId,
+      //       data.content,
+      //     );
+      //   } catch (err) {
+      //     console.log(err);
+      //   }
+      // },
     }),
 
     lifecycle({

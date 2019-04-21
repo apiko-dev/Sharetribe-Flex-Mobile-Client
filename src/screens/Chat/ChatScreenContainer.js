@@ -3,16 +3,12 @@ import {
   hoistStatics,
   withStateHandlers,
   lifecycle,
-} from 'recompose';
-import {
-  LayoutAnimation,
   withState,
   withHandlers,
-} from 'react-native';
+} from 'recompose';
+import { LayoutAnimation } from 'react-native';
 import { inject } from 'mobx-react/native';
 import R from 'ramda';
-
-import uuid from 'uuid/v4';
 
 import ChatScreen from './ChatScreenView';
 import { withParamsToProps } from '../../utils/enhancers';
@@ -58,40 +54,22 @@ export default hoistStatics(
       },
     }),
 
-    // withState('messageInputText', 'setMessageInputText', ''),
-    // withState(
-    //   'name',
-    //   'setName',
-    //   (props) => props.navigation.state.params.name,
-    // ),
-    // withHandlers({
-    // onSend: (props) => () => {
-    //   const body = (text) => ({
-    //     id: uuid(),
-    //     fromUser: 'Taras',
-    //     toUser: 'Reeves',
-    //     message: text,
-    //     dateTime: new Date().getTime(),
-    //   });
-    //   const mess = body(props.messageInputText);
-    //   if (props.messageInputText.trim().length > 0) {
-    //     props.sendMessage(mess);
-    //     props.setMessageInputText('');
-    //   }
-    // //////
-    // const delayMessage = () => {
-    //   const body = () => ({
-    //     id: uuid(),
-    //     fromUser: 'Reeves',
-    //     toUser: 'Taras',
-    //     message: 'Whats uuuuuup',
-    //     dateTime: new Date().getTime(),
-    //   });
-    //   const mess = body(props.messageInputText);
-    //   props.sendMessage(mess);
-    // };
-    // setTimeout(delayMessage, 1000);
-    // },
-    // }),
+    withState('messageInputText', 'setMessageInputText', ''),
+    withHandlers({
+      onSend: (props) => () => {
+        const mess = props.messageInputText.trim();
+        if (props.messageInputText.trim().length > 0) {
+          try {
+            props.product.sendMessage.run(
+              props.product.transactionId,
+              mess,
+            );
+            props.setMessageInputText('');
+          } catch (err) {
+            console.log(err);
+          }
+        }
+      },
+    }),
   ),
 )(ChatScreen);

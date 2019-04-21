@@ -55,8 +55,7 @@ const ProductScreen = ({
   nearestAvailableDate,
   phoneNumber,
   onCall,
-  // onSend,
-  // fakeMessage,
+  onSend,
 }) => (
   <ScrollView style={s.container} bounces={false}>
     <View style={s.carouselContainer}>
@@ -161,8 +160,7 @@ const ProductScreen = ({
         phone={phoneNumber}
         onCall={onCall}
         navigationToRequestToRent={navigationToRequestToRent}
-        // onSend={onSend}
-        // fakeMessage={fakeMessage}
+        onSend={onSend}
       />
     )}
   </ScrollView>

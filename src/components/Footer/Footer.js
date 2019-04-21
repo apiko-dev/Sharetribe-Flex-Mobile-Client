@@ -9,8 +9,7 @@ const Footer = ({
   phone,
   onCall,
   navigationToRequestToRent,
-  // onSend,
-  // fakeMessage,
+  onSend,
 }) => (
   <View style={s.container}>
     <View style={s.contactContainer}>
@@ -32,13 +31,14 @@ const Footer = ({
         buttonStyle={s.buttonContact}
         titleStyle={s.textChat}
         borderless={false}
+        onPress={onSend}
       >
         <IconFonts
           name="message"
           size={22}
           style={s.iconChat}
           tintColor="orange"
-          // onPress={onSend}
+          onPress={onSend}
         />
       </Button>
     </View>
@@ -48,7 +48,6 @@ const Footer = ({
         primary
         buttonStyle={s.buttonRent}
         onPress={navigationToRequestToRent}
-        // onPress={fakeMessage}
       />
     </View>
   </View>

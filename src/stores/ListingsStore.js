@@ -99,7 +99,8 @@ export const Product = t
     createdAt: t.maybe(t.Date),
     state: t.string,
     title: t.string,
-    // transactionId: t.optional(t.maybeNull(t.string), null),
+    // //
+    transactionId: t.optional(t.maybeNull(t.string), null),
     // //
     // messages: t.array(Message),
     // // messages: t.optional(t.array(Message), null),
@@ -116,9 +117,11 @@ export const Product = t
     update: createFlow(updateProduct),
     getOwnFields: createFlow(getOwnFields),
 
-    // messageTransaction: createFlow(messageTransaction),
-    // sendMessage: createFlow(sendMessage),
-    // fetchMessage: createFlow(fetchMessage),
+    // //////////////
+    messageTransaction: createFlow(messageTransaction),
+    sendMessage: createFlow(sendMessage),
+    fetchMessage: createFlow(fetchMessage),
+    // //////////////
   })
 
   .views((store) => ({
@@ -135,65 +138,65 @@ export const Product = t
       store.transactionId = uuid;
     },
   }));
+// //////////////////////////////////////////////////////////////
+function fetchMessage(flow, store) {
+  return function* fetchMessage(transactionId) {
+    try {
+      flow.start();
 
-// function fetchMessage(flow, store) {
-//   return function* fetchMessage(transactionId) {
-//     try {
-//       flow.start();
+      const res = yield flow.Api.fetchMessage({
+        transactionId,
+        include: ['sender', 'sender.profileImage'],
+      });
+      console.log('MessaMessaMessaMessaMessaMessaMessage_/', res);
 
-//       const res = yield flow.Api.fetchMessage({
-//         transactionId,
-//         include: ['sender', 'sender.profileImage'],
-//       });
-//       console.log('MessaMessaMessaMessaMessaMessaMessage_/', res);
+      const snapshot = res.data.data;
+      // const snapshot = processJsonApi(res.data.data);
+      // const entities = normalizedIncluded(res.data.included);
+      // applySnapshot(store.messages, snapshot);
+      flow.success();
+    } catch (err) {
+      flow.failed(err, true);
+    }
+  };
+}
+function sendMessage(flow, store) {
+  return function* sendMessage(transactionId, content) {
+    try {
+      flow.start();
 
-//       const snapshot = res.data.data;
-//       // const snapshot2 = processJsonApi(res.data.data);
-//       // const entities = normalizedIncluded(res.data.included);
-//       applySnapshot(store.messages, snapshot);
-//       debugger;
-//       flow.success();
-//     } catch (err) {
-//       flow.failed(err, true);
-//     }
-//   };
-// }
-// function sendMessage(flow, store) {
-//   return function* sendMessage(transactionId, content) {
-//     try {
-//       flow.start();
+      const res = yield flow.Api.sendMessage({
+        transactionId,
+        content,
+        include: ['sender', 'sender.profileImage'],
+      });
+      console.log('Message___________', res);
+      flow.success();
+    } catch (err) {
+      flow.failed(err, true);
+    }
+  };
+}
+function messageTransaction(flow, store) {
+  return function* messageTransaction(listingId) {
+    try {
+      flow.start();
 
-//       const res = yield flow.Api.sendMessage({
-//         transactionId,
-//         content,
-//         include: ['sender', 'sender.profileImage'],
-//       });
-//       console.log('MessaMessaMessaMessaMessaMessaMessage_/', res);
-//       debugger;
-//       flow.success();
-//     } catch (err) {
-//       flow.failed(err, true);
-//     }
-//   };
-// }
-// function messageTransaction(flow, store) {
-//   return function* messageTransaction(listingId) {
-//     try {
-//       flow.start();
+      const res = yield flow.Api.initiateMessageTransaction(
+        listingId,
+      );
+      console.log(res);
+      const transactionId = res.data.data.id;
+      store.setTransactionId(transactionId);
+      // debugger;
+      flow.success();
+    } catch (err) {
+      flow.failed(err, true);
+    }
+  };
+}
 
-//       const res = yield flow.Api.initiateMessageTransaction(
-//         listingId,
-//       );
-//       console.log(res);
-//       const transactionId = res.data.data.id;
-//       store.setTransactionId(transactionId);
-//       // debugger;
-//       flow.success();
-//     } catch (err) {
-//       flow.failed(err, true);
-//     }
-//   };
-// }
+// //////////////////////////////////////////////////////
 
 function updateProduct(flow, store) {
   return function* updateProduct({ images, ...params }) {

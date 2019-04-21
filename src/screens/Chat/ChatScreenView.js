@@ -92,15 +92,9 @@ const isVisibleConformation = true;
 const ChatScreen = ({
   isShowDetails,
   setShowDetails,
-  // id,
-  // name,
-  // navigation,
-  // onPress,
-  // onSend,
-  // messageInputText,
-  // setMessageInputText,
-  // messages,
-  // state,
+  onSend,
+  messageInputText,
+  setMessageInputText,
   author,
 }) => (
   <View style={s.container}>
@@ -133,9 +127,9 @@ const ChatScreen = ({
         <Input
           multiline
           style={s.input}
-          // value={messageInputText}
-          // onChangeText={setMessageInputText}
-          // onSend={onSend}
+          value={messageInputText}
+          onChangeText={setMessageInputText}
+          onSend={onSend}
         />
       </View>
     </View>
