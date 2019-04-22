@@ -13,10 +13,10 @@ import processJsonApi from './utils/processJsonApi';
 import listModel from './utils/listModel';
 import { Image } from './ImageStore';
 import { User } from './UserStore';
-import { Message } from './MessagesStore';
+import { MessageStore } from './MessagesStore';
 import { normalizedIncluded } from './utils/normalize';
 import { dates } from '../utils';
-// import { denormalisedResponseEntities } from './utils/data';
+
 
 const DayOfWeek = t.model('DayOfWeek', {
   dayOfWeek: t.string,
@@ -78,8 +78,9 @@ export const Product = t
     // //
     transactionId: t.optional(t.maybeNull(t.string), null),
     // //
-    // messages: t.array(Message),
-    messages: t.optional(t.array(Message), null),
+
+    // messages: t.optional(t.maybeNull(Message), null),
+    messages: t.optional(MessageStore, {}),
     // //
     publicData: t.optional(t.maybeNull(ProductPublicData), null),
     price: t.optional(t.maybeNull(Price), null),
@@ -93,11 +94,7 @@ export const Product = t
     update: createFlow(updateProduct),
     getOwnFields: createFlow(getOwnFields),
 
-    // //////////////
-    messageTransaction: createFlow(messageTransaction),
-    sendMessage: createFlow(sendMessage),
-    fetchMessage: createFlow(fetchMessage),
-    // //////////////
+
   })
 
   .views((store) => ({
@@ -114,75 +111,8 @@ export const Product = t
       store.transactionId = uuid;
     },
   }));
-// //////////////////////////////////////////////////////////////
-function fetchMessage(flow, store) {
-  return function* fetchMessage(transactionId) {
-    try {
-      flow.start();
 
-      const res = yield flow.Api.fetchMessage({
-        transactionId,
-        include: ['sender', 'sender.profileImage'],
-      });
-      console.log('MessaMessaMessaMessaMessaMessaMessage_/', res);
 
-      // const snapshot = res.data.data;
-      // const snapshot = processJsonApi(res.data.data);
-      // const entities = normalizedIncluded(res.data.included);
-      // applySnapshot(store.messages, snapshot);
-
-      debugger;
-      // const snapshot = processJsonApi(res.data.data);
-      debugger;
-      const entities = normalizedIncluded(res.data.data);
-      // const entities = normalizedIncluded(res.data.included);
-      debugger;
-      getRoot(store).entities.merge(entities);
-      // applySnapshot(store, snapshot);
-
-      flow.success();
-    } catch (err) {
-      flow.failed(err, true);
-    }
-  };
-}
-function sendMessage(flow, store) {
-  return function* sendMessage(transactionId, content) {
-    try {
-      flow.start();
-
-      const res = yield flow.Api.sendMessage({
-        transactionId,
-        content,
-        include: ['sender', 'sender.profileImage'],
-      });
-      console.log('Message___________', res);
-      flow.success();
-    } catch (err) {
-      flow.failed(err, true);
-    }
-  };
-}
-function messageTransaction(flow, store) {
-  return function* messageTransaction(listingId) {
-    try {
-      flow.start();
-
-      const res = yield flow.Api.initiateMessageTransaction(
-        listingId,
-      );
-      console.log(res);
-      const transactionId = res.data.data.id;
-      store.setTransactionId(transactionId);
-      // debugger;
-      flow.success();
-    } catch (err) {
-      flow.failed(err, true);
-    }
-  };
-}
-
-// //////////////////////////////////////////////////////
 
 function updateProduct(flow, store) {
   return function* updateProduct({ images, ...params }) {

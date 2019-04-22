@@ -20,7 +20,8 @@ export default hoistStatics(
       // transactionId: R.path(['listings', 'list', 'of',], stores)
       author: R.pathOr(false, ['relationships', 'author'], product),
       // isUser: R.pathOr(false, [''])
-      messages: R.pathOr([], ['entities', 'messages'], stores),
+      messages: R.pathOr([], ['messages'], product),
+      // messages: R.pathOr([], ['entities', 'messages'], stores),
     })),
     withStateHandlers(
       {
