@@ -17,7 +17,6 @@ import { MessageStore } from './MessagesStore';
 import { normalizedIncluded } from './utils/normalize';
 import { dates } from '../utils';
 
-
 const DayOfWeek = t.model('DayOfWeek', {
   dayOfWeek: t.string,
   seats: t.number,
@@ -93,8 +92,6 @@ export const Product = t
 
     update: createFlow(updateProduct),
     getOwnFields: createFlow(getOwnFields),
-
-
   })
 
   .views((store) => ({
@@ -111,8 +108,6 @@ export const Product = t
       store.transactionId = uuid;
     },
   }));
-
-
 
 function updateProduct(flow, store) {
   return function* updateProduct({ images, ...params }) {

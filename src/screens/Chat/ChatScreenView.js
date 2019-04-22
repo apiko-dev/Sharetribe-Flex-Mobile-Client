@@ -96,6 +96,7 @@ const ChatScreen = ({
   messageInputText,
   setMessageInputText,
   author,
+  messagesArray,
 }) => (
   <View style={s.container}>
     {isVisibleConformation && (
@@ -108,21 +109,20 @@ const ChatScreen = ({
     )}
     <View style={s.containerChat}>
       <FlatList
-        data={messages}
+        data={messagesArray}
         style={s.listContainer}
         renderItem={({ item, index }) => (
           <RenderItem
             item={item}
             index={index}
-            messages={messages}
-            user={author}
-            isUser={item.isUser}
+            content={item.content}
+            user={item.relationships.sender.isViewer}
+            isUser={item.relationships.sender.profile}
           />
         )}
         keyExtractor={(item, index) => item + index}
         inverted
       />
-
       <View style={s.inputContainer}>
         <Input
           multiline

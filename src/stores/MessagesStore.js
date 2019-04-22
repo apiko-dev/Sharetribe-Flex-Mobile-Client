@@ -11,44 +11,36 @@ import listModel from './utils/listModel';
 import { User } from './UserStore';
 import { normalizedIncluded } from './utils/normalize';
 
-// const TypeSender = t.model('TypeSender', {
-//   type: t.string,
+// const CreateTime = t.model('CreateTime', {
+//   atTime: t.string,
 // });
-// const Sender = t.model('Sender', {
-//   user: t.optional(t.maybeNull(TypeSender), null),
-// });
-
-const CreateTime = t.model('CreateTime', {
-  atTime: t.string,
-});
 
 const MessageRelationships = t.model('MessageRelationships', {
-  user: t.reference(User),
+  sender: t.reference(User),
+  // sender: t.string,
 });
 
 // const MessageId = t.model('MessageId', {
 //   uuid: t.string,
 // });
 
-const MessageAttributes = t.model('MessageAttributes', {
-  // createdAt: t.string,
-  createdAt: t.optional(t.maybeNull(CreateTime), null),
-  content: t.string,
-});
+// const MessageAttributes = t.model('MessageAttributes', {
+//   createdAt: t.string,
+//   // createdAt: t.optional(t.maybeNull(CreateTime), null),
+//   content: t.string,
+// });
 
 export const Message = t.model('Message', {
-  attributes: t.optional(t.maybeNull(MessageAttributes), null),
-  id: t.string,
-  // id: t.optional(t.maybeNull(MessageId), null),
+  id: t.identifier,
+  // attributes: t.maybe(MessageAttributes),
+  // relationships: t.optional(t.maybeNull(MessageRelationships), null),
+  // type: t.string,
+  content: t.string,
+  createdAt: t.maybe(t.Date),
   relationships: t.optional(t.maybeNull(MessageRelationships), null),
-  type: t.string,
-  // type: t.union(t.literal('message'), t.literal('user')),
+  // id: t.optional(t.maybeNull(MessageId), null),
+  // id: t.string,
 });
-
-// content: t.string,
-// createdAt: t.optional(t.maybeNull(CreateTime), null),
-// id: t.optional(t.maybeNull(MessageId), null),
-// relationships: t.optional(t.maybeNull(MessageRelationships), null),
 
 export const MessageList = listModel('MessageList', {
   of: t.reference(Message),
@@ -61,7 +53,7 @@ function responseTransformer(res) {
   return res.map(processJsonApi);
 }
 
-export const MessageStore = t.model('Messages', {
+export const MessageStore = t.model('MessageStore', {
   list: MessageList,
 
   messageTransaction: createFlow(messageTransaction),
@@ -78,16 +70,15 @@ function fetchMessage(flow, store) {
         transactionId,
         include: ['sender', 'sender.profileImage'],
       });
-      console.log('Message', res);
 
-      // const snapshot = res.data.data.map((i) => processJsonApi(i));
       const normalizedEntities = normalizedIncluded(
         res.data.included,
       );
 
       getRoot(store).entities.merge(normalizedEntities);
-      console.log('response', res.data.data);
       store.list.set(res.data.data);
+
+      console.log('fkfkfkfk', store.list.asArray);
       flow.success();
     } catch (err) {
       flow.failed(err, true);
@@ -104,7 +95,14 @@ function sendMessage(flow, store) {
         content,
         include: ['sender', 'sender.profileImage'],
       });
-      console.log('Message___________', res);
+      console.log('Message', res);
+      // const normalizedEntities = normalizedIncluded(
+      //   res.data.included,
+      // );
+
+      // getRoot(store).entities.merge(normalizedEntities);
+      store.list.add(res.data.data);
+
       flow.success();
     } catch (err) {
       flow.failed(err, true);

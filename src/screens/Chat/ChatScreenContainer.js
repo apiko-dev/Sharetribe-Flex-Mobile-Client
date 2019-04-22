@@ -21,7 +21,11 @@ export default hoistStatics(
       author: R.pathOr(false, ['relationships', 'author'], product),
       // isUser: R.pathOr(false, [''])
       messages: R.pathOr([], ['messages'], product),
-      // messages: R.pathOr([], ['entities', 'messages'], stores),
+      messagesArray: R.pathOr(
+        [],
+        ['messages', 'list', 'asArray'],
+        product,
+      ),
     })),
     withStateHandlers(
       {
@@ -36,10 +40,6 @@ export default hoistStatics(
     ),
     lifecycle({
       async componentDidMount() {
-        console.log(
-          'sddsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsd',
-          this.props.product,
-        );
         try {
           // if (this.props.product.transactionId === null) {
           //   await this.props.product.messageTransaction.run(
@@ -53,6 +53,8 @@ export default hoistStatics(
           await this.props.messages.fetchMessage.run(
             this.props.product.transactionId,
           );
+
+          console.log('ENTITITITI', this.props.entitiesS);
         } catch (err) {
           console.log(err);
         }

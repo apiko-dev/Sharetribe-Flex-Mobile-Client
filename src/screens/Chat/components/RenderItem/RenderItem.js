@@ -44,8 +44,6 @@ const RenderItem = ({ item, index, messages, user, isUser }) => {
   //       <Text>{titleTime}</Text>
   //     </View>
   //   ) : null;
-  const fromUser = item.fromUser === 'Taras';
-  const fromInterlocutor = item.fromUser !== 'Taras';
   return (
     <View style={s.container}>
       <ShadowContainer>
@@ -53,7 +51,7 @@ const RenderItem = ({ item, index, messages, user, isUser }) => {
           key={index}
           style={[
             s.messageContainer,
-            fromUser ? s.userSend : s.interlocutor,
+            isUser ? s.userSend : s.interlocutor,
           ]}
         >
           {!isUser && (
@@ -63,19 +61,9 @@ const RenderItem = ({ item, index, messages, user, isUser }) => {
               styleContainer={s.avatarCustomer}
             />
           )}
-          <View
-            style={[
-              s.message,
-              fromInterlocutor && s.fromInterlocutor,
-            ]}
-          >
-            <Text
-              style={[
-                s.text,
-                fromInterlocutor && s.textFromInterlocutor,
-              ]}
-            >
-              {item.message}
+          <View style={[s.message, !isUser && s.fromInterlocutor]}>
+            <Text style={[s.text, !isUser && s.textFromInterlocutor]}>
+              {item.content}
             </Text>
           </View>
           {isUser && (
