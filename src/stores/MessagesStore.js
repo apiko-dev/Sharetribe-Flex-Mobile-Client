@@ -8,48 +8,51 @@ import R from 'ramda';
 import createFlow from './helpers/createFlow';
 import processJsonApi from './utils/processJsonApi';
 import listModel from './utils/listModel';
+import { User } from './UserStore';
 import { normalizedIncluded } from './utils/normalize';
 
 // const TypeSender = t.model('TypeSender', {
 //   type: t.string,
 // });
+// const Sender = t.model('Sender', {
+//   user: t.optional(t.maybeNull(TypeSender), null),
+// });
 
 const CreateTime = t.model('CreateTime', {
   atTime: t.string,
 });
-// const Sender = t.model('Sender', {
-//   user: t.optional(t.maybeNull(TypeSender), null),
-// });
+
 const MessageRelationships = t.model('MessageRelationships', {
-  // sender: t.optional(t.maybeNull(Sender), null),
-  sender: t.string,
+  user: t.reference(User),
 });
 
-const MessageId = t.model('MessageId', {
-  uuid: t.string,
-});
-
-// const MessageAttributes = t.model('MessageAttributes', {
-//   createdAt: t.string,
-//   content: t.string,
+// const MessageId = t.model('MessageId', {
+//   uuid: t.string,
 // });
+
+const MessageAttributes = t.model('MessageAttributes', {
+  // createdAt: t.string,
+  createdAt: t.optional(t.maybeNull(CreateTime), null),
+  content: t.string,
+});
 
 export const Message = t.model('Message', {
-  // attributes: t.optional(t.maybeNull(MessageAttributes), null),
+  attributes: t.optional(t.maybeNull(MessageAttributes), null),
+  id: t.string,
   // id: t.optional(t.maybeNull(MessageId), null),
-  // relationships: t.optional(t.maybeNull(MessageRelationships), null),
-  // type: t.string,
-
-  content: t.string,
-  createdAt: t.optional(t.maybeNull(CreateTime), null),
-  id: t.optional(t.maybeNull(MessageId), null),
   relationships: t.optional(t.maybeNull(MessageRelationships), null),
-  // attributes: t.optional(t.maybeNull(MessageAttributes), null),
+  type: t.string,
+  // type: t.union(t.literal('message'), t.literal('user')),
 });
+
+// content: t.string,
+// createdAt: t.optional(t.maybeNull(CreateTime), null),
+// id: t.optional(t.maybeNull(MessageId), null),
+// relationships: t.optional(t.maybeNull(MessageRelationships), null),
 
 export const MessageList = listModel('MessageList', {
   of: t.reference(Message),
-  entityName: 'listing',
+  entityName: 'message',
   identifierName: 'id',
   responseTransformer,
 });
@@ -76,19 +79,15 @@ function fetchMessage(flow, store) {
         include: ['sender', 'sender.profileImage'],
       });
       console.log('Message', res);
-      const user = normalizedIncluded(res.data.included);
-      const user2 = normalizedIncluded(res.data.data);
-      const snapshot = res.data.data
-        .slice()
-        .map((i) => processJsonApi(i));
-      // getRoot(store).entities.merge(snapshot);
 
-      // const entities = normalizedIncluded(res.data.included);
-      // const entities = normalizedIncluded(res.data.data);
-      // applySnapshot(store.list, snapshot);
-      store.list.merge(snapshot);
-      // getRoot(store).entities.merge(entities);
-      const st = getRoot(store);
+      // const snapshot = res.data.data.map((i) => processJsonApi(i));
+      const normalizedEntities = normalizedIncluded(
+        res.data.included,
+      );
+
+      getRoot(store).entities.merge(normalizedEntities);
+      console.log('response', res.data.data);
+      store.list.set(res.data.data);
       flow.success();
     } catch (err) {
       flow.failed(err, true);
