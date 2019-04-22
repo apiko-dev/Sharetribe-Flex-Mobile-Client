@@ -164,7 +164,8 @@
     "birthDate": "Birth date",
     "month": "Month",
     "year": "Year",
-    "payment": "Payment"
+    "payment": "Payment",
+    "addCard": "Add a card"
   },
   "cardList": {
     "cardList": "Your cards"
@@ -233,7 +234,8 @@
     "canLease": "You can lease",
     "nextAvailableDate": "Next available date:",
     "availableUntil": "Available until:",
-    "calendar": "Calendar"
+    "calendar": "Calendar",
+    "continue": "Continue"
   },
   "permissions": {
     "iosRestrictedPermission": "Restricted Permission",
@@ -261,7 +263,8 @@
     "passwordIncorrectForNewPassword": "You typed incorrect current password for changing password",
     "incorrectCardNumber": "You typed incorrect card number",
     "incorrectCardExpiration": "You typed incorrect card expiration",
-    "incorrectCardCVC": "You typed incorrect card CVC"
+    "incorrectCardCVC": "You typed incorrect card CVC",
+    "require": "Require"
   },
   "helpScreen": {
     "helpCenter": "Help Center",

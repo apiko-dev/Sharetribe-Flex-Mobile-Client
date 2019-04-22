@@ -65,7 +65,7 @@ DescriptionTab.propTypes = {
   isLoadingDates: T.bool,
   isOnLease: T.bool,
   navigationToCalendar: T.func,
-  nearestAvailableDate: T.string,
+  nearestAvailableDate: T.oneOfType([T.string, T.bool]),
 };
 
 export default DescriptionTab;

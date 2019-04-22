@@ -246,15 +246,10 @@ class SharetribeSdkService {
     });
   }
 
-  createStripeAccount({ accountToken }) {
-    return this.sdk.stripeAccount.create(
-      {
-        accountToken,
-      },
-      {
-        expand: true,
-      },
-    );
+  createStripeAccount(query) {
+    return this.sdk.stripeAccount.create(query, {
+      expand: true,
+    });
   }
 }
 

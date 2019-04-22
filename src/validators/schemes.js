@@ -116,4 +116,35 @@ export const PayoutSchema = Yup.object().shape({
     .min(1)
     .max(100)
     .required(i18n.t('errors.requireLastName')),
+  birthDate: Yup.number()
+    .min(1)
+    .max(100)
+    .required(i18n.t('errors.require')),
+  month: Yup.number()
+    .min(1)
+    .max(100)
+    .required(i18n.t('errors.require')),
+  year: Yup.number()
+    .min(1)
+    .max(100)
+    .required(i18n.t('errors.require')),
+  country: Yup.string()
+    .trim()
+    .min(1)
+    .max(100)
+    .required(i18n.t('errors.require')),
+  streetAddress: Yup.string()
+    .trim()
+    .min(1)
+    .max(100)
+    .required(i18n.t('errors.require')),
+  postalCode: Yup.number()
+    .min(1)
+    .max(100)
+    .required(i18n.t('errors.require')),
+  city: Yup.string()
+    .trim()
+    .min(1)
+    .max(100)
+    .required(i18n.t('errors.require')),
 });

@@ -55,6 +55,7 @@ const AnimatedFormInput = ({
   iconInInputPlaceholder,
   onPressIconInInputPlaceholder,
   isShowingFormInfo,
+  iconTintColor,
   ...props
 }) => (
   <TouchableWithoutFeedback>
@@ -137,6 +138,7 @@ const AnimatedFormInput = ({
                 size={20}
                 style={s.icon}
                 onPress={onPressIcon}
+                tintColor={iconTintColor}
               />
             )}
           </View>
@@ -160,13 +162,14 @@ AnimatedFormInput.propTypes = {
   value: T.string,
   placeholder: T.string,
   active: T.bool,
-  iconName: T.string,
+  iconName: T.oneOfType([T.string, T.bool]),
   onPressIcon: T.func,
   iconNameLeft: T.string,
   onPressIconLeft: T.func,
   iconInInputPlaceholder: T.string,
   onPressIconInInputPlaceholder: T.func,
   isShowingFormInfo: T.bool,
+  iconTintColor: T.any,
 };
 
 export default AnimatedFormInput;

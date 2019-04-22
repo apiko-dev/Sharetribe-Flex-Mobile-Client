@@ -165,7 +165,7 @@ export default hoistStatics(
         }
       },
 
-      addPhotoFormLibrary: (props) => async () => {
+      addPhotoFromLibrary: (props) => async () => {
         try {
           if (await PermissionService.getCameraRollPermission()) {
             const images = await ImagePicker.openPicker({
@@ -300,7 +300,7 @@ export default hoistStatics(
 
       addPhoto: (props) => (index) => {
         if (index === 0) {
-          props.addPhotoFormLibrary();
+          props.addPhotoFromLibrary();
         } else if (index === 1) {
           props.addPhotoByCamera();
         }

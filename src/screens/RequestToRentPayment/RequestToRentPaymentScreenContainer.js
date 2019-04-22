@@ -33,7 +33,7 @@ export default hoistStatics(
           console.log('onRequest: ', startRent, endRent);
 
           const {
-            cardDate,
+            cardNumber,
             cardExpiration,
           } = payments.normalizeCardData(
             values.cardNumber,
@@ -44,7 +44,7 @@ export default hoistStatics(
             listingId: product.id,
             startRent,
             endRent,
-            cardDate,
+            cardNumber,
             cardExpiration,
             cardCVC: values.cardCVC,
             message: values.message,

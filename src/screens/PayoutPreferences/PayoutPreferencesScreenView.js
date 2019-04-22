@@ -1,6 +1,6 @@
 /* eslint-disable react/no-this-in-sfc */
 import React from 'react';
-import { View, FlatList } from 'react-native';
+import { View } from 'react-native';
 import { SafeAreaView } from 'react-navigation';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import T from 'prop-types';
@@ -12,7 +12,6 @@ import {
   Button,
   FormInput,
   Form,
-  Touchable,
 } from '../../components';
 import i18n from '../../i18n';
 import { PayoutSchema } from '../../validators/schemes';
@@ -23,9 +22,8 @@ const PayoutPreferencesScreen = ({
   initialValues,
   isLoading,
   formRef,
-  activeField = 'country',
-  filter,
   goToCreditCardList,
+  cardNumber,
 }) => (
   <SafeAreaView style={s.safeAreaViewContainer}>
     <KeyboardAwareScrollView
@@ -49,7 +47,7 @@ const PayoutPreferencesScreen = ({
           isInitialValid={false}
           onSubmit={onSave}
         >
-          {({ handleSubmit, isValid, values }) => (
+          {({ handleSubmit, isValid }) => (
             <React.Fragment>
               <FormContainer
                 headerTitle={i18n.t(
@@ -105,31 +103,12 @@ const PayoutPreferencesScreen = ({
               <FormContainer
                 headerTitle={i18n.t('payoutPreferences.address')}
               >
-                <FormInput.Field
+                <FormInput.FieldWithDropDown
                   placeholder={i18n.t('payoutPreferences.country')}
                   containerStyle={s.inputContainer}
                   name="country"
+                  dropDownList={countries.stripeCountriesList}
                 />
-                {activeField === 'country' &&
-                  countries.stripeCountriesList.length !== 0 && (
-                    <FlatList
-                      style={s.dropDownList}
-                      keyExtractor={(item) => item.id}
-                      data={filter(
-                        countries.stripeCountriesList,
-                        values.country,
-                      )}
-                      nestedScrollEnabled
-                      keyboardShouldPersistTaps="handled"
-                      renderItem={({ item }) => (
-                        <View>
-                          <Touchable style={s.dropDownListItem}>
-                            <Text>{item}</Text>
-                          </Touchable>
-                        </View>
-                      )}
-                    />
-                  )}
 
                 <FormInput.Field
                   placeholder={i18n.t(
@@ -152,7 +131,7 @@ const PayoutPreferencesScreen = ({
                   <FormInput.Field
                     containerStyle={s.inputRight}
                     placeholder={i18n.t('payoutPreferences.city')}
-                    name="City"
+                    name="city"
                     maxLength={100}
                   />
                 </View>
@@ -161,10 +140,9 @@ const PayoutPreferencesScreen = ({
               <FormContainer
                 headerTitle={i18n.t('payoutPreferences.payment')}
               >
-                <Text>Some card number</Text>
+                {!!cardNumber && <Text>{cardNumber}</Text>}
                 <Button
-                  title="Select default card"
-                  primary
+                  title={`+ ${i18n.t('payoutPreferences.addCard')}`}
                   onPress={goToCreditCardList}
                 />
               </FormContainer>
@@ -191,12 +169,11 @@ PayoutPreferencesScreen.navigationOptions = () => ({
 
 PayoutPreferencesScreen.propTypes = {
   onSave: T.func,
-  activeField: T.string,
   isLoading: T.bool,
   initialValues: T.object,
   formRef: T.any,
-  filter: T.func,
   goToCreditCardList: T.func,
+  cardNumber: T.string,
 };
 
 export default observer(PayoutPreferencesScreen);

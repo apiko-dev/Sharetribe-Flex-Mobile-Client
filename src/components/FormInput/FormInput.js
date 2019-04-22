@@ -1,14 +1,17 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { useState } from 'react';
 import T from 'prop-types';
-import { View, ViewPropTypes } from 'react-native';
+import { View, ViewPropTypes, FlatList } from 'react-native';
 import _ from 'lodash';
 import Field from '../Field/Field';
 import FormError from '../FormError/FormError';
 import FormInfo from '../FormInfo/FormInfo';
 import InputForm from '../InputForm/InputForm';
+import Text from '../Text/Text';
+import Touchable from '../Touchable/Touchable';
 import s from './styles';
 import { payments, dates } from '../../utils';
+import { colors } from '../../styles';
 
 const FormInput = ({
   containerStyle,
@@ -21,6 +24,7 @@ const FormInput = ({
   iconNameLeft,
   onChangeText,
   infoMessage,
+  active,
   ...props
 }) => {
   const [secureTextEntryStatus, setSecureTextEntryStatus] = useState(
@@ -56,7 +60,6 @@ const FormInput = ({
   };
 
   const onPressIconInInputPlaceholder = () => {
-    console.log('press...');
     setInfoStatus(!infoStatus);
   };
 
@@ -73,11 +76,17 @@ const FormInput = ({
         onPressIcon={onPress}
         iconNameLeft={iconNameLeft}
         iconName={iconName || (inputType === 'password' && 'eye')}
+        iconTintColor={
+          secureTextEntryStatus
+            ? colors.icon.tintColorGray
+            : colors.icon.tintColorOrange
+        }
         onChangeText={onChangeTextWithParser}
         onPressIconInInputPlaceholder={onPressIconInInputPlaceholder}
         isShowingFormInfo={infoStatus}
+        active={active}
       />
-      <FormError showError={isError} error={error} />
+      <FormError showError={isError && !active} error={error} />
       <FormInfo
         message={infoMessage}
         showInfo={infoStatus}
@@ -96,6 +105,44 @@ FormInput.Field = ({ name, ...restProps }) => (
     {(props) => <FormInput {...restProps} {...props} />}
   </Field>
 );
+
+FormInput.FieldWithDropDown = ({ name, ...restProps }) => (
+  <Field
+    type={_.isFunction(restProps.onPress) ? 'touchable' : 'text'}
+    name={name}
+    {...restProps}
+  >
+    {(props) => (
+      <React.Fragment>
+        <FormInput {...restProps} {...props} />
+        {props.active && restProps.dropDownList.length !== 0 && (
+          <FlatList
+            style={s.dropDownList}
+            keyExtractor={(item) => item}
+            data={restProps.dropDownList}
+            nestedScrollEnabled
+            keyboardShouldPersistTaps="handled"
+            renderItem={({ item }) => (
+              <Touchable
+                style={s.dropDownListItem}
+                onPress={() => props.onChangeText(item)}
+              >
+                <Text>{item}</Text>
+              </Touchable>
+            )}
+          />
+        )}
+      </React.Fragment>
+    )}
+  </Field>
+);
+
+FormInput.FieldWithDropDown.propTypes = {
+  name: T.string.isRequired,
+  active: T.bool,
+  dropDownList: T.array,
+  onChangeText: T.func,
+};
 
 FormInput.Field.propTypes = {
   name: T.string.isRequired,
@@ -117,6 +164,7 @@ FormInput.propTypes = {
   value: T.oneOfType([T.string, T.object]),
   placeholder: T.string,
   isError: T.bool,
+  active: T.bool,
   error: T.any,
   inputType: T.string,
   onPressIcon: T.func,

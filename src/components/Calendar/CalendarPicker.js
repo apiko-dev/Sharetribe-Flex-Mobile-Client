@@ -187,7 +187,7 @@ CalendarPicker.propTypes = {
   theme: T.object,
   initialRange: T.array,
   onSuccess: T.func,
-  employedDate: T.object,
+  employedDate: T.array,
   disablePicker: T.bool,
 };
 

@@ -19,6 +19,7 @@ import { defaultNavigationOptions } from './NavigationOptions';
 
 export default createStackNavigator(
   {
+    [screens.CardList]: CardListScreen,
     [screens.PayoutPreferences]: PayoutPreferencesScreen,
     [screens.Home]: HomeScreen,
     [screens.UpdatePassword]: UpdatePasswordScreen,
@@ -30,7 +31,6 @@ export default createStackNavigator(
     [screens.RequestToRent]: RequestToRentScreen,
     [screens.RequestToRentPayment]: RequestToRentPaymentScreen,
     [screens.Calendar]: CalendarScreen,
-    [screens.CardList]: CardListScreen,
     [screens.Help]: HelpScreen,
   },
   {
