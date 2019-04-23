@@ -15,18 +15,8 @@ import { withParamsToProps } from '../../utils/enhancers';
 
 export default hoistStatics(
   compose(
-    withParamsToProps('product'),
-    inject((stores, { product }) => ({
-      // transactionId: R.path(['listings', 'list', 'of',], stores)
-      author: R.pathOr(false, ['relationships', 'author'], product),
-      // isUser: R.pathOr(false, [''])
-      messages: R.pathOr([], ['messages'], product),
-      messagesArray: R.pathOr(
-        [],
-        ['messages', 'list', 'asArray'],
-        product,
-      ),
-    })),
+    withParamsToProps('transaction'),
+    inject((stores) => ({})),
     withStateHandlers(
       {
         isShowDetails: false,
@@ -41,20 +31,17 @@ export default hoistStatics(
     lifecycle({
       async componentDidMount() {
         try {
-          // if (this.props.product.transactionId === null) {
-          //   await this.props.product.messageTransaction.run(
-          if (this.props.product.transactionId === null) {
-            await this.props.messages.messageTransaction.run(
-              this.props.product.id,
-            );
-          }
+          // if (this.props.transactionId.length === 0) {
+          //   // if (this.props.transactionId.length === 0) {
+          //   debugger;
+          //   await this.props.transaction.initiateMessage.run(
+          //     this.props.product.id,
+          //   );
+          // }
 
-          // await this.props.product.fetchMessage.run(
-          await this.props.messages.fetchMessage.run(
-            this.props.product.transactionId,
-          );
+          this.props.transaction.messages.fetchMessage.run();
 
-          console.log('ENTITITITI', this.props.entitiesS);
+          debugger;
         } catch (err) {
           console.log(err);
         }
@@ -65,18 +52,23 @@ export default hoistStatics(
     withHandlers({
       onSend: (props) => () => {
         const mess = props.messageInputText.trim();
-        if (props.messageInputText.trim().length > 0) {
-          try {
-            // props.product.sendMessage.run(
-            props.messages.sendMessage.run(
-              props.product.transactionId,
-              mess,
-            );
-            props.setMessageInputText('');
-          } catch (err) {
-            console.log(err);
-          }
-        }
+        // if (props.messageInputText.trim().length > 0) {
+        //   try {
+        //     props.transaction.sendMessage.run(
+        //       props.transactionId,
+        //       mess,
+        //     );
+        //     props.stores;
+        //     // props.messages.sendMessage.run(
+        //     //   props.product.transactionId,
+        //     //   mess,
+        //     // );
+        //     props.setMessageInputText('');
+        //   } catch (err) {
+        //     console.log(err);
+        //   }
+        // }
+        console.log('transactions_transactions', props.transactions);
       },
     }),
   ),

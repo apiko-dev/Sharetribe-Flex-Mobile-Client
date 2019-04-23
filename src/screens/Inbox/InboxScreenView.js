@@ -1,14 +1,14 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 
 import { Message } from './components';
 import s from './styles';
 
-const InboxScreen = () => (
+const InboxScreen = ({ transactions }) => (
   <View style={s.container}>
-    <Message />
-    <Message />
-    <Message />
+    {transactions.map((i) => (
+      <Message {...i} />
+    ))}
   </View>
 );
 

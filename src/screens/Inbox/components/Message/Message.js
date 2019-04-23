@@ -1,4 +1,3 @@
-
 import React from 'react';
 import T from 'prop-types';
 import { View, Image } from 'react-native';
@@ -14,11 +13,13 @@ import i18n from '../../../../i18n';
 
 const messageImage = require('../../../../assets/png/message_image.png');
 
-const Message = () => (
+const Message = ({ transaction }) => (
   <ShadowContainer>
     <Touchable
       style={s.container}
-      onPress={() => NavigationService.navigateTo('Chat')}
+      onPress={() =>
+        NavigationService.navigateTo('Chat', { transaction })
+      }
     >
       <View style={s.photoContainer}>
         <Image source={messageImage} style={s.image} />

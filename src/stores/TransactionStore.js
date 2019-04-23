@@ -1,11 +1,13 @@
 /* eslint-disable no-shadow */
-import { types as t, getEnv } from 'mobx-state-tree';
+import { types as t, getEnv, getRoot } from 'mobx-state-tree';
 import createFlow from './helpers/createFlow';
 import processJsonApi, {
   processJsonApiTransactions,
 } from './utils/processJsonApi';
 import listModel from './utils/listModel';
+import { MessageStore } from './MessagesStore';
 import { Price } from './ListingsStore';
+import { normalizedIncluded } from './utils/normalize';
 
 const LineItems = t.model('LineItems', {
   code: t.string,
@@ -35,6 +37,8 @@ export const Transaction = t.model('Transaction', {
   lineItems: t.maybe(t.array(LineItems)),
   protectedData: t.model({}),
   transitions: t.maybe(t.array(Transitions)),
+
+  messages: t.optional(MessageStore, {}),
 });
 
 const TransactionList = listModel('TransactionList', {
@@ -45,6 +49,7 @@ const TransactionList = listModel('TransactionList', {
 });
 
 function responseTransformer(res) {
+  // return res.map(processJsonApiTransactions);
   return res.map(processJsonApi);
 }
 

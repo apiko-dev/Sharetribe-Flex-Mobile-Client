@@ -14,6 +14,9 @@ const RootStore = types
     transaction: types.optional(TransactionStore, {}),
     entities: types.optional(EntitiesStore, {}),
   })
+
+  .preProcessSnapshot((store) => ({ store }))
+
   .actions((store) => ({
     bootstrap: flow(function* bootstrap() {
       const authInfo = yield getEnv(store).Api.isAuthenticated();

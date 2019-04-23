@@ -13,8 +13,27 @@ import {
   SentryIoService,
 } from './services';
 import { colors } from './styles';
+import { transactions } from './stores/mocks';
 
-const store = createStore();
+const transactionCollection = transactions.reduce((acc, current) => {
+  acc[current.id] = current;
+  return acc;
+}, {});
+
+const initialState = {
+  entities: {
+    transaction: {
+      collection: transactionCollection,
+    },
+  },
+  transaction: {
+    list: {
+      array: transactions.map((i) => i.id),
+    },
+  },
+};
+
+const store = createStore(initialState);
 
 if (__DEV__) {
   SplashScreen.hide();

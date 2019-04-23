@@ -32,9 +32,7 @@ const MessageRelationships = t.model('MessageRelationships', {
 
 export const Message = t.model('Message', {
   id: t.identifier,
-  // attributes: t.maybe(MessageAttributes),
-  // relationships: t.optional(t.maybeNull(MessageRelationships), null),
-  // type: t.string,
+
   content: t.string,
   createdAt: t.maybe(t.Date),
   relationships: t.optional(t.maybeNull(MessageRelationships), null),
@@ -58,14 +56,36 @@ export const MessageStore = t.model('MessageStore', {
 
   messageTransaction: createFlow(messageTransaction),
   sendMessage: createFlow(sendMessage),
-  fetchMessage: createFlow(fetchMessage),
+  fetchMessages: createFlow(fetchMessages),
 });
 
-function fetchMessage(flow, store) {
-  return function* fetchMessage(transactionId) {
+function initiateMessage(flow, store) {
+  return function* initiateMessage(listingId) {
     try {
       flow.start();
 
+      const res = yield flow.Api.initiateMessageTransaction(
+        listingId,
+      );
+      //
+
+      // store.list.add(res.data.data);
+      const data = processJsonApi(res.data.data);
+      console.log('data: ', data);
+      store.list.add(data);
+
+      flow.success();
+    } catch (err) {
+      flow.failed(err, true);
+    }
+  };
+}
+
+function fetchMessages(flow, store) {
+  return function* fetchMessages() {
+    try {
+      flow.start();
+      const transactionId = getParent(store).id;
       const res = yield flow.Api.fetchMessage({
         transactionId,
         include: ['sender', 'sender.profileImage'],
@@ -78,7 +98,6 @@ function fetchMessage(flow, store) {
       getRoot(store).entities.merge(normalizedEntities);
       store.list.set(res.data.data);
 
-      console.log('fkfkfkfk', store.list.asArray);
       flow.success();
     } catch (err) {
       flow.failed(err, true);
@@ -101,7 +120,7 @@ function sendMessage(flow, store) {
       // );
 
       // getRoot(store).entities.merge(normalizedEntities);
-      store.list.add(res.data.data);
+      // store.list.add(res.data.data);
 
       flow.success();
     } catch (err) {
