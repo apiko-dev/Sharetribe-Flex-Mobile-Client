@@ -9,9 +9,10 @@ import {
 } from '../../../../components';
 import s from './styles';
 import i18n from '../../../../i18n';
+import { PaymentSchema } from '../../../../validators/schemes';
 
 const AddCardForm = ({ isLoading }) => (
-  <Form>
+  <Form validationSchema={PaymentSchema}>
     {({ handleSubmit, handleReset, isValid }) => (
       <View style={s.container}>
         <FormContainer headerStyle={s.formHeaderStyle}>
@@ -51,7 +52,7 @@ const AddCardForm = ({ isLoading }) => (
               primary
               title={i18n.t('payoutPreferences.addCard')}
               onPress={handleSubmit}
-              disable={!isValid || isLoading}
+              disabled={!isValid || isLoading}
               isLoading={isLoading}
               containerStyle={s.buttonRight}
               buttonStyle={s.button}

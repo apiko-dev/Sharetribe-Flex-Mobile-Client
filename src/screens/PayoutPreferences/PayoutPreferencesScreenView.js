@@ -12,6 +12,7 @@ import {
   Button,
   FormInput,
   Form,
+  SelectButton,
 } from '../../components';
 import i18n from '../../i18n';
 import { PayoutSchema } from '../../validators/schemes';
@@ -140,11 +141,17 @@ const PayoutPreferencesScreen = ({
               <FormContainer
                 headerTitle={i18n.t('payoutPreferences.payment')}
               >
-                {!!cardNumber && <Text>{cardNumber}</Text>}
-                <Button
-                  title={`+ ${i18n.t('payoutPreferences.addCard')}`}
-                  onPress={goToCreditCardList}
-                />
+                {!cardNumber ? (
+                  <Button
+                    title={`+ ${i18n.t('payoutPreferences.addCard')}`}
+                    onPress={goToCreditCardList}
+                  />
+                ) : (
+                  <SelectButton
+                    value={cardNumber}
+                    onPress={goToCreditCardList}
+                  />
+                )}
               </FormContainer>
 
               <Button

@@ -12,6 +12,9 @@ export default StyleSheet.create({
   safeAreaViewContainer: {
     backgroundColor: colors.settingsScreen.backgroundColor,
   },
+  formContainer: {
+    flex: 1,
+  },
   header: {
     paddingBottom: dimensions.indent * 0.75,
   },

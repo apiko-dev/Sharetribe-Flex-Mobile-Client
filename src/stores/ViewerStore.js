@@ -4,6 +4,7 @@ import { User } from './UserStore';
 import createFlow from './helpers/createFlow';
 import processJsonApi from './utils/processJsonApi';
 import { normalizedIncluded } from './utils/normalize';
+import { StripeService } from '../services';
 import normalizeError from './utils/normalizeError';
 
 const Viewer = types.compose(
@@ -181,15 +182,27 @@ function verifyEmail(flow, store) {
 }
 
 function createStripeAccount(flow, store) {
-  return function* createStripeAccount(data) {
+  return function* createStripeAccount(code) {
     try {
       flow.start();
 
-      console.log('createStripeAccount data: ', data);
+      console.log('createStripeAccount code: ', code);
 
-      const res = yield store.Api.createStripeAccount();
+      const res = yield StripeService.completedAccountConnection(
+        code,
+      );
 
       console.log('createStripeAccount res: ', res);
+
+      const sharetribeRes = yield store.Api.createStripeAccount({
+        country: 'US',
+        accountToken: res.data.stripe_user_id,
+        // accountToken: res.data.access_token,
+        // accountToken: res.data.refresh_token,
+        // accountToken: res.data.stripe_publishable_key,
+      });
+
+      console.log('sharetribeRes res: ', sharetribeRes);
 
       flow.success();
     } catch (err) {

@@ -8,9 +8,15 @@ import {
   withStateHandlers,
 } from 'recompose';
 import { inject } from 'mobx-react';
-import { NavigationService, AlertService } from '../../services';
+import {
+  NavigationService,
+  AlertService,
+  StripeService,
+} from '../../services';
 import PayoutPreferencesScreenView from './PayoutPreferencesScreenView';
 import screens from '../../navigation/screens';
+import { withModal } from '../../utils/enhancers';
+import { ServiceConnectModal } from './components';
 
 export default hoistStatics(
   compose(
@@ -27,10 +33,15 @@ export default hoistStatics(
     withStateHandlers(
       {
         cardNumber: '',
+        isVisibleConnectModal: false,
+        connectUrl: '',
       },
       {
         onChooseCreditCard: () => (cardNumber) => ({
           cardNumber,
+        }),
+        onChange: () => (field, value) => ({
+          [field]: value,
         }),
       },
     ),
@@ -42,11 +53,20 @@ export default hoistStatics(
             props.onChooseCreditCard(cardNumber);
             NavigationService.goBack();
           },
+          cardNumber: props.cardNumber,
         }),
 
-      onSave: ({ createStripeAccount }) => async (data) => {
+      onSave: (props) => (data) => {
+        const connectUrl = StripeService.formUrl(data);
+        props.onChange('connectUrl', connectUrl);
+        props.onChange('isVisibleConnectModal', true);
+      },
+
+      onCreateStripeAccount: ({ createStripeAccount }) => async (
+        code,
+      ) => {
         try {
-          await createStripeAccount.run(data);
+          await createStripeAccount.run(code);
         } catch (err) {
           console.log('createStripeAccount err: ', err);
           AlertService.showSomethingWentWrong();
@@ -58,6 +78,7 @@ export default hoistStatics(
       const initialValues = {
         firstName: user.profile.firstName,
         lastName: user.profile.lastName,
+        email: user.email,
       };
 
       const isLoading = isCreatingStripeAccount;
@@ -67,5 +88,16 @@ export default hoistStatics(
         isLoading,
       };
     }),
+
+    withModal(
+      (props) => ({
+        isVisible: props.isVisibleConnectModal,
+        url: props.connectUrl,
+        onCloseModal: () =>
+          props.onChange('isVisibleConnectModal', false),
+        onSuccess: (code) => props.onCreateStripeAccount(code),
+      }),
+      ServiceConnectModal,
+    ),
   ),
 )(PayoutPreferencesScreenView);
