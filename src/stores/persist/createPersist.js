@@ -52,7 +52,7 @@ const attachSnapshotListeners = (stores, storage) => {
 };
 
 const createRehydrate = (storeEntries, storage) => () => {
-  const storesList = storeEntries.map((i) => i[0]);
+  const storesList = storeEntries.map(([name]) => name);
 
   getSnapshots(storesList, storage).then((snapshots) =>
     transaction(() =>

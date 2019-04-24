@@ -15,7 +15,6 @@ const RootStore = types
     entities: types.optional(EntitiesStore, {}),
   })
 
-  .preProcessSnapshot((store) => ({ store }))
 
   .actions((store) => ({
     bootstrap: flow(function* bootstrap() {
