@@ -5,8 +5,10 @@ import InboxScreenView from './InboxScreenView';
 
 export default hoistStatics(
   compose(
-    inject((stores) => ({
-      transactions: stores.transaction.list.asArray,
-    })),
+    inject((stores) => {
+      return {
+        transactions: stores.transaction.list.asArray,
+      };
+    }),
   ),
 )(InboxScreenView);

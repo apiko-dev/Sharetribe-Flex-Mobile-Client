@@ -21,7 +21,7 @@ class NavigationService {
   }
 
   navigateToApp(props) {
-    this.navigate(screens.App, props);
+    this.navigate(screens.Inbox, props);
   }
 
   navigateToAuth(props) {

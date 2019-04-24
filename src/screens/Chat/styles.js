@@ -14,8 +14,13 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     backgroundColor: 'transparent',
-    borderTopWidth: StyleSheet.hairlineWidth,
+    // borderTopWidth: StyleSheet.hairlineWidth,
     borderColor: colors.chat.borderColor,
+    transform: [{ rotate: '180deg' }],
+  },
+
+  rotate: {
+    transform: [{ rotate: '180deg' }],
   },
 
   // listContainer: {

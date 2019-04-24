@@ -7,6 +7,7 @@ export default function listModel(name, options) {
     identifierName,
     entityName,
     responseTransformer,
+    shouldTransformSingle,
   } = options;
 
   const listStore = types
@@ -28,11 +29,20 @@ export default function listModel(name, options) {
       },
 
       add(item) {
+        if (shouldTransformSingle) {
+          // eslint-disable-next-line prefer-destructuring
+          item = responseTransformer([item])[0];
+        }
         store.mergeSingle(item);
         store.array.push(item.id);
       },
 
       addToBegin(item, shouldMerge = true) {
+        if (shouldTransformSingle) {
+          // eslint-disable-next-line prefer-destructuring
+          item = responseTransformer([item])[0];
+        }
+
         if (shouldMerge) {
           store.mergeSingle(item);
         }

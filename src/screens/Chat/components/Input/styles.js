@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     borderTopWidth: StyleSheet.hairlineWidth,
     borderColor: colors.chat.borderColor,
     backgroundColor: colors.chat.backgroundColorWhite,
-    borderRadius: 20,
+    // borderRadius: 20,
   },
   textInput: {
     height: 50,

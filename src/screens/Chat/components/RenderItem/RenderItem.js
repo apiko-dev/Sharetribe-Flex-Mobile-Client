@@ -5,7 +5,7 @@ import { ShadowContainer, Avatar } from '../../../../components';
 import s from './styles';
 // import moment from 'moment';
 
-const RenderItem = ({ item, index, messages, user, isUser }) => {
+function RenderItem({ item, index, user }) {
   // const itemIndex = (index) => {
   //   if (index < messages.length - 1) {
   //     return index + 1;
@@ -51,31 +51,38 @@ const RenderItem = ({ item, index, messages, user, isUser }) => {
           key={index}
           style={[
             s.messageContainer,
-            isUser ? s.userSend : s.interlocutor,
+            user.isViewer ? s.userSend : s.interlocutor,
           ]}
         >
-          {!isUser && (
+          {!user.isViewer && (
             <Avatar
               user={user}
               small
               styleContainer={s.avatarCustomer}
             />
           )}
-          <View style={[s.message, !isUser && s.fromInterlocutor]}>
-            <Text style={[s.text, !isUser && s.textFromInterlocutor]}>
+          <View
+            style={[s.message, !user.isViewer && s.fromInterlocutor]}
+          >
+            <Text
+              style={[
+                s.text,
+                !user.isViewer && s.textFromInterlocutor,
+              ]}
+            >
               {item.content}
             </Text>
           </View>
-          {isUser && (
+          {user.isViewer && (
             <Avatar user={user} small styleContainer={s.avatar} />
           )}
-          {/* <View style={[isUser && s.timer]}>
+          {/* <View style={[user.isViewer && s.timer]}>
           <Text>09:31</Text>
         </View> */}
         </View>
       </ShadowContainer>
     </View>
   );
-};
+}
 
 export default RenderItem;

@@ -16,7 +16,14 @@ import { withParamsToProps } from '../../utils/enhancers';
 export default hoistStatics(
   compose(
     withParamsToProps('transaction'),
-    inject((stores) => ({})),
+    inject((stores, { transaction }) => ({
+      messageCollection: R.pathOr(
+        [],
+        ['messages', 'list', 'asArray'],
+        transaction,
+      ),
+      transactionId: R.path(['id'], transaction),
+    })),
     withStateHandlers(
       {
         isShowDetails: false,
@@ -38,10 +45,7 @@ export default hoistStatics(
           //     this.props.product.id,
           //   );
           // }
-
-          this.props.transaction.messages.fetchMessage.run();
-
-          debugger;
+          this.props.transaction.messages.fetchMessages.run();
         } catch (err) {
           console.log(err);
         }
@@ -51,7 +55,14 @@ export default hoistStatics(
     withState('messageInputText', 'setMessageInputText', ''),
     withHandlers({
       onSend: (props) => () => {
-        const mess = props.messageInputText.trim();
+        const content = props.messageInputText.trim();
+
+        props.transaction.messages.sendMessage.run(
+          props.transactionId,
+          content,
+        );
+        props.setMessageInputText('');
+
         // if (props.messageInputText.trim().length > 0) {
         //   try {
         //     props.transaction.sendMessage.run(
@@ -63,12 +74,11 @@ export default hoistStatics(
         //     //   props.product.transactionId,
         //     //   mess,
         //     // );
-        //     props.setMessageInputText('');
         //   } catch (err) {
         //     console.log(err);
         //   }
         // }
-        console.log('transactions_transactions', props.transactions);
+        // console.log('transactions_transactions', props.transactions);
       },
     }),
   ),

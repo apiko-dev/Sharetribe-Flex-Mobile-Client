@@ -34,6 +34,8 @@ export default hoistStatics(
       isLoadingDates: stores.listings.getAvailableDays.inProgress,
       author: R.pathOr(false, ['relationships', 'author'], product),
 
+      transaction: stores.transaction.list.asArray,
+
       phoneNumber: R.path(
         [
           'relationships',
@@ -103,8 +105,8 @@ export default hoistStatics(
         call(args).catch(console.error);
       },
 
-      onSend: ({ product }) => async () => {
-        NavigationService.navigateToChat({ product });
+      onSend: ({ transaction }) => async () => {
+        NavigationService.navigateToChat({ transaction });
       },
 
       // fakeMessage: (props) => async () => {

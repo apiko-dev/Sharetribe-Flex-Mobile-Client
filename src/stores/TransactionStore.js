@@ -37,7 +37,7 @@ const Transitions = t
 
 export const Transaction = t
   .model('Transaction', {
-    id: t.string,
+    id: t.identifier,
     type: t.maybe(t.string),
     createdAt: t.Date,
     processName: t.string,

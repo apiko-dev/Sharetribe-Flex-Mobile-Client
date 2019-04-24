@@ -16,7 +16,7 @@ import { normalizedIncluded } from './utils/normalize';
 // });
 
 const MessageRelationships = t.model('MessageRelationships', {
-  sender: t.reference(User),
+  sender: t.maybe(t.reference(User)),
   // sender: t.string,
 });
 
@@ -30,21 +30,29 @@ const MessageRelationships = t.model('MessageRelationships', {
 //   content: t.string,
 // });
 
-export const Message = t.model('Message', {
-  id: t.identifier,
+export const Message = t
+  .model('Message', {
+    id: t.identifier,
 
-  content: t.string,
-  createdAt: t.maybe(t.Date),
-  relationships: t.optional(t.maybeNull(MessageRelationships), null),
-  // id: t.optional(t.maybeNull(MessageId), null),
-  // id: t.string,
-});
+    content: t.string,
+    createdAt: t.maybe(t.Date),
+    relationships: t.optional(MessageRelationships, {}),
+    // id: t.optional(t.maybeNull(MessageId), null),
+    // id: t.string,
+  })
+
+  .views((store) => ({
+    get sender() {
+      return store.relationships.sender || getRoot(store).viewer.user;
+    },
+  }));
 
 export const MessageList = listModel('MessageList', {
   of: t.reference(Message),
   entityName: 'message',
   identifierName: 'id',
   responseTransformer,
+  shouldTransformSingle: true,
 });
 
 function responseTransformer(res) {
@@ -72,6 +80,7 @@ function initiateMessage(flow, store) {
       // store.list.add(res.data.data);
       const data = processJsonApi(res.data.data);
       console.log('data: ', data);
+      // getParent(store, 2).add(data)
       store.list.add(data);
 
       flow.success();
@@ -120,7 +129,7 @@ function sendMessage(flow, store) {
       // );
 
       // getRoot(store).entities.merge(normalizedEntities);
-      // store.list.add(res.data.data);
+      store.list.addToBegin(res.data.data);
 
       flow.success();
     } catch (err) {
