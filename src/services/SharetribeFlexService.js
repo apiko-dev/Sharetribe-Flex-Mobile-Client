@@ -252,11 +252,31 @@ class SharetribeSdkService {
     );
   }
 
-  fetchMessage({ transactionId }) {
+  // fetchMessage({ transactionId }) {
+  //   console.log('run service... ');
+  //   return this.sdk.messages.query({
+  //     transactionId: new types.UUID(transactionId),
+  //     include: ['sender', 'sender.profileImage'],
+  //   });
+  // }
+
+  fetchMessage({ transactionId, perPage, page }) {
     console.log('run service... ');
     return this.sdk.messages.query({
       transactionId: new types.UUID(transactionId),
       include: ['sender', 'sender.profileImage'],
+      perPage,
+      page,
+    });
+  }
+
+  fetchMoreMessage({ transactionId, perPage, page }) {
+    console.log('run service... ');
+    return this.sdk.messages.query({
+      transactionId: new types.UUID(transactionId),
+      include: ['sender', 'sender.profileImage'],
+      perPage,
+      page,
     });
   }
 

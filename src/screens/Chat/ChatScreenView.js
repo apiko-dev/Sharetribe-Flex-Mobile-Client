@@ -20,6 +20,7 @@ function ChatScreen({
   setMessageInputText,
   messageCollection,
   isLoading,
+  fetchMoreMessages,
 }) {
   if (isLoading) {
     return (
@@ -52,6 +53,7 @@ function ChatScreen({
           )}
           keyExtractor={(item) => item.id}
           inverted
+          onEndReached={() => fetchMoreMessages()}
         />
         <View style={s.rotate}>
           <ShadowContainer>

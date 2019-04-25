@@ -53,6 +53,7 @@ export const MessageList = listModel('MessageList', {
   identifierName: 'id',
   responseTransformer,
   shouldTransformSingle: true,
+  perPage: 15,
 });
 
 function responseTransformer(res) {
@@ -65,6 +66,7 @@ export const MessageStore = t.model('MessageStore', {
   messageTransaction: createFlow(messageTransaction),
   sendMessage: createFlow(sendMessage),
   fetchMessages: createFlow(fetchMessages),
+  fetchMoreMessages: createFlow(fetchMoreMessages),
 });
 
 function initiateMessage(flow, store) {
@@ -98,6 +100,8 @@ function fetchMessages(flow, store) {
       const res = yield flow.Api.fetchMessage({
         transactionId,
         include: ['sender', 'sender.profileImage'],
+        perPage: 15,
+        page: 1,
       });
 
       const normalizedEntities = normalizedIncluded(
@@ -113,6 +117,35 @@ function fetchMessages(flow, store) {
     }
   };
 }
+
+function fetchMoreMessages(flow, store) {
+  return function* fetchMoreMessages() {
+    try {
+      flow.start();
+      const page = store.list.pageNumber;
+      const perPage = 15;
+      const transactionId = getParent(store).id;
+      const res = yield flow.Api.fetchMessage({
+        transactionId,
+        include: ['sender', 'sender.profileImage'],
+        perPage,
+        page,
+      });
+
+      const normalizedEntities = normalizedIncluded(
+        res.data.included,
+      );
+
+      getRoot(store).entities.merge(normalizedEntities);
+      store.list.append(res.data.data);
+
+      flow.success();
+    } catch (err) {
+      flow.failed(err, true);
+    }
+  };
+}
+
 function sendMessage(flow, store) {
   return function* sendMessage(transactionId, content) {
     try {

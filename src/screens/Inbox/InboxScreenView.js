@@ -10,7 +10,7 @@ function InboxScreen({ transactions }) {
   return (
     <View style={s.container}>
       {transactions.map((i) => (
-        <Message transaction={i} />
+        <Message transaction={i} key={i.id} />
       ))}
     </View>
   );

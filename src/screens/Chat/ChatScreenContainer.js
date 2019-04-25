@@ -27,6 +27,7 @@ export default hoistStatics(
         ['messages', 'fetchMessages', 'inProgress'],
         transaction,
       ),
+      // fetchMore: R.pathOr(false, ['message'], transaction)
     })),
     withStateHandlers(
       {
@@ -83,6 +84,11 @@ export default hoistStatics(
         //   }
         // }
         // console.log('transactions_transactions', props.transactions);
+      },
+
+      fetchMoreMessages: (props) => () => {
+        // const page = props.messageCollection.length
+        props.transaction.messages.fetchMoreMessages.run();
       },
     }),
   ),

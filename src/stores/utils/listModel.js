@@ -8,15 +8,31 @@ export default function listModel(name, options) {
     entityName,
     responseTransformer,
     shouldTransformSingle,
+    perPage,
   } = options;
 
   const listStore = types
     .model(name, {
       array: types.array(ofType),
+      hasNoMore: false,
     })
     .views((store) => ({
       get asArray() {
         return store.array.slice();
+      },
+
+      get count() {
+        return store.array.length;
+      },
+
+      get pageNumber() {
+        const pages = store.count / perPage;
+
+        if (Number.isInteger(pages)) {
+          return pages + 1;
+        }
+
+        return undefined;
       },
     }))
 
@@ -26,6 +42,28 @@ export default function listModel(name, options) {
 
         store.merge(entityName, entities);
         store.array = ids;
+      },
+
+      append(data) {
+        const { ids, entities } = store.normalize(data);
+
+        store.merge(entityName, entities);
+        ids.forEach((i) => store.array.push(i));
+
+        if (ids.length < perPage) {
+          store.hasNoMore = true;
+        }
+      },
+
+      prepend(data) {
+        const { ids, entities } = store.normalize(data);
+
+        store.merge(entityName, entities);
+        ids.forEach((i) => store.array.unshift(i));
+
+        if (ids.length < perPage) {
+          store.hasNoMore = true;
+        }
       },
 
       add(item) {
