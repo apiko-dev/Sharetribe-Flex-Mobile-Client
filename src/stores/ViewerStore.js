@@ -4,7 +4,6 @@ import { User } from './UserStore';
 import createFlow from './helpers/createFlow';
 import processJsonApi from './utils/processJsonApi';
 import { normalizedIncluded } from './utils/normalize';
-import { StripeService } from '../services';
 import normalizeError from './utils/normalizeError';
 
 const Viewer = types.compose(
@@ -182,21 +181,25 @@ function verifyEmail(flow, store) {
 }
 
 function createStripeAccount(flow, store) {
-  return function* createStripeAccount(code) {
+  return function* createStripeAccount({
+    accountToken,
+    bankAccountToken,
+  }) {
     try {
       flow.start();
 
-      console.log('createStripeAccount code: ', code);
+      // console.log('createStripeAccount code: ', code);
 
-      const res = yield StripeService.completedAccountConnection(
-        code,
-      );
+      // const res = yield StripeService.getAccountToken();
 
-      console.log('createStripeAccount res: ', res);
+      // console.log('createStripeAccount res: ', res);
 
       const sharetribeRes = yield store.Api.createStripeAccount({
         country: 'US',
-        accountToken: res.data.stripe_user_id,
+        accountToken,
+        bankAccountToken,
+        // accountToken: code,
+        // accountToken: res.data.stripe_user_id,
         // accountToken: res.data.access_token,
         // accountToken: res.data.refresh_token,
         // accountToken: res.data.stripe_publishable_key,
@@ -208,7 +211,7 @@ function createStripeAccount(flow, store) {
     } catch (err) {
       console.log('createStripeAccount err: ', err);
 
-      flow.failed(err);
+      flow.failed(err, true);
     }
   };
 }

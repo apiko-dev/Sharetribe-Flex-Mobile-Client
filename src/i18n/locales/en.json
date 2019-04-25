@@ -165,7 +165,8 @@
     "month": "Month",
     "year": "Year",
     "payment": "Payment",
-    "addCard": "Add a card"
+    "addCard": "Add a card",
+    "accountNumber": "Bank account number"
   },
   "cardList": {
     "cardList": "Your cards"
@@ -327,5 +328,32 @@
     "T",
     "F",
     "S"
-  ]
+  ],
+
+
+  "countries": {
+    "australia": "Australia",
+    "austria": "Austria",
+    "belgium": "Belgium",
+    "canada": "Canada",
+    "denmark": "Denmark",
+    "finland": "Finland",
+    "france": "France",
+    "germany": "Germany",
+    "hongKong": "Hong Kong",
+    "ireland": "Ireland",
+    "japan": "Japan",
+    "luxembourg": "Luxembourg",
+    "netherlands": "Netherlands",
+    "newZealand": "New Zealand",
+    "norway": "Norway",
+    "singapore": "Singapore",
+    "spain": "Spain",
+    "sweden": "Sweden",
+    "switzerland": "Switzerland",
+    "unitedKingdom": "United Kingdom",
+    "unitedStates": "United States",
+    "italy": "Italy",
+    "portugal": "Portugal"
+  } 
 }

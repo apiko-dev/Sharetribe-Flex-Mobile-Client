@@ -12,7 +12,7 @@ import {
   Button,
   FormInput,
   Form,
-  SelectButton,
+  // SelectButton,
 } from '../../components';
 import i18n from '../../i18n';
 import { PayoutSchema } from '../../validators/schemes';
@@ -23,8 +23,8 @@ const PayoutPreferencesScreen = ({
   initialValues,
   isLoading,
   formRef,
-  goToCreditCardList,
-  cardNumber,
+  // goToCreditCardList,
+  // cardNumber,
 }) => (
   <SafeAreaView style={s.safeAreaViewContainer}>
     <KeyboardAwareScrollView
@@ -138,7 +138,7 @@ const PayoutPreferencesScreen = ({
                 </View>
               </FormContainer>
 
-              <FormContainer
+              {/* <FormContainer
                 headerTitle={i18n.t('payoutPreferences.payment')}
               >
                 {!cardNumber ? (
@@ -152,6 +152,19 @@ const PayoutPreferencesScreen = ({
                     onPress={goToCreditCardList}
                   />
                 )}
+              </FormContainer> */}
+              <FormContainer
+                headerTitle={i18n.t('payoutPreferences.payment')}
+              >
+                <FormInput.Field
+                  placeholder={i18n.t(
+                    'payoutPreferences.accountNumber',
+                  )}
+                  name="accountNumber"
+                  autoCapitalize="none"
+                  maxLength={100}
+                  keyboardType="number-pad"
+                />
               </FormContainer>
 
               <Button
@@ -179,8 +192,8 @@ PayoutPreferencesScreen.propTypes = {
   isLoading: T.bool,
   initialValues: T.object,
   formRef: T.any,
-  goToCreditCardList: T.func,
-  cardNumber: T.string,
+  // goToCreditCardList: T.func,
+  // cardNumber: T.string,
 };
 
 export default observer(PayoutPreferencesScreen);

@@ -8,15 +8,12 @@ import {
   withStateHandlers,
 } from 'recompose';
 import { inject } from 'mobx-react';
-import {
-  NavigationService,
-  AlertService,
-  StripeService,
-} from '../../services';
+import { NavigationService, AlertService } from '../../services';
 import PayoutPreferencesScreenView from './PayoutPreferencesScreenView';
 import screens from '../../navigation/screens';
 import { withModal } from '../../utils/enhancers';
-import { ServiceConnectModal } from './components';
+import { StripeTokenService } from './components';
+import { countries } from '../../constants';
 
 export default hoistStatics(
   compose(
@@ -34,7 +31,8 @@ export default hoistStatics(
       {
         cardNumber: '',
         isVisibleConnectModal: false,
-        connectUrl: '',
+        stripeData: {},
+        isCreatingTokens: false,
       },
       {
         onChooseCreditCard: () => (cardNumber) => ({
@@ -57,47 +55,68 @@ export default hoistStatics(
         }),
 
       onSave: (props) => (data) => {
-        const connectUrl = StripeService.formUrl(data);
-        props.onChange('connectUrl', connectUrl);
         props.onChange('isVisibleConnectModal', true);
+        props.onChange('isCreatingTokens', true);
+
+        // Get country key by country name
+        const index = countries.stripeCountriesList.findIndex(
+          (i) => i.title === data.country,
+        );
+        const countryKey = countries.stripeCountriesList[index].key;
+
+        props.onChange('stripeData', {
+          ...data,
+          country: countryKey,
+        });
       },
 
       onCreateStripeAccount: ({ createStripeAccount }) => async (
-        code,
+        tokens,
       ) => {
         try {
-          await createStripeAccount.run(code);
+          await createStripeAccount.run(tokens);
         } catch (err) {
-          console.log('createStripeAccount err: ', err);
           AlertService.showSomethingWentWrong();
         }
       },
     }),
 
-    withProps(({ user, isCreatingStripeAccount }) => {
-      const initialValues = {
-        firstName: user.profile.firstName,
-        lastName: user.profile.lastName,
-        email: user.email,
-      };
+    withProps(
+      ({ user, isCreatingStripeAccount, isCreatingTokens }) => {
+        const initialValues = {
+          firstName: user.profile.firstName,
+          lastName: user.profile.lastName,
+          email: user.email,
+          birthDate: '12',
+          month: '12',
+          year: '2000',
+          country: 'France',
+          streetAddress: 'Some',
+          city: 'Some',
+          postalCode: 'Some',
+          accountNumber: '123412341234',
+        };
 
-      const isLoading = isCreatingStripeAccount;
+        const isLoading = isCreatingStripeAccount || isCreatingTokens;
 
-      return {
-        initialValues,
-        isLoading,
-      };
-    }),
+        return {
+          initialValues,
+          isLoading,
+        };
+      },
+    ),
 
     withModal(
       (props) => ({
         isVisible: props.isVisibleConnectModal,
-        url: props.connectUrl,
-        onCloseModal: () =>
-          props.onChange('isVisibleConnectModal', false),
-        onSuccess: (code) => props.onCreateStripeAccount(code),
+        stripeData: props.stripeData,
+        onCloseModal: () => {
+          props.onChange('isVisibleConnectModal', false);
+          props.onChange('isCreatingTokens', false);
+        },
+        onSuccess: (tokens) => props.onCreateStripeAccount(tokens),
       }),
-      ServiceConnectModal,
+      StripeTokenService,
     ),
   ),
 )(PayoutPreferencesScreenView);

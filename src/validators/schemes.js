@@ -151,4 +151,9 @@ export const PayoutSchema = Yup.object().shape({
     .min(1)
     .max(100)
     .required(i18n.t('errors.require')),
+  accountNumber: Yup.string()
+    .trim()
+    .min(12)
+    .max(12)
+    .required(i18n.t('errors.require')),
 });

@@ -6,7 +6,7 @@ const isLarge = isLargeDevice();
 
 export default StyleSheet.create({
   container: {
-    alignItems: 'center',
+    flex: 1,
     backgroundColor: colors.settingsScreen.backgroundColor,
   },
   safeAreaViewContainer: {

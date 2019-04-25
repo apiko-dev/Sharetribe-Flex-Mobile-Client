@@ -40,7 +40,7 @@ target 'SharetribeFlexMobileClient' do
   pod 'DoubleConversion', :podspec => '../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec'
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'SentryReactNative', :path => '../node_modules/react-native-sentry/SentryReactNative.podspec'
-  pod 'tipsi-stripe', :path => '../node_modules/tipsi-stripe/tipsi-stripe.podspec'
+  pod 'react-native-webview', :path => '../node_modules/react-native-webview/react-native-webview.podspec'
 
 
 end

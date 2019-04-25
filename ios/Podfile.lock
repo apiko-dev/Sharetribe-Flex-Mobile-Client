@@ -36,6 +36,8 @@ PODS:
     - React
   - react-native-maps (0.23.0):
     - React
+  - react-native-webview (5.7.1):
+    - React
   - React/Core (0.59.2):
     - yoga (= 0.59.2.React)
   - React/CxxBridge (0.59.2):
@@ -104,10 +106,6 @@ PODS:
   - SentryReactNative (0.42.0):
     - React
     - Sentry (~> 4.1.3)
-  - Stripe (14.0.0)
-  - tipsi-stripe (7.4.0):
-    - React
-    - Stripe (~> 14.0.0)
   - yoga (0.59.2.React)
 
 DEPENDENCIES:
@@ -118,6 +116,7 @@ DEPENDENCIES:
   - GoogleMaps
   - react-native-google-maps (from `../node_modules/react-native-maps`)
   - react-native-maps (from `../node_modules/react-native-maps`)
+  - react-native-webview (from `../node_modules/react-native-webview/react-native-webview.podspec`)
   - React/Core (from `../node_modules/react-native`)
   - React/CxxBridge (from `../node_modules/react-native`)
   - React/DevSupport (from `../node_modules/react-native`)
@@ -135,7 +134,6 @@ DEPENDENCIES:
   - RNSVG (from `../node_modules/react-native-svg`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - SentryReactNative (from `../node_modules/react-native-sentry/SentryReactNative.podspec`)
-  - tipsi-stripe (from `../node_modules/tipsi-stripe/tipsi-stripe.podspec`)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -146,7 +144,6 @@ SPEC REPOS:
     - QBImagePickerController
     - RSKImageCropper
     - Sentry
-    - Stripe
 
 EXTERNAL SOURCES:
   DoubleConversion:
@@ -161,6 +158,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-maps"
   react-native-maps:
     :path: "../node_modules/react-native-maps"
+  react-native-webview:
+    :path: "../node_modules/react-native-webview/react-native-webview.podspec"
   ReactNativePermissions:
     :path: "../node_modules/react-native-permissions"
   RNGestureHandler:
@@ -179,8 +178,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-vector-icons"
   SentryReactNative:
     :path: "../node_modules/react-native-sentry/SentryReactNative.podspec"
-  tipsi-stripe:
-    :path: "../node_modules/tipsi-stripe/tipsi-stripe.podspec"
   yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -195,6 +192,7 @@ SPEC CHECKSUMS:
   React: 9d063e2f356c8cd2f54dd550d4507740037cbabe
   react-native-google-maps: dd3cee2ea5d77ffba4f03b1fd64891e5113b3193
   react-native-maps: 7525a32bcd025af8cf3b6c469af9b8758245db72
+  react-native-webview: dc712e0b176e761a5614726beb2ae89e43dd48c1
   ReactNativePermissions: 2e324bb3baf12702e3ec27f76c8ae1158fa69fc6
   RNGestureHandler: b65d391f4f570178d657b99a16ec99d09b8656b0
   RNImageCropPicker: e56deca5b463b9493d22e966cfd83cb1fc5c99bb
@@ -206,10 +204,8 @@ SPEC CHECKSUMS:
   RSKImageCropper: 98296ad26b41753f796b6898d015509598f13d97
   Sentry: 4e8a17b61ddd116f89536cc81d567fdee1ebca96
   SentryReactNative: 09d5cc89e8bb5d80cfaf3ae11ed2ecb0a47317d2
-  Stripe: db29ad197c74aca6fb981e4e8355cf7ebd0fca5a
-  tipsi-stripe: 9aa74af02d0725650426f9e1effe20127dafd309
   yoga: 3768a3026ade0fb46a68f3a31a917cf86bc34fc4
 
-PODFILE CHECKSUM: 6568d1edf0a787165c98c94d7b1be64e3f2a7b07
+PODFILE CHECKSUM: 927454b13452b114f389b5c7f36b8f517b88b609
 
 COCOAPODS: 1.6.1

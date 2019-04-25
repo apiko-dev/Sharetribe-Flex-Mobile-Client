@@ -1,29 +1,24 @@
-import stripe from 'tipsi-stripe';
+// import stripe from 'tipsi-stripe';
 import axios from 'axios';
 import config from '../../config';
 
 const CONNECT_STRIPE_TOKEN_URL =
   'https://connect.stripe.com/oauth/token';
-const CONNECT_STRIPE_AUTH_URL =
-  'https://connect.stripe.com/express/oauth/authorize?';
 
-const AUTHORIZE_STRIPE_URL = `https://connect.stripe.com/express/oauth/authorize?redirect_uri=https://stripe.com/connect/default/oauth/test&client_id=${
-  config.STRIPE_CLIENT_ID
-}&`;
 class StripeService {
   init() {
-    stripe.setOptions({
+    /* stripe.setOptions({
       publishableKey: config.STRIPE_API_KEY,
-    });
+    }); */
   }
 
-  paymentRequestWithCardForm(options) {
+  /*  paymentRequestWithCardForm(options) {
     return stripe.paymentRequestWithCardForm(options);
   }
 
   createTokenWithCard(params) {
     return stripe.createTokenWithCard(params);
-  }
+  } */
 
   createAccount() {
     return axios.get(
@@ -60,6 +55,31 @@ class StripeService {
       client_secret: config.STRIPE_SECRET_KEY,
       refresh_token: token,
       grant_type: 'refresh_token',
+    });
+  }
+
+  getAccountToken() {
+    // Move in init
+    const token = `Bearer ${config.STRIPE_SECRET_KEY}`;
+    axios.defaults.headers.common.Authorization = token;
+    axios.defaults.headers.post['Content-Type'] =
+      'application/x-www-form-urlencoded';
+
+    return axios.post('https://api.stripe.com/v1/tokens', {
+      account: {
+        // business_type: 'individual',
+        individual: {
+          first_name: 'Jane',
+          last_name: 'Doe',
+          /* address: {
+            line1: 'Some address',
+            city: 'Some city',
+            state: 'Some state',
+            postal_code: '12345',
+          }, */
+        },
+        tos_shown_and_accepted: true,
+      },
     });
   }
 }

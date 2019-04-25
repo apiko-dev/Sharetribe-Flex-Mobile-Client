@@ -1,10 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-  container: {
-    flex: 1,
-  },
   webView: {
-    flex: 1,
+    display: 'none',
   },
 });

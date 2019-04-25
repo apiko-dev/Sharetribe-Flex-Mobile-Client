@@ -125,9 +125,12 @@ FormInput.FieldWithDropDown = ({ name, ...restProps }) => (
             renderItem={({ item }) => (
               <Touchable
                 style={s.dropDownListItem}
-                onPress={() => props.onChangeText(item)}
+                onPress={() => {
+                  props.onChangeText(item.title);
+                  props.onBlur();
+                }}
               >
-                <Text>{item}</Text>
+                <Text>{item.title}</Text>
               </Touchable>
             )}
           />
@@ -142,6 +145,7 @@ FormInput.FieldWithDropDown.propTypes = {
   active: T.bool,
   dropDownList: T.array,
   onChangeText: T.func,
+  onBlur: T.func,
 };
 
 FormInput.Field.propTypes = {

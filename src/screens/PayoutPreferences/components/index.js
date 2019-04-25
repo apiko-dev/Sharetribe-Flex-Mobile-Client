@@ -1,3 +1,3 @@
 export {
-  default as ServiceConnectModal,
-} from './ServiceConnectModal/ServiceConnectModal';
+  default as StripeTokenService,
+} from './StripeTokenService/StripeTokenService';
