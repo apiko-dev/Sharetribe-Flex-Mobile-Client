@@ -1,7 +1,9 @@
 import React from 'react';
 import { View } from 'react-native';
+import T from 'prop-types';
 
 import { Message } from './components';
+import { DrawerButton } from '../../components';
 import s from './styles';
 
 function InboxScreen({ transactions }) {
@@ -13,5 +15,13 @@ function InboxScreen({ transactions }) {
     </View>
   );
 }
+
+InboxScreen.navigationOptions = () => ({
+  headerLeft: <DrawerButton />,
+});
+
+InboxScreen.propTypes = {
+  transactions: T.array,
+};
 
 export default InboxScreen;

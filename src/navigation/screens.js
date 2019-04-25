@@ -35,4 +35,5 @@ export default {
   MyListingsStack: 'MyListingsStack',
   ProfileStack: 'ProfileStack',
   SettingsStack: 'SettingsStack',
+  InboxStack: 'InboxStack',
 };

@@ -11,8 +11,6 @@ import {
   RequestToRentScreen,
   CalendarScreen,
   HelpScreen,
-  InboxScreen,
-  ChatScreen,
   RequestToRentPaymentScreen,
 } from '../screens';
 import { defaultNavigationOptions } from './NavigationOptions';
@@ -30,8 +28,6 @@ export default createStackNavigator(
     [screens.RequestToRentPayment]: RequestToRentPaymentScreen,
     [screens.Calendar]: CalendarScreen,
     [screens.Help]: HelpScreen,
-    [screens.Inbox]: InboxScreen,
-    [screens.Chat]: ChatScreen,
   },
   {
     initialRouteKey: screens.Home,
