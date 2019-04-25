@@ -1,23 +1,26 @@
 import { StyleSheet } from 'react-native';
-import { colors } from '../../../../styles';
+import { colors, dimensions, fontSizes } from '../../../../styles';
 
 const styles = StyleSheet.create({
   containerInput: {
     flexDirection: 'row',
-    alignItems: 'center',
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderTopWidth: StyleSheet.hairlineWidth,
     borderColor: colors.chat.borderColor,
     backgroundColor: colors.chat.backgroundColorWhite,
-    // borderRadius: 20,
+    alignItems: 'flex-end',
   },
   textInput: {
-    height: 50,
+    minHeight: 50,
+    maxHeight: 150,
     flex: 1,
-    marginLeft: 16,
+    fontSize: fontSizes.medium,
+    padding: dimensions.indent,
+    paddingTop: dimensions.indent,
   },
   send: {
-    marginRight: 16,
+    textAlignVertical: 'center',
+    margin: dimensions.smallIndent,
   },
 });
 

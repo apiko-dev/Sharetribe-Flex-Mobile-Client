@@ -7,7 +7,7 @@ import {
   withHandlers,
 } from 'recompose';
 import { LayoutAnimation } from 'react-native';
-import { inject } from 'mobx-react/native';
+import { inject } from 'mobx-react';
 import R from 'ramda';
 
 import ChatScreen from './ChatScreenView';
@@ -23,6 +23,10 @@ export default hoistStatics(
         transaction,
       ),
       transactionId: R.path(['id'], transaction),
+      isLoading: R.path(
+        ['messages', 'fetchMessages', 'inProgress'],
+        transaction,
+      ),
     })),
     withStateHandlers(
       {
@@ -30,7 +34,6 @@ export default hoistStatics(
       },
       {
         setShowDetails: (props) => () => ({
-          // LayoutAnimation.easeInEaseOut();
           isShowDetails: !props.isShowDetails,
         }),
       },
@@ -57,6 +60,7 @@ export default hoistStatics(
       onSend: (props) => () => {
         const content = props.messageInputText.trim();
 
+        LayoutAnimation.easeInEaseOut();
         props.transaction.messages.sendMessage.run(
           props.transactionId,
           content,

@@ -1,49 +1,18 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
+import T from 'prop-types';
 
-import { ShadowContainer, Avatar } from '../../../../components';
+import { getHourAndMinutes } from '../../../../utils/dates';
+import {
+  ShadowContainer,
+  Avatar,
+  Text,
+} from '../../../../components';
 import s from './styles';
-// import moment from 'moment';
 
 function RenderItem({ item, index, user }) {
-  // const itemIndex = (index) => {
-  //   if (index < messages.length - 1) {
-  //     return index + 1;
-  //   }
-  //   return index;
-  // };
+  const time = getHourAndMinutes(item.createdAt);
 
-  // let titleTime;
-  // isSenderSame = (currentMessage, prevMessage) => {
-  //   const timeNow = new Date().getTime();
-  //   const timeNowDifference = timeNow - currentMessage;
-  //   const timeDifference = currentMessage - prevMessage;
-  // if (timeNowDifference > 86400000) {
-  //   if (timeDifference > 86400000) {
-  //     titleTime = moment(item.dateTime, 'x').format('MMM Do YY');
-  //     return true;
-  //   }
-  // } else if (timeDifference > 10800000) {
-  //   titleTime = moment(item.dateTime, 'x').format('LT');
-  //   return true;
-  // }
-  // };
-
-  // const firstMessageDate = index === messages.length - 1;
-  // if (firstMessageDate) {
-  //   titleTime = moment(item.dateTime, 'x').format('MMM Do YY');
-  // }
-
-  // const title =
-  //   firstMessageDate ||
-  //   isSenderSame(
-  //     item.dateTime,
-  //     messages[itemIndex(index)].dateTime,
-  //   ) ? (
-  //     <View style={s.titleTime}>
-  //       <Text>{titleTime}</Text>
-  //     </View>
-  //   ) : null;
   return (
     <View style={s.container}>
       <ShadowContainer>
@@ -51,7 +20,7 @@ function RenderItem({ item, index, user }) {
           key={index}
           style={[
             s.messageContainer,
-            user.isViewer ? s.userSend : s.interlocutor,
+            user.isViewer ? s.viewer : s.interlocutor,
           ]}
         >
           {!user.isViewer && (
@@ -62,27 +31,40 @@ function RenderItem({ item, index, user }) {
             />
           )}
           <View
-            style={[s.message, !user.isViewer && s.fromInterlocutor]}
+            style={[
+              s.messageWithDate,
+              user.isViewer && s.contentFlexEnd,
+            ]}
           >
-            <Text
+            <View
               style={[
-                s.text,
-                !user.isViewer && s.textFromInterlocutor,
+                s.message,
+                !user.isViewer && s.fromInterlocutor,
               ]}
             >
-              {item.content}
-            </Text>
+              <Text>{item.content}</Text>
+            </View>
+
+            <View style={s.timer}>
+              <Text xsmallSize gray>
+                {time}
+              </Text>
+            </View>
           </View>
+
           {user.isViewer && (
             <Avatar user={user} small styleContainer={s.avatar} />
           )}
-          {/* <View style={[user.isViewer && s.timer]}>
-          <Text>09:31</Text>
-        </View> */}
         </View>
       </ShadowContainer>
     </View>
   );
 }
+
+RenderItem.propTypes = {
+  item: T.object,
+  index: T.number,
+  user: T.object,
+};
 
 export default RenderItem;

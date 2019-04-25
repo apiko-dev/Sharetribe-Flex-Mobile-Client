@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { colors } from '../../styles';
+import { colors, dimensions } from '../../styles';
 
 const styles = StyleSheet.create({
   container: {
@@ -9,12 +9,10 @@ const styles = StyleSheet.create({
 
   containerChat: {
     flex: 1,
-    // backgroundColor: colors.chat.borderColor,
-    // backgroundColor: colors.white,
   },
+
   inputContainer: {
-    backgroundColor: 'transparent',
-    // borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopWidth: StyleSheet.hairlineWidth,
     borderColor: colors.chat.borderColor,
     transform: [{ rotate: '180deg' }],
   },
@@ -23,9 +21,11 @@ const styles = StyleSheet.create({
     transform: [{ rotate: '180deg' }],
   },
 
-  // listContainer: {
-  //   flex: 1,
-  // },
+  loader: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });
 
 export default styles;

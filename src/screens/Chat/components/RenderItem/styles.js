@@ -3,67 +3,59 @@ import { colors, dimensions } from '../../../../styles';
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
     flexDirection: 'row',
   },
-  avatar: {
-    margin: dimensions.smallIndent,
-    marginRight: dimensions.indent,
-    // margin: dimensions.indent
-  },
-  avatarCustomer: {
-    margin: dimensions.smallIndent,
-    marginLeft: dimensions.indent,
-  },
-
-  // timer: {
-  //   width: 20,
-  // },
-
   messageContainer: {
     flexDirection: 'row',
     alignItems: 'center',
   },
+  avatar: {
+    margin: dimensions.smallIndent,
+    marginTop: 0,
+    marginRight: dimensions.indent,
+  },
+  avatarCustomer: {
+    margin: dimensions.smallIndent,
+    marginTop: 0,
+    marginLeft: dimensions.indent,
+  },
+
+  timer: {
+    marginTop: dimensions.smallIndent / 3,
+    marginBottom: dimensions.indent / 2,
+  },
+
+  messageWithDate: {
+    minWidth: '5%',
+    maxWidth: '60%',
+    alignItems: 'flex-start',
+  },
   message: {
-    // margin: 10,
-    padding: 7,
+    padding: dimensions.smallIndent * 0.75,
     backgroundColor: colors.chat.backgroundColorMessageUser,
     borderRadius: dimensions.borderRadius,
     minHeight: 30,
-    minWidth: '5%',
-    maxWidth: '65%',
-    // margin: 9,
-    // margin: dimensions.indent / 2,
+  },
+
+  contentFlexEnd: {
+    alignItems: 'flex-end',
   },
   fromInterlocutor: {
-    // padding: 7,
-    // backgroundColor: colors.chat.backgroundColorWhite,
     backgroundColor: colors.chat.backgroundColorMessage,
   },
-  textFromInterlocutor: {
-    color: 'black',
-  },
 
-  userSend: {
-    alignItems: 'center',
+  viewer: {
     justifyContent: 'flex-end',
+    alignItems: 'flex-start',
   },
   interlocutor: {
-    alignItems: 'center',
     justifyContent: 'flex-start',
-  },
-
-  input: {
-    borderColor: 'black',
+    alignItems: 'flex-start',
   },
 
   titleTime: {
     justifyContent: 'center',
     alignItems: 'center',
-  },
-
-  text: {
-    // color: colors.white,
   },
 });
 export default styles;

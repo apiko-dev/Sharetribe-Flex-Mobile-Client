@@ -1,10 +1,12 @@
 import React from 'react';
 import { View, FlatList } from 'react-native';
 
-import uuid from 'uuid/v4';
 import { observer } from 'mobx-react/custom';
+import T from 'prop-types';
+
+import { colors } from '../../styles';
 import { Conformation, Input, RenderItem } from './components';
-import { ShadowContainer, Text } from '../../components';
+import { ShadowContainer, Loader } from '../../components';
 
 import s from './styles';
 
@@ -16,9 +18,17 @@ function ChatScreen({
   onSend,
   messageInputText,
   setMessageInputText,
-  author,
   messageCollection,
+  isLoading,
 }) {
+  if (isLoading) {
+    return (
+      <View style={s.loader}>
+        <Loader large />
+      </View>
+    );
+  }
+
   return (
     <View style={s.container}>
       {isVisibleConformation && (
@@ -43,20 +53,34 @@ function ChatScreen({
           keyExtractor={(item) => item.id}
           inverted
         />
-        <ShadowContainer style={s.rotate}>
-          <View style={s.inputContainer}>
-            <Input
-              multiline
-              style={s.input}
-              value={messageInputText}
-              onChangeText={setMessageInputText}
-              onSend={onSend}
-            />
-          </View>
-        </ShadowContainer>
+        <View style={s.rotate}>
+          <ShadowContainer>
+            <View style={s.inputContainer}>
+              <Input
+                multiline
+                style={s.input}
+                value={messageInputText}
+                onChangeText={setMessageInputText}
+                onSend={onSend}
+                placeholderTextColor={colors.text.gray}
+                placeholder="Message"
+              />
+            </View>
+          </ShadowContainer>
+        </View>
       </View>
     </View>
   );
 }
+
+ChatScreen.propTypes = {
+  isShowDetails: T.bool,
+  setShowDetails: T.func,
+  onSend: T.func,
+  messageInputText: T.string,
+  setMessageInputText: T.func,
+  messageCollection: T.array,
+  isLoading: T.bool,
+};
 
 export default observer(ChatScreen);
