@@ -17,6 +17,11 @@ import { MessageStore } from './MessagesStore';
 import { normalizedIncluded } from './utils/normalize';
 import { dates } from '../utils';
 
+// const CalendarAvailability = t.model('CalendarAvailability', {
+//   availableDates: t.array(t.string),
+//   employedDates: t.array(t.string),
+// });
+
 const DayOfWeek = t.model('DayOfWeek', {
   dayOfWeek: t.string,
   seats: t.number,
@@ -92,6 +97,10 @@ export const Product = t
 
     update: createFlow(updateProduct),
     getOwnFields: createFlow(getOwnFields),
+
+    //
+    // calendarAvailability: t.maybe(CalendarAvailability),
+    //
   })
 
   .views((store) => ({
@@ -138,7 +147,9 @@ function updateProduct(flow, store) {
       const entities = normalizedIncluded(res.data.included);
       getRoot(store).entities.merge(entities);
       applySnapshot(store, snapshot);
-
+      //
+      // yield getAvailableDays(store.id);
+      //
       flow.success();
     } catch (err) {
       flow.failed(err, true);
@@ -443,6 +454,7 @@ function getAvailableDays(flow, store) {
         end,
       );
 
+      // ////
       flow.success();
 
       return data;

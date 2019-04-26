@@ -35,7 +35,10 @@ export default hoistStatics(
       author: R.pathOr(false, ['relationships', 'author'], product),
 
       transaction: stores.transaction.list.asArray,
-
+      //
+      // message: stores.transaction.messages,
+      // trAction: stores.transaction,
+      //
       phoneNumber: R.path(
         [
           'relationships',
@@ -105,8 +108,26 @@ export default hoistStatics(
         call(args).catch(console.error);
       },
 
-      onSend: ({ transaction }) => async () => {
-        NavigationService.navigateToChat({ transaction });
+      onSend: ({
+        transaction,
+        message,
+        product,
+        trAction,
+      }) => async () => {
+        // trAction.initiateMessageTransaction.run(product.id);
+        // debugger;
+        NavigationService.navigateToChat({ transaction, product });
+        // message.initiateMessageTransaction.run();
+
+        // //////
+        // try {
+        //   await transaction.sendMessage.run(
+        //     product.transactionId,
+        //     data.content,
+        //   );
+        // } catch (err) {
+        //   console.log(err);
+        // }
       },
 
       // fakeMessage: (props) => async () => {
@@ -138,6 +159,8 @@ export default hoistStatics(
           const availableDates = await this.props.getAvailableDays.run(
             this.props.product.id,
           );
+          // const availableDates = this.props.product.availabilityPlan
+          //   .entries;
 
           this.props.onChange('availableDates', availableDates);
         } catch (error) {

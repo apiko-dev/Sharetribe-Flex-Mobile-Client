@@ -51,7 +51,6 @@ export const Transaction = t
     transitions: t.maybe(t.array(Transitions)),
 
     messages: t.optional(MessageStore, {}),
-
     // relationships: t.optional(Relationships, {}),
   })
 
@@ -77,12 +76,39 @@ export const TransactionStore = t
   .model('ListingsStore', {
     list: TransactionList,
     initiateTransaction: createFlow(initiateTransaction),
+
+    // initiateMessageTransaction: createFlow(
+    //   initiateMessageTransaction,
+    // ),
   })
   .views((store) => ({
     get Api() {
       return getEnv(store).Api;
     },
   }));
+
+// function initiateMessageTransaction(flow, store) {
+//   return function* initiateMessage(listingId) {
+//     try {
+//       flow.start();
+
+//       const res = yield flow.Api.initiateMessageTransaction(
+//         listingId,
+//       );
+//       //
+//       debugger;
+//       // store.list.add(res.data.data);
+//       const data = processJsonApi(res.data.data);
+//       console.log('data: ', data);
+//       // getParent(store, 2).add(data)
+//       store.list.add(data);
+//       debugger;
+//       flow.success();
+//     } catch (err) {
+//       flow.failed(err, true);
+//     }
+//   };
+// }
 
 function initiateTransaction(flow, store) {
   return function* initiateTransaction({

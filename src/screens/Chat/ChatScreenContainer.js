@@ -16,6 +16,7 @@ import { withParamsToProps } from '../../utils/enhancers';
 export default hoistStatics(
   compose(
     withParamsToProps('transaction'),
+    withParamsToProps('product'),
     inject((stores, { transaction }) => ({
       messageCollection: R.pathOr(
         [],
@@ -42,6 +43,8 @@ export default hoistStatics(
     lifecycle({
       async componentDidMount() {
         try {
+          // this.props.transaction[0].messages.initiateMessage.run();
+
           // if (this.props.transactionId.length === 0) {
           //   // if (this.props.transactionId.length === 0) {
           //   debugger;
@@ -49,8 +52,10 @@ export default hoistStatics(
           //     this.props.product.id,
           //   );
           // }
+          // ///////
           this.props.transaction.messages.fetchMessages.run();
         } catch (err) {
+          debugger;
           console.log(err);
         }
       },
