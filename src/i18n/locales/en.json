@@ -265,6 +265,7 @@
     "incorrectCardNumber": "You typed incorrect card number",
     "incorrectCardExpiration": "You typed incorrect card expiration",
     "incorrectCardCVC": "You typed incorrect card CVC",
+    "stripeCounties": "Sorry, Stripe doesn't support this country, select one from the list, please",
     "require": "Require"
   },
   "helpScreen": {

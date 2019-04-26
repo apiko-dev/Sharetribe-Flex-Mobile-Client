@@ -11,12 +11,14 @@ import { inject } from 'mobx-react';
 import { NavigationService, AlertService } from '../../services';
 import PayoutPreferencesScreenView from './PayoutPreferencesScreenView';
 import screens from '../../navigation/screens';
-import { withModal } from '../../utils/enhancers';
+import { withModal, withParamsToProps } from '../../utils/enhancers';
 import { StripeTokenService } from './components';
 import { countries } from '../../constants';
 
 export default hoistStatics(
   compose(
+    withParamsToProps('onContinue'),
+
     inject(({ viewer }) => ({
       user: viewer.user,
       createStripeAccount: viewer.createStripeAccount,
@@ -70,11 +72,13 @@ export default hoistStatics(
         });
       },
 
-      onCreateStripeAccount: ({ createStripeAccount }) => async (
-        tokens,
-      ) => {
+      onCreateStripeAccount: ({
+        createStripeAccount,
+        onContinue,
+      }) => async (tokens) => {
         try {
           await createStripeAccount.run(tokens);
+          await onContinue();
         } catch (err) {
           AlertService.showSomethingWentWrong();
         }
@@ -90,10 +94,10 @@ export default hoistStatics(
           birthDate: '12',
           month: '12',
           year: '2000',
-          country: 'France',
+          country: 'United States',
           streetAddress: 'Some',
           city: 'Some',
-          postalCode: 'Some',
+          postalCode: '35630',
           accountNumber: '123412341234',
         };
 
@@ -114,7 +118,7 @@ export default hoistStatics(
           props.onChange('isVisibleConnectModal', false);
           props.onChange('isCreatingTokens', false);
         },
-        onSuccess: (tokens) => props.onCreateStripeAccount(tokens),
+        onSuccess: (data) => props.onCreateStripeAccount(data),
       }),
       StripeTokenService,
     ),

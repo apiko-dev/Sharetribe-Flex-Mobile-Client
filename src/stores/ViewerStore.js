@@ -184,33 +184,19 @@ function createStripeAccount(flow, store) {
   return function* createStripeAccount({
     accountToken,
     bankAccountToken,
+    country,
   }) {
     try {
       flow.start();
 
-      // console.log('createStripeAccount code: ', code);
-
-      // const res = yield StripeService.getAccountToken();
-
-      // console.log('createStripeAccount res: ', res);
-
-      const sharetribeRes = yield store.Api.createStripeAccount({
-        country: 'US',
+      yield store.Api.createStripeAccount({
+        country,
         accountToken,
         bankAccountToken,
-        // accountToken: code,
-        // accountToken: res.data.stripe_user_id,
-        // accountToken: res.data.access_token,
-        // accountToken: res.data.refresh_token,
-        // accountToken: res.data.stripe_publishable_key,
       });
-
-      console.log('sharetribeRes res: ', sharetribeRes);
 
       flow.success();
     } catch (err) {
-      console.log('createStripeAccount err: ', err);
-
       flow.failed(err, true);
     }
   };

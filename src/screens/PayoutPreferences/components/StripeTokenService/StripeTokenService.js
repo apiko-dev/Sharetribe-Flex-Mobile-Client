@@ -12,7 +12,7 @@ class StripeTokenService extends Component {
   }
 
   onMessage(e) {
-    const { onSuccess, onCloseModal } = this.props;
+    const { onSuccess, onCloseModal, stripeData } = this.props;
     const { data } = e.nativeEvent;
     if (data.includes('Error:')) {
       onSuccess(new Error());
@@ -22,6 +22,7 @@ class StripeTokenService extends Component {
       onSuccess({
         accountToken: tokens[0],
         bankAccountToken: tokens[1],
+        country: stripeData.country,
       });
       onCloseModal();
     }

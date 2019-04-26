@@ -45,7 +45,7 @@ const PayoutPreferencesScreen = ({
           validationSchema={PayoutSchema}
           ref={formRef}
           initialValues={initialValues}
-          isInitialValid={false}
+          isInitialValid
           onSubmit={onSave}
         >
           {({ handleSubmit, isValid }) => (
@@ -126,7 +126,7 @@ const PayoutPreferencesScreen = ({
                     )}
                     name="postalCode"
                     autoCapitalize="none"
-                    maxLength={100}
+                    maxLength={10}
                     keyboardType="number-pad"
                   />
                   <FormInput.Field
@@ -162,7 +162,7 @@ const PayoutPreferencesScreen = ({
                   )}
                   name="accountNumber"
                   autoCapitalize="none"
-                  maxLength={100}
+                  maxLength={12}
                   keyboardType="number-pad"
                 />
               </FormContainer>

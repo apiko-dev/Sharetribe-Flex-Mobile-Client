@@ -1,9 +1,4 @@
-import {
-  compose,
-  hoistStatics,
-  withHandlers,
-  withPropsOnChange,
-} from 'recompose';
+import { compose, hoistStatics, withHandlers } from 'recompose';
 import { inject } from 'mobx-react';
 import { AlertService } from '../../services';
 import RequestToRentPaymentScreenView from './RequestToRentPaymentScreenView';
@@ -34,7 +29,8 @@ export default hoistStatics(
 
           const {
             cardNumber,
-            cardExpiration,
+            monthExpiration,
+            yearExpiration,
           } = payments.normalizeCardData(
             values.cardNumber,
             values.cardExpiration,
@@ -45,22 +41,16 @@ export default hoistStatics(
             startRent,
             endRent,
             cardNumber,
-            cardExpiration,
+            monthExpiration,
+            yearExpiration,
             cardCVC: values.cardCVC,
             message: values.message,
           });
           AlertService.showInDevelopmentAlert();
         } catch (err) {
-          console.log('error: ', err);
           AlertService.showInDevelopmentAlert();
         }
       },
-    }),
-
-    withPropsOnChange(['product'], (props) => {
-      props.navigation.setParams({
-        productName: props.product.title,
-      });
     }),
   ),
 )(RequestToRentPaymentScreenView);

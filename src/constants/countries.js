@@ -1,5 +1,6 @@
-// Stripe is supported in the following countries:
 import i18n from '../i18n';
+
+// Stripe is supported in the following countries:
 
 export const stripeCountriesList = [
   { title: i18n.t('countries.australia'), key: 'AU' },

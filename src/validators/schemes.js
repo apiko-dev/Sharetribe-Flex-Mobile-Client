@@ -7,6 +7,7 @@ import {
 } from 'libphonenumber-js';
 import { regExp } from '../utils';
 import i18n from '../i18n';
+import { countries } from '../constants';
 
 Yup.addMethod(Yup.string, 'phoneNumber', function(message) {
   return this.test('phoneNumberTest', message, function(value = '') {
@@ -105,6 +106,10 @@ export const PaymentSchema = Yup.object().shape({
     .required(i18n.t('errors.incorrectCardCVC')),
 });
 
+const stripeCountriesList = countries.stripeCountriesList.map(
+  (i) => i.title,
+);
+
 export const PayoutSchema = Yup.object().shape({
   firstName: Yup.string()
     .trim()
@@ -135,6 +140,7 @@ export const PayoutSchema = Yup.object().shape({
     .trim()
     .min(1)
     .max(100)
+    .oneOf(stripeCountriesList, i18n.t('errors.stripeCounties'))
     .required(i18n.t('errors.require')),
   streetAddress: Yup.string()
     .trim()

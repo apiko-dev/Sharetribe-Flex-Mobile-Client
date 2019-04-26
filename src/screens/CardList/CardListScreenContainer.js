@@ -23,8 +23,6 @@ export default hoistStatics(
       },
     ),
 
-    withProps(console.log),
-
     withHandlers({
       onContinue: (props) => () =>
         props.selectCard(props.selectedCard),

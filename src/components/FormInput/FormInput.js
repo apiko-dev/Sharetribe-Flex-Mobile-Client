@@ -25,6 +25,7 @@ const FormInput = ({
   onChangeText,
   infoMessage,
   active,
+  secureTextEntry,
   ...props
 }) => {
   const [secureTextEntryStatus, setSecureTextEntryStatus] = useState(
@@ -72,7 +73,7 @@ const FormInput = ({
           isError && s.inputError,
           inputContainerStyle,
         ]}
-        secureTextEntry={secureTextEntryStatus}
+        secureTextEntry={secureTextEntryStatus || secureTextEntry}
         onPressIcon={onPress}
         iconNameLeft={iconNameLeft}
         iconName={iconName || (inputType === 'password' && 'eye')}
@@ -169,6 +170,7 @@ FormInput.propTypes = {
   placeholder: T.string,
   isError: T.bool,
   active: T.bool,
+  secureTextEntry: T.bool,
   error: T.any,
   inputType: T.string,
   onPressIcon: T.func,
