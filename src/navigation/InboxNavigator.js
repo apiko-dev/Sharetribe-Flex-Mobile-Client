@@ -10,6 +10,7 @@ export default createStackNavigator(
   },
   {
     initialRouteKey: screens.Inbox,
+    headerMode: 'screen',
     defaultNavigationOptions,
   },
 );

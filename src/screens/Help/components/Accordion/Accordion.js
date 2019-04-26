@@ -24,7 +24,7 @@ function Accordion({ title, text }) {
           {isVisible ? (
             <IconFonts name="up" size={25} />
           ) : (
-            <IconFonts name="drop-down" size={25} />
+            <IconFonts name="down" size={25} />
           )}
         </View>
       </Touchable>

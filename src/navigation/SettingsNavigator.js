@@ -9,6 +9,8 @@ export default createStackNavigator(
   },
   {
     initialRouteKey: screens.Settings,
+    headerMode: 'screen',
     defaultNavigationOptions,
   },
 );
+ 
