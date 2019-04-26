@@ -1,9 +1,4 @@
-import {
-  types as t,
-  getRoot,
-  getParent,
-  applySnapshot,
-} from 'mobx-state-tree';
+import { types as t, getRoot, getParent } from 'mobx-state-tree';
 import R from 'ramda';
 import createFlow from './helpers/createFlow';
 import processJsonApi from './utils/processJsonApi';
@@ -11,24 +6,10 @@ import listModel from './utils/listModel';
 import { User } from './UserStore';
 import { normalizedIncluded } from './utils/normalize';
 
-// const CreateTime = t.model('CreateTime', {
-//   atTime: t.string,
-// });
 
 const MessageRelationships = t.model('MessageRelationships', {
   sender: t.maybe(t.reference(User)),
-  // sender: t.string,
 });
-
-// const MessageId = t.model('MessageId', {
-//   uuid: t.string,
-// });
-
-// const MessageAttributes = t.model('MessageAttributes', {
-//   createdAt: t.string,
-//   // createdAt: t.optional(t.maybeNull(CreateTime), null),
-//   content: t.string,
-// });
 
 export const Message = t
   .model('Message', {
@@ -37,8 +18,6 @@ export const Message = t
     content: t.string,
     createdAt: t.maybe(t.Date),
     relationships: t.optional(MessageRelationships, {}),
-    // id: t.optional(t.maybeNull(MessageId), null),
-    // id: t.string,
   })
 
   .views((store) => ({
@@ -125,19 +104,21 @@ function fetchMoreMessages(flow, store) {
       const page = store.list.pageNumber;
       const perPage = 15;
       const transactionId = getParent(store).id;
-      const res = yield flow.Api.fetchMessage({
-        transactionId,
-        include: ['sender', 'sender.profileImage'],
-        perPage,
-        page,
-      });
+      if (!store.list.hasNoMore) {
+        const res = yield flow.Api.fetchMessage({
+          transactionId,
+          include: ['sender', 'sender.profileImage'],
+          perPage,
+          page,
+        });
 
-      const normalizedEntities = normalizedIncluded(
-        res.data.included,
-      );
+        const normalizedEntities = normalizedIncluded(
+          res.data.included,
+        );
 
-      getRoot(store).entities.merge(normalizedEntities);
-      store.list.append(res.data.data);
+        getRoot(store).entities.merge(normalizedEntities);
+        store.list.append(res.data.data);
+      }
 
       flow.success();
     } catch (err) {
