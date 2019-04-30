@@ -28,6 +28,7 @@ export default hoistStatics(
         ['messages', 'fetchMessages', 'inProgress'],
         transaction,
       ),
+      transactionStore: stores.transaction,
       // fetchMore: R.pathOr(false, ['message'], transaction)
     })),
     withStateHandlers(
@@ -43,6 +44,13 @@ export default hoistStatics(
     lifecycle({
       async componentDidMount() {
         try {
+          if (this.props.product) {
+            debugger;
+
+            await this.props.transactionStore.fetchChatTransaction.run(
+              this.props.product.id,
+            );
+          }
           // this.props.transaction[0].messages.initiateMessage.run();
 
           // if (this.props.transactionId.length === 0) {
@@ -53,6 +61,10 @@ export default hoistStatics(
           //   );
           // }
           // ///////
+          // await this.props.transaction[
+          //   this.props.transaction.length - 1
+          // ].messages.fetchMessages.run();
+          // ////
           this.props.transaction.messages.fetchMessages.run();
         } catch (err) {
           debugger;

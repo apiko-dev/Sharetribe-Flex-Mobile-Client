@@ -37,7 +37,7 @@ export default hoistStatics(
       transaction: stores.transaction.list.asArray,
       //
       // message: stores.transaction.messages,
-      // trAction: stores.transaction,
+      transactionStore: stores.transaction,
       //
       phoneNumber: R.path(
         [
@@ -112,11 +112,13 @@ export default hoistStatics(
         transaction,
         message,
         product,
-        trAction,
+        transactionStore,
       }) => async () => {
-        // trAction.initiateMessageTransaction.run(product.id);
-        // debugger;
+        // transactionStore.initiateMessageTransaction.run(product.id);
+        debugger;
+        // transactionStore.fetchChatTransaction.run(product.id);
         NavigationService.navigateToChat({ transaction, product });
+
         // message.initiateMessageTransaction.run();
 
         // //////
