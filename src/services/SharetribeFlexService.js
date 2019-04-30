@@ -299,6 +299,42 @@ class SharetribeSdkService {
     return this.sdk.transactions.query({});
   }
 
+  transactionsQuery() {
+    return this.sdk.transactions.query({
+      // only: 'order',
+      // lastTransitions: ['transition/request'],
+      include: [
+        // 'customer',
+        // 'customer.profileImage',
+        // 'provider',
+        // 'provider.profileImage',
+        'listing',
+        // 'booking',
+        // 'reviews',
+        // 'reviews.author',
+        // 'reviews.subject',
+      ],
+    });
+  }
+
+  transactionsShow(transactionId) {
+    return this.sdk.transactions.show({
+      id: transactionId,
+      include: [
+        'customer',
+        'customer.profileImage',
+        'provider',
+        'provider.profileImage',
+        'listing',
+        'booking',
+        'reviews',
+        'reviews.author',
+        'reviews.subject',
+        'messages',
+      ],
+    });
+  }
+
   createStripeAccount() {
     return this.sdk.stripeAccount.create(
       {

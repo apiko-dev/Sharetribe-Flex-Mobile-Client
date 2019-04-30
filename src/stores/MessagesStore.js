@@ -6,7 +6,6 @@ import listModel from './utils/listModel';
 import { User } from './UserStore';
 import { normalizedIncluded } from './utils/normalize';
 
-
 const MessageRelationships = t.model('MessageRelationships', {
   sender: t.maybe(t.reference(User)),
 });
@@ -39,14 +38,21 @@ function responseTransformer(res) {
   return res.map(processJsonApi);
 }
 
-export const MessageStore = t.model('MessageStore', {
-  list: MessageList,
+export const MessageStore = t
+  .model('MessageStore', {
+    list: MessageList,
 
-  messageTransaction: createFlow(messageTransaction),
-  sendMessage: createFlow(sendMessage),
-  fetchMessages: createFlow(fetchMessages),
-  fetchMoreMessages: createFlow(fetchMoreMessages),
-});
+    messageTransaction: createFlow(messageTransaction),
+    sendMessage: createFlow(sendMessage),
+    fetchMessages: createFlow(fetchMessages),
+    fetchMoreMessages: createFlow(fetchMoreMessages),
+  })
+
+  .views((store) => ({
+    get messagesLength() {
+      return store.list.asArray.length;
+    },
+  }));
 
 function initiateMessage(flow, store) {
   return function* initiateMessage(listingId) {
