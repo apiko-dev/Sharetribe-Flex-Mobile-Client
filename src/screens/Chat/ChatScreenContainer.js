@@ -46,28 +46,29 @@ export default hoistStatics(
         try {
           if (this.props.product) {
             debugger;
-
-            await this.props.transactionStore.fetchChatTransaction.run(
+            
+            await this.props.transactionStore.initiateMessageTransaction.run(
               this.props.product.id,
             );
-          }
-          // this.props.transaction[0].messages.initiateMessage.run();
 
-          // if (this.props.transactionId.length === 0) {
-          //   // if (this.props.transactionId.length === 0) {
-          //   debugger;
-          //   await this.props.transaction.initiateMessage.run(
-          //     this.props.product.id,
-          //   );
-          // }
-          // ///////
-          // await this.props.transaction[
-          //   this.props.transaction.length - 1
-          // ].messages.fetchMessages.run();
-          // ////
-          this.props.transaction.messages.fetchMessages.run();
+            // await this.props.transactionStore.fetchChatTransaction.run(
+            //   this.props.product.id,
+            // );
+            // // await this.props.transaction[0].fetchChatTransaction.run(
+            // //   this.props.product.id,
+            // // );
+
+            // // await this.props.transaction[0].messages.fetchMessages.run();
+            // await this.props.transactionStore.list.asArray
+            //   .slice(-1)[0]
+            //   .messages.fetchMessages.run();
+          } else {
+            this.props.transaction.messages.fetchMessages.run();
+          }
+
+          // debugger;
         } catch (err) {
-          debugger;
+          // debugger;
           console.log(err);
         }
       },
@@ -79,10 +80,18 @@ export default hoistStatics(
         const content = props.messageInputText.trim();
 
         LayoutAnimation.easeInEaseOut();
-        props.transaction.messages.sendMessage.run(
-          props.transactionId,
-          content,
-        );
+        // if (props.transaction) {
+        //   props.transaction.messages.sendMessage.run(
+        //     props.transactionId,
+        //     content,
+        //   );
+        // } else {
+          props.transactionStore.list.asArray[0].messages.sendMessage.run(
+            props.transactionId,
+            content,
+          );
+        // }
+        // debugger;
         props.setMessageInputText('');
 
         // if (props.messageInputText.trim().length > 0) {
