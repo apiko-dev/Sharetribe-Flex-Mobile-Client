@@ -29,7 +29,6 @@ export default hoistStatics(
         transaction,
       ),
       transactionStore: stores.transaction,
-      // fetchMore: R.pathOr(false, ['message'], transaction)
     })),
     withStateHandlers(
       {
@@ -46,7 +45,7 @@ export default hoistStatics(
         try {
           if (this.props.product) {
             debugger;
-            
+
             await this.props.transactionStore.initiateMessageTransaction.run(
               this.props.product.id,
             );
@@ -80,20 +79,13 @@ export default hoistStatics(
         const content = props.messageInputText.trim();
 
         LayoutAnimation.easeInEaseOut();
-        // if (props.transaction) {
-        //   props.transaction.messages.sendMessage.run(
-        //     props.transactionId,
-        //     content,
-        //   );
-        // } else {
-          props.transactionStore.list.asArray[0].messages.sendMessage.run(
-            props.transactionId,
-            content,
-          );
-        // }
-        // debugger;
-        props.setMessageInputText('');
 
+        props.transaction.messages.sendMessage.run(
+          props.transactionId,
+          content,
+        );
+        props.setMessageInputText('');
+        // }
         // if (props.messageInputText.trim().length > 0) {
         //   try {
         //     props.transaction.sendMessage.run(
@@ -113,7 +105,6 @@ export default hoistStatics(
       },
 
       fetchMoreMessages: (props) => () => {
-        // const page = props.messageCollection.length
         props.transaction.messages.fetchMoreMessages.run();
       },
     }),

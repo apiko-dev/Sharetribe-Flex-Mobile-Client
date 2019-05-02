@@ -115,37 +115,11 @@ export default hoistStatics(
         transactionStore,
       }) => async () => {
         // transactionStore.initiateMessageTransaction.run(product.id);
-        debugger;
+        // debugger;
         // transactionStore.fetchChatTransaction.run(product.id);
         NavigationService.navigateToChat({ transaction, product });
 
-        // message.initiateMessageTransaction.run();
-
-        // //////
-        // try {
-        //   await transaction.sendMessage.run(
-        //     product.transactionId,
-        //     data.content,
-        //   );
-        // } catch (err) {
-        //   console.log(err);
-        // }
       },
-
-      // fakeMessage: (props) => async () => {
-      //   const data = {
-      //     content: 'this is a TEST message ',
-      //   };
-
-      //   try {
-      //     await props.product.sendMessage.run(
-      //       props.product.transactionId,
-      //       data.content,
-      //     );
-      //   } catch (err) {
-      //     console.log(err);
-      //   }
-      // },
     }),
 
     lifecycle({

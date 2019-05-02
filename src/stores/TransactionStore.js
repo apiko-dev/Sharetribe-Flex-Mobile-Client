@@ -90,9 +90,15 @@ export const TransactionStore = t
     get Api() {
       return getEnv(store).Api;
     },
+
+    // get GetLastElement() {
+    //   debugger;
+    //   return store.list.asArray[store.list.asArray.length - 1];
+    // },
   }));
 // ////////////
 function initiateMessageTransaction(flow, store) {
+
   return function* initiateMessage(listingId) {
     try {
       flow.start();
@@ -100,14 +106,13 @@ function initiateMessageTransaction(flow, store) {
       const res = yield flow.Api.initiateMessageTransaction(
         listingId,
       );
-      //
-      debugger;
+      // debugger;
       // store.list.add(res.data.data);
       const data = processJsonApi(res.data.data);
       console.log('data: ', data);
       // getParent(store, 2).add(data)
       store.list.add(data);
-      debugger;
+      // debugger;
       flow.success();
     } catch (err) {
       flow.failed(err, true);
@@ -199,50 +204,45 @@ function fetchChatTransaction(flow, store) {
       flow.start();
 
       const res = yield store.Api.transactionsQuery({
-        only: 'sale',
-        lastTransitions: ['transition/request'],
+        // only: 'order',
+        // lastTransitions: ['transition/request'],
       });
 
       const transactions = res.data.data.map((i) =>
         processJsonApi(i),
       );
-      // const transactions = res.data.data.map((i) => i);
 
       const normalizedEntities = normalizedIncluded(
         res.data.included,
       );
-      debugger;
-      const listingsTransaction = transactions.filter(
-        (i) => i.relationships.listing === listingId,
-      );
-      debugger;
-      const listingTransaction = listingsTransaction[0];
+
+      // const listingsTransaction = transactions.filter(
+      //   (i) =>
+      //     i.relationships.listing.toString() === listingId.toString(),
+      // );
+      const listingTransaction = transactions[0];
+      // const listingsTransaction = transactions.slice(-1)[0];
+
+      // let listingTransaction;
+      // if (Array.isArray(listingsTransaction)) {
+      //   listingTransaction = listingsTransaction[0];
+      // } else {
+      //   listingTransaction = listingsTransaction;
+      // }
       if (
         // listingTransaction.length === 0 &&
         typeof listingTransaction === 'undefined'
       ) {
         store.initiateMessageTransaction.run(listingId);
       } else {
-        // const messageHistory = yield store.Api.transactionsShow(
-        //   listingTransaction.id,
-        // );
         store.list.add(listingTransaction);
-        // store.list.add(res.data.data[0]);
-
-        // const transactionRes = yield store.Api.transactionsShow(
-        //   listingTransaction.id,
-        // );
-        // const processTransaction = processJsonApi(
-        //   transactionRes.data.data,
-        // );
-        // store.list.add(processTransaction);
       }
 
-      debugger;
+      // debugger;
 
       flow.success();
     } catch (err) {
-      debugger;
+      // debugger;
       flow.failed(err, true);
     }
   };
