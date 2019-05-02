@@ -45,6 +45,7 @@ export default hoistStatics(
           product,
           startRent,
           endRent,
+          productName: product.title,
         }),
 
       getStartAndEndDate: (props) => (

@@ -22,6 +22,7 @@ import {
   withDebounce,
   withParamsToProps,
 } from '../../utils/enhancers';
+import screens from '../../navigation/screens';
 
 const getPublicData = (props) => (name) =>
   R.pathOr('', ['product', 'publicData', name], props);
@@ -43,8 +44,9 @@ const transformEntries = (entries) =>
 export default hoistStatics(
   compose(
     withParamsToProps('product', 'isEditing'),
-    inject(({ listings }, { product }) => ({
+    inject(({ listings, viewer }, { product }) => ({
       listings,
+      user: viewer.user,
       isLoading:
         listings.createListing.inProgress ||
         R.pathOr(false, ['update', 'inProgress'], product),
@@ -165,7 +167,7 @@ export default hoistStatics(
         }
       },
 
-      addPhotoFormLibrary: (props) => async () => {
+      addPhotoFromLibrary: (props) => async () => {
         try {
           if (await PermissionService.getCameraRollPermission()) {
             const images = await ImagePicker.openPicker({
@@ -189,20 +191,38 @@ export default hoistStatics(
         }
       },
 
-      createListing: (props) => () => {
-        props.listings.createListing.run({
-          images: props.photos,
-          title: props.title,
-          category: props.category,
-          subCategory: props.subCategory,
-          brand: props.brand,
-          level: props.level,
-          description: props.description,
-          price: props.price,
-          location: props.location,
-          geolocation: props.geolocation,
-          entriesDay: transformEntries(props.entries),
-        });
+      createListing: (props) => async () => {
+        try {
+          await props.listings.createListing.run({
+            images: props.photos,
+            title: props.title,
+            category: props.category,
+            subCategory: props.subCategory,
+            brand: props.brand,
+            level: props.level,
+            description: props.description,
+            price: props.price,
+            location: props.location,
+            geolocation: props.geolocation,
+            entriesDay: transformEntries(props.entries),
+          });
+
+          AlertService.showAlert(
+            i18n.t('alerts.createListingSuccess.title'),
+            i18n.t('alerts.createListingSuccess.message'),
+            [
+              {
+                text: i18n.t('common.ok'),
+                onPress: () => NavigationService.navigateToHome(),
+              },
+            ],
+          );
+        } catch (err) {
+          AlertService.showAlert(
+            i18n.t('alerts.createListingError.title'),
+            i18n.t('alerts.createListingError.message'),
+          );
+        }
       },
 
       updateProduct: (props) => async () => {
@@ -300,7 +320,7 @@ export default hoistStatics(
 
       addPhoto: (props) => (index) => {
         if (index === 0) {
-          props.addPhotoFormLibrary();
+          props.addPhotoFromLibrary();
         } else if (index === 1) {
           props.addPhotoByCamera();
         }
@@ -309,6 +329,16 @@ export default hoistStatics(
       onChangeLocation: (props) => (text) => {
         props.onChange('location', text);
         props.getPredictions();
+      },
+
+      publishListing: (props) => () => {
+        if (!props.user.stripeConnected) {
+          NavigationService.navigateTo(screens.PayoutPreferences, {
+            onContinue: props.createListing,
+          });
+        } else {
+          props.createListing();
+        }
       },
     }),
 

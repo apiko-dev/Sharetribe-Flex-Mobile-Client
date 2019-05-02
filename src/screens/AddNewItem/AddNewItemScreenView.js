@@ -39,7 +39,7 @@ const AddNewItemScreenView = ({
   subCategory,
   removePhoto,
   isValidFields,
-  createListing,
+  publishListing,
   isLoading,
   onChangeLocation,
   locationList,
@@ -250,7 +250,7 @@ const AddNewItemScreenView = ({
             s.publishContainer,
             locationList.length !== 0 && s.buttonContainerBottom,
           ]}
-          onPress={createListing}
+          onPress={publishListing}
           isLoading={isLoading}
         />
       )}
@@ -293,7 +293,7 @@ AddNewItemScreenView.propTypes = {
   goToCategory: T.func,
   removePhoto: T.func,
   isValidFields: T.bool,
-  createListing: T.func,
+  publishListing: T.func,
   updateProduct: T.func,
   isLoading: T.bool,
   onChangeLocation: T.func,

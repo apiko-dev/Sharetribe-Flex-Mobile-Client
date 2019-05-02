@@ -4,6 +4,7 @@ import AlertService from './AlertService';
 import PermissionService from './PermissionService';
 import AppStateService from './AppStateService';
 import SentryIoService from './SentryIoService';
+import StripeService from './StripeService';
 
 export {
   NavigationService,
@@ -12,4 +13,5 @@ export {
   PermissionService,
   AppStateService,
   SentryIoService,
+  StripeService,
 };

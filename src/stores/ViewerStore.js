@@ -23,6 +23,7 @@ const ViewerStore = types
     changePassword: createFlow(changePassword),
     sendVerifyEmail: createFlow(sendVerifyEmail),
     verifyEmail: createFlow(verifyEmail),
+    createStripeAccount: createFlow(createStripeAccount),
   })
   .views((store) => ({
     get Api() {
@@ -89,7 +90,7 @@ function updateProfile(flow, store) {
   }) {
     try {
       flow.start();
-      
+
       yield store.Api.updateProfile({
         firstName,
         lastName,
@@ -125,9 +126,7 @@ function changeEmail(flow, store) {
 
       flow.success();
     } catch (err) {
-      console.log('change email error: ', err);
       const error = normalizeError(err);
-      console.log(error);
 
       flow.failed(error, true);
     }
@@ -173,6 +172,28 @@ function verifyEmail(flow, store) {
       flow.start();
 
       yield store.Api.verifyEmail(token);
+
+      flow.success();
+    } catch (err) {
+      flow.failed(err, true);
+    }
+  };
+}
+
+function createStripeAccount(flow, store) {
+  return function* createStripeAccount({
+    accountToken,
+    bankAccountToken,
+    country,
+  }) {
+    try {
+      flow.start();
+
+      yield store.Api.createStripeAccount({
+        country,
+        accountToken,
+        bankAccountToken,
+      });
 
       flow.success();
     } catch (err) {

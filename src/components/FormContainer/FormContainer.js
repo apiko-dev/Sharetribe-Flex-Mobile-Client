@@ -11,9 +11,11 @@ const FormContainer = ({
   headerTitleTextTouchable,
   headerOnPressTextTouchable,
   containerStyle,
+  formContainerStyle,
+  headerStyle,
 }) => (
   <React.Fragment>
-    <View style={[s.header]}>
+    <View style={[s.header, headerStyle]}>
       {!!headerTitle && (
         <Text xmediumSize bold>
           {headerTitle}
@@ -25,7 +27,13 @@ const FormContainer = ({
         </TextTouchable>
       )}
     </View>
-    <View style={[s.formContainer, s.firstShadowContainer]}>
+    <View
+      style={[
+        s.formContainer,
+        s.firstShadowContainer,
+        formContainerStyle,
+      ]}
+    >
       <View style={[s.secondShadowContainer, containerStyle]}>
         {children}
       </View>
@@ -39,6 +47,8 @@ FormContainer.propTypes = {
   headerTitleTextTouchable: T.string,
   headerOnPressTextTouchable: T.func,
   containerStyle: ViewPropTypes.style,
+  formContainerStyle: ViewPropTypes.style,
+  headerStyle: ViewPropTypes.style,
 };
 
 export default FormContainer;

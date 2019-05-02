@@ -29,6 +29,8 @@ export default {
   Help: 'Help',
   Inbox: 'Inbox',
   Chat: 'Chat',
+  Preferences: 'PayoutPreferences',
+  CardList: 'CardList',
 
   // Stacks
   HomeStack: 'HomeStack',

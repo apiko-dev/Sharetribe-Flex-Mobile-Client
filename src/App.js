@@ -4,13 +4,13 @@ import { StatusBar } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import { Provider } from 'mobx-react/native';
 import { lifecycle } from 'recompose';
-
 import RootNavigation from './navigation/RootNavigation';
 import createStore from './stores/stores';
 import {
   SharetribeFlexService,
   NavigationService,
   SentryIoService,
+  StripeService,
 } from './services';
 import { colors } from './styles';
 import { transactions } from './stores/mocks';
@@ -66,6 +66,7 @@ const enhancer = lifecycle({
   async componentDidMount() {
     NavigationService.initDeepLinking();
     SharetribeFlexService.init();
+    StripeService.init();
     await store.bootstrap();
     SplashScreen.hide();
   },

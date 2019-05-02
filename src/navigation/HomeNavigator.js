@@ -12,6 +12,9 @@ import {
   CalendarScreen,
   HelpScreen,
   RequestToRentPaymentScreen,
+  PayoutPreferencesScreen,
+  CardListScreen,
+  ProfileScreen,
 } from '../screens';
 import { defaultNavigationOptions } from './NavigationOptions';
 
@@ -23,11 +26,14 @@ export default createStackNavigator(
     [screens.AddNewItem]: AddNewItemScreen,
     [screens.Category]: CategoryScreen,
     [screens.Product]: ProductScreen,
+    [screens.Profile]: ProfileScreen,
     [screens.Gallery]: GalleryScreen,
     [screens.RequestToRent]: RequestToRentScreen,
-    [screens.RequestToRentPayment]: RequestToRentPaymentScreen,
     [screens.Calendar]: CalendarScreen,
+    [screens.RequestToRentPayment]: RequestToRentPaymentScreen,
+    [screens.CardList]: CardListScreen,
     [screens.Help]: HelpScreen,
+    [screens.PayoutPreferences]: PayoutPreferencesScreen,
   },
   {
     initialRouteKey: screens.Home,

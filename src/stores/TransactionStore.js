@@ -125,32 +125,36 @@ function initiateTransaction(flow, store) {
     listingId,
     startRent,
     endRent,
+    // monthExpiration,
+    // yearExpiration,
+    // message,
   }) {
     try {
       flow.start();
 
-      console.log(
-        'initiateTransaction data: ',
-        listingId,
-        startRent,
-        endRent,
-      );
+      // TODO: Make request to create cardToken here
 
       const res = yield store.Api.initiateTransaction({
         listingId,
         startRent,
         endRent,
+        // cardToken,
       });
 
-      console.log('initiateTransaction res: ', res);
-
       const data = processJsonApiTransactions(res.data.data);
-      console.log('data: ', data);
       store.list.add(data);
 
-      const transactions = yield store.Api.fetchTransactions();
+      // TODO: Send message by transaction id
+      //
+      // if(!!message) {
+      // yield store.Api.sendMessage({
+      //  transactionId: data.id,
+      //  content: message,
+      //  });
+      // }
 
-      console.log('fetchTransactions res: ', transactions);
+      // const transactions = yield store.Api.fetchTransactions(); Using for test
+      // console.log('fetchTransactions res: ', transactions);
 
       flow.success();
     } catch (err) {

@@ -7,7 +7,7 @@ import {
 } from 'mobx-state-tree';
 import R from 'ramda';
 import createFlow from './helpers/createFlow';
-import { AlertService, NavigationService } from '../services';
+import { AlertService } from '../services';
 import i18n from '../i18n';
 import processJsonApi from './utils/processJsonApi';
 import listModel from './utils/listModel';
@@ -276,26 +276,8 @@ function createListing(flow, store) {
       store.list.addToBegin(data, false);
 
       flow.success();
-
-      // TODO: move this alert into screen container
-      AlertService.showAlert(
-        i18n.t('alerts.createListingSuccess.title'),
-        i18n.t('alerts.createListingSuccess.message'),
-        [
-          {
-            text: i18n.t('common.ok'),
-            onPress: () => NavigationService.navigateToHome(),
-          },
-        ],
-      );
     } catch (err) {
-      flow.failed(err);
-
-      // TODO: move this alert into screen container
-      AlertService.showAlert(
-        i18n.t('alerts.createListingError.title'),
-        i18n.t('alerts.createListingError.message'),
-      );
+      flow.failed(err, true);
     }
   };
 }
@@ -311,8 +293,6 @@ function fetchListings(flow, store) {
         include: ['images', 'author', 'author.profileImage'],
       });
 
-      console.log(res);
-
       const normalizedEntities = normalizedIncluded(
         res.data.included,
       );
@@ -323,7 +303,6 @@ function fetchListings(flow, store) {
 
       flow.success();
     } catch (err) {
-      console.log(err);
       flow.failed();
 
       // TODO: move this alert into screen container
@@ -336,17 +315,14 @@ function fetchListings(flow, store) {
 }
 
 function searchListings(flow, store) {
-  return function* searchListings({ categories, title }) {
+  return function* searchListings({ title }) {
     try {
       flow.start();
 
       const res = yield store.Api.fetchListings({
-        pub_category: categories,
         pub_title: title,
         include: ['images', 'author', 'author.profileImage'],
       });
-
-      console.log(res);
 
       const normalizedEntities = normalizedIncluded(
         res.data.included,
@@ -378,8 +354,6 @@ function fetchOwnListings(flow, store) {
         include: ['images', 'author', 'author.profileImage'],
       });
 
-      console.log(res);
-
       store.ownList.set(res.data.data);
 
       const normalizedEntities = normalizedIncluded(
@@ -390,7 +364,6 @@ function fetchOwnListings(flow, store) {
 
       flow.success();
     } catch (err) {
-      console.log(err);
       flow.failed();
 
       // TODO: move this alert into screen container
@@ -406,13 +379,10 @@ function fetchParticularUserListings(flow, store) {
   return function* fetchParticularUserListings(userId) {
     try {
       flow.start();
-      console.log(userId);
       const res = yield store.Api.fetchListings({
         authorId: userId,
         include: ['images', 'author', 'author.profileImage'],
       });
-
-      console.log('fetchParticularUserListings: ', res);
 
       const normalizedEntities = normalizedIncluded(
         res.data.included,

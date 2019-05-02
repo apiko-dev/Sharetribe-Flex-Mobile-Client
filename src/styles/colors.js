@@ -175,6 +175,13 @@ export default {
   calendarScreen: {
     backgroundColor: '#FFF',
   },
+  cardListScreen: {
+    backgroundColor: '#F8F8F8',
+  },
+  cardItem: {
+    iconCheck: '#FF9900',
+    iconCheckBorder: '#E9E9E9',
+  },
 
   avatars: [
     '#1abc9c',

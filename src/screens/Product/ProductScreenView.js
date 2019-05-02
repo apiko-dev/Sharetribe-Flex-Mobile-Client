@@ -198,7 +198,7 @@ ProductScreen.propTypes = {
   navigationToRequestToRent: T.func,
   navigationToCalendar: T.func,
   isOnLease: T.bool,
-  nearestAvailableDate: T.bool,
+  nearestAvailableDate: T.oneOfType([T.string, T.bool]),
   phoneNumber: T.string,
 };
 export default observer(ProductScreen);
