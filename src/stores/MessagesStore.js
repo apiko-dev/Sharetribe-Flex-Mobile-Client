@@ -62,13 +62,9 @@ function initiateMessage(flow, store) {
       const res = yield flow.Api.initiateMessageTransaction(
         listingId,
       );
-      //
 
-      // store.list.add(res.data.data);
       const data = processJsonApi(res.data.data);
-      console.log('data: ', data);
-      // getParent(store, 2).add(data)
-      store.list.add(data);
+      getParent(store, 2).add(data);
 
       flow.success();
     } catch (err) {
@@ -134,22 +130,18 @@ function fetchMoreMessages(flow, store) {
 }
 
 function sendMessage(flow, store) {
-  return function* sendMessage(transactionId, content) {
+  return function* sendMessage(content) {
     try {
       flow.start();
 
+      const transactionId = getParent(store).id;
       const res = yield flow.Api.sendMessage({
         transactionId,
         content,
         include: ['sender', 'sender.profileImage'],
       });
-      console.log('Message', res);
-      // const normalizedEntities = normalizedIncluded(
-      //   res.data.included,
-      // );
 
-      // getRoot(store).entities.merge(normalizedEntities);
-      store.list.addToBegin(res.data.data);
+      store.list.prepend([res.data.data]);
 
       flow.success();
     } catch (err) {
@@ -165,7 +157,6 @@ function messageTransaction(flow, store) {
       const res = yield flow.Api.initiateMessageTransaction(
         listingId,
       );
-      console.log(res);
       const transactionId = res.data.data.id;
       getParent(store).setTransactionId(transactionId);
 

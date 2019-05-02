@@ -5,10 +5,10 @@ import { colors } from '../../../../styles';
 import { IconFonts, Touchable } from '../../../../components';
 import s from './styles';
 
-const Input = (props) => (
+const Input = ({ onSend, ...props }) => (
   <View style={s.containerInput}>
     <TextInput {...props} style={s.textInput} />
-    <Touchable onPress={props.onSend} style={s.send}>
+    <Touchable onPress={onSend} style={s.send}>
       <IconFonts
         name="send"
         size={25}

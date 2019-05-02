@@ -34,6 +34,10 @@ export default function listModel(name, options) {
 
         return undefined;
       },
+
+      get latest() {
+        return store.array[store.array.length - 1];
+      },
     }))
 
     .actions((store) => ({

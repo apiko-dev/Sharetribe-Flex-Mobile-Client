@@ -81,6 +81,7 @@ ChatScreen.propTypes = {
   onSend: T.func,
   messageInputText: T.string,
   setMessageInputText: T.func,
+  fetchMoreMessages: T.func,
   messageCollection: T.array,
   isLoading: T.bool,
 };

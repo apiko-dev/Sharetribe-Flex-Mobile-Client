@@ -17,6 +17,16 @@ export default hoistStatics(
   compose(
     withParamsToProps('transaction'),
     withParamsToProps('product'),
+    withStateHandlers(
+      (props) => ({
+        transaction: props.transaction,
+      }),
+      {
+        setTransaction: () => (value) => ({
+          transaction: value,
+        }),
+      },
+    ),
     inject((stores, { transaction }) => ({
       messageCollection: R.pathOr(
         [],
@@ -44,30 +54,16 @@ export default hoistStatics(
       async componentDidMount() {
         try {
           if (this.props.product) {
-            debugger;
-
             await this.props.transactionStore.initiateMessageTransaction.run(
               this.props.product.id,
             );
-
-            // await this.props.transactionStore.fetchChatTransaction.run(
-            //   this.props.product.id,
-            // );
-            // // await this.props.transaction[0].fetchChatTransaction.run(
-            // //   this.props.product.id,
-            // // );
-
-            // // await this.props.transaction[0].messages.fetchMessages.run();
-            // await this.props.transactionStore.list.asArray
-            //   .slice(-1)[0]
-            //   .messages.fetchMessages.run();
+            const transaction = this.props.transactionStore.list
+              .latest;
+            this.props.setTransaction(transaction);
           } else {
             this.props.transaction.messages.fetchMessages.run();
           }
-
-          // debugger;
         } catch (err) {
-          // debugger;
           console.log(err);
         }
       },
@@ -80,28 +76,8 @@ export default hoistStatics(
 
         LayoutAnimation.easeInEaseOut();
 
-        props.transaction.messages.sendMessage.run(
-          props.transactionId,
-          content,
-        );
+        props.transaction.messages.sendMessage.run(content);
         props.setMessageInputText('');
-        // }
-        // if (props.messageInputText.trim().length > 0) {
-        //   try {
-        //     props.transaction.sendMessage.run(
-        //       props.transactionId,
-        //       mess,
-        //     );
-        //     props.stores;
-        //     // props.messages.sendMessage.run(
-        //     //   props.product.transactionId,
-        //     //   mess,
-        //     // );
-        //   } catch (err) {
-        //     console.log(err);
-        //   }
-        // }
-        // console.log('transactions_transactions', props.transactions);
       },
 
       fetchMoreMessages: (props) => () => {
