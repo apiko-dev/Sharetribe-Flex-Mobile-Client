@@ -1,18 +1,25 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import T from 'prop-types';
 
+import { FlatList } from 'react-native-gesture-handler';
 import { Message } from './components';
 import { DrawerButton } from '../../components';
 import s from './styles';
 
 function InboxScreen({ transactions }) {
   return (
-    <View style={s.container}>
-      {transactions.map((i) => (
-        <Message transaction={i} key={i.id} />
-      ))}
-    </View>
+    <ScrollView>
+      <FlatList
+        data={transactions}
+        style={s.container}
+        renderItem={({ item }) => (
+          <Message transaction={item} key={item.id} />
+        )}
+        keyExtractor={(item) => item.id}
+        // onEndReached={() => fetchMoreTransactions()}
+      />
+    </ScrollView>
   );
 }
 

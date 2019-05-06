@@ -79,6 +79,13 @@ export default function listModel(name, options) {
         store.array.push(item.id);
       },
 
+      addMany(array) {
+        array.forEach((current) => {
+          store.mergeSingle(current);
+          store.array.push(current.id);
+        });
+      },
+
       addToBegin(item, shouldMerge = true) {
         if (shouldTransformSingle) {
           // eslint-disable-next-line prefer-destructuring

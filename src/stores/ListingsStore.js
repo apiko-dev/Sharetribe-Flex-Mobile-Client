@@ -79,13 +79,11 @@ export const Product = t
     createdAt: t.maybe(t.Date),
     state: t.string,
     title: t.string,
-    // //
-    transactionId: t.optional(t.maybeNull(t.string), null),
-    // //
 
-    // messages: t.optional(t.maybeNull(Message), null),
+    transactionId: t.optional(t.maybeNull(t.string), null),
+
     messages: t.optional(MessageStore, {}),
-    // //
+
     publicData: t.optional(t.maybeNull(ProductPublicData), null),
     price: t.optional(t.maybeNull(Price), null),
     metadata: t.model('metadata', {}),
@@ -105,6 +103,13 @@ export const Product = t
 
   .views((store) => ({
     get canEdit() {
+      return (
+        store.relationships.author.id ===
+        R.path(['viewer', 'user', 'id'], getRoot(store))
+      );
+    },
+
+    get getFull() {
       return (
         store.relationships.author.id ===
         R.path(['viewer', 'user', 'id'], getRoot(store))

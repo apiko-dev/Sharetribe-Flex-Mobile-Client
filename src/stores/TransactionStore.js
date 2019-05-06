@@ -8,7 +8,7 @@ import processJsonApi, {
 } from './utils/processJsonApi';
 import listModel from './utils/listModel';
 import { MessageStore } from './MessagesStore';
-import { Price } from './ListingsStore';
+import { Price, Product } from './ListingsStore';
 import { normalizedIncluded } from './utils/normalize';
 
 const LineItems = t.model('LineItems', {
@@ -31,12 +31,10 @@ const Transitions = t
     createdAt: new Date(snapshot.createdAt),
   }));
 
-// const Relationships = t.model('Relationships', {
-//   // messages: t.optional(MessageStore, {}),
-//   // listing: t.optional(Product, {}),
-//   // booking: t.optional({}),
-//   attributes: t.optional({}),
-// });
+const Relationships = t.model('Relationships', {
+  listing: t.maybe(t.reference(Product)),
+  // booking: t.optional({}),
+});
 
 export const Transaction = t
   .model('Transaction', {
@@ -55,7 +53,7 @@ export const Transaction = t
 
     messages: t.optional(MessageStore, {}),
     // listings: t.optional(ListingsStore, {}),
-    // relationships: t.optional(Relationships, {}),
+    relationships: t.maybe(Relationships),
   })
 
   .preProcessSnapshot((snapshot) => ({
@@ -86,19 +84,15 @@ export const TransactionStore = t
     initiateMessageTransaction: createFlow(
       initiateMessageTransaction,
     ),
-    fetchChatTransaction: createFlow(fetchChatTransaction),
+    // fetchChatTransaction: createFlow(fetchChatTransaction),
+    fetchTransactions: createFlow(fetchTransactions),
   })
   .views((store) => ({
     get Api() {
       return getEnv(store).Api;
     },
-
-    // get GetLastElement() {
-    //   debugger;
-    //   return store.list.asArray[store.list.asArray.length - 1];
-    // },
   }));
-// ////////////
+
 function initiateMessageTransaction(flow, store) {
   return function* initiateMessage(listingId) {
     try {
@@ -107,7 +101,6 @@ function initiateMessageTransaction(flow, store) {
       const res = yield flow.Api.initiateMessageTransaction(
         listingId,
       );
-      // debugger;
       // store.list.add(res.data.data);
       const data = processJsonApi(res.data.data);
       console.log('data: ', data);
@@ -120,7 +113,7 @@ function initiateMessageTransaction(flow, store) {
     }
   };
 }
-// //////////
+
 function initiateTransaction(flow, store) {
   return function* initiateTransaction({
     listingId,
@@ -178,37 +171,26 @@ function initiateTransaction(flow, store) {
   };
 }
 
-function fetchTransaction(flow, store) {
-  return function* initiateTransaction({
-    listingId,
-    startRent,
-    endRent,
-  }) {
+function fetchTransactions(flow, store) {
+  return function* fetchTransaction() {
     try {
       flow.start();
 
-      console.log(
-        'initiateTransaction data: ',
-        listingId,
-        startRent,
-        endRent,
-      );
-
-      const res = yield store.Api.initiateTransaction({
-        listingId,
-        startRent,
-        endRent,
+      const res = yield store.Api.fetchTransactions({
+        perPage: 15,
+        page: 1,
       });
 
-      console.log('initiateTransaction res: ', res);
+      const transactions = res.data.data.map((i) =>
+        processJsonApi(i),
+      );
 
-      const data = processJsonApiTransactions(res.data.data);
-      console.log('data: ', data);
-      store.list.add(data);
+      const normalizedEntities = normalizedIncluded(
+        res.data.included,
+      );
+      // getRoot(store).entities.merge(normalizedEntities);
 
-      const transactions = yield store.Api.fetchTransactions();
-
-      console.log('fetchTransactions res: ', transactions);
+      store.list.addMany(transactions);
 
       flow.success();
     } catch (err) {
@@ -216,6 +198,65 @@ function fetchTransaction(flow, store) {
     }
   };
 }
+// function fetchMoreTransactions(flow, store) {
+//   return function* fetchTransactions() {
+//     try {
+//       flow.start();
+
+//       const res = yield store.Api.fetchTransactions({
+//         perPage: 15,
+//         page: 1,
+//       });
+
+//       const transactions = res.data.data.map((i) =>
+//         processJsonApi(i),
+//       );
+//       store.list.addMany(transactions);
+
+//       flow.success();
+//     } catch (err) {
+//       flow.failed(err, true);
+//     }
+//   };
+// }
+// function fetchTransaction(flow, store) {
+//   return function* initiateTransaction({
+//     listingId,
+//     startRent,
+//     endRent,
+//   }) {
+//     try {
+//       flow.start();
+
+//       console.log(
+//         'initiateTransaction data: ',
+//         listingId,
+//         startRent,
+//         endRent,
+//       );
+
+//       const res = yield store.Api.initiateTransaction({
+//         listingId,
+//         startRent,
+//         endRent,
+//       });
+
+//       console.log('initiateTransaction res: ', res);
+
+//       const data = processJsonApiTransactions(res.data.data);
+//       console.log('data: ', data);
+//       store.list.add(data);
+
+//       const transactions = yield store.Api.fetchTransactions();
+
+//       console.log('fetchTransactions res: ', transactions);
+
+//       flow.success();
+//     } catch (err) {
+//       flow.failed(err, true);
+//     }
+//   };
+// }
 
 function fetchChatTransaction(flow, store) {
   return function* initiateTransaction(listingId) {

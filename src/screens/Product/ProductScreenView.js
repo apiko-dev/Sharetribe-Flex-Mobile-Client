@@ -200,5 +200,6 @@ ProductScreen.propTypes = {
   isOnLease: T.bool,
   nearestAvailableDate: T.oneOfType([T.string, T.bool]),
   phoneNumber: T.string,
+  onSend: T.func,
 };
 export default observer(ProductScreen);

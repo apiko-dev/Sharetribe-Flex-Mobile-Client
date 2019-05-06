@@ -1,7 +1,11 @@
 import React from 'react';
 import T from 'prop-types';
 import { View, Image } from 'react-native';
-import { getEndDateByStart } from '../../../../utils/dates';
+import {
+  getEndDateByStart,
+  formatedDate,
+  getHourAndMinutes,
+} from '../../../../utils/dates';
 
 import s from './styles';
 import {
@@ -46,6 +50,19 @@ function Message({ transaction }) {
   //   booking.start,
   // )} - ${getNormalizeDate(booking.end)}`;
 
+  const isRent =
+    transaction.lastTransition.substring(11) === 'enquire' ? (
+      <Text orange style={s.request} bold xxsmallSize>
+        {i18n.t('inbox.request')}
+      </Text>
+    ) : (
+      <Text green style={s.request} bold xxsmallSize>
+        {i18n.t('inbox.accepted')}
+      </Text>
+    );
+  const createdTime = getHourAndMinutes(
+    transaction.lastTransitionedAt,
+  );
   return (
     <ShadowContainer>
       <Touchable
@@ -54,40 +71,44 @@ function Message({ transaction }) {
           NavigationService.navigateTo('Chat', { transaction })
         }
       >
-        <Text>{transaction.id}</Text>
+        <View style={s.photoContainer}>
+          <Image
+            source={{
+              uri:
+                transaction.relationships.listing.relationships
+                  .getImages[0].variants.default.url,
+            }}
+            style={s.image}
+          />
+          <View style={s.requestContainer}>
+            {isRent}
+          </View>
+        </View>
+        <View style={s.messageMainInfo}>
+          <View style={s.headerMessage}>
+            <Text bold>
+              {
+                transaction.relationships.listing.relationships.author
+                  .profile.displayName
+              }
+            </Text>
+            <Text lightGray xsmallSize>
+              {createdTime}
+            </Text>
+          </View>
+          <View style={s.text}>
+            <Text ellipsizeMode="tail" numberOfLines={1} gray>
+              {transaction.relationships.listing.description}
+            </Text>
+          </View>
+          <View style={s.rentInfo}>
+            {/* <Text xxsmallSize>{timeBooking}</Text> */}
+          </View>
+        </View>
       </Touchable>
     </ShadowContainer>
   );
 }
-
-// {/* <View style={s.photoContainer}>
-//           <Image source={messageImage} style={s.image} />
-//           <View style={s.requestContainer}>
-//             {/* <Text orange style={s.request} bold xxsmallSize>
-//               {i18n.t('inbox.request')}
-//             </Text> */}
-//             <Text green style={s.request} bold xxsmallSize>
-//               {/* {i18n.t('inbox.accepted')} */}
-//               {stateProduct(booking)}
-//             </Text>
-//           </View>
-//         </View>
-//         <View style={s.messageMainInfo}>
-//           <View style={s.headerMessage}>
-//             <Text bold>{userName}</Text>
-//             <Text lightGray xsmallSize>
-//               {createdTime}
-//             </Text>
-//           </View>
-//           <View style={s.text}>
-//             <Text ellipsizeMode="tail" numberOfLines={1} gray>
-//               {transaction.processName}
-//             </Text>
-//           </View>
-//           <View style={s.rentInfo}>
-//             <Text xxsmallSize>{timeBooking}</Text>
-//           </View>
-//         </View> */}
 
 Message.propTypes = {};
 

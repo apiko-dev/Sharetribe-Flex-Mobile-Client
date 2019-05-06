@@ -277,10 +277,25 @@ class SharetribeSdkService {
     );
   }
 
-
-  fetchTransactions() {
-    return this.sdk.transactions.query({});
+  fetchTransactions(params) {
+    return this.sdk.transactions.query({
+      include: [
+        'customer',
+        'customer.profileImage',
+        'provider',
+        'provider.profileImage',
+        'listing',
+        'booking',
+        'reviews',
+        'reviews.author',
+        'reviews.subject',
+      ],
+      ...params,
+    });
   }
+  // fetchTransactions(perPage, page) {
+  //   return this.sdk.transactions.query({ perPage, page });
+  // }
 
   transactionsQuery() {
     return this.sdk.transactions.query({
