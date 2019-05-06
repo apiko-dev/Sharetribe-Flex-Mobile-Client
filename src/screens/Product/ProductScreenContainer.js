@@ -108,17 +108,8 @@ export default hoistStatics(
         call(args).catch(console.error);
       },
 
-      onSend: ({
-        transaction,
-        message,
-        product,
-        transactionStore,
-      }) => async () => {
-        // transactionStore.initiateMessageTransaction.run(product.id);
-        // debugger;
-        // transactionStore.fetchChatTransaction.run(product.id);
+      onSend: ({ transaction, product }) => async () => {
         NavigationService.navigateToChat({ transaction, product });
-
       },
     }),
 

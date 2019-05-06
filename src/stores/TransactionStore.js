@@ -1,5 +1,7 @@
 /* eslint-disable no-shadow */
 import { types as t, getEnv, getRoot } from 'mobx-state-tree';
+// import stripe from 'tipsi-stripe';
+
 import createFlow from './helpers/createFlow';
 import processJsonApi, {
   processJsonApiTransactions,
@@ -98,7 +100,6 @@ export const TransactionStore = t
   }));
 // ////////////
 function initiateMessageTransaction(flow, store) {
-
   return function* initiateMessage(listingId) {
     try {
       flow.start();
@@ -125,14 +126,28 @@ function initiateTransaction(flow, store) {
     listingId,
     startRent,
     endRent,
+    //
+    // cardNumber,
     // monthExpiration,
     // yearExpiration,
+    // cardCVC,
     // message,
   }) {
     try {
       flow.start();
 
+      // //////////
+      // const params = {
+      //   cardNumber,
+      //   monthExpiration,
+      //   yearExpiration,
+      //   cardCVC,
+      // };
+
+      // const cardToken = yield stripe.createTokenWithCard(params);
+
       // TODO: Make request to create cardToken here
+      // StripeService.
 
       const res = yield store.Api.initiateTransaction({
         listingId,

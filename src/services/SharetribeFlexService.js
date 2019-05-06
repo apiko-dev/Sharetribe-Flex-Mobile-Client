@@ -228,7 +228,6 @@ class SharetribeSdkService {
     );
   }
 
-  // //////////////////////////////////////////////////////
   initiateMessageTransaction(listId) {
     console.log('run service... ');
     return this.sdk.transactions.initiate(
@@ -244,14 +243,6 @@ class SharetribeSdkService {
       },
     );
   }
-
-  // fetchMessage({ transactionId }) {
-  //   console.log('run service... ');
-  //   return this.sdk.messages.query({
-  //     transactionId: new types.UUID(transactionId),
-  //     include: ['sender', 'sender.profileImage'],
-  //   });
-  // }
 
   fetchMessage({ transactionId, perPage, page }) {
     console.log('run service... ');
@@ -286,7 +277,6 @@ class SharetribeSdkService {
     );
   }
 
-  // /////////////////////////////////////////////////////
 
   fetchTransactions() {
     return this.sdk.transactions.query({});
