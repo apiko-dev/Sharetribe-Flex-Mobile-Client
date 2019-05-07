@@ -21,6 +21,9 @@ function ChatScreen({
   messageCollection,
   isLoading,
   fetchMoreMessages,
+  transaction,
+  onAccept,
+  onDeny,
 }) {
   if (isLoading) {
     return (
@@ -37,6 +40,9 @@ function ChatScreen({
           <Conformation
             setShowDetails={setShowDetails}
             isShowDetails={isShowDetails}
+            transaction={transaction}
+            onAccept={onAccept}
+            onDeny={onDeny}
           />
         </ShadowContainer>
       )}
@@ -84,6 +90,9 @@ ChatScreen.propTypes = {
   fetchMoreMessages: T.func,
   messageCollection: T.array,
   isLoading: T.bool,
+  transaction: T.object,
+  onAccept: T.func,
+  onDeny: T.func,
 };
 
 export default observer(ChatScreen);

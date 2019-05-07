@@ -11,9 +11,18 @@ import {
 import i18n from '../../../../i18n';
 import s from './styles';
 
-const Confirmation = ({ setShowDetails, isShowDetails }) => (
+const Confirmation = ({
+  setShowDetails,
+  isShowDetails,
+  transaction,
+  onAccept,
+  onDeny,
+}) => (
   <View style={s.container}>
-    <RentItem isShowDetails={isShowDetails} />
+    <RentItem
+      isShowDetails={isShowDetails}
+      transaction={transaction}
+    />
     <View style={s.buttonContainer}>
       <View style={s.accept}>
         <Button
@@ -22,6 +31,7 @@ const Confirmation = ({ setShowDetails, isShowDetails }) => (
           buttonStyle={s.buttonStyle}
           containerStyle={s.containerStyle}
           titleStyle={s.titleStyle}
+          onPress={onAccept}
         />
       </View>
       <View style={s.deny}>
@@ -30,6 +40,7 @@ const Confirmation = ({ setShowDetails, isShowDetails }) => (
           buttonStyle={s.buttonStyle}
           containerStyle={s.containerStyle}
           titleStyle={s.titleStyle}
+          onPress={onDeny}
         />
       </View>
       <View style={s.viewGoods}>

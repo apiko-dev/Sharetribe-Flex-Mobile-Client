@@ -83,6 +83,8 @@ export default hoistStatics(
       fetchMoreMessages: (props) => () => {
         props.transaction.messages.fetchMoreMessages.run();
       },
+      onAccept: (props) => () => {},
+      onDeny: (props) => () => {},
     }),
   ),
 )(ChatScreen);
