@@ -29,7 +29,7 @@ export default {
   Help: 'Help',
   Inbox: 'Inbox',
   Chat: 'Chat',
-  Preferences: 'PayoutPreferences',
+  PayoutPreferences: 'PayoutPreferences',
   CardList: 'CardList',
 
   // Stacks

@@ -1,6 +1,6 @@
 /* eslint-disable no-shadow */
 import { types as t, getEnv, getRoot } from 'mobx-state-tree';
-// import stripe from 'tipsi-stripe';
+import { StripeService } from '../services';
 
 import createFlow from './helpers/createFlow';
 import processJsonApi, {
@@ -120,34 +120,35 @@ function initiateTransaction(flow, store) {
     listingId,
     startRent,
     endRent,
-    //
-    // cardNumber,
-    // monthExpiration,
-    // yearExpiration,
-    // cardCVC,
+    cardNumber,
+    monthExpiration,
+    yearExpiration,
+    cardCVC,
     // message,
   }) {
     try {
       flow.start();
+      const expMonth = Number(monthExpiration);
+      const expYear = Number(yearExpiration);
 
-      // //////////
-      // const params = {
-      //   cardNumber,
-      //   monthExpiration,
-      //   yearExpiration,
-      //   cardCVC,
-      // };
+      const params = {
+        number: cardNumber,
+        expMonth,
+        expYear,
+        cvc: cardCVC,
+      };
 
-      // const cardToken = yield stripe.createTokenWithCard(params);
+      const cardToken = yield StripeService.createTokenWithCard(
+        params,
+      );
 
-      // TODO: Make request to create cardToken here
-      // StripeService.
+      const { tokenId } = cardToken;
 
       const res = yield store.Api.initiateTransaction({
         listingId,
         startRent,
         endRent,
-        // cardToken,
+        cardToken: tokenId,
       });
 
       const data = processJsonApiTransactions(res.data.data);

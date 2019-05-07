@@ -216,7 +216,7 @@ class SharetribeSdkService {
         processAlias: 'preauth-with-nightly-booking/release-1',
         transition: 'transition/request',
         params: {
-          listingId: new types.UUID(listingId),
+          listingId,
           bookingStart: new Date(startRent),
           bookingEnd: new Date(endRent),
           cardToken,

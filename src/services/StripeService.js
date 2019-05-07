@@ -1,20 +1,20 @@
-// import stripe from 'tipsi-stripe';
-// import config from '../../config';
+import stripe from 'tipsi-stripe';
+import config from '../../config';
 
 class StripeService {
   init() {
-    /* stripe.setOptions({
+    stripe.setOptions({
       publishableKey: config.STRIPE_API_KEY,
-    }); */
+    });
   }
 
-  /*  paymentRequestWithCardForm(options) {
+  paymentRequestWithCardForm(options) {
     return stripe.paymentRequestWithCardForm(options);
   }
 
   createTokenWithCard(params) {
     return stripe.createTokenWithCard(params);
-  } */
+  }
 }
 
 export default new StripeService();
