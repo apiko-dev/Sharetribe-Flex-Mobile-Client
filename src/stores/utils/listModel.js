@@ -46,6 +46,9 @@ export default function listModel(name, options) {
 
         store.merge(entityName, entities);
         store.array = ids;
+        if (ids.length < perPage) {
+          store.hasNoMore = true;
+        }
       },
 
       append(data) {
@@ -79,12 +82,6 @@ export default function listModel(name, options) {
         store.array.push(item.id);
       },
 
-      addMany(array) {
-        array.forEach((current) => {
-          store.mergeSingle(current);
-          store.array.push(current.id);
-        });
-      },
 
       addToBegin(item, shouldMerge = true) {
         if (shouldTransformSingle) {
