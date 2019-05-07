@@ -2,6 +2,7 @@ import {
   compose,
   hoistStatics,
   lifecycle,
+  withHandlers,
 } from 'recompose';
 
 import { inject } from 'mobx-react/custom';
@@ -15,6 +16,11 @@ export default hoistStatics(
         transactions: stores.transaction.list.asArray,
         transactionStore: stores.transaction,
       };
+    }),
+    withHandlers({
+      fetchMoreTransactions: (props) => () => {
+        props.transactionStore.fetchMoreTransactions.run();
+      },
     }),
     lifecycle({
       async componentDidMount() {

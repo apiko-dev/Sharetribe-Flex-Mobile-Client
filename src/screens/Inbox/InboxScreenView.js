@@ -1,25 +1,22 @@
 import React from 'react';
-import { View, ScrollView } from 'react-native';
+import { FlatList } from 'react-native';
 import T from 'prop-types';
 
-import { FlatList } from 'react-native-gesture-handler';
 import { Message } from './components';
 import { DrawerButton } from '../../components';
 import s from './styles';
 
-function InboxScreen({ transactions }) {
+function InboxScreen({ transactions, fetchMoreTransactions }) {
   return (
-    <ScrollView>
-      <FlatList
-        data={transactions}
-        style={s.container}
-        renderItem={({ item }) => (
-          <Message transaction={item} key={item.id} />
-        )}
-        keyExtractor={(item) => item.id}
-        // onEndReached={() => fetchMoreTransactions()}
-      />
-    </ScrollView>
+    <FlatList
+      data={transactions}
+      style={s.container}
+      renderItem={({ item }) => (
+        <Message transaction={item} key={item.id} />
+      )}
+      keyExtractor={(item) => item.id}
+      onEndReached={() => fetchMoreTransactions()}
+    />
   );
 }
 
@@ -29,6 +26,7 @@ InboxScreen.navigationOptions = () => ({
 
 InboxScreen.propTypes = {
   transactions: T.array,
+  fetchMoreTransactions: T.func,
 };
 
 export default InboxScreen;

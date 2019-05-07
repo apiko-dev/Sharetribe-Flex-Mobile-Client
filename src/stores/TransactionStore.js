@@ -86,6 +86,7 @@ export const TransactionStore = t
     ),
     // fetchChatTransaction: createFlow(fetchChatTransaction),
     fetchTransactions: createFlow(fetchTransactions),
+    fetchMoreTransactions: createFlow(fetchMoreTransactions),
   })
   .views((store) => ({
     get Api() {
@@ -101,12 +102,12 @@ function initiateMessageTransaction(flow, store) {
       const res = yield flow.Api.initiateMessageTransaction(
         listingId,
       );
-      // store.list.add(res.data.data);
+
       const data = processJsonApi(res.data.data);
       console.log('data: ', data);
       // getParent(store, 2).add(data)
       store.list.add(data);
-      // debugger;
+
       flow.success();
     } catch (err) {
       flow.failed(err, true);
@@ -181,16 +182,14 @@ function fetchTransactions(flow, store) {
         page: 1,
       });
 
-      const transactions = res.data.data.map((i) =>
-        processJsonApi(i),
-      );
+      const transactions = res.data.data.map((i) => i);
 
-      const normalizedEntities = normalizedIncluded(
-        res.data.included,
-      );
+      // const normalizedEntities = normalizedIncluded(
+      //   res.data.included,
+      // );
       // getRoot(store).entities.merge(normalizedEntities);
 
-      store.list.addMany(transactions);
+      store.list.append(transactions);
 
       flow.success();
     } catch (err) {
@@ -198,65 +197,30 @@ function fetchTransactions(flow, store) {
     }
   };
 }
-// function fetchMoreTransactions(flow, store) {
-//   return function* fetchTransactions() {
-//     try {
-//       flow.start();
+function fetchMoreTransactions(flow, store) {
+  return function* fetchTransactions() {
+    try {
+      flow.start();
+      const page = store.list.pageNumber;
+      const perPage = 15;
+      if (!store.list.hasNoMore) {
+        const res = yield store.Api.fetchTransactions({
+          perPage,
+          page,
+        });
 
-//       const res = yield store.Api.fetchTransactions({
-//         perPage: 15,
-//         page: 1,
-//       });
+        const transactions = res.data.data.map((i) =>
+          processJsonApi(i),
+        );
+        store.list.append(transactions);
+      }
 
-//       const transactions = res.data.data.map((i) =>
-//         processJsonApi(i),
-//       );
-//       store.list.addMany(transactions);
-
-//       flow.success();
-//     } catch (err) {
-//       flow.failed(err, true);
-//     }
-//   };
-// }
-// function fetchTransaction(flow, store) {
-//   return function* initiateTransaction({
-//     listingId,
-//     startRent,
-//     endRent,
-//   }) {
-//     try {
-//       flow.start();
-
-//       console.log(
-//         'initiateTransaction data: ',
-//         listingId,
-//         startRent,
-//         endRent,
-//       );
-
-//       const res = yield store.Api.initiateTransaction({
-//         listingId,
-//         startRent,
-//         endRent,
-//       });
-
-//       console.log('initiateTransaction res: ', res);
-
-//       const data = processJsonApiTransactions(res.data.data);
-//       console.log('data: ', data);
-//       store.list.add(data);
-
-//       const transactions = yield store.Api.fetchTransactions();
-
-//       console.log('fetchTransactions res: ', transactions);
-
-//       flow.success();
-//     } catch (err) {
-//       flow.failed(err, true);
-//     }
-//   };
-// }
+      flow.success();
+    } catch (err) {
+      flow.failed(err, true);
+    }
+  };
+}
 
 function fetchChatTransaction(flow, store) {
   return function* initiateTransaction(listingId) {
