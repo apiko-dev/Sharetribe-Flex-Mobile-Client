@@ -3,14 +3,13 @@ import { View, FlatList } from 'react-native';
 
 import { observer } from 'mobx-react/custom';
 import T from 'prop-types';
+import R from 'ramda';
 
 import { colors } from '../../styles';
 import { Conformation, Input, RenderItem } from './components';
 import { ShadowContainer, Loader } from '../../components';
 
 import s from './styles';
-
-const isVisibleConformation = true;
 
 function ChatScreen({
   isShowDetails,
@@ -24,6 +23,7 @@ function ChatScreen({
   transaction,
   onAccept,
   onDeny,
+  goToProduct,
 }) {
   if (isLoading) {
     return (
@@ -32,7 +32,10 @@ function ChatScreen({
       </View>
     );
   }
-
+  const isVisibleConformation =
+    R.pathOr('', ['lastTransition'], transaction).substring(11) ===
+    'request';
+  // !transaction.relationships.listing.relationships.author.isViewer;
   return (
     <View style={s.container}>
       {isVisibleConformation && (
@@ -43,6 +46,7 @@ function ChatScreen({
             transaction={transaction}
             onAccept={onAccept}
             onDeny={onDeny}
+            goToProduct={goToProduct}
           />
         </ShadowContainer>
       )}
@@ -93,6 +97,7 @@ ChatScreen.propTypes = {
   transaction: T.object,
   onAccept: T.func,
   onDeny: T.func,
+  goToProduct: T.func,
 };
 
 export default observer(ChatScreen);

@@ -297,7 +297,9 @@
     "day": "day",
     "request": "Request",
     "accepted": "Accepted",
-    "totalPrice": "Total price"
+    "totalPrice": "Total price",
+    "decline": "Decline",
+    "delivered": "Delivered"
 
   },
 

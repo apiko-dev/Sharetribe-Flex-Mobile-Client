@@ -21,16 +21,42 @@ import i18n from '../../../../i18n';
 const messageImage = require('../../../../assets/png/message_image.png');
 
 function Message({ transaction }) {
-  const isRent =
-    transaction.lastTransition.substring(11) === 'enquire' ? (
-      <Text orange style={s.request} bold xxsmallSize>
-        {i18n.t('inbox.request')}
-      </Text>
-    ) : (
-      <Text green style={s.request} bold xxsmallSize>
-        {i18n.t('inbox.accepted')}
-      </Text>
-    );
+  const isRent = (value) => {
+    switch (value) {
+      case 'enquire':
+        return (
+          <Text gray style={s.request} bold xxsmallSize>
+            {i18n.t('inbox.chat')}
+          </Text>
+        );
+      case 'request':
+        return (
+          <Text orange style={s.request} bold xxsmallSize>
+            {i18n.t('inbox.request')}
+          </Text>
+        );
+      case 'accept':
+        return (
+          <Text green style={s.request} bold xxsmallSize>
+            {i18n.t('inbox.accepted')}
+          </Text>
+        );
+      case 'complete':
+        return (
+          <Text green style={s.request} bold xxsmallSize>
+            {i18n.t('inbox.delivered')}
+          </Text>
+        );
+      case 'decline':
+        return (
+          <Text red style={s.request} bold xxsmallSize>
+            {i18n.t('inbox.decline')}
+          </Text>
+        );
+      default:
+        return <Text style={s.request} bold xxsmallSize />;
+    }
+  };
   const createdTime = getHourAndMinutes(
     transaction.lastTransitionedAt,
   );
@@ -62,7 +88,9 @@ function Message({ transaction }) {
             }}
             style={s.image}
           />
-          <View style={s.requestContainer}>{isRent}</View>
+          <View style={s.requestContainer}>
+            {isRent(transaction.lastTransition.substring(11))}
+          </View>
         </View>
         <View style={s.messageMainInfo}>
           <View style={s.headerMessage}>

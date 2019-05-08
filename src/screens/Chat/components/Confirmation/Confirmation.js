@@ -17,6 +17,7 @@ const Confirmation = ({
   transaction,
   onAccept,
   onDeny,
+  goToProduct,
 }) => (
   <View style={s.container}>
     <RentItem
@@ -44,7 +45,7 @@ const Confirmation = ({
         />
       </View>
       <View style={s.viewGoods}>
-        <Touchable orange xsmallSize>
+        <Touchable orange xsmallSize onPress={goToProduct}>
           <Text xxsmallSize orange>
             View goods
           </Text>
@@ -68,6 +69,13 @@ const Confirmation = ({
   </View>
 );
 
-Confirmation.propTypes = {};
+Confirmation.propTypes = {
+  setShowDetails: T.func,
+  isShowDetails: T.bool,
+  transaction: T.object,
+  onAccept: T.func,
+  onDeny: T.func,
+  goToProduct: T.func,
+};
 
 export default Confirmation;
