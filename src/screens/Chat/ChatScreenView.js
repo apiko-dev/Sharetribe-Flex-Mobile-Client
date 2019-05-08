@@ -8,8 +8,21 @@ import R from 'ramda';
 import { colors } from '../../styles';
 import { Conformation, Input, RenderItem } from './components';
 import { ShadowContainer, Loader } from '../../components';
+import { transitionStatuses } from '../../constants';
 
 import s from './styles';
+import { match } from '../../utils';
+
+const getConfirmationStatus = (transaction) => {
+  switch (transaction) {
+    case transitionStatuses.REQUEST:
+      return true;
+    case transitionStatuses.ENQUIRE:
+      return true;
+    default:
+      return false;
+  }
+};
 
 function ChatScreen({
   isShowDetails,
@@ -24,6 +37,9 @@ function ChatScreen({
   onAccept,
   onDeny,
   goToProduct,
+  navigationToRequestToRent,
+  isOpenedChat,
+  navigateToListing,
 }) {
   if (isLoading) {
     return (
@@ -32,12 +48,14 @@ function ChatScreen({
       </View>
     );
   }
-  const isVisibleConformation =
-    R.pathOr('', ['lastTransition'], transaction).substring(11) ===
-    'request';
+
+  // const isVisibleConformation =
+  //   R.pathOr('', ['lastTransition'], transaction).split('/')[1] ===
+  //     'request' &&
+  //   transaction.lastTransaction.substring(11) === 'enquire';
   return (
     <View style={s.container}>
-      {isVisibleConformation && (
+      {getConfirmationStatus(transaction.lastTransition) && (
         <ShadowContainer>
           <Conformation
             setShowDetails={setShowDetails}
@@ -46,6 +64,9 @@ function ChatScreen({
             onAccept={onAccept}
             onDeny={onDeny}
             goToProduct={goToProduct}
+            navigationToRequestToRent={navigationToRequestToRent}
+            navigateToListing={navigateToListing}
+            isOpenedChat={isOpenedChat}
           />
         </ShadowContainer>
       )}

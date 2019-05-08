@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { dimensions, colors } from '../../styles';
+import { dimensions, colors, theme } from '../../styles';
 
 const styles = StyleSheet.create({
   container: {},
@@ -49,6 +49,26 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginBottom: dimensions.indent,
     justifyContent: 'space-between',
+  },
+
+  actionsInChat: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  textNavigateToListing: {
+    flex: 1,
+
+    alignItems: 'center',
+    justifyContent: 'center',
+    textAlign: 'center',
+    // paddingLeft: dimensions.indent,
+  },
+  buttonRent: {
+    // padding: 0,
+  },
+  buttonRentContainer: {
+    flex: 1,
   },
 });
 

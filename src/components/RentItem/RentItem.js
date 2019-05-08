@@ -3,14 +3,21 @@ import T from 'prop-types';
 import R from 'ramda';
 import { View, Image } from 'react-native';
 
-// import Touchable from '../Touchable';
+import { Touchable } from '../index';
+import Button from '../Button/Button';
 import i18n from '../../i18n';
 import Text from '../Text/Text';
 import s from './styles';
 
 const messageImage = require('../../assets/png/message_image.png');
 
-const RentItem = ({ isShowDetails, transaction }) => (
+const RentItem = ({
+  isShowDetails,
+  transaction,
+  isOpenedChat,
+  navigationToRequestToRent,
+  navigateToListing,
+}) => (
   <View style={s.container}>
     <View style={s.containerMessage}>
       <View style={s.image}>
@@ -44,22 +51,48 @@ const RentItem = ({ isShowDetails, transaction }) => (
             )}
           </Text>
         </View>
-        <View style={s.dateContainer}>
-          <Text xxsmallSize gray>
-            {'Dat: '}
-          </Text>
-          <Text xxsmallSize bold>
-            08/12/2018 — 09/12/2018
-          </Text>
-        </View>
-        <View style={s.totalPriceContainer}>
-          <Text xxsmallSize gray>
-            {'Total price: '}
-          </Text>
-          <Text xxsmallSize bold>
-            $56
-          </Text>
-        </View>
+        {!isOpenedChat && (
+          <React.Fragment>
+            <View style={s.dateContainer}>
+              <Text xxsmallSize gray>
+                {'Dat: '}
+              </Text>
+              <Text xxsmallSize bold>
+                08/12/2018 — 09/12/2018
+              </Text>
+            </View>
+            <View style={s.totalPriceContainer}>
+              <Text xxsmallSize gray>
+                {'Total price: '}
+              </Text>
+              <Text xxsmallSize bold>
+                $56
+              </Text>
+            </View>
+          </React.Fragment>
+        )}
+        {isOpenedChat && (
+          <View style={s.actionsInChat}>
+            <Button
+              title="Request to rent"
+              primary
+              containerStyle={s.buttonRentContainer}
+              buttonStyle={s.buttonRent}
+              onPress={navigationToRequestToRent}
+            />
+            <View style={s.viewGoods} />
+            <Touchable
+              orange
+              xsmallSize
+              onPress={navigateToListing}
+              style={s.textNavigateToListing}
+            >
+              <Text xxsmallSize orange>
+                View goods
+              </Text>
+            </Touchable>
+          </View>
+        )}
       </View>
     </View>
     {isShowDetails && (

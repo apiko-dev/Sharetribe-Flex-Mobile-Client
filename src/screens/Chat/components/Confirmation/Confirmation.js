@@ -9,6 +9,7 @@ import {
   Button,
   Touchable,
 } from '../../../../components';
+import { transitionStatuses } from '../../../../constants';
 import i18n from '../../../../i18n';
 import s from './styles';
 
@@ -18,7 +19,9 @@ function Confirmation({
   transaction,
   onAccept,
   onDeny,
-  goToProduct,
+  navigationToRequestToRent,
+  isOpenedChat,
+  navigateToListing,
 }) {
   const isUserCustomer = R.pathOr(
     false,
@@ -48,47 +51,63 @@ function Confirmation({
     </Touchable>
   );
   return (
-    <View style={[s.container, isUserCustomer && s.minHeight]}>
+    <View
+      style={[
+        s.container,
+        (isUserCustomer || isOpenedChat) && s.minHeight,
+      ]}
+    >
       <RentItem
         isShowDetails={isShowDetails}
         transaction={transaction}
+        isOpenedChat={isOpenedChat}
+        navigationToRequestToRent={navigationToRequestToRent}
+        navigateToListing={navigateToListing}
       />
-      <View style={s.buttonContainer}>
-        {!isUserCustomer && (
-          <React.Fragment>
-            <View style={s.accept}>
-              <Button
-                title={i18n.t('chat.accept')}
-                primary
-                buttonStyle={s.buttonStyle}
-                containerStyle={s.containerStyle}
-                titleStyle={s.titleStyle}
-                onPress={onAccept}
-              />
+      {!isOpenedChat && (
+        <React.Fragment>
+          <View style={s.buttonContainer}>
+            {!isUserCustomer && (
+              <React.Fragment>
+                <View style={s.accept}>
+                  <Button
+                    title={i18n.t('chat.accept')}
+                    primary
+                    buttonStyle={s.buttonStyle}
+                    containerStyle={s.containerStyle}
+                    titleStyle={s.titleStyle}
+                    onPress={onAccept}
+                  />
+                </View>
+                <View style={s.deny}>
+                  <Button
+                    title={i18n.t('chat.deny')}
+                    buttonStyle={s.buttonStyle}
+                    containerStyle={s.containerStyle}
+                    titleStyle={s.titleStyle}
+                    onPress={onDeny}
+                  />
+                </View>
+              </React.Fragment>
+            )}
+            {isUserCustomer && (
+              <View style={s.viewGoods}>{detailsButton()}</View>
+            )}
+            <View style={s.viewGoods}>
+              <Touchable
+                orange
+                xsmallSize
+                onPress={navigateToListing}
+              >
+                <Text xxsmallSize orange>
+                  View goods
+                </Text>
+              </Touchable>
             </View>
-            <View style={s.deny}>
-              <Button
-                title={i18n.t('chat.deny')}
-                buttonStyle={s.buttonStyle}
-                containerStyle={s.containerStyle}
-                titleStyle={s.titleStyle}
-                onPress={onDeny}
-              />
-            </View>
-          </React.Fragment>
-        )}
-        {isUserCustomer && (
-          <View style={s.viewGoods}>{detailsButton()}</View>
-        )}
-        <View style={s.viewGoods}>
-          <Touchable orange xsmallSize onPress={goToProduct}>
-            <Text xxsmallSize orange>
-              View goods
-            </Text>
-          </Touchable>
-        </View>
-      </View>
-      {!isUserCustomer && detailsButton()}
+          </View>
+          {!isUserCustomer && detailsButton()}
+        </React.Fragment>
+      )}
     </View>
   );
 }
@@ -99,7 +118,7 @@ Confirmation.propTypes = {
   transaction: T.object,
   onAccept: T.func,
   onDeny: T.func,
-  goToProduct: T.func,
+  navigateToListing: T.func,
 };
 
 export default Confirmation;

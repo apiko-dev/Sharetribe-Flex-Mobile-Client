@@ -12,7 +12,9 @@ import R from 'ramda';
 
 import ChatScreen from './ChatScreenView';
 import { withParamsToProps } from '../../utils/enhancers';
-import { NavigationService } from '../../services';
+import { NavigationService, AlertService } from '../../services';
+import { transitionStatuses } from '../../constants';
+import screens from '../../navigation/screens';
 
 export default hoistStatics(
   compose(
@@ -21,10 +23,14 @@ export default hoistStatics(
     withStateHandlers(
       (props) => ({
         transaction: props.transaction,
+        availableDates: {},
       }),
       {
         setTransaction: () => (value) => ({
           transaction: value,
+        }),
+        onChange: () => (field, value) => ({
+          [field]: value,
         }),
       },
     ),
@@ -40,17 +46,38 @@ export default hoistStatics(
         transaction,
       ),
       transactionStore: stores.transaction,
+      getAvailableDays: stores.listings.getAvailableDays,
+      listing: R.path(
+        ['relationships', 'listing', 'id'],
+        transaction,
+      ),
     })),
     withStateHandlers(
-      {
+      (props) => ({
         isShowDetails: false,
-      },
+        isOpenedChat:
+          R.pathOr('', ['lastTransition'], props.transaction) ===
+          transitionStatuses.ENQUIRE,
+      }),
       {
         setShowDetails: (props) => () => ({
           isShowDetails: !props.isShowDetails,
         }),
       },
     ),
+    withHandlers({
+      navigationToRequestToRent: (props) => () => {
+        NavigationService.navigateTo(screens.RequestToRent, {
+          product: props.transaction.relationships.listing,
+          availableDates: props.availableDates,
+        });
+      },
+      navigateToListing: (props) => () => {
+        NavigationService.navigateToProduct({
+          product: props.transaction.relationships.listing,
+        });
+      },
+    }),
     lifecycle({
       async componentDidMount() {
         try {
@@ -67,6 +94,21 @@ export default hoistStatics(
         } catch (err) {
           console.log(err);
         }
+        // ////////////////////////
+        if (this.props.isOpenedChat) {
+          try {
+            const availableDates = await this.props.getAvailableDays.run(
+              this.props.listing,
+            );
+            // const availableDates = this.props.product.availabilityPlan
+            //   .entries;
+
+            this.props.onChange('availableDates', availableDates);
+          } catch (error) {
+            AlertService.showSomethingWentWrong();
+          }
+        }
+        // /////////////////////
       },
     }),
 
@@ -97,11 +139,11 @@ export default hoistStatics(
           transition: 'decline',
         });
       },
-      goToProduct: (props) => () => {
-        NavigationService.navigateToProduct({
-          product: props.transaction.relationships.listing,
-        });
-      },
+      // goToProduct: (props) => () => {
+      //   NavigationService.navigateToProduct({
+      //     product: props.transaction.relationships.listing,
+      //   });
+      // },
     }),
   ),
 )(ChatScreen);

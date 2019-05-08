@@ -17,3 +17,4 @@ export { default as getImageUrl } from './getImageUrl';
 export { default as formatPrice } from './formatPrice';
 export { default as trim } from './trim';
 export { default as createAvatar } from './createAvatar';
+export { default as match } from './match';
