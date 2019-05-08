@@ -24,6 +24,8 @@ import io.sentry.RNSentryPackage;
 import com.mands.reactnativedevmenu.DevMenuPackage;
 import com.reactnativecommunity.webview.RNCWebViewPackage;
 
+import com.gettipsi.stripe.StripeReactPackage;
+
 public class MainApplication extends Application implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
@@ -36,6 +38,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+          new StripeReactPackage(),
           new RNGestureHandlerPackage(),
           new SplashScreenReactPackage(),
           new ReanimatedPackage(),
