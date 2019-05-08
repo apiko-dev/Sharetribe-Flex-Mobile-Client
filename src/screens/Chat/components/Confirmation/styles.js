@@ -7,6 +7,9 @@ const styles = StyleSheet.create({
     minHeight: dimensions.indent * 10.5,
     backgroundColor: colors.inbox.messageBackgroundColor,
   },
+  minHeight: {
+    minHeight: 0,
+  },
 
   buttonContainer: {
     flexDirection: 'row',
@@ -44,6 +47,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     margin: dimensions.indent / 2,
+    marginTop: dimensions.smallIndent,
   },
 });
 

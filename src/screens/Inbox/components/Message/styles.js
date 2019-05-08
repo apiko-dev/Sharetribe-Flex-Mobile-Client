@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { color, dimensions, colors } from '../../../../styles';
+import { dimensions, colors } from '../../../../styles';
 
 const styles = StyleSheet.create({
   container: {
@@ -42,6 +42,9 @@ const styles = StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth * 2,
     borderBottomColor: colors.inbox.borderColor,
     paddingBottom: dimensions.indent / 2,
+  },
+  chat: {
+    borderBottomWidth: 0,
   },
   rentInfo: {
     flex: 1,

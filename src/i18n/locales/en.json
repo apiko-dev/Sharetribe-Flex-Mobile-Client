@@ -288,7 +288,8 @@
     "accept": "Accept",
     "deny": "Deny",
     "viewGoods": "View goods",
-    "viewDetails": "View details"
+    "viewDetails": "View details",
+    "closeDetails": "Close details"
   },
 
   "inbox": {

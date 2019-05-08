@@ -1,5 +1,6 @@
 import React from 'react';
 import T from 'prop-types';
+import R from 'ramda';
 import { View, Image } from 'react-native';
 
 // import Touchable from '../Touchable';
@@ -9,17 +10,38 @@ import s from './styles';
 
 const messageImage = require('../../assets/png/message_image.png');
 
-const RentItem = ({ isShowDetails }) => (
+const RentItem = ({ isShowDetails, transaction }) => (
   <View style={s.container}>
     <View style={s.containerMessage}>
       <View style={s.image}>
-        <Image style={s.image} source={messageImage} />
+        <Image
+          style={s.image}
+          source={{
+            uri: R.pathOr(
+              messageImage,
+              [
+                'relationships',
+                'listing',
+                'relationships',
+                'getImages',
+                [0],
+                'variants',
+                'default',
+                'url',
+              ],
+              transaction,
+            ),
+          }}
+        />
       </View>
       <View style={s.textContainer}>
         <View>
           <Text ellipsizeMode="tail" numberOfLines={1} gray>
-            Pioneer XDJ-RX2 All-in-One Pioneer XDJ-RX2 All-in-One
-            Pioneer XDJ-RX2 All-in-One
+            {R.pathOr(
+              '',
+              ['relationships', 'listing', 'description'],
+              transaction,
+            )}
           </Text>
         </View>
         <View style={s.dateContainer}>

@@ -35,7 +35,6 @@ function ChatScreen({
   const isVisibleConformation =
     R.pathOr('', ['lastTransition'], transaction).substring(11) ===
     'request';
-  // !transaction.relationships.listing.relationships.author.isViewer;
   return (
     <View style={s.container}>
       {isVisibleConformation && (

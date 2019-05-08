@@ -76,9 +76,10 @@ export default hoistStatics(
         const content = props.messageInputText.trim();
 
         LayoutAnimation.easeInEaseOut();
-
-        props.transaction.messages.sendMessage.run(content);
-        props.setMessageInputText('');
+        if (content.length > 0) {
+          props.transaction.messages.sendMessage.run(content);
+          props.setMessageInputText('');
+        }
       },
 
       fetchMoreMessages: (props) => () => {

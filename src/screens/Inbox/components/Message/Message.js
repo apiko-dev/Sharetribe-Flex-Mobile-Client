@@ -21,6 +21,8 @@ import i18n from '../../../../i18n';
 const messageImage = require('../../../../assets/png/message_image.png');
 
 function Message({ transaction }) {
+  const lastTransaction = transaction.lastTransition.substring(11);
+  const isEnquire = lastTransaction === 'enquire';
   const isRent = (value) => {
     switch (value) {
       case 'enquire':
@@ -89,7 +91,7 @@ function Message({ transaction }) {
             style={s.image}
           />
           <View style={s.requestContainer}>
-            {isRent(transaction.lastTransition.substring(11))}
+            {isRent(lastTransaction)}
           </View>
         </View>
         <View style={s.messageMainInfo}>
@@ -112,7 +114,7 @@ function Message({ transaction }) {
               {createdTime}
             </Text>
           </View>
-          <View style={s.text}>
+          <View style={[s.text, isEnquire && s.chat]}>
             <Text
               ellipsizeMode="tail"
               mediumSize
@@ -126,9 +128,11 @@ function Message({ transaction }) {
               )}
             </Text>
           </View>
-          <View style={s.rentInfo}>
-            {/* <Text xxsmallSize>{timeBooking}</Text> */}
-          </View>
+          {isEnquire && (
+            <View style={s.rentInfo}>
+              {/* <Text xxsmallSize>{timeBooking}</Text> */}
+            </View>
+          )}
         </View>
       </Touchable>
     </ShadowContainer>
