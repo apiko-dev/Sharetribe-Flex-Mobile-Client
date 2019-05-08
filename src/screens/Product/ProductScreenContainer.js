@@ -24,21 +24,21 @@ export default hoistStatics(
 
     inject((stores, { product }) => ({
       product,
-      images: R.path(['relationships', 'getImages'], product).map(
-        R.path(['variants', 'default', 'url']),
-      ),
-      gallery: R.path(['relationships', 'getImages'], product).map(
-        R.path(['variants', 'default']),
-      ),
+      images: R.pathOr(
+        [],
+        ['relationships', 'getImages'],
+        product,
+      ).map(R.path(['variants', 'default', 'url'])),
+      gallery: R.pathOr(
+        [],
+        ['relationships', 'getImages'],
+        product,
+      ).map(R.path(['variants', 'default'])),
       getAvailableDays: stores.listings.getAvailableDays,
       isLoadingDates: stores.listings.getAvailableDays.inProgress,
       author: R.pathOr(false, ['relationships', 'author'], product),
-
       transaction: stores.transaction.list.asArray,
-      //
-      // message: stores.transaction.messages,
       transactionStore: stores.transaction,
-      //
       phoneNumber: R.path(
         [
           'relationships',

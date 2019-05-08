@@ -87,6 +87,7 @@ export const TransactionStore = t
     // fetchChatTransaction: createFlow(fetchChatTransaction),
     fetchTransactions: createFlow(fetchTransactions),
     fetchMoreTransactions: createFlow(fetchMoreTransactions),
+    changeStateTransactions: createFlow(changeStateTransactions),
   })
   .views((store) => ({
     get Api() {
@@ -223,54 +224,76 @@ function fetchMoreTransactions(flow, store) {
   };
 }
 
-function fetchChatTransaction(flow, store) {
-  return function* initiateTransaction(listingId) {
+function changeStateTransactions(flow, store) {
+  return function* initiatechangeStateTransactionsTransaction({
+    transactionId,
+    transition,
+  }) {
     try {
       flow.start();
-
-      const res = yield store.Api.transactionsQuery({
-        // only: 'order',
-        // lastTransitions: ['transition/request'],
+      const res = yield store.Api.changeStateTransactions({
+        transactionId,
+        transitionState: `transition/${transition}`,
       });
 
-      const transactions = res.data.data.map((i) =>
-        processJsonApi(i),
-      );
-
-      const normalizedEntities = normalizedIncluded(
-        res.data.included,
-      );
-
-      // const listingsTransaction = transactions.filter(
-      //   (i) =>
-      //     i.relationships.listing.toString() === listingId.toString(),
-      // );
-      const listingTransaction = transactions[0];
-      // const listingsTransaction = transactions.slice(-1)[0];
-
-      // let listingTransaction;
-      // if (Array.isArray(listingsTransaction)) {
-      //   listingTransaction = listingsTransaction[0];
-      // } else {
-      //   listingTransaction = listingsTransaction;
-      // }
-      if (
-        // listingTransaction.length === 0 &&
-        typeof listingTransaction === 'undefined'
-      ) {
-        store.initiateMessageTransaction.run(listingId);
-      } else {
-        store.list.add(listingTransaction);
-      }
-
-      // debugger;
+      const data = processJsonApiTransactions(res.data.data);
+      store.list.add(data);
 
       flow.success();
     } catch (err) {
-      // debugger;
       flow.failed(err, true);
     }
   };
 }
+
+// function fetchChatTransaction(flow, store) {
+//   return function* initiateTransaction(listingId) {
+//     try {
+//       flow.start();
+
+//       const res = yield store.Api.transactionsQuery({
+//         // only: 'order',
+//         // lastTransitions: ['transition/request'],
+//       });
+
+//       const transactions = res.data.data.map((i) =>
+//         processJsonApi(i),
+//       );
+
+//       const normalizedEntities = normalizedIncluded(
+//         res.data.included,
+//       );
+
+//       // const listingsTransaction = transactions.filter(
+//       //   (i) =>
+//       //     i.relationships.listing.toString() === listingId.toString(),
+//       // );
+//       const listingTransaction = transactions[0];
+//       // const listingsTransaction = transactions.slice(-1)[0];
+
+//       // let listingTransaction;
+//       // if (Array.isArray(listingsTransaction)) {
+//       //   listingTransaction = listingsTransaction[0];
+//       // } else {
+//       //   listingTransaction = listingsTransaction;
+//       // }
+//       if (
+//         // listingTransaction.length === 0 &&
+//         typeof listingTransaction === 'undefined'
+//       ) {
+//         store.initiateMessageTransaction.run(listingId);
+//       } else {
+//         store.list.add(listingTransaction);
+//       }
+
+//       // debugger;
+
+//       flow.success();
+//     } catch (err) {
+//       // debugger;
+//       flow.failed(err, true);
+//     }
+//   };
+// }
 
 export default TransactionStore;

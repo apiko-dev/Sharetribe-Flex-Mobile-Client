@@ -46,7 +46,7 @@ export default hoistStatics(
             cardCVC: values.cardCVC,
             message: values.message,
           });
-          AlertService.showInDevelopmentAlert();
+          // TODO: Modal
         } catch (err) {
           AlertService.showInDevelopmentAlert();
         }

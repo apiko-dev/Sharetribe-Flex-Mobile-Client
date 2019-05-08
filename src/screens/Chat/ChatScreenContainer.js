@@ -12,6 +12,7 @@ import R from 'ramda';
 
 import ChatScreen from './ChatScreenView';
 import { withParamsToProps } from '../../utils/enhancers';
+import { NavigationService } from '../../services';
 
 export default hoistStatics(
   compose(
@@ -83,8 +84,23 @@ export default hoistStatics(
       fetchMoreMessages: (props) => () => {
         props.transaction.messages.fetchMoreMessages.run();
       },
-      onAccept: (props) => () => {},
-      onDeny: (props) => () => {},
+      onAccept: (props) => () => {
+        props.transactionStore.changeStateTransactions.run({
+          transactionId: props.transactionId,
+          transition: 'accept',
+        });
+      },
+      onDeny: (props) => () => {
+        props.transactionStore.changeStateTransactions.run({
+          transactionId: props.transactionId,
+          transition: 'decline',
+        });
+      },
+      goToProduct: (props) => () => {
+        NavigationService.navigateToProduct({
+          product: props.transaction.relationships.listing,
+        });
+      },
     }),
   ),
 )(ChatScreen);

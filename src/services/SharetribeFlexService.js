@@ -333,6 +333,19 @@ class SharetribeSdkService {
     });
   }
 
+  changeStateTransactions({ transactionId, transitionState }) {
+    return this.sdk.transactions.transition(
+      {
+        id: new types.UUID(transactionId),
+        transition: transitionState,
+        params: {},
+      },
+      {
+        expand: true,
+      },
+    );
+  }
+
   createStripeAccount(query) {
     return this.sdk.stripeAccount.create(query, {
       expand: true,
