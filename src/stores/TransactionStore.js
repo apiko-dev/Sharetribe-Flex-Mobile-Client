@@ -92,6 +92,12 @@ export const TransactionStore = t
     get Api() {
       return getEnv(store).Api;
     },
+  }))
+
+  .actions((store) => ({
+    update(snapshot) {
+      Object.assign(store, snapshot);
+    },
   }));
 
 function initiateMessageTransaction(flow, store) {
@@ -187,7 +193,7 @@ function fetchTransactions(flow, store) {
       const normalizedEntities = normalizedIncluded(
         res.data.included,
       );
-      // getRoot(store).entities.merge(normalizedEntities);
+      getRoot(store).entities.merge(normalizedEntities);
 
       store.list.set(res.data.data);
 
@@ -209,10 +215,10 @@ function fetchMoreTransactions(flow, store) {
           page,
         });
 
-        // const normalizedEntities = normalizedIncluded(
-        //   res.data.included,
-        // );
-        // getRoot(store).entities.merge(normalizedEntities);
+        const normalizedEntities = normalizedIncluded(
+          res.data.included,
+        );
+        getRoot(store).entities.merge(normalizedEntities);
 
         store.list.append(res.data.data);
       }
@@ -236,11 +242,11 @@ function changeStateTransactions(flow, store) {
         transition,
       });
 
-      // const data = processJsonApiTransactions(res.data.data);
+      // const data = (res.data.data);
 
-      store.list.add(res.data.data);
-      // const snapshot = processJsonApiTransactions(res.data.data);
-      // Object.assign(store, snapshot);
+      // store.list.add(res.data.data);
+      const snapshot = processJsonApiTransactions(res.data.data);
+      store.update(snapshot);
       flow.success();
     } catch (err) {
       flow.failed(err, true);

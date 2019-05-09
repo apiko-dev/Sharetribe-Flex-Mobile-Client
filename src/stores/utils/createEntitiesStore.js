@@ -1,5 +1,6 @@
 import { types } from 'mobx-state-tree';
 import { runInAction } from 'mobx';
+import deepMerge from 'deepmerge';
 
 const capitalize = (str) => {
   const arr = Array.from(str);
@@ -14,7 +15,15 @@ export const createCollectionStore = (name, Model) =>
     })
     .actions((store) => ({
       add(key, value) {
-        store.collection.set(key, value);
+        const item = store.collection.get(key);
+        if (item) {
+          deepMerge(item, value, {
+            arrayMerge: (destinationArray, sourceArray) =>
+              sourceArray,
+          });
+        } else {
+          store.collection.set(key, value);
+        }
       },
       destroy(item) {
         store.collection.delete(item.id);
@@ -54,7 +63,7 @@ export function createEntitiesStore(definition) {
             const entities = normalizedEntities[entityKey];
 
             Object.entries(entities).forEach(([key, value]) => {
-              storeEntity.collection.set(key, value);
+              storeEntity.add(key, value);
             });
           });
         });

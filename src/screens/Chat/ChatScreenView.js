@@ -13,7 +13,6 @@ import s from './styles';
 const getConfirmationStatus = (transaction) => {
   switch (transaction) {
     case transitionStatuses.REQUEST:
-      return true;
     case transitionStatuses.ENQUIRE:
       return true;
     default:

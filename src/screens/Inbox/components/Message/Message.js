@@ -2,6 +2,7 @@ import React from 'react';
 import T from 'prop-types';
 import { View, Image } from 'react-native';
 import R from 'ramda';
+import { observer } from 'mobx-react/custom';
 
 import {
   getEndDateByStart,
@@ -21,47 +22,43 @@ import { transitionStatuses } from '../../../../constants';
 
 const messageImage = require('../../../../assets/png/message_image.png');
 
+const getRentProps = (value) => {
+  switch (value) {
+    case transitionStatuses.ENQUIRE:
+      return {
+        gray: true,
+        children: i18n.t('inbox.chat'),
+      };
+    case transitionStatuses.REQUEST:
+      return {
+        orange: true,
+        children: i18n.t('inbox.request'),
+      };
+    case transitionStatuses.ACCEPT:
+      return {
+        green: true,
+        children: i18n.t('inbox.accepted'),
+      };
+    case transitionStatuses.COMPLETE:
+      return {
+        green: true,
+        children: i18n.t('inbox.delivered'),
+      };
+    case transitionStatuses.DECLINE:
+      return {
+        red: true,
+        children: i18n.t('inbox.decline'),
+      };
+    default:
+      return {};
+  }
+};
+
 function Message({ transaction }) {
   const isEnquire =
     R.pathOr('', ['lastTransition'], transaction) ===
     transitionStatuses.ENQUIRE;
 
-  const isRent = (value) => {
-    switch (value) {
-      case transitionStatuses.ENQUIRE:
-        return (
-          <Text gray style={s.request} bold xxsmallSize>
-            {i18n.t('inbox.chat')}
-          </Text>
-        );
-      case transitionStatuses.REQUEST:
-        return (
-          <Text orange style={s.request} bold xxsmallSize>
-            {i18n.t('inbox.request')}
-          </Text>
-        );
-      case transitionStatuses.ACCEPT:
-        return (
-          <Text green style={s.request} bold xxsmallSize>
-            {i18n.t('inbox.accepted')}
-          </Text>
-        );
-      case transitionStatuses.COMPLETE:
-        return (
-          <Text green style={s.request} bold xxsmallSize>
-            {i18n.t('inbox.delivered')}
-          </Text>
-        );
-      case transitionStatuses.DECLINE:
-        return (
-          <Text red style={s.request} bold xxsmallSize>
-            {i18n.t('inbox.decline')}
-          </Text>
-        );
-      default:
-        return <Text style={s.request} bold xxsmallSize />;
-    }
-  };
   const createdTime = getHourAndMinutes(
     transaction.lastTransitionedAt,
   );
@@ -94,7 +91,12 @@ function Message({ transaction }) {
             style={s.image}
           />
           <View style={s.requestContainer}>
-            {isRent(transaction.lastTransition)}
+            <Text
+              style={s.request}
+              bold
+              xxsmallSize
+              {...getRentProps(transaction.lastTransition)}
+            />
           </View>
         </View>
         <View style={s.messageMainInfo}>
@@ -146,4 +148,4 @@ Message.propTypes = {
   transaction: T.object,
 };
 
-export default Message;
+export default observer(Message);

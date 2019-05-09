@@ -12,7 +12,7 @@ export default Reactotron.configure({
   }) // add all built-in react native plugins
   .use(
     mst({
-      filter: (event) => !event.name.includes('@APPLY_SNAPSHOT'),
+      filter: (event) => event.name.match(/entities\.(.*)\.add\(\)/),
     }),
     asyncStorage(),
     trackGlobalErrors(),
