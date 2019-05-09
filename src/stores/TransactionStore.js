@@ -67,11 +67,12 @@ const TransactionList = listModel('TransactionList', {
   entityName: 'transaction',
   identifierName: 'id',
   responseTransformer,
+  perPage: 15,
 });
 
 function responseTransformer(res) {
   // if (Array.isArray(res)) {
-  //   return res.data.data.map((i) => processJsonApi(i));
+  //   return res.map((i) => processJsonApi(i));
   // }
   return res.map(processJsonApi);
 }
@@ -125,7 +126,7 @@ function initiateTransaction(flow, store) {
     monthExpiration,
     yearExpiration,
     cardCVC,
-    // message,
+    message,
   }) {
     try {
       flow.start();
@@ -152,20 +153,22 @@ function initiateTransaction(flow, store) {
         cardToken: tokenId,
       });
 
+      // const normalizedEntities = normalizedIncluded(
+      //   res.data.included,
+      // );
+      // getRoot(store).entities.merge(normalizedEntities);
+
       const data = processJsonApiTransactions(res.data.data);
       store.list.add(data);
+      // store.list.set(res.data.data);
 
-      // TODO: Send message by transaction id
-      //
-      // if(!!message) {
-      // yield store.Api.sendMessage({
-      //  transactionId: data.id,
-      //  content: message,
-      //  });
-      // }
-
-      // const transactions = yield store.Api.fetchTransactions(); Using for test
-      // console.log('fetchTransactions res: ', transactions);
+      if (message) {
+        yield store.Api.sendMessage({
+          transactionId: data.id,
+          content: message,
+          include: ['sender', 'sender.profileImage'],
+        });
+      }
 
       flow.success();
     } catch (err) {
@@ -191,7 +194,7 @@ function fetchTransactions(flow, store) {
       // );
       // getRoot(store).entities.merge(normalizedEntities);
 
-      store.list.append(transactions);
+      store.list.set(res.data.data);
 
       flow.success();
     } catch (err) {
@@ -211,10 +214,12 @@ function fetchMoreTransactions(flow, store) {
           page,
         });
 
-        const transactions = res.data.data.map((i) =>
-          processJsonApi(i),
-        );
-        store.list.append(transactions);
+        // const normalizedEntities = normalizedIncluded(
+        //   res.data.included,
+        // );
+        // getRoot(store).entities.merge(normalizedEntities);
+
+        store.list.append(res.data.data);
       }
 
       flow.success();

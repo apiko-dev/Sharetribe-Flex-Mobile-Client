@@ -55,17 +55,16 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
+    marginTop: dimensions.indent / 2,
   },
   textNavigateToListing: {
     flex: 1,
-
     alignItems: 'center',
     justifyContent: 'center',
     textAlign: 'center',
-    // paddingLeft: dimensions.indent,
   },
   buttonRent: {
-    // padding: 0,
+    padding: dimensions.indent / 2,
   },
   buttonRentContainer: {
     flex: 1,

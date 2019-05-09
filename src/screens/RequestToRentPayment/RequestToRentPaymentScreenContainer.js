@@ -1,6 +1,6 @@
 import { compose, hoistStatics, withHandlers } from 'recompose';
 import { inject } from 'mobx-react';
-import { AlertService } from '../../services';
+import { AlertService, NavigationService } from '../../services';
 import RequestToRentPaymentScreenView from './RequestToRentPaymentScreenView';
 import { withParamsToProps } from '../../utils/enhancers';
 import { payments } from '../../utils';
@@ -47,6 +47,7 @@ export default hoistStatics(
             message: values.message,
           });
           // TODO: Modal
+          NavigationService.navigateToProduct();
         } catch (err) {
           AlertService.showInDevelopmentAlert();
         }

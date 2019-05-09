@@ -9,7 +9,6 @@ import {
   Button,
   Touchable,
 } from '../../../../components';
-import { transitionStatuses } from '../../../../constants';
 import i18n from '../../../../i18n';
 import s from './styles';
 
@@ -54,7 +53,7 @@ function Confirmation({
     <View
       style={[
         s.container,
-        (isUserCustomer || isOpenedChat) && s.minHeight,
+        (!isUserCustomer || isOpenedChat) && s.minHeight,
       ]}
     >
       <RentItem
@@ -67,7 +66,7 @@ function Confirmation({
       {!isOpenedChat && (
         <React.Fragment>
           <View style={s.buttonContainer}>
-            {!isUserCustomer && (
+            {isUserCustomer && (
               <React.Fragment>
                 <View style={s.accept}>
                   <Button
@@ -90,7 +89,7 @@ function Confirmation({
                 </View>
               </React.Fragment>
             )}
-            {isUserCustomer && (
+            {!isUserCustomer && (
               <View style={s.viewGoods}>{detailsButton()}</View>
             )}
             <View style={s.viewGoods}>
@@ -105,7 +104,7 @@ function Confirmation({
               </Touchable>
             </View>
           </View>
-          {!isUserCustomer && detailsButton()}
+          {isUserCustomer && detailsButton()}
         </React.Fragment>
       )}
     </View>
@@ -119,6 +118,8 @@ Confirmation.propTypes = {
   onAccept: T.func,
   onDeny: T.func,
   navigateToListing: T.func,
+  navigationToRequestToRent: T.func,
+  isOpenedChat: T.bool,
 };
 
 export default Confirmation;

@@ -17,39 +17,42 @@ import {
 } from '../../../../components';
 import { NavigationService } from '../../../../services';
 import i18n from '../../../../i18n';
+import { transitionStatuses } from '../../../../constants';
 
 const messageImage = require('../../../../assets/png/message_image.png');
 
 function Message({ transaction }) {
-  const lastTransaction = transaction.lastTransition.substring(11);
-  const isEnquire = lastTransaction === 'enquire';
+  const isEnquire =
+    R.pathOr('', ['lastTransition'], transaction) ===
+    transitionStatuses.ENQUIRE;
+
   const isRent = (value) => {
     switch (value) {
-      case 'enquire':
+      case transitionStatuses.ENQUIRE:
         return (
           <Text gray style={s.request} bold xxsmallSize>
             {i18n.t('inbox.chat')}
           </Text>
         );
-      case 'request':
+      case transitionStatuses.REQUEST:
         return (
           <Text orange style={s.request} bold xxsmallSize>
             {i18n.t('inbox.request')}
           </Text>
         );
-      case 'accept':
+      case transitionStatuses.ACCEPT:
         return (
           <Text green style={s.request} bold xxsmallSize>
             {i18n.t('inbox.accepted')}
           </Text>
         );
-      case 'complete':
+      case transitionStatuses.COMPLETE:
         return (
           <Text green style={s.request} bold xxsmallSize>
             {i18n.t('inbox.delivered')}
           </Text>
         );
-      case 'decline':
+      case transitionStatuses.DECLINE:
         return (
           <Text red style={s.request} bold xxsmallSize>
             {i18n.t('inbox.decline')}
@@ -91,7 +94,7 @@ function Message({ transaction }) {
             style={s.image}
           />
           <View style={s.requestContainer}>
-            {isRent(lastTransaction)}
+            {isRent(transaction.lastTransition)}
           </View>
         </View>
         <View style={s.messageMainInfo}>

@@ -3,15 +3,12 @@ import { View, FlatList } from 'react-native';
 
 import { observer } from 'mobx-react/custom';
 import T from 'prop-types';
-import R from 'ramda';
 
 import { colors } from '../../styles';
 import { Conformation, Input, RenderItem } from './components';
 import { ShadowContainer, Loader } from '../../components';
 import { transitionStatuses } from '../../constants';
-
 import s from './styles';
-import { match } from '../../utils';
 
 const getConfirmationStatus = (transaction) => {
   switch (transaction) {
@@ -49,10 +46,6 @@ function ChatScreen({
     );
   }
 
-  // const isVisibleConformation =
-  //   R.pathOr('', ['lastTransition'], transaction).split('/')[1] ===
-  //     'request' &&
-  //   transaction.lastTransaction.substring(11) === 'enquire';
   return (
     <View style={s.container}>
       {getConfirmationStatus(transaction.lastTransition) && (
@@ -118,6 +111,9 @@ ChatScreen.propTypes = {
   onAccept: T.func,
   onDeny: T.func,
   goToProduct: T.func,
+  navigationToRequestToRent: T.func,
+  isOpenedChat: T.bool,
+  navigateToListing: T.func,
 };
 
 export default observer(ChatScreen);

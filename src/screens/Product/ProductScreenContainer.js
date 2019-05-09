@@ -108,7 +108,7 @@ export default hoistStatics(
         call(args).catch(console.error);
       },
 
-      onSend: ({ transaction, product }) => async () => {
+      onSend: ({ product }) => async () => {
         NavigationService.navigateToChat({ product });
       },
     }),
