@@ -1,4 +1,5 @@
 import { types } from 'mobx-state-tree';
+import { runInAction } from 'mobx';
 
 const capitalize = (str) => {
   const arr = Array.from(str);
@@ -42,17 +43,19 @@ export function createEntitiesStore(definition) {
 
     .actions((store) => ({
       merge(normalizedEntities) {
-        Object.keys(normalizedEntities).forEach((entityKey) => {
-          const storeEntity = store[entityKey];
+        runInAction(() => {
+          Object.keys(normalizedEntities).forEach((entityKey) => {
+            const storeEntity = store[entityKey];
 
-          if (!storeEntity) {
-            return;
-          }
+            if (!storeEntity) {
+              return;
+            }
 
-          const entities = normalizedEntities[entityKey];
+            const entities = normalizedEntities[entityKey];
 
-          Object.entries(entities).forEach(([key, value]) => {
-            storeEntity.collection.set(key, value);
+            Object.entries(entities).forEach(([key, value]) => {
+              storeEntity.collection.set(key, value);
+            });
           });
         });
       },

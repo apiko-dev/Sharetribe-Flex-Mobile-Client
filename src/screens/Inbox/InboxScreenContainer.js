@@ -15,6 +15,7 @@ export default hoistStatics(
       return {
         transactions: stores.transaction.list.asArray,
         transactionStore: stores.transaction,
+        isLoading: stores.transaction.fetchTransactions.inProgress,
       };
     }),
     withHandlers({

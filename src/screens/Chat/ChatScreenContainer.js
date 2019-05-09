@@ -130,14 +130,15 @@ export default hoistStatics(
       onAccept: (props) => () => {
         props.transactionStore.changeStateTransactions.run({
           transactionId: props.transactionId,
-          transition: 'accept',
+          transition: transitionStatuses.ACCEPT,
         });
       },
       onDeny: (props) => () => {
         props.transactionStore.changeStateTransactions.run({
           transactionId: props.transactionId,
-          transition: 'decline',
+          transition: transitionStatuses.DECLINE,
         });
+        NavigationService.navigateTo(screens.Inbox, {});
       },
       // goToProduct: (props) => () => {
       //   NavigationService.navigateToProduct({

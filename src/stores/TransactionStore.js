@@ -33,34 +33,32 @@ const Transitions = t
 
 const Relationships = t.model('Relationships', {
   listing: t.maybe(t.reference(Product)),
-  // booking: t.optional({}),
 });
 
-export const Transaction = t
-  .model('Transaction', {
-    id: t.identifier,
-    type: t.maybe(t.string),
-    createdAt: t.Date,
-    processName: t.string,
-    processVersion: t.number,
-    lastTransition: t.maybe(t.string),
-    lastTransitionedAt: t.maybe(t.Date),
-    payinTotal: t.maybeNull(Price),
-    payoutTotal: t.maybeNull(Price),
-    // lineItems: t.maybe(t.array(LineItems)),
-    protectedData: t.model({}),
-    // transitions: t.maybe(t.array(Transitions)),
+export const Transaction = t.model('Transaction', {
+  id: t.identifier,
+  type: t.maybe(t.string),
+  createdAt: t.Date,
+  processName: t.string,
+  processVersion: t.number,
+  lastTransition: t.maybe(t.string),
+  lastTransitionedAt: t.maybe(t.Date),
+  payinTotal: t.maybeNull(Price),
+  payoutTotal: t.maybeNull(Price),
+  // lineItems: t.maybe(t.array(LineItems)),
+  protectedData: t.model({}),
+  // transitions: t.maybe(t.array(Transitions)),
 
-    messages: t.optional(MessageStore, {}),
-    // listings: t.optional(ListingsStore, {}),
-    relationships: t.maybe(Relationships),
-  })
+  messages: t.optional(MessageStore, {}),
+  // listings: t.optional(ListingsStore, {}),
+  relationships: t.maybe(Relationships),
+});
 
-  .preProcessSnapshot((snapshot) => ({
-    ...snapshot,
-    createdAt: new Date(snapshot.createdAt),
-    lastTransitionedAt: new Date(snapshot.lastTransitionedAt),
-  }));
+// .preProcessSnapshot((snapshot) => ({
+//   ...snapshot,
+//   createdAt: new Date(snapshot.createdAt),
+//   lastTransitionedAt: new Date(snapshot.lastTransitionedAt),
+// }));
 
 const TransactionList = listModel('TransactionList', {
   of: t.reference(Transaction),
@@ -186,12 +184,9 @@ function fetchTransactions(flow, store) {
         perPage: 15,
         page: 1,
       });
-
-      const transactions = res.data.data.map((i) => i);
-
-      // const normalizedEntities = normalizedIncluded(
-      //   res.data.included,
-      // );
+      const normalizedEntities = normalizedIncluded(
+        res.data.included,
+      );
       // getRoot(store).entities.merge(normalizedEntities);
 
       store.list.set(res.data.data);
@@ -238,12 +233,14 @@ function changeStateTransactions(flow, store) {
       flow.start();
       const res = yield store.Api.changeStateTransactions({
         transactionId,
-        transitionState: `transition/${transition}`,
+        transition,
       });
 
-      const data = processJsonApiTransactions(res.data.data);
-      store.list.add(data);
+      // const data = processJsonApiTransactions(res.data.data);
 
+      store.list.add(res.data.data);
+      // const snapshot = processJsonApiTransactions(res.data.data);
+      // Object.assign(store, snapshot);
       flow.success();
     } catch (err) {
       flow.failed(err, true);

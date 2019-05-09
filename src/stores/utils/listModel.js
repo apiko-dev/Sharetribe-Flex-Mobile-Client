@@ -1,4 +1,5 @@
 import { types, getRoot } from 'mobx-state-tree';
+import { transaction } from 'mobx';
 import normalize from './normalize';
 
 export default function listModel(name, options) {
@@ -55,7 +56,9 @@ export default function listModel(name, options) {
         const { ids, entities } = store.normalize(data);
 
         store.merge(entityName, entities);
-        ids.forEach((i) => store.array.push(i));
+        transaction(() => {
+          ids.forEach((i) => store.array.push(i));
+        });
 
         if (ids.length < perPage) {
           store.hasNoMore = true;
@@ -66,8 +69,9 @@ export default function listModel(name, options) {
         const { ids, entities } = store.normalize(data);
 
         store.merge(entityName, entities);
-        ids.forEach((i) => store.array.unshift(i));
-
+        transaction(() => {
+          ids.forEach((i) => store.array.unshift(i));
+        });
         if (ids.length < perPage) {
           store.hasNoMore = true;
         }
@@ -81,7 +85,6 @@ export default function listModel(name, options) {
         store.mergeSingle(item);
         store.array.push(item.id);
       },
-
 
       addToBegin(item, shouldMerge = true) {
         if (shouldTransformSingle) {

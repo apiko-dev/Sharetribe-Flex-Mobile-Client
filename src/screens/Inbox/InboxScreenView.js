@@ -2,11 +2,19 @@ import React from 'react';
 import { FlatList } from 'react-native';
 import T from 'prop-types';
 
+import { observer } from 'mobx-react/custom';
 import { Message } from './components';
-import { DrawerButton } from '../../components';
+import { DrawerButton, ScreenLoader } from '../../components';
 import s from './styles';
 
-function InboxScreen({ transactions, fetchMoreTransactions }) {
+function InboxScreen({
+  transactions,
+  fetchMoreTransactions,
+  isLoading,
+}) {
+  if (isLoading) {
+    return <ScreenLoader />;
+  }
   return (
     <FlatList
       data={transactions}
@@ -27,6 +35,7 @@ InboxScreen.navigationOptions = () => ({
 InboxScreen.propTypes = {
   transactions: T.array,
   fetchMoreTransactions: T.func,
+  isLoading: T.bool,
 };
 
-export default InboxScreen;
+export default observer(InboxScreen);

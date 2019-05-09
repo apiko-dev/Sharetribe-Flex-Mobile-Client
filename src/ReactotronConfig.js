@@ -11,7 +11,9 @@ export default Reactotron.configure({
     asyncStorage: true,
   }) // add all built-in react native plugins
   .use(
-    mst({ queryMode: 'live' }),
+    mst({
+      filter: (event) => !event.name.includes('@APPLY_SNAPSHOT'),
+    }),
     asyncStorage(),
     trackGlobalErrors(),
   ) // plus some custom made plugin.

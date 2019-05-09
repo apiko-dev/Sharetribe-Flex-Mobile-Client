@@ -324,7 +324,7 @@ class SharetribeSdkService {
         'provider',
         'provider.profileImage',
         'listing',
-        'booking',
+        // 'booking',
         'reviews',
         'reviews.author',
         'reviews.subject',
@@ -333,15 +333,27 @@ class SharetribeSdkService {
     });
   }
 
-  changeStateTransactions({ transactionId, transitionState }) {
+  changeStateTransactions({ transactionId, transition }) {
     return this.sdk.transactions.transition(
       {
         id: new types.UUID(transactionId),
-        transition: transitionState,
+        transition,
         params: {},
       },
       {
         expand: true,
+        include: [
+          'customer',
+          'customer.profileImage',
+          'provider',
+          'provider.profileImage',
+          'listing',
+          // 'booking',
+          'reviews',
+          'reviews.author',
+          'reviews.subject',
+          'messages',
+        ],
       },
     );
   }

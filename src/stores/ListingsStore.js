@@ -5,7 +5,9 @@ import {
   getRoot,
   applySnapshot,
 } from 'mobx-state-tree';
+import Reactotron from 'reactotron-react-native';
 import R from 'ramda';
+import { transaction } from 'mobx';
 import createFlow from './helpers/createFlow';
 import { AlertService } from '../services';
 import i18n from '../i18n';
@@ -82,8 +84,6 @@ export const Product = t
 
     transactionId: t.optional(t.maybeNull(t.string), null),
 
-    messages: t.optional(MessageStore, {}),
-
     publicData: t.optional(t.maybeNull(ProductPublicData), null),
     price: t.optional(t.maybeNull(Price), null),
     metadata: t.model('metadata', {}),
@@ -151,7 +151,7 @@ function updateProduct(flow, store) {
       const snapshot = processJsonApi(res.data.data);
       const entities = normalizedIncluded(res.data.included);
       getRoot(store).entities.merge(entities);
-      applySnapshot(store, snapshot);
+      Object.assign(store, snapshot);
       //
       // yield getAvailableDays(store.id);
       //
@@ -173,7 +173,7 @@ function getOwnFields(flow, store) {
       });
 
       const snapshot = processJsonApi(res.data.data);
-      applySnapshot(store, snapshot);
+      Object.assign(store, snapshot);
 
       flow.success();
     } catch (err) {
@@ -302,7 +302,10 @@ function fetchListings(flow, store) {
         res.data.included,
       );
 
-      getRoot(store).entities.merge(normalizedEntities);
+      transaction(() => {
+        getRoot(store).entities.merge(normalizedEntities);
+        Reactotron.log('End');
+      });
 
       store.list.set(res.data.data);
 
