@@ -44,6 +44,10 @@ export default {
     white: '#FFF',
     orange: '#FF9900',
     red: '#EB5757',
+
+    lightGray: '#D9D9D9',
+
+
     green: '#27AE60',
   },
   loader: {
@@ -213,5 +217,19 @@ export default {
     primary: '#FF9900',
     borderColor: '#E9E9E9',
     white: '#FFF',
+  },
+
+  inbox: {
+    backgroundColor: '#F8F8F8',
+    messageBackgroundColor: '#FFF',
+    borderColor: '#E9E9E9',
+  },
+
+  chat: {
+    backgroundColor: '#F8F8F8',
+    backgroundColorWhite: '#FFF',
+    borderColor: '#E9E9E9',
+    backgroundColorMessageUser: '#F2F6FF',
+    backgroundColorMessage: '#FFF',
   },
 };

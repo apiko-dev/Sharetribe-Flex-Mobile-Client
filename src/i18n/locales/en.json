@@ -284,6 +284,24 @@
   "availableDays": "Available days"
   },
 
+
+  "chat": {
+    "accept": "Accept",
+    "deny": "Deny",
+    "viewGoods": "View goods",
+    "viewDetails": "View details"
+  },
+
+  "inbox": {
+    "bookingBreakdown": "Booking breakdown",
+    "pricePerDay": "Price per day",
+    "day": "day",
+    "request": "Request",
+    "accepted": "Accepted",
+    "totalPrice": "Total price"
+
+  }
+
   "monthNames": [
     "January",
     "February",
@@ -357,4 +375,5 @@
     "italy": "Italy",
     "portugal": "Portugal"
   } 
+
 }

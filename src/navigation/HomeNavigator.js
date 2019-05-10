@@ -11,10 +11,15 @@ import {
   RequestToRentScreen,
   CalendarScreen,
   HelpScreen,
+
+
+
+
   RequestToRentPaymentScreen,
   PayoutPreferencesScreen,
   CardListScreen,
   ProfileScreen,
+
 } from '../screens';
 import { defaultNavigationOptions } from './NavigationOptions';
 
@@ -33,7 +38,12 @@ export default createStackNavigator(
     [screens.RequestToRentPayment]: RequestToRentPaymentScreen,
     [screens.CardList]: CardListScreen,
     [screens.Help]: HelpScreen,
+
+
+
+
     [screens.PayoutPreferences]: PayoutPreferencesScreen,
+
   },
   {
     initialRouteKey: screens.Home,

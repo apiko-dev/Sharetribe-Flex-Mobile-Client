@@ -16,6 +16,7 @@ const cardShadowByPlatform = {
 
 export const button = {
   heightMedium: 40,
+  heightSmall: 36,
 };
 
 export default {

@@ -27,8 +27,13 @@ export default {
   RequestToRentPayment: 'RequestToRentPayment',
   Calendar: 'Calendar',
   Help: 'Help',
+
+  Inbox: 'Inbox',
+  Chat: 'Chat',
+
   PayoutPreferences: 'PayoutPreferences',
   CardList: 'CardList',
+
 
   // Stacks
   HomeStack: 'HomeStack',

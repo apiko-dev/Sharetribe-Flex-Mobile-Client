@@ -68,7 +68,7 @@ export default compose(
         iconName: 'list',
       },
       {
-        screen: screens.Home,
+        screen: screens.Inbox,
         title: i18n.t('drawer.inbox'),
         iconName: 'message',
       },
