@@ -144,7 +144,6 @@ export default hoistStatics(
         });
       },
       onDeny: (props) => () => {
-        // props.transactionStore.changeStateTransactions.run({
         props.transaction.changeStateTransactions.run({
           transactionId: props.transactionId,
           transition: transitionStatuses.DECLINE,

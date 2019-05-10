@@ -35,24 +35,59 @@ const Relationships = t.model('Relationships', {
   listing: t.maybe(t.reference(Product)),
 });
 
-export const Transaction = t.model('Transaction', {
-  id: t.identifier,
-  type: t.maybe(t.string),
-  createdAt: t.Date,
-  processName: t.string,
-  processVersion: t.number,
-  lastTransition: t.maybe(t.string),
-  lastTransitionedAt: t.maybe(t.Date),
-  payinTotal: t.maybeNull(Price),
-  payoutTotal: t.maybeNull(Price),
-  // lineItems: t.maybe(t.array(LineItems)),
-  protectedData: t.model({}),
-  // transitions: t.maybe(t.array(Transitions)),
+export const Transaction = t
+  .model('Transaction', {
+    id: t.identifier,
+    type: t.maybe(t.string),
+    createdAt: t.Date,
+    processName: t.string,
+    processVersion: t.number,
+    lastTransition: t.maybe(t.string),
+    lastTransitionedAt: t.maybe(t.Date),
+    payinTotal: t.maybeNull(Price),
+    payoutTotal: t.maybeNull(Price),
+    // lineItems: t.maybe(t.array(LineItems)),
+    protectedData: t.model({}),
+    // transitions: t.maybe(t.array(Transitions)),
+    messages: t.optional(MessageStore, {}),
+    // listings: t.optional(ListingsStore, {}),
+    relationships: t.maybe(Relationships),
+    changeStateTransactions: createFlow(changeStateTransactions),
+  })
+  .views((store) => ({
+    get Api() {
+      return getEnv(store).Api;
+    },
+  }))
+  .actions((store) => ({
+    update(snapshot) {
+      Object.assign(store, snapshot);
+    },
+  }));
 
-  messages: t.optional(MessageStore, {}),
-  // listings: t.optional(ListingsStore, {}),
-  relationships: t.maybe(Relationships),
-});
+function changeStateTransactions(flow, store) {
+  return function* initiatechangeStateTransactionsTransaction({
+    transactionId,
+    transition,
+  }) {
+    try {
+      flow.start();
+      const res = yield store.Api.changeStateTransactions({
+        transactionId,
+        transition,
+      });
+
+      // const data = (res.data.data);
+
+      // store.list.add(res.data.data);
+      const snapshot = processJsonApiTransactions(res.data.data);
+      store.update(snapshot);
+      flow.success();
+    } catch (err) {
+      flow.failed(err, true);
+    }
+  };
+}
 
 // .preProcessSnapshot((snapshot) => ({
 //   ...snapshot,
@@ -223,30 +258,6 @@ function fetchMoreTransactions(flow, store) {
         store.list.append(res.data.data);
       }
 
-      flow.success();
-    } catch (err) {
-      flow.failed(err, true);
-    }
-  };
-}
-
-function changeStateTransactions(flow, store) {
-  return function* initiatechangeStateTransactionsTransaction({
-    transactionId,
-    transition,
-  }) {
-    try {
-      flow.start();
-      const res = yield store.Api.changeStateTransactions({
-        transactionId,
-        transition,
-      });
-
-      // const data = (res.data.data);
-
-      // store.list.add(res.data.data);
-      const snapshot = processJsonApiTransactions(res.data.data);
-      store.update(snapshot);
       flow.success();
     } catch (err) {
       flow.failed(err, true);
