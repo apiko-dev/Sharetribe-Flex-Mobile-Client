@@ -81,4 +81,30 @@ export function processJsonApiIncluded(record) {
   };
 }
 
+export function processJsonApiTransactions(record) {
+  const data = Object.keys(record.attributes).reduce(
+    (acc, current) => {
+      const currentAttr = record.attributes[current];
+      if (
+        objectUtils.isObject(currentAttr) &&
+        !objectUtils.isPlainObject(currentAttr) &&
+        !(currentAttr instanceof Date) &&
+        !Array.isArray(currentAttr)
+      ) {
+        acc[current] = objectUtils.toPlainObject(currentAttr);
+      } else {
+        acc[current] = record.attributes[current];
+      }
+
+      return acc;
+    },
+    {},
+  );
+
+  return {
+    ...data,
+    id: record.id.uuid,
+  };
+}
+
 export default processJsonApi;

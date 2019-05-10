@@ -201,6 +201,49 @@ class SharetribeSdkService {
       include: ['images', 'author'],
     });
   }
+
+  getAvailableDays({ listingId, start, end }) {
+    return this.sdk.timeslots.query({
+      listingId: new types.UUID(listingId),
+      start: new Date(start),
+      end: new Date(end),
+    });
+  }
+
+  initiateTransaction({ listingId, startRent, endRent, cardToken }) {
+    return this.sdk.transactions.initiate(
+      {
+        processAlias: 'preauth-with-nightly-booking/release-1',
+        transition: 'transition/request',
+        params: {
+          listingId: new types.UUID(listingId),
+          bookingStart: new Date(startRent),
+          bookingEnd: new Date(endRent),
+          cardToken,
+        },
+      },
+      {
+        expand: true,
+      },
+    );
+  }
+
+  fetchTransactions() {
+    return this.sdk.transactions.query({});
+  }
+
+  sendMessage({ transactionId, content }) {
+    return this.sdk.messages.send({
+      transactionId,
+      content,
+    });
+  }
+
+  createStripeAccount(query) {
+    return this.sdk.stripeAccount.create(query, {
+      expand: true,
+    });
+  }
 }
 
 export default new SharetribeSdkService();

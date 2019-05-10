@@ -22,7 +22,7 @@ import com.krazylabs.OpenAppSettingsPackage;
 import com.airbnb.android.react.maps.MapsPackage;
 import io.sentry.RNSentryPackage;
 import com.mands.reactnativedevmenu.DevMenuPackage;
-
+import com.reactnativecommunity.webview.RNCWebViewPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -46,7 +46,8 @@ public class MainApplication extends Application implements ReactApplication {
           new OpenAppSettingsPackage(),
           new MapsPackage(),
           new RNSentryPackage(),
-          new DevMenuPackage(this)
+          new DevMenuPackage(this),
+          new RNCWebViewPackage()
       );
     }
 

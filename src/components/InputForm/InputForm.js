@@ -13,7 +13,7 @@ import {
 } from 'react-native-reanimatable';
 import { isAndroid } from '../../utils';
 import s from './styles';
-import { dimensions } from '../../styles';
+import { dimensions, colors } from '../../styles';
 import IconFonts from '../IconFonts/IconFonts';
 
 const AnimatedTextInput = A.createAnimatedComponent(TextInput);
@@ -50,6 +50,12 @@ const AnimatedFormInput = ({
   active,
   iconName,
   onPressIcon,
+  iconNameLeft,
+  onPressIconLeft,
+  iconInInputPlaceholder,
+  onPressIconInInputPlaceholder,
+  isShowingFormInfo,
+  iconTintColor,
   ...props
 }) => (
   <TouchableWithoutFeedback>
@@ -66,9 +72,18 @@ const AnimatedFormInput = ({
       >
         {({ fontSize, translateYLabel, translateY2Input }) => (
           <View>
+            {!!iconNameLeft && (
+              <IconFonts
+                name={iconNameLeft}
+                size={20}
+                style={s.iconLeft}
+                onPress={onPressIconLeft}
+              />
+            )}
             <A.Text
               style={[
                 s.inputLabel,
+                !!iconNameLeft && s.inputLabelWithLeftIcon,
                 labelStyle,
                 {
                   fontSize,
@@ -82,7 +97,21 @@ const AnimatedFormInput = ({
               ]}
             >
               {placeholder}
+              {!!iconInInputPlaceholder && (
+                <IconFonts
+                  name={iconInInputPlaceholder}
+                  size={14}
+                  tintColor={
+                    isShowingFormInfo
+                      ? colors.icon.tintColorOrange
+                      : colors.icon.tintColorGray
+                  }
+                  style={s.iconInPlaceholder}
+                  onPress={onPressIconInInputPlaceholder}
+                />
+              )}
             </A.Text>
+
             <AnimatedTextInput
               {...props}
               hitSlop={{
@@ -95,6 +124,7 @@ const AnimatedFormInput = ({
               style={[
                 s.input,
                 !!iconName && s.inputWithIcon,
+                !!iconNameLeft && s.inputWithLeftIcon,
                 inputStyle,
                 {
                   transform: [{ translateY: translateY2Input }],
@@ -108,6 +138,7 @@ const AnimatedFormInput = ({
                 size={20}
                 style={s.icon}
                 onPress={onPressIcon}
+                tintColor={iconTintColor}
               />
             )}
           </View>
@@ -131,8 +162,14 @@ AnimatedFormInput.propTypes = {
   value: T.string,
   placeholder: T.string,
   active: T.bool,
-  iconName: T.string,
+  iconName: T.oneOfType([T.string, T.bool]),
   onPressIcon: T.func,
+  iconNameLeft: T.string,
+  onPressIconLeft: T.func,
+  iconInInputPlaceholder: T.string,
+  onPressIconInInputPlaceholder: T.func,
+  isShowingFormInfo: T.bool,
+  iconTintColor: T.any,
 };
 
 export default AnimatedFormInput;

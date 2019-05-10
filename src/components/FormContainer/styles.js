@@ -5,7 +5,7 @@ export default StyleSheet.create({
   formContainer: {
     marginLeft: dimensions.indent,
     marginRight: dimensions.indent,
-    marginBottom: dimensions.indent * 0.5,
+    marginBottom: dimensions.indent * 0.7,
     borderRadius: 10,
     alignSelf: 'stretch',
   },
@@ -28,7 +28,7 @@ export default StyleSheet.create({
   },
   header: {
     marginTop: dimensions.indent * 0.7,
-    marginBottom: dimensions.indent * 0.5,
+    marginBottom: dimensions.indent * 0.9,
     marginLeft: dimensions.indent,
     marginRight: dimensions.indent,
     alignSelf: 'stretch',

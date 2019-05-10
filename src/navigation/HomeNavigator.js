@@ -8,9 +8,18 @@ import {
   ProductScreen,
   VerifyEmailScreen,
   GalleryScreen,
+  RequestToRentScreen,
+  CalendarScreen,
   HelpScreen,
-  InboxScreen,
-  ChatScreen,
+
+
+
+
+  RequestToRentPaymentScreen,
+  PayoutPreferencesScreen,
+  CardListScreen,
+  ProfileScreen,
+
 } from '../screens';
 import { defaultNavigationOptions } from './NavigationOptions';
 
@@ -22,13 +31,22 @@ export default createStackNavigator(
     [screens.AddNewItem]: AddNewItemScreen,
     [screens.Category]: CategoryScreen,
     [screens.Product]: ProductScreen,
+    [screens.Profile]: ProfileScreen,
     [screens.Gallery]: GalleryScreen,
+    [screens.RequestToRent]: RequestToRentScreen,
+    [screens.Calendar]: CalendarScreen,
+    [screens.RequestToRentPayment]: RequestToRentPaymentScreen,
+    [screens.CardList]: CardListScreen,
     [screens.Help]: HelpScreen,
-    [screens.Inbox]: InboxScreen,
-    [screens.Chat]: ChatScreen,
+
+
+
+
+    [screens.PayoutPreferences]: PayoutPreferencesScreen,
+
   },
   {
-    initialRouteKey: screens.HomeScreen,
+    initialRouteKey: screens.Home,
     defaultNavigationOptions,
   },
 );

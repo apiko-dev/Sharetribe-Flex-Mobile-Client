@@ -81,4 +81,8 @@ export default StyleSheet.create({
     shadowOpacity: 0,
     borderBottomWidth: 0,
   },
+
+  leaseContainer: {
+    alignSelf: 'center',
+  },
 });

@@ -134,6 +134,43 @@
     "someInstruction": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
     "goToSettings": "Go to settings"
   },
+  "requestToRent": {
+    "requestToRent": "Request to rent",
+    "sendRequest": "Send request",
+    "when": "When do you want it?",
+    "bookingBreakdown": "Booking breakdown",
+    "priceADay": "Price per day",
+    "totalPrice": "Total price",
+    "payment": "Payment",
+    "message": "Message",
+    "cardNumber": "Card number",
+    "cardExpiration": "MM/YY",
+    "cardCVC": "CVC",
+    "cardCVCInfo": "The 3-digit security code is found on the back of most credit and debit cards"
+  },
+  "payoutPreferences": {
+    "payoutPreferences": "Payout Preferences",
+    "personalDetails": "Personal details",
+    "oneMoreThing": "One more thing: Payout preferences",
+    "oneMoreThingDescription": "Since this was the first listing you created, we need to know bit more about you in order to send you money. We only ask these once.",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "country": "Country",
+    "address": "Address",
+    "streetAddress": "Street address",
+    "postalCode": "Postal code",
+    "city": "City",
+    "saveAndPublish": "Save details & Publish listing",
+    "birthDate": "Birth date",
+    "month": "Month",
+    "year": "Year",
+    "payment": "Payment",
+    "addCard": "Add a card",
+    "accountNumber": "Bank account number"
+  },
+  "cardList": {
+    "cardList": "Your cards"
+  },
   "alerts": {
     "signInError": {
       "title": "Sign In",
@@ -170,6 +207,10 @@
     "somethingWentWrong": {
       "title": "Error",
       "message": "Something went wrong"
+    },
+    "inDevelopment": {
+      "title": "Error",
+      "message": "This functional in development"
     }
   },
 
@@ -184,7 +225,18 @@
     "settings": "Settings",
     "save": "Save",
     "more": "More",
-    "less": "Less"
+    "less": "Less",
+    "availableDate": "Available date",
+    "employedDate": "Employed date",
+    "day": "day",
+    "days": "days",
+    "viewCalendar": "View calendar",
+    "nowOnLease": "Now on lease",
+    "canLease": "You can lease",
+    "nextAvailableDate": "Next available date:",
+    "availableUntil": "Available until:",
+    "calendar": "Calendar",
+    "continue": "Continue"
   },
   "permissions": {
     "iosRestrictedPermission": "Restricted Permission",
@@ -207,9 +259,14 @@
     "incorrectEmail": "Incorrect email",
     "requireFirstName": "First name must be minimum 1 symbol",
     "requireLastName": "Last name must be minimum 1 symbol",
-    "currentPasswordIncorrect": "You type incorrect current password",
-    "passwordIncorrectForEmail": "You type incorrect current password for changing email",
-    "passwordIncorrectForNewPassword": "You type incorrect current password for changing password"
+    "currentPasswordIncorrect": "You typed incorrect current password",
+    "passwordIncorrectForEmail": "You typed incorrect current password for changing email",
+    "passwordIncorrectForNewPassword": "You typed incorrect current password for changing password",
+    "incorrectCardNumber": "You typed incorrect card number",
+    "incorrectCardExpiration": "You typed incorrect card expiration",
+    "incorrectCardCVC": "You typed incorrect card CVC",
+    "stripeCounties": "Sorry, Stripe doesn't support this country, select one from the list, please",
+    "require": "Require"
   },
   "helpScreen": {
     "helpCenter": "Help Center",
@@ -227,6 +284,7 @@
   "availableDays": "Available days"
   },
 
+
   "chat": {
     "accept": "Accept",
     "deny": "Deny",
@@ -243,4 +301,79 @@
     "totalPrice": "Total price"
 
   }
+
+  "monthNames": [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+  ],
+  "monthNamesShort": [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "June",
+    "July",
+    "Aug",
+    "Sept",
+    "Oct",
+    "Nov",
+    "Dec"
+  ],
+  "dayNames": [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday"
+  ],
+  "dayNamesShort": [
+    "S",
+    "M",
+    "T",
+    "W",
+    "T",
+    "F",
+    "S"
+  ],
+
+
+  "countries": {
+    "australia": "Australia",
+    "austria": "Austria",
+    "belgium": "Belgium",
+    "canada": "Canada",
+    "denmark": "Denmark",
+    "finland": "Finland",
+    "france": "France",
+    "germany": "Germany",
+    "hongKong": "Hong Kong",
+    "ireland": "Ireland",
+    "japan": "Japan",
+    "luxembourg": "Luxembourg",
+    "netherlands": "Netherlands",
+    "newZealand": "New Zealand",
+    "norway": "Norway",
+    "singapore": "Singapore",
+    "spain": "Spain",
+    "sweden": "Sweden",
+    "switzerland": "Switzerland",
+    "unitedKingdom": "United Kingdom",
+    "unitedStates": "United States",
+    "italy": "Italy",
+    "portugal": "Portugal"
+  } 
+
 }

@@ -7,6 +7,7 @@ import {
 } from 'libphonenumber-js';
 import { regExp } from '../utils';
 import i18n from '../i18n';
+import { countries } from '../constants';
 
 Yup.addMethod(Yup.string, 'phoneNumber', function(message) {
   return this.test('phoneNumberTest', message, function(value = '') {
@@ -85,4 +86,80 @@ export const ProfileSchema = Yup.object().shape({
       .required(i18n.t('errors.confirmPassword')),
     otherwise: Yup.string().min(0),
   }),
+});
+
+export const PaymentSchema = Yup.object().shape({
+  cardNumber: Yup.string()
+    .trim()
+    .min(19, i18n.t('errors.incorrectCardNumber'))
+    .max(22, i18n.t('errors.incorrectCardNumber'))
+    .required(i18n.t('errors.incorrectCardNumber')),
+  cardExpiration: Yup.string()
+    .trim()
+    .min(5, i18n.t('errors.incorrectCardExpiration'))
+    .max(5, i18n.t('errors.incorrectCardExpiration'))
+    .required(i18n.t('errors.incorrectCardExpiration')),
+  cardCVC: Yup.string()
+    .trim()
+    .min(3, i18n.t('errors.incorrectCardCVC'))
+    .max(4, i18n.t('errors.incorrectCardCVC'))
+    .required(i18n.t('errors.incorrectCardCVC')),
+});
+
+const stripeCountriesList = countries.stripeCountriesList.map(
+  (i) => i.title,
+);
+
+export const PayoutSchema = Yup.object().shape({
+  firstName: Yup.string()
+    .trim()
+    .min(1)
+    .max(100)
+    .required(i18n.t('errors.requireFirstName')),
+  lastName: Yup.string()
+    .trim()
+    .min(1)
+    .max(100)
+    .required(i18n.t('errors.requireLastName')),
+  birthDate: Yup.string()
+    .trim()
+    .min(1)
+    .max(2)
+    .required(i18n.t('errors.require')),
+  month: Yup.string()
+    .trim()
+    .min(1)
+    .max(2)
+    .required(i18n.t('errors.require')),
+  year: Yup.string()
+    .trim()
+    .min(1)
+    .max(4)
+    .required(i18n.t('errors.require')),
+  country: Yup.string()
+    .trim()
+    .min(1)
+    .max(100)
+    .oneOf(stripeCountriesList, i18n.t('errors.stripeCounties'))
+    .required(i18n.t('errors.require')),
+  streetAddress: Yup.string()
+    .trim()
+    .min(1)
+    .max(100)
+    .required(i18n.t('errors.require')),
+  postalCode: Yup.string()
+    .trim()
+    .min(1)
+    .max(100)
+    .required(i18n.t('errors.require')),
+  city: Yup.string()
+    .trim()
+    .min(1)
+    .max(100)
+    .required(i18n.t('errors.require')),
+  accountNumber: Yup.string()
+    .trim()
+    .min(12)
+    .max(12)
+    .required(i18n.t('errors.require')),
 });

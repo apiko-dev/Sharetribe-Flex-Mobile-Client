@@ -3,6 +3,7 @@ import AuthStore from './AuthStore';
 import ViewerStore from './ViewerStore';
 import { NavigationService } from '../services';
 import { ListingsStore } from './ListingsStore';
+import { TransactionStore } from './TransactionStore';
 import EntitiesStore from './EntitiesStore';
 
 const RootStore = types
@@ -10,6 +11,7 @@ const RootStore = types
     auth: types.optional(AuthStore, {}),
     viewer: types.optional(ViewerStore, {}),
     listings: types.optional(ListingsStore, {}),
+    transaction: types.optional(TransactionStore, {}),
     entities: types.optional(EntitiesStore, {}),
   })
   .actions((store) => ({

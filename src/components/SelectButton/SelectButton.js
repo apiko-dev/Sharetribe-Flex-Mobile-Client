@@ -11,6 +11,7 @@ const Button = ({
   isLoading,
   value,
   label,
+  iconName,
   ...props
 }) => (
   <View style={containerStyle}>
@@ -33,7 +34,7 @@ const Button = ({
             {value}
           </Text>
         )}
-        <IconFonts size={20} name="right" />
+        <IconFonts size={20} name={iconName || 'right'} />
       </View>
     </TouchableOpacity>
   </View>
@@ -46,6 +47,7 @@ Button.propTypes = {
   isLoading: T.bool,
   value: T.string,
   label: T.string,
+  iconName: T.string,
 };
 
 export default Button;

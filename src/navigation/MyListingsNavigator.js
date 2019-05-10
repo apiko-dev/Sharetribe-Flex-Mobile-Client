@@ -5,6 +5,7 @@ import {
   AddNewItemScreen,
   CategoryScreen,
   ProductScreen,
+  CalendarScreen,
 } from '../screens';
 import { defaultNavigationOptions } from './NavigationOptions';
 
@@ -14,6 +15,7 @@ export default createStackNavigator(
     [screens.AddNewItem]: AddNewItemScreen,
     [screens.Category]: CategoryScreen,
     [screens.Product]: ProductScreen,
+    [screens.Calendar]: CalendarScreen,
   },
   {
     initialRouteKey: screens.MyListings,

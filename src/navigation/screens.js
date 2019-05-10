@@ -23,9 +23,17 @@ export default {
   Profile: 'Profile',
   VerifyEmail: 'VerifyEmail',
   Gallery: 'Gallery',
+  RequestToRent: 'RequestToRent',
+  RequestToRentPayment: 'RequestToRentPayment',
+  Calendar: 'Calendar',
   Help: 'Help',
+
   Inbox: 'Inbox',
   Chat: 'Chat',
+
+  PayoutPreferences: 'PayoutPreferences',
+  CardList: 'CardList',
+
 
   // Stacks
   HomeStack: 'HomeStack',

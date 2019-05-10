@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, ViewPropTypes } from 'react-native';
 import T from 'prop-types';
 import s from './styles';
 import Text from '../Text/Text';
@@ -10,9 +10,12 @@ const FormContainer = ({
   headerTitle,
   headerTitleTextTouchable,
   headerOnPressTextTouchable,
+  containerStyle,
+  formContainerStyle,
+  headerStyle,
 }) => (
   <React.Fragment>
-    <View style={[s.header]}>
+    <View style={[s.header, headerStyle]}>
       {!!headerTitle && (
         <Text xmediumSize bold>
           {headerTitle}
@@ -24,8 +27,16 @@ const FormContainer = ({
         </TextTouchable>
       )}
     </View>
-    <View style={[s.formContainer, s.firstShadowContainer]}>
-      <View style={[s.secondShadowContainer]}>{children}</View>
+    <View
+      style={[
+        s.formContainer,
+        s.firstShadowContainer,
+        formContainerStyle,
+      ]}
+    >
+      <View style={[s.secondShadowContainer, containerStyle]}>
+        {children}
+      </View>
     </View>
   </React.Fragment>
 );
@@ -35,6 +46,9 @@ FormContainer.propTypes = {
   headerTitle: T.string,
   headerTitleTextTouchable: T.string,
   headerOnPressTextTouchable: T.func,
+  containerStyle: ViewPropTypes.style,
+  formContainerStyle: ViewPropTypes.style,
+  headerStyle: ViewPropTypes.style,
 };
 
 export default FormContainer;

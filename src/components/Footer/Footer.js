@@ -2,9 +2,10 @@ import React from 'react';
 import T from 'prop-types';
 import { View } from 'react-native';
 import s from './styles';
-import { Button, IconFonts } from '../../../../components';
+import IconFonts from '../IconFonts/IconFonts';
+import Button from '../Button/Button';
 
-const Footer = ({ phone, onCall }) => (
+const Footer = ({ phone, onCall, navigationToRequestToRent }) => (
   <View style={s.container}>
     <View style={s.contactContainer}>
       {phone && (
@@ -39,12 +40,14 @@ const Footer = ({ phone, onCall }) => (
         title="Request to rent"
         primary
         buttonStyle={s.buttonRent}
+        onPress={navigationToRequestToRent}
       />
     </View>
   </View>
 );
 
 Footer.propTypes = {
+  navigationToRequestToRent: T.func,
   phone: T.string,
   onCall: T.func,
 };

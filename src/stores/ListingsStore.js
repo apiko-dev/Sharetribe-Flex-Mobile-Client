@@ -7,13 +7,14 @@ import {
 } from 'mobx-state-tree';
 import R from 'ramda';
 import createFlow from './helpers/createFlow';
-import { AlertService, NavigationService } from '../services';
+import { AlertService } from '../services';
 import i18n from '../i18n';
 import processJsonApi from './utils/processJsonApi';
 import listModel from './utils/listModel';
 import { Image } from './ImageStore';
 import { User } from './UserStore';
 import { normalizedIncluded } from './utils/normalize';
+import { dates } from '../utils';
 
 const DayOfWeek = t.model('DayOfWeek', {
   dayOfWeek: t.string,
@@ -33,6 +34,7 @@ const Geolocation = t.model('Geolocation', {
   lat: t.maybe(t.number),
   lng: t.maybe(t.number),
 });
+
 const ProductPublicData = t.model('ProductPublicData', {
   brand: t.maybe(t.string),
   category: t.maybe(t.string),
@@ -42,7 +44,7 @@ const ProductPublicData = t.model('ProductPublicData', {
   phoneNumber: t.maybe(t.string),
 });
 
-const Price = t.model('Price', {
+export const Price = t.model('Price', {
   amount: t.number,
   currency: t.string,
 });
@@ -75,6 +77,8 @@ export const Product = t
     price: t.optional(t.maybeNull(Price), null),
     metadata: t.model('metadata', {}),
     relationships: t.maybe(ProductRelationships),
+    availableDates: t.maybe(t.array(t.string)),
+    employedDates: t.maybe(t.array(t.string)),
 
     availabilityPlan: t.optional(t.maybeNull(AvailabilityPlan), null),
 
@@ -193,6 +197,7 @@ export const ListingsStore = t
     fetchParticularUserListings: createFlow(
       fetchParticularUserListings,
     ),
+    getAvailableDays: createFlow(getAvailableDays),
   })
   .views((store) => ({
     get Api() {
@@ -246,26 +251,8 @@ function createListing(flow, store) {
       store.list.addToBegin(data, false);
 
       flow.success();
-
-      // TODO: move this alert into screen container
-      AlertService.showAlert(
-        i18n.t('alerts.createListingSuccess.title'),
-        i18n.t('alerts.createListingSuccess.message'),
-        [
-          {
-            text: i18n.t('common.ok'),
-            onPress: () => NavigationService.navigateToHome(),
-          },
-        ],
-      );
     } catch (err) {
-      flow.failed(err);
-
-      // TODO: move this alert into screen container
-      AlertService.showAlert(
-        i18n.t('alerts.createListingError.title'),
-        i18n.t('alerts.createListingError.message'),
-      );
+      flow.failed(err, true);
     }
   };
 }
@@ -281,8 +268,6 @@ function fetchListings(flow, store) {
         include: ['images', 'author', 'author.profileImage'],
       });
 
-      console.log(res);
-
       const normalizedEntities = normalizedIncluded(
         res.data.included,
       );
@@ -293,7 +278,6 @@ function fetchListings(flow, store) {
 
       flow.success();
     } catch (err) {
-      console.log(err);
       flow.failed();
 
       // TODO: move this alert into screen container
@@ -306,17 +290,14 @@ function fetchListings(flow, store) {
 }
 
 function searchListings(flow, store) {
-  return function* searchListings({ categories, title }) {
+  return function* searchListings({ title }) {
     try {
       flow.start();
 
       const res = yield store.Api.fetchListings({
-        pub_category: categories,
         pub_title: title,
         include: ['images', 'author', 'author.profileImage'],
       });
-
-      console.log(res);
 
       const normalizedEntities = normalizedIncluded(
         res.data.included,
@@ -348,8 +329,6 @@ function fetchOwnListings(flow, store) {
         include: ['images', 'author', 'author.profileImage'],
       });
 
-      console.log(res);
-
       store.ownList.set(res.data.data);
 
       const normalizedEntities = normalizedIncluded(
@@ -360,7 +339,6 @@ function fetchOwnListings(flow, store) {
 
       flow.success();
     } catch (err) {
-      console.log(err);
       flow.failed();
 
       // TODO: move this alert into screen container
@@ -376,13 +354,10 @@ function fetchParticularUserListings(flow, store) {
   return function* fetchParticularUserListings(userId) {
     try {
       flow.start();
-      console.log(userId);
       const res = yield store.Api.fetchListings({
         authorId: userId,
         include: ['images', 'author', 'author.profileImage'],
       });
-
-      console.log('fetchParticularUserListings: ', res);
 
       const normalizedEntities = normalizedIncluded(
         res.data.included,
@@ -401,6 +376,34 @@ function fetchParticularUserListings(flow, store) {
         i18n.t('alerts.somethingWentWrong.title'),
         i18n.t('alerts.somethingWentWrong.message'),
       );
+    }
+  };
+}
+
+function getAvailableDays(flow, store) {
+  return function* getAvailableDays(listingId) {
+    try {
+      flow.start();
+
+      const { start, end } = dates.getEndDateByStart(new Date(), 89);
+
+      const res = yield store.Api.getAvailableDays({
+        listingId,
+        start,
+        end,
+      });
+
+      const data = dates.getAvailableAndEmployedDates(
+        res.data.data,
+        start,
+        end,
+      );
+
+      flow.success();
+
+      return data;
+    } catch (err) {
+      flow.failed(err, true);
     }
   };
 }

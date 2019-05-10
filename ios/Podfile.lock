@@ -36,6 +36,8 @@ PODS:
     - React
   - react-native-maps (0.23.0):
     - React
+  - react-native-webview (5.7.1):
+    - React
   - React/Core (0.59.2):
     - yoga (= 0.59.2.React)
   - React/CxxBridge (0.59.2):
@@ -114,6 +116,7 @@ DEPENDENCIES:
   - GoogleMaps
   - react-native-google-maps (from `../node_modules/react-native-maps`)
   - react-native-maps (from `../node_modules/react-native-maps`)
+  - react-native-webview (from `../node_modules/react-native-webview/react-native-webview.podspec`)
   - React/Core (from `../node_modules/react-native`)
   - React/CxxBridge (from `../node_modules/react-native`)
   - React/DevSupport (from `../node_modules/react-native`)
@@ -155,6 +158,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-maps"
   react-native-maps:
     :path: "../node_modules/react-native-maps"
+  react-native-webview:
+    :path: "../node_modules/react-native-webview/react-native-webview.podspec"
   ReactNativePermissions:
     :path: "../node_modules/react-native-permissions"
   RNGestureHandler:
@@ -187,6 +192,7 @@ SPEC CHECKSUMS:
   React: 9d063e2f356c8cd2f54dd550d4507740037cbabe
   react-native-google-maps: dd3cee2ea5d77ffba4f03b1fd64891e5113b3193
   react-native-maps: 7525a32bcd025af8cf3b6c469af9b8758245db72
+  react-native-webview: dc712e0b176e761a5614726beb2ae89e43dd48c1
   ReactNativePermissions: 2e324bb3baf12702e3ec27f76c8ae1158fa69fc6
   RNGestureHandler: b65d391f4f570178d657b99a16ec99d09b8656b0
   RNImageCropPicker: e56deca5b463b9493d22e966cfd83cb1fc5c99bb
@@ -200,6 +206,6 @@ SPEC CHECKSUMS:
   SentryReactNative: 09d5cc89e8bb5d80cfaf3ae11ed2ecb0a47317d2
   yoga: 3768a3026ade0fb46a68f3a31a917cf86bc34fc4
 
-PODFILE CHECKSUM: a7a57b126dfe231673a79d7d67f4b3b6477a2449
+PODFILE CHECKSUM: 927454b13452b114f389b5c7f36b8f517b88b609
 
 COCOAPODS: 1.6.1
