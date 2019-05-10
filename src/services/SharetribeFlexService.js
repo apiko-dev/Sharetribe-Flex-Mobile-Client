@@ -211,14 +211,7 @@ class SharetribeSdkService {
   }
 
   initiateTransaction({ listingId, startRent, endRent, cardToken }) {
-    console.log(
-      'run service... ',
-      listingId,
-      startRent,
-      endRent,
-      cardToken,
-    );
-    return this.sdk.transactions.initiateSpeculative(
+    return this.sdk.transactions.initiate(
       {
         processAlias: 'preauth-with-nightly-booking/release-1',
         transition: 'transition/request',
@@ -246,15 +239,10 @@ class SharetribeSdkService {
     });
   }
 
-  createStripeAccount() {
-    return this.sdk.stripeAccount.create(
-      {
-        accountToken: 'ct_stripeaccounttoken',
-      },
-      {
-        expand: true,
-      },
-    );
+  createStripeAccount(query) {
+    return this.sdk.stripeAccount.create(query, {
+      expand: true,
+    });
   }
 }
 

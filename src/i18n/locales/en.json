@@ -148,6 +148,29 @@
     "cardCVC": "CVC",
     "cardCVCInfo": "The 3-digit security code is found on the back of most credit and debit cards"
   },
+  "payoutPreferences": {
+    "payoutPreferences": "Payout Preferences",
+    "personalDetails": "Personal details",
+    "oneMoreThing": "One more thing: Payout preferences",
+    "oneMoreThingDescription": "Since this was the first listing you created, we need to know bit more about you in order to send you money. We only ask these once.",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "country": "Country",
+    "address": "Address",
+    "streetAddress": "Street address",
+    "postalCode": "Postal code",
+    "city": "City",
+    "saveAndPublish": "Save details & Publish listing",
+    "birthDate": "Birth date",
+    "month": "Month",
+    "year": "Year",
+    "payment": "Payment",
+    "addCard": "Add a card",
+    "accountNumber": "Bank account number"
+  },
+  "cardList": {
+    "cardList": "Your cards"
+  },
   "alerts": {
     "signInError": {
       "title": "Sign In",
@@ -212,7 +235,8 @@
     "canLease": "You can lease",
     "nextAvailableDate": "Next available date:",
     "availableUntil": "Available until:",
-    "calendar": "Calendar"
+    "calendar": "Calendar",
+    "continue": "Continue"
   },
   "permissions": {
     "iosRestrictedPermission": "Restricted Permission",
@@ -240,7 +264,9 @@
     "passwordIncorrectForNewPassword": "You typed incorrect current password for changing password",
     "incorrectCardNumber": "You typed incorrect card number",
     "incorrectCardExpiration": "You typed incorrect card expiration",
-    "incorrectCardCVC": "You typed incorrect card CVC"
+    "incorrectCardCVC": "You typed incorrect card CVC",
+    "stripeCounties": "Sorry, Stripe doesn't support this country, select one from the list, please",
+    "require": "Require"
   },
   "helpScreen": {
     "helpCenter": "Help Center",
@@ -303,5 +329,32 @@
     "T",
     "F",
     "S"
-  ]
+  ],
+
+
+  "countries": {
+    "australia": "Australia",
+    "austria": "Austria",
+    "belgium": "Belgium",
+    "canada": "Canada",
+    "denmark": "Denmark",
+    "finland": "Finland",
+    "france": "France",
+    "germany": "Germany",
+    "hongKong": "Hong Kong",
+    "ireland": "Ireland",
+    "japan": "Japan",
+    "luxembourg": "Luxembourg",
+    "netherlands": "Netherlands",
+    "newZealand": "New Zealand",
+    "norway": "Norway",
+    "singapore": "Singapore",
+    "spain": "Spain",
+    "sweden": "Sweden",
+    "switzerland": "Switzerland",
+    "unitedKingdom": "United Kingdom",
+    "unitedStates": "United States",
+    "italy": "Italy",
+    "portugal": "Portugal"
+  } 
 }

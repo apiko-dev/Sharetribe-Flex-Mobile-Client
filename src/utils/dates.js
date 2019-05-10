@@ -67,3 +67,61 @@ export const getAvailableAndEmployedDates = (
     employedDates,
   };
 };
+
+function clearNumber(value = '') {
+  return value.replace(/\D+/g, '');
+}
+
+export function formatDate(value) {
+  if (!value) {
+    return value;
+  }
+
+  if (value > 31) {
+    return '31';
+  }
+
+  const clearValue = clearNumber(value);
+
+  return clearValue.slice(0, 2);
+}
+
+export function formatMonth(value) {
+  if (!value) {
+    return value;
+  }
+
+  if (value > 12) {
+    return '12';
+  }
+
+  const clearValue = clearNumber(value);
+
+  return clearValue.slice(0, 2);
+}
+
+export function formatYear(value) {
+  if (!value) {
+    return value;
+  }
+
+  const currentYear = new XDate().getFullYear();
+
+  if (value > currentYear) {
+    return currentYear.toString();
+  }
+
+  const clearValue = clearNumber(value);
+
+  return clearValue.slice(0, 4);
+}
+
+export function formatExpirationDate(value) {
+  const clearValue = clearNumber(value);
+
+  if (clearValue.length >= 3) {
+    return `${clearValue.slice(0, 2)}/${clearValue.slice(2, 4)}`;
+  }
+
+  return clearValue;
+}

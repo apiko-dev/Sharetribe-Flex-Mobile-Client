@@ -1,4 +1,4 @@
-import Payment from 'payment';
+import XDate from 'xdate';
 
 function clearNumber(value = '') {
   return value.replace(/\D+/g, '');
@@ -9,51 +9,51 @@ export function formatCreditCardNumber(value) {
     return value;
   }
 
-  const issuer = Payment.fns.cardType(value);
   const clearValue = clearNumber(value);
-  let nextValue;
-
-  switch (issuer) {
-    case 'amex':
-      nextValue = `${clearValue.slice(0, 4)} ${clearValue.slice(
-        4,
-        10,
-      )} ${clearValue.slice(10, 15)}`;
-      break;
-    case 'dinersclub':
-      nextValue = `${clearValue.slice(0, 4)} ${clearValue.slice(
-        4,
-        10,
-      )} ${clearValue.slice(10, 14)}`;
-      break;
-    default:
-      nextValue = `${clearValue.slice(0, 4)} ${clearValue.slice(
-        4,
-        8,
-      )} ${clearValue.slice(8, 12)} ${clearValue.slice(12, 19)}`;
-      break;
-  }
+  const nextValue = `${clearValue.slice(0, 4)} ${clearValue.slice(
+    4,
+    8,
+  )} ${clearValue.slice(8, 12)} ${clearValue.slice(12, 16)}`;
 
   return nextValue.trim();
 }
 
-export function formatCVC(value, prevValue, allValues = {}) {
+export function formatCVC(value) {
   const clearValue = clearNumber(value);
-  let maxLength = 4;
 
-  if (allValues.number) {
-    const issuer = Payment.fns.cardType(allValues.number);
-    maxLength = issuer === 'amex' ? 4 : 3;
-  }
-
-  return clearValue.slice(0, maxLength);
+  return clearValue.slice(0, 3);
 }
 
 export function formatExpirationDate(value) {
   const clearValue = clearNumber(value);
 
+  let month = clearValue.slice(0, 2);
+  let year = clearValue.slice(2, 4);
+
+  const currentMonth = new XDate().getMonth();
+  const currentYear = new XDate()
+    .getFullYear()
+    .toString()
+    .slice(2, 4);
+
+  if (month > 12) {
+    month = '12';
+  }
+
+  if (
+    year.length === 2 &&
+    currentMonth > month &&
+    year === currentYear
+  ) {
+    year = '';
+  }
+
+  if (year.length === 2 && year < currentYear) {
+    year = '';
+  }
+
   if (clearValue.length >= 3) {
-    return `${clearValue.slice(0, 2)}/${clearValue.slice(2, 4)}`;
+    return `${month}/${year}`;
   }
 
   return clearValue;
@@ -64,9 +64,12 @@ export function formatFormData(data) {
 }
 
 export function normalizeCardData(cardNumber, cardExpiration) {
-  console.log(cardNumber, cardExpiration);
+  const [monthExpiration, yearExpiration] = cardExpiration.split('/');
+
   return {
     cardNumber: cardNumber.replace(/\s/g, ''),
     cardExpiration: cardExpiration.replace('/', ''),
+    monthExpiration,
+    yearExpiration,
   };
 }

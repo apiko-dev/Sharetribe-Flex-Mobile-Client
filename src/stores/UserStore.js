@@ -38,6 +38,7 @@ export const User = t
     pendingEmail: t.maybe(t.null),
     stripePayoutsEnabled: t.maybe(t.boolean),
     stripeChargesEnabled: t.maybe(t.boolean),
+    stripeConnected: t.maybe(t.boolean),
     relationships: t.optional(UserRelationships, {}),
   })
 
@@ -48,12 +49,3 @@ export const User = t
       return user && user.id === store && store.id;
     },
   }));
-
-// .views((store) => ({
-//   get Api() {
-//     return getEnv(store).Api;
-//   },
-// }))
-// .actions({
-
-// })
