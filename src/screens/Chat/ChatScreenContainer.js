@@ -105,19 +105,19 @@ export default hoistStatics(
           console.log(err);
         }
         // ////////////////////////
-        // if (this.props.isOpenedChat) {
-        //   try {
-        //     const availableDates = await this.props.getAvailableDays.run(
-        //       this.props.listing,
-        //     );
-        //     // const availableDates = this.props.product.availabilityPlan
-        //     //   .entries;
+        if (this.props.isOpenedChat) {
+          try {
+            const availableDates = await this.props.getAvailableDays.run(
+              this.props.listing,
+            );
+            // const availableDates = this.props.product.availabilityPlan
+            //   .entries;
 
-        //     this.props.onChange('availableDates', availableDates);
-        //   } catch (error) {
-        //     AlertService.showSomethingWentWrong();
-        //   }
-        // }
+            this.props.onChange('availableDates', availableDates);
+          } catch (error) {
+            AlertService.showSomethingWentWrong();
+          }
+        }
         // /////////////////////
       },
     }),
@@ -138,16 +138,15 @@ export default hoistStatics(
         props.transaction.messages.fetchMoreMessages.run();
       },
       onAccept: (props) => () => {
-        props.transactionStore.changeStateTransactions.run({
-          transactionId: props.transactionId,
-          transition: transitionStatuses.ACCEPT,
-        });
+        props.transaction.changeStateTransactions.run(
+          transitionStatuses.ACCEPT,
+        );
+        NavigationService.navigateTo(screens.Inbox, {});
       },
       onDeny: (props) => () => {
-        props.transaction.changeStateTransactions.run({
-          transactionId: props.transactionId,
-          transition: transitionStatuses.DECLINE,
-        });
+        props.transaction.changeStateTransactions.run(
+          transitionStatuses.DECLINE,
+        );
         NavigationService.navigateTo(screens.Inbox, {});
       },
       // goToProduct: (props) => () => {

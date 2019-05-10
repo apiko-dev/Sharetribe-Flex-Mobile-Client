@@ -109,7 +109,9 @@ export default hoistStatics(
       },
 
       onSend: ({ product }) => async () => {
-        NavigationService.navigateToChat({ product });
+        NavigationService.navigateToChat({
+          product,
+        });
       },
     }),
 

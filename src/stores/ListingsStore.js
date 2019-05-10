@@ -101,6 +101,12 @@ export const Product = t
     //
   })
 
+  .actions((store) => ({
+    update(snapshot) {
+      Object.assign(store, snapshot);
+    },
+  }))
+
   .views((store) => ({
     get canEdit() {
       return (
@@ -152,6 +158,7 @@ function updateProduct(flow, store) {
       const entities = normalizedIncluded(res.data.included);
       getRoot(store).entities.merge(entities);
       Object.assign(store, snapshot);
+      // store.update(snapshot);
       //
       // yield getAvailableDays(store.id);
       //

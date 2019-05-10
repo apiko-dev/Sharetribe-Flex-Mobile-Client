@@ -66,20 +66,16 @@ export const Transaction = t
   }));
 
 function changeStateTransactions(flow, store) {
-  return function* initiatechangeStateTransactionsTransaction({
-    transactionId,
+  return function* initiatechangeStateTransactionsTransaction(
     transition,
-  }) {
+  ) {
     try {
       flow.start();
       const res = yield store.Api.changeStateTransactions({
-        transactionId,
+        transactionId: store.id,
         transition,
       });
 
-      // const data = (res.data.data);
-
-      // store.list.add(res.data.data);
       const snapshot = processJsonApiTransactions(res.data.data);
       store.update(snapshot);
       flow.success();
