@@ -240,6 +240,17 @@ class SharetribeSdkService {
       },
       {
         expand: true,
+        include: [
+          'customer',
+          'customer.profileImage',
+          'provider',
+          'provider.profileImage',
+          'listing',
+          // 'booking',
+          'reviews',
+          'reviews.author',
+          'reviews.subject',
+        ],
       },
     );
   }

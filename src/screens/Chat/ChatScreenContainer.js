@@ -22,7 +22,7 @@ export default hoistStatics(
     withParamsToProps('product'),
     withStateHandlers(
       (props) => ({
-        transaction: props.transaction,
+        transaction: R.pathOr('', ['transaction'], props),
         availableDates: {},
       }),
       {
@@ -60,6 +60,9 @@ export default hoistStatics(
           transitionStatuses.ENQUIRE,
       }),
       {
+        setIsOpenedChat: () => (value) => ({
+          isOpenedChat: value,
+        }),
         setShowDetails: (props) => () => ({
           isShowDetails: !props.isShowDetails,
         }),
@@ -88,6 +91,13 @@ export default hoistStatics(
             const transaction = this.props.transactionStore.list
               .latest;
             this.props.setTransaction(transaction);
+            this.props.setIsOpenedChat(
+              R.pathOr(
+                '',
+                ['transaction', 'lastTransition'],
+                this.props,
+              ) === transitionStatuses.ENQUIRE,
+            );
           } else {
             this.props.transaction.messages.fetchMessages.run();
           }
@@ -95,19 +105,19 @@ export default hoistStatics(
           console.log(err);
         }
         // ////////////////////////
-        if (this.props.isOpenedChat) {
-          try {
-            const availableDates = await this.props.getAvailableDays.run(
-              this.props.listing,
-            );
-            // const availableDates = this.props.product.availabilityPlan
-            //   .entries;
+        // if (this.props.isOpenedChat) {
+        //   try {
+        //     const availableDates = await this.props.getAvailableDays.run(
+        //       this.props.listing,
+        //     );
+        //     // const availableDates = this.props.product.availabilityPlan
+        //     //   .entries;
 
-            this.props.onChange('availableDates', availableDates);
-          } catch (error) {
-            AlertService.showSomethingWentWrong();
-          }
-        }
+        //     this.props.onChange('availableDates', availableDates);
+        //   } catch (error) {
+        //     AlertService.showSomethingWentWrong();
+        //   }
+        // }
         // /////////////////////
       },
     }),
@@ -134,7 +144,8 @@ export default hoistStatics(
         });
       },
       onDeny: (props) => () => {
-        props.transactionStore.changeStateTransactions.run({
+        // props.transactionStore.changeStateTransactions.run({
+        props.transaction.changeStateTransactions.run({
           transactionId: props.transactionId,
           transition: transitionStatuses.DECLINE,
         });

@@ -304,7 +304,6 @@ function fetchListings(flow, store) {
 
       transaction(() => {
         getRoot(store).entities.merge(normalizedEntities);
-        Reactotron.log('End');
       });
 
       store.list.set(res.data.data);
