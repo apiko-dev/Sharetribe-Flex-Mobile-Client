@@ -47,7 +47,6 @@ export default {
 
     lightGray: '#D9D9D9',
 
-
     green: '#27AE60',
   },
   loader: {
@@ -173,6 +172,7 @@ export default {
     labelBorderColor: '#E9E9E9',
     selectedDate: '#FF9900',
     selectedDateText: '#FFF',
+    disableDate: '#333333',
     arrows: '#333333',
   },
   calendarScreen: {

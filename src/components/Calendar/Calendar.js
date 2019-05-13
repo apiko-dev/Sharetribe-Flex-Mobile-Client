@@ -1,13 +1,22 @@
 import React from 'react';
 import { View } from 'react-native';
 import T from 'prop-types';
-import s from './styles';
-import { colors } from '../../styles';
+import s, { styleConstructor } from './styles';
+import { colors, fontSizes } from '../../styles';
 import Text from '../Text/Text';
 import IconFonts from '../IconFonts/IconFonts';
 import i18n from '../../i18n';
 import CalendarPicker from './CalendarPicker';
 import { dates } from '../../utils';
+
+const theme = {
+  markColor: colors.calendar.selectedDate,
+  markTextColor: colors.calendar.selectedDateText,
+  dayTextColor: colors.calendar.availableDate,
+  todayTextColor: colors.calendar.availableDate,
+  employedDayTextColor: colors.calendar.employedDate,
+  textDayFontSize: fontSizes.medium,
+};
 
 const Calendar = ({
   getStartAndEndDate,
@@ -36,10 +45,9 @@ const Calendar = ({
           getStartAndEndDate(start, end, diffDays)
         }
         theme={{
-          markColor: colors.calendar.selectedDate,
-          markTextColor: colors.calendar.selectedDateText,
-          dayTextColor: colors.calendar.availableDate,
-          employedDayTextColor: colors.calendar.employedDate,
+          ...theme,
+          'stylesheet.day.period': styleConstructor(theme),
+          'stylesheet.day.basic': styleConstructor(theme),
         }}
         renderArrow={(direction) => (
           <IconFonts
