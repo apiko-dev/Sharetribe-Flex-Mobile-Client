@@ -247,8 +247,12 @@ function fetchTransactions(flow, store) {
       );
       getRoot(store).entities.merge(normalizedEntities);
 
-      store.list.set(res.data.data);
+      // TODO: Fetch listings for each transaction
+      // since transaction doesn't include the listing relationships
+      // We have to fetch each listing by it id
+      // Fetching multiple listings by array of ids is not currently supported
 
+      store.list.set(res.data.data);
       flow.success();
     } catch (err) {
       flow.failed(err, true);

@@ -55,7 +55,11 @@ function RentItem({
                   {`${i18n.t('rentItem.totalPrice')}: `}
                 </Text>
                 <Text xxsmallSize bold>
-                  $56
+                  {`$ ${R.pathOr(
+                    '',
+                    ['relationships', 'listing', 'price', 'amount'],
+                    transaction,
+                  )}`}
                 </Text>
               </View>
             </React.Fragment>
