@@ -2,6 +2,17 @@ import { createInstance, types } from 'sharetribe-flex-sdk';
 import config from '../../config';
 import AsyncStore from './AsyncStore';
 
+const IMAGE_VARIANTS = {
+  'fields.image': [
+    // Profile images
+    'variants.square-small',
+    'variants.square-small2x',
+
+    // Listing images:
+    'variants.landscape-crop',
+    'variants.landscape-crop2x',
+  ],
+};
 class SharetribeSdkService {
   init() {
     this.sdk = createInstance({
@@ -224,6 +235,17 @@ class SharetribeSdkService {
       },
       {
         expand: true,
+        include: [
+          'customer',
+          'customer.profileImage',
+          'provider',
+          'provider.profileImage',
+          'listing',
+          // 'booking',
+          // 'reviews',
+          // 'reviews.author',
+          // 'reviews.subject',
+        ],
       },
     );
   }
@@ -246,6 +268,7 @@ class SharetribeSdkService {
           'provider',
           'provider.profileImage',
           'listing',
+          'listing.images',
           // 'booking',
           'reviews',
           'reviews.author',
@@ -296,11 +319,13 @@ class SharetribeSdkService {
         'provider',
         'provider.profileImage',
         'listing',
+        'listing.images',
         // 'booking',
         'reviews',
         'reviews.author',
         'reviews.subject',
       ],
+      ...IMAGE_VARIANTS,
       ...params,
     });
   }
@@ -326,9 +351,9 @@ class SharetribeSdkService {
     });
   }
 
-  transactionsShow(transactionId) {
+  transactionsShow({ transactionId }) {
     return this.sdk.transactions.show({
-      id: transactionId,
+      id: new types.UUID(transactionId),
       include: [
         'customer',
         'customer.profileImage',

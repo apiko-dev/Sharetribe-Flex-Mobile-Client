@@ -22,7 +22,7 @@ export default hoistStatics(
     withParamsToProps('product'),
     withStateHandlers(
       (props) => ({
-        transaction: R.pathOr('', ['transaction'], props),
+        transaction: R.pathOr({}, ['transaction'], props),
         availableDates: {},
       }),
       {
@@ -104,21 +104,18 @@ export default hoistStatics(
         } catch (err) {
           console.log(err);
         }
-        // ////////////////////////
-        if (this.props.isOpenedChat) {
-          try {
-            const availableDates = await this.props.getAvailableDays.run(
-              this.props.listing,
-            );
-            // const availableDates = this.props.product.availabilityPlan
-            //   .entries;
 
-            this.props.onChange('availableDates', availableDates);
-          } catch (error) {
-            AlertService.showSomethingWentWrong();
-          }
+        try {
+          const availableDates = await this.props.getAvailableDays.run(
+            this.props.listing,
+          );
+          // const availableDates = this.props.product.availabilityPlan
+          //   .entries;
+
+          this.props.onChange('availableDates', availableDates);
+        } catch (error) {
+          AlertService.showSomethingWentWrong();
         }
-        // /////////////////////
       },
     }),
 

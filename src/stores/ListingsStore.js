@@ -59,7 +59,7 @@ export const Price = t.model('Price', {
 
 const ProductRelationships = t
   .model('ProductRelationships', {
-    images: t.maybe(t.array(t.reference(t.late(() => Image)))),
+    images: t.maybe(t.array(t.safeReference(t.late(() => Image)))),
     author: t.maybe(t.reference(User)),
   })
   .views((store) => ({

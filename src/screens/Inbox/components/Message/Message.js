@@ -58,7 +58,6 @@ function Message({ transaction }) {
   const isEnquire =
     R.pathOr('', ['lastTransition'], transaction) ===
     transitionStatuses.ENQUIRE;
-
   const createdTime = getHourAndMinutes(
     transaction.lastTransitionedAt,
   );
@@ -73,20 +72,7 @@ function Message({ transaction }) {
         <View style={s.photoContainer}>
           <Image
             source={{
-              uri: R.pathOr(
-                messageImage,
-                [
-                  'relationships',
-                  'listing',
-                  'relationships',
-                  'getImages',
-                  [0],
-                  'variants',
-                  'default',
-                  'url',
-                ],
-                transaction,
-              ),
+              uri: R.pathOr(messageImage, ['imageUrl'], transaction),
             }}
             style={s.image}
           />

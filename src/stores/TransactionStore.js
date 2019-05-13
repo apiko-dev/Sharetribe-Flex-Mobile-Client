@@ -11,25 +11,25 @@ import { MessageStore } from './MessagesStore';
 import { Price, Product } from './ListingsStore';
 import { normalizedIncluded } from './utils/normalize';
 
-const LineItems = t.model('LineItems', {
-  code: t.string,
-  quantity: t.number,
-  reversal: t.boolean,
-  unitPrice: Price,
-  lineTotal: Price,
-  includeFor: t.array(t.string),
-});
+// const LineItems = t.model('LineItems', {
+//   code: t.string,
+//   quantity: t.number,
+//   reversal: t.boolean,
+//   unitPrice: Price,
+//   lineTotal: Price,
+//   includeFor: t.array(t.string),
+// });
 
-const Transitions = t
-  .model('Transactions', {
-    transition: t.string,
-    createdAt: t.Date,
-    by: t.string,
-  })
-  .preProcessSnapshot((snapshot) => ({
-    ...snapshot,
-    createdAt: new Date(snapshot.createdAt),
-  }));
+// const Transitions = t
+//   .model('Transactions', {
+//     transition: t.string,
+//     createdAt: t.Date,
+//     by: t.string,
+//   })
+// .preProcessSnapshot((snapshot) => ({
+//   ...snapshot,
+//   createdAt: new Date(snapshot.createdAt),
+// }));
 
 const Relationships = t.model('Relationships', {
   listing: t.maybe(t.reference(Product)),
@@ -50,13 +50,18 @@ export const Transaction = t
     protectedData: t.model({}),
     // transitions: t.maybe(t.array(Transitions)),
     messages: t.optional(MessageStore, {}),
-    // listings: t.optional(ListingsStore, {}),
+
     relationships: t.maybe(Relationships),
     changeStateTransactions: createFlow(changeStateTransactions),
   })
   .views((store) => ({
     get Api() {
       return getEnv(store).Api;
+    },
+
+    get imageUrl() {
+      return store.relationships.listing.relationships.getImages[0]
+        .variants.default.url;
     },
   }))
   .actions((store) => ({
@@ -85,12 +90,6 @@ function changeStateTransactions(flow, store) {
   };
 }
 
-// .preProcessSnapshot((snapshot) => ({
-//   ...snapshot,
-//   createdAt: new Date(snapshot.createdAt),
-//   lastTransitionedAt: new Date(snapshot.lastTransitionedAt),
-// }));
-
 const TransactionList = listModel('TransactionList', {
   of: t.reference(Transaction),
   entityName: 'transaction',
@@ -118,6 +117,7 @@ export const TransactionStore = t
     fetchTransactions: createFlow(fetchTransactions),
     fetchMoreTransactions: createFlow(fetchMoreTransactions),
     changeStateTransactions: createFlow(changeStateTransactions),
+    fetchTransactionById: createFlow(fetchTransactionById),
   })
   .views((store) => ({
     get Api() {
@@ -187,15 +187,13 @@ function initiateTransaction(flow, store) {
         endRent,
         cardToken: tokenId,
       });
+      const normalizedEntities = normalizedIncluded(
+        res.data.included,
+      );
+      getRoot(store).entities.merge(normalizedEntities);
 
-      // const normalizedEntities = normalizedIncluded(
-      //   res.data.included,
-      // );
-      // getRoot(store).entities.merge(normalizedEntities);
-
-      const data = processJsonApiTransactions(res.data.data);
-      store.list.add(data);
-      // store.list.set(res.data.data);
+      const data = processJsonApi(res.data.data);
+      store.list.addToBegin(data);
 
       if (message) {
         yield store.Api.sendMessage({
@@ -205,6 +203,29 @@ function initiateTransaction(flow, store) {
         });
       }
 
+      flow.success();
+    } catch (err) {
+      flow.failed(err, true);
+    }
+  };
+}
+
+function fetchTransactionById(flow, store) {
+  return function* fetchTransaction(transactionId) {
+    try {
+      flow.start();
+
+      const res = yield store.Api.transactionsShow({
+        transactionId,
+      });
+      const normalizedEntities = normalizedIncluded(
+        res.data.included,
+      );
+      getRoot(store).entities.merge(normalizedEntities);
+
+      // store.list.set(res.data.data);
+      const data = processJsonApiTransactions(res.data.data);
+      store.list.add(data);
       flow.success();
     } catch (err) {
       flow.failed(err, true);
@@ -234,25 +255,29 @@ function fetchTransactions(flow, store) {
     }
   };
 }
+
 function fetchMoreTransactions(flow, store) {
   return function* fetchTransactions() {
     try {
+      if (store.list.hasNoMore || flow.inProgress) {
+        return;
+      }
+
       flow.start();
       const page = store.list.pageNumber;
       const perPage = 15;
-      if (!store.list.hasNoMore) {
-        const res = yield store.Api.fetchTransactions({
-          perPage,
-          page,
-        });
 
-        const normalizedEntities = normalizedIncluded(
-          res.data.included,
-        );
-        getRoot(store).entities.merge(normalizedEntities);
+      const res = yield store.Api.fetchTransactions({
+        perPage,
+        page,
+      });
 
-        store.list.append(res.data.data);
-      }
+      const normalizedEntities = normalizedIncluded(
+        res.data.included,
+      );
+      getRoot(store).entities.merge(normalizedEntities);
+
+      store.list.append(res.data.data);
 
       flow.success();
     } catch (err) {

@@ -377,5 +377,8 @@
     "unitedStates": "United States",
     "italy": "Italy",
     "portugal": "Portugal"
-  } 
+  },
+  "rentItem": {
+    "totalPrice": "Total price"
+  }
 }

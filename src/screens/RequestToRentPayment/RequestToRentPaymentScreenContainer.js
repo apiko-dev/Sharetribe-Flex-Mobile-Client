@@ -4,6 +4,7 @@ import { AlertService, NavigationService } from '../../services';
 import RequestToRentPaymentScreenView from './RequestToRentPaymentScreenView';
 import { withParamsToProps } from '../../utils/enhancers';
 import { payments } from '../../utils';
+import screens from '../../navigation/screens';
 
 export default hoistStatics(
   compose(
@@ -12,6 +13,7 @@ export default hoistStatics(
     withParamsToProps('endRent'),
 
     inject(({ transaction }) => ({
+      transactionStore: transaction,
       initiateTransaction: transaction.initiateTransaction,
       isInitializationTransaction:
         transaction.initiateTransaction.inProgress,
@@ -20,6 +22,7 @@ export default hoistStatics(
     withHandlers({
       onRequest: ({
         initiateTransaction,
+        transactionStore,
         product,
         startRent,
         endRent,
@@ -47,7 +50,8 @@ export default hoistStatics(
             message: values.message,
           });
           // TODO: Modal
-          NavigationService.navigateToProduct();
+          const transaction = transactionStore.list.latest;
+          NavigationService.navigateToChat({ transaction });
         } catch (err) {
           AlertService.showInDevelopmentAlert();
         }
