@@ -5,7 +5,6 @@ import {
   withHandlers,
   withPropsOnChange,
 } from 'recompose';
-import {} from '../../services';
 import XDate from 'xdate';
 import { inject } from 'mobx-react/native';
 import call from 'react-native-phone-call';

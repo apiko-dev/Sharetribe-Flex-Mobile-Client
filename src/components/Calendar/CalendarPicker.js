@@ -19,6 +19,7 @@ const CalendarPicker = ({
   const [formatedEmployedDates, setFormatedEmployedDates] = useState(
     {},
   );
+  const [markingType, setMarkingType] = useState();
 
   useEffect(() => {
     setupInitialRange();
@@ -44,13 +45,27 @@ const CalendarPicker = ({
   }
 
   function onDayPress(day) {
-    if (formatedEmployedDates[day.dateString] || disablePicker) {
+    if (
+      formatedEmployedDates[day.dateString] ||
+      disablePicker ||
+      fromDate === day.dateString
+    ) {
       return;
     }
 
     if (!isFromDatePicked || (isFromDatePicked && isToDatePicked)) {
-      setupStartMarker(day);
+      setupSingleMarker(day);
     } else if (!isToDatePicked) {
+      setMarkingType('period');
+
+      const newMarkedDates = markedDates;
+      newMarkedDates[fromDate] = {
+        startingDay: true,
+        color: theme.markColor,
+        textColor: theme.markTextColor,
+      };
+
+      setMarkedDates(newMarkedDates);
       const markedDates_ = { ...markedDates };
       const [
         mMarkedDates,
@@ -74,14 +89,34 @@ const CalendarPicker = ({
 
         const diffDays = new XDate(fromDate).diffDays(toDate);
 
-        onSuccess(fromDate, toDate, diffDays);
+        onSuccess(fromDate, toDate, diffDays + 1);
       } else {
-        setupStartMarker(day);
+        setupSingleMarker(day);
       }
     }
   }
 
-  function setupStartMarker(day) {
+  function setupSingleMarker(day, forceSetup) {
+    if (markedDates[day.dateString] && !forceSetup) return;
+    setMarkingType(undefined);
+    const startMarkerDate = {
+      [day.dateString]: {
+        selected: true,
+        color: theme.markColor,
+        textColor: theme.markTextColor,
+        selectedColor: theme.markColor,
+      },
+    };
+
+    setFromDatePicked(true);
+    setToDatePicked(false);
+    setFromDate(day.dateString);
+    setMarkedDates(startMarkerDate);
+    onSuccess(day.dateString, day.dateString, 1);
+  }
+
+  function setupStartMarker(day) { // eslint-disable-line
+    setMarkingType('period');
     const startMarkerDate = {
       [day.dateString]: {
         startingDay: true,
@@ -175,7 +210,7 @@ const CalendarPicker = ({
     <Calendar
       {...props}
       theme={theme}
-      markingType="period"
+      markingType={markingType}
       current={fromDate}
       markedDates={{ ...markedDates, ...formatedEmployedDates }}
       onDayPress={(day) => onDayPress(day)}
