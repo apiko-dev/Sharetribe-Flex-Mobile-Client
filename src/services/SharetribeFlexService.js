@@ -320,7 +320,7 @@ class SharetribeSdkService {
         'provider.profileImage',
         'listing',
         'listing.images',
-        // 'booking',
+        'booking',
         'reviews',
         'reviews.author',
         'reviews.subject',

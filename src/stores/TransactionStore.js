@@ -9,6 +9,7 @@ import processJsonApi, {
 import listModel from './utils/listModel';
 import { MessageStore } from './MessagesStore';
 import { Price, Product } from './ListingsStore';
+import { Booking } from './BookingStore';
 import { normalizedIncluded } from './utils/normalize';
 
 // const LineItems = t.model('LineItems', {
@@ -33,6 +34,7 @@ import { normalizedIncluded } from './utils/normalize';
 
 const Relationships = t.model('Relationships', {
   listing: t.maybe(t.reference(Product)),
+  booking: t.optional(t.maybeNull(t.reference(Booking))),
 });
 
 export const Transaction = t

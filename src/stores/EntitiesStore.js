@@ -4,6 +4,7 @@ import { User } from './UserStore';
 import { Image } from './ImageStore';
 import { Transaction } from './TransactionStore';
 import { Message } from './MessagesStore';
+import { Booking } from './BookingStore';
 
 const EntitiesStore = createEntitiesStore({
   listing: Product,
@@ -11,6 +12,7 @@ const EntitiesStore = createEntitiesStore({
   user: User,
   transaction: Transaction,
   message: Message,
+  booking: Booking,
 });
 
 export default EntitiesStore;
