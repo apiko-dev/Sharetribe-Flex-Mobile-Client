@@ -15,7 +15,6 @@ import screens from '../../navigation/screens';
 export default hoistStatics(
   compose(
     withParamsToProps('product'),
-    withParamsToProps('availableDates'),
 
     withProps((props) => ({
       price: R.path(['product', 'price', 'amount'], props),

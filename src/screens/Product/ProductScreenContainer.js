@@ -4,15 +4,12 @@ import {
   withStateHandlers,
   withHandlers,
   lifecycle,
-  withProps,
 } from 'recompose';
 import R from 'ramda';
 import { inject } from 'mobx-react/native';
-import XDate from 'xdate';
 import call from 'react-native-phone-call';
 import ProductScreenView from './ProductScreenView';
 import { withParamsToProps } from '../../utils/enhancers';
-import { dates } from '../../utils';
 import screens from '../../navigation/screens';
 import { AlertService } from '../../services';
 
@@ -81,14 +78,12 @@ export default hoistStatics(
       navigationToRequestToRent: (props) => () => {
         props.navigation.navigate(screens.RequestToRent, {
           product: props.product,
-          availableDates: props.availableDates,
         });
       },
 
       navigationToCalendar: (props) => () => {
         props.navigation.navigate(screens.Calendar, {
           product: props.product,
-          availableDates: props.availableDates,
         });
       },
 
@@ -98,7 +93,7 @@ export default hoistStatics(
           prompt: false,
         };
 
-        call(args).catch(console.error);
+        call(args).catch(console.log);
       },
     }),
 
@@ -112,54 +107,13 @@ export default hoistStatics(
         }
 
         try {
-          const availableDates = await this.props.getAvailableDays.run(
+          await this.props.getAvailableDays.run(
             this.props.product.id,
           );
-
-          this.props.onChange('availableDates', availableDates);
         } catch (error) {
           AlertService.showSomethingWentWrong();
         }
       },
-    }),
-
-    withProps((props) => {
-      const employedDates = R.pathOr(
-        [],
-        ['availableDates', 'employedDates'],
-        props,
-      );
-
-      const availableDates = R.pathOr(
-        [],
-        ['availableDates', 'availableDates'],
-        props,
-      );
-
-      const today = new XDate().toString('yyyy-MM-dd');
-      const isOnLease = employedDates.includes(today);
-
-      let nearestAvailableDate;
-
-      if (isOnLease) {
-        [nearestAvailableDate] = availableDates;
-      } else {
-        nearestAvailableDate =
-          employedDates[0] ||
-          availableDates[availableDates.length - 1];
-      }
-
-      if (nearestAvailableDate) {
-        const { start } = dates.formatedDate({
-          start: nearestAvailableDate,
-        });
-        nearestAvailableDate = start;
-      }
-
-      return {
-        isOnLease,
-        nearestAvailableDate,
-      };
     }),
   ),
 )(ProductScreenView);

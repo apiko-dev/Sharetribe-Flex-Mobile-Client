@@ -16,7 +16,6 @@ import screens from '../../navigation/screens';
 
 export default hoistStatics(
   compose(
-    withParamsToProps('availableDates'),
     withParamsToProps('product'),
 
     inject((stores, { product }) => ({
@@ -36,7 +35,6 @@ export default hoistStatics(
       navigationToRequestToRent: (props) => () => {
         props.navigation.navigate(screens.RequestToRent, {
           product: props.product,
-          availableDates: props.availableDates,
         });
       },
 
