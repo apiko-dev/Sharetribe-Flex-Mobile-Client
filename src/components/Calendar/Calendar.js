@@ -13,6 +13,7 @@ const Calendar = ({
   getStartAndEndDate,
   disablePicker,
   availableDates,
+  employedDates,
 }) => (
   <View>
     <View style={s.labels}>
@@ -51,7 +52,8 @@ const Calendar = ({
             ]}
           />
         )}
-        employedDate={availableDates.employedDates}
+        employedDate={employedDates}
+        availableDates={availableDates}
       />
     </View>
   </View>
@@ -60,7 +62,8 @@ const Calendar = ({
 Calendar.propTypes = {
   getStartAndEndDate: T.func,
   disablePicker: T.bool,
-  availableDates: T.object,
+  employedDates: T.array,
+  availableDates: T.array,
 };
 
 export default Calendar;

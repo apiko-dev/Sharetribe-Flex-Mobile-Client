@@ -6,6 +6,7 @@ import {
   applySnapshot,
 } from 'mobx-state-tree';
 import R from 'ramda';
+import XDate from 'xdate';
 import createFlow from './helpers/createFlow';
 import { AlertService } from '../services';
 import i18n from '../i18n';
@@ -77,11 +78,9 @@ export const Product = t
     price: t.optional(t.maybeNull(Price), null),
     metadata: t.model('metadata', {}),
     relationships: t.maybe(ProductRelationships),
-    availableDates: t.maybe(t.array(t.string)),
-    employedDates: t.maybe(t.array(t.string)),
-
+    availableDates: t.array(t.string),
+    employedDates: t.array(t.string),
     availabilityPlan: t.optional(t.maybeNull(AvailabilityPlan), null),
-
     update: createFlow(updateProduct),
     getOwnFields: createFlow(getOwnFields),
   })
@@ -92,6 +91,42 @@ export const Product = t
         store.relationships.author.id ===
         R.path(['viewer', 'user', 'id'], getRoot(store))
       );
+    },
+    get getAvailableDates() {
+      return store.availableDates.slice();
+    },
+    get getEmployedDates() {
+      return store.employedDates.slice();
+    },
+    get leaseStatus() {
+      const employedDates = this.getEmployedDates;
+
+      const today = new XDate().toString('yyyy-MM-dd');
+      const isOnLease = employedDates.includes(today);
+      return isOnLease;
+    },
+    get nearestAvailableDate() {
+      const employedDates = this.getEmployedDates;
+      const availableDates = this.getAvailableDates;
+
+      let nearestAvailableDate;
+
+      if (this.leaseStatus) {
+        [nearestAvailableDate] = availableDates;
+      } else {
+        nearestAvailableDate =
+          employedDates[0] ||
+          availableDates[availableDates.length - 1];
+      }
+
+      if (nearestAvailableDate) {
+        const { start } = dates.formatedDate({
+          start: nearestAvailableDate,
+        });
+        nearestAvailableDate = start;
+      }
+
+      return nearestAvailableDate;
     },
   }));
 
@@ -124,6 +159,8 @@ function updateProduct(flow, store) {
       const entities = normalizedIncluded(res.data.included);
       getRoot(store).entities.merge(entities);
       applySnapshot(store, snapshot);
+
+      yield getRoot(store).listings.getAvailableDays.run(store.id);
 
       flow.success();
     } catch (err) {
@@ -399,9 +436,20 @@ function getAvailableDays(flow, store) {
         end,
       );
 
-      flow.success();
+      const listing = {
+        [listingId]: {
+          ...getRoot(store).entities.listing.collection.get(
+            listingId,
+          ),
+          ...data,
+        },
+      };
 
-      return data;
+      getRoot(store).entities.merge({
+        listing,
+      });
+
+      flow.success();
     } catch (err) {
       flow.failed(err, true);
     }

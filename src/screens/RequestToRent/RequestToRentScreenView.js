@@ -17,7 +17,7 @@ const RequestToRentScreen = ({
   price,
   startRent,
   diffDays,
-  availableDates,
+  product,
   formatedDate,
   goToRequestToRentPayment,
 }) => (
@@ -29,7 +29,8 @@ const RequestToRentScreen = ({
       >
         <Calendar
           getStartAndEndDate={getStartAndEndDate}
-          availableDates={availableDates}
+          availableDates={product.getAvailableDates}
+          employedDates={product.getEmployedDates}
         />
       </FormContainer>
       <FormContainer
@@ -79,7 +80,7 @@ RequestToRentScreen.propTypes = {
   startRent: T.string,
   formatedDate: T.string,
   diffDays: T.number,
-  availableDates: T.object,
+  product: T.object,
 };
 
 export default observer(RequestToRentScreen);

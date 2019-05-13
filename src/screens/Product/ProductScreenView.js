@@ -51,8 +51,6 @@ const ProductScreen = ({
   isLoadingDates,
   navigationToRequestToRent,
   navigationToCalendar,
-  isOnLease,
-  nearestAvailableDate,
   phoneNumber,
   onCall,
 }) => (
@@ -100,7 +98,7 @@ const ProductScreen = ({
             {`/${i18n.t('home.day')}`}
           </Text>
         </View>
-        {isOnLease && (
+        {product.leaseStatus && (
           <View style={s.leaseContainer}>
             <Text bold red>
               {i18n.t('common.nowOnLease')}
@@ -142,8 +140,8 @@ const ProductScreen = ({
               geolocation={product.geolocation}
               isLoadingDates={isLoadingDates}
               navigationToCalendar={navigationToCalendar}
-              isOnLease={isOnLease}
-              nearestAvailableDate={nearestAvailableDate}
+              isOnLease={product.leaseStatus}
+              nearestAvailableDate={product.nearestAvailableDate}
             />
           </View>
         </Tab>
@@ -195,8 +193,6 @@ ProductScreen.propTypes = {
   isLoadingDates: T.bool,
   navigationToRequestToRent: T.func,
   navigationToCalendar: T.func,
-  isOnLease: T.bool,
-  nearestAvailableDate: T.oneOfType([T.string, T.bool]),
   phoneNumber: T.string,
 };
 export default observer(ProductScreen);

@@ -12,7 +12,7 @@ const RequestToRentScreen = ({
   date,
   year,
   day,
-  availableDates,
+  product,
   isOwner,
   onCall,
   navigationToRequestToRent,
@@ -35,7 +35,11 @@ const RequestToRentScreen = ({
             {i18n.t('dayNames')[day]}
           </Text>
         </View>
-        <Calendar disablePicker availableDates={availableDates} />
+        <Calendar
+          disablePicker
+          availableDates={product.getAvailableDates}
+          employedDates={product.getEmployedDates}
+        />
       </View>
       {!isOwner && (
         <View>
@@ -59,7 +63,7 @@ RequestToRentScreen.propTypes = {
   date: T.number,
   year: T.number,
   day: T.number,
-  availableDates: T.object,
+  product: T.object,
   isOwner: T.bool,
   onCall: T.func,
   navigationToRequestToRent: T.func,
