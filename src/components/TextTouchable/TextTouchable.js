@@ -33,7 +33,7 @@ TextTouchable.propTypes = {
   children: T.any,
   alignCenter: T.bool,
   onPress: T.func,
-  textStyle: ViewPropTypes.style,
+  textStyle: T.any,
   containerStyle: ViewPropTypes.style,
 };
 
