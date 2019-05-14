@@ -289,7 +289,8 @@
     "deny": "Deny",
     "viewGoods": "View goods",
     "viewDetails": "View details",
-    "closeDetails": "Close details"
+    "closeDetails": "Close details",
+    "requestToRent": "Request to rent"
   },
 
   "inbox": {
@@ -379,6 +380,7 @@
     "portugal": "Portugal"
   },
   "rentItem": {
-    "totalPrice": "Total price"
+    "totalPrice": "Total price",
+    "requestToRent": "Request to rent"
   }
 }

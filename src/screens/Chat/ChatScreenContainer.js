@@ -56,7 +56,7 @@ export default hoistStatics(
       (props) => ({
         isShowDetails: false,
         isOpenedChat:
-          R.pathOr('', ['lastTransition'], props.transaction) ===
+          R.pathOr(false, ['lastTransition'], props.transaction) ===
           transitionStatuses.ENQUIRE,
       }),
       {
@@ -109,8 +109,6 @@ export default hoistStatics(
           const availableDates = await this.props.getAvailableDays.run(
             this.props.listing,
           );
-          // const availableDates = this.props.product.availabilityPlan
-          //   .entries;
 
           this.props.onChange('availableDates', availableDates);
         } catch (error) {
@@ -146,11 +144,6 @@ export default hoistStatics(
         );
         NavigationService.navigateTo(screens.Inbox, {});
       },
-      // goToProduct: (props) => () => {
-      //   NavigationService.navigateToProduct({
-      //     product: props.transaction.relationships.listing,
-      //   });
-      // },
     }),
   ),
 )(ChatScreen);

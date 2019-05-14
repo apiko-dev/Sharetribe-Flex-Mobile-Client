@@ -2,17 +2,6 @@ import { createInstance, types } from 'sharetribe-flex-sdk';
 import config from '../../config';
 import AsyncStore from './AsyncStore';
 
-const IMAGE_VARIANTS = {
-  'fields.image': [
-    // Profile images
-    'variants.square-small',
-    'variants.square-small2x',
-
-    // Listing images:
-    'variants.landscape-crop',
-    'variants.landscape-crop2x',
-  ],
-};
 class SharetribeSdkService {
   init() {
     this.sdk = createInstance({
@@ -241,7 +230,7 @@ class SharetribeSdkService {
           'provider',
           'provider.profileImage',
           'listing',
-          // 'booking',
+          'booking',
           // 'reviews',
           // 'reviews.author',
           // 'reviews.subject',
@@ -325,7 +314,6 @@ class SharetribeSdkService {
         'reviews.author',
         'reviews.subject',
       ],
-      ...IMAGE_VARIANTS,
       ...params,
     });
   }

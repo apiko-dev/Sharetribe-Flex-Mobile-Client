@@ -3,10 +3,12 @@ import T from 'prop-types';
 import R from 'ramda';
 import { View, Image } from 'react-native';
 
+import { observer } from 'mobx-react/custom';
 import { Touchable } from '../index';
 import Button from '../Button/Button';
 import i18n from '../../i18n';
 import Text from '../Text/Text';
+import { formatedDate } from '../../utils/dates';
 import s from './styles';
 
 const messageImage = require('../../assets/png/message_image.png');
@@ -18,6 +20,27 @@ function RentItem({
   navigationToRequestToRent,
   navigateToListing,
 }) {
+  const start = R.pathOr(
+    '',
+    ['relationships', 'booking', 'displayStart'],
+    transaction,
+  );
+  const end = R.pathOr(
+    '',
+    ['relationships', 'booking', 'displayEnd'],
+    transaction,
+  );
+  const rentPeriod = formatedDate({ start, end });
+  const amount = R.pathOr(
+    '',
+    ['relationships', 'listing', 'price', 'amount'],
+    transaction,
+  );
+  const totalAmount = R.pathOr(
+    '',
+    ['payinTotal', 'amount'],
+    transaction,
+  );
   return (
     <View style={s.container}>
       <View style={s.containerMessage}>
@@ -46,20 +69,15 @@ function RentItem({
                   {'Dat: '}
                 </Text>
                 <Text xxsmallSize bold>
-                  08/12/2018 — 09/12/2018
+                  {rentPeriod.rangeDate}
                 </Text>
               </View>
               <View style={s.totalPriceContainer}>
                 <Text xxsmallSize gray>
-                  {'Total price: '}
                   {`${i18n.t('rentItem.totalPrice')}: `}
                 </Text>
                 <Text xxsmallSize bold>
-                  {`$ ${R.pathOr(
-                    '',
-                    ['relationships', 'listing', 'price', 'amount'],
-                    transaction,
-                  )}`}
+                  {`$ ${totalAmount}`}
                 </Text>
               </View>
             </React.Fragment>
@@ -67,7 +85,7 @@ function RentItem({
           {isOpenedChat && (
             <View style={s.actionsInChat}>
               <Button
-                title="Request to rent"
+                title={`${i18n.t('chat.requestToRent')}: `}
                 primary
                 containerStyle={s.buttonRentContainer}
                 buttonStyle={s.buttonRent}
@@ -81,7 +99,7 @@ function RentItem({
                 style={s.textNavigateToListing}
               >
                 <Text xxsmallSize orange>
-                  View goods
+                  {i18n.t('chat.viewGoods')}
                 </Text>
               </Touchable>
             </View>
@@ -93,18 +111,21 @@ function RentItem({
           <Text bold>{i18n.t('inbox.bookingBreakdown')}</Text>
           <View style={s.dayPrice}>
             <Text gray>{i18n.t('inbox.pricePerDay')}</Text>
-            <Text>$56</Text>
+            <Text>{`$ ${amount}`}</Text>
           </View>
           <View style={s.rentPeriod}>
-            <Text gray>10/12/2018 - 11/12/2018</Text>
-            <Text>{i18n.t('inbox.day')}</Text>
+            <Text gray>{rentPeriod.rangeDate}</Text>
+            <View style={s.quantityDay}>
+              <Text>{totalAmount / amount}</Text>
+              <Text>{` ${i18n.t('inbox.day')}`}</Text>
+            </View>
           </View>
           <View style={s.totalPrice}>
             <Text bold xmediumSize>
               {i18n.t('rentItem.totalPrice')}
             </Text>
             <Text bold xmediumSize>
-              $56
+              {`$ ${totalAmount}`}
             </Text>
           </View>
         </View>
@@ -121,4 +142,4 @@ RentItem.propTypes = {
   navigateToListing: T.func,
 };
 
-export default RentItem;
+export default observer(RentItem);

@@ -12,13 +12,34 @@ import { Price, Product } from './ListingsStore';
 import { Booking } from './BookingStore';
 import { normalizedIncluded } from './utils/normalize';
 
-// const LineItems = t.model('LineItems', {
+// const UnitPrice = t.model('UnitPrice', {});
+// const LineTotal = t.model('LineTotal', {});
+// const Quantity = t.model('Quantity', {
+//   value: t.number,
+// });
+// const Percentage = t.model('Percentage', {});
+// const IncludeFor = t.enumeration('LineItemsInclude', [
+//   'customer',
+//   'provider',
+// ]);
+
+// const PayInfo = t.model('Night', {
 //   code: t.string,
-//   quantity: t.number,
+//   includeFor: t.array(IncludeFor),
 //   reversal: t.boolean,
-//   unitPrice: Price,
-//   lineTotal: Price,
-//   includeFor: t.array(t.string),
+//   // lineTotal: t.maybeNull(LineTotal),
+//   // percentage: t.optional(t.maybeNull(Percentage), null),
+//   // quantity: t.optional(t.maybeNull(Quantity), null),
+//   // unitPrice: t.optional(t.maybeNull(UnitPrice), null),
+//   lineTotal: t.frozen(),
+//   quantity: t.frozen(),
+//   unitPrice: t.frozen(),
+//   percentage: t.maybe(t.frozen()),
+// });
+
+// const LineItems = t.model('LineItems', {
+//   0: t.optional(t.maybeNull(PayInfo), null),
+//   1: t.optional(t.maybeNull(PayInfo), null),
 // });
 
 // const Transitions = t
@@ -48,7 +69,7 @@ export const Transaction = t
     lastTransitionedAt: t.maybe(t.Date),
     payinTotal: t.maybeNull(Price),
     payoutTotal: t.maybeNull(Price),
-    // lineItems: t.maybe(t.array(LineItems)),
+    // lineItems: t.optional(t.maybeNull(LineItems), null),
     protectedData: t.model({}),
     // transitions: t.maybe(t.array(Transitions)),
     messages: t.optional(MessageStore, {}),
@@ -115,7 +136,6 @@ export const TransactionStore = t
     initiateMessageTransaction: createFlow(
       initiateMessageTransaction,
     ),
-    // fetchChatTransaction: createFlow(fetchChatTransaction),
     fetchTransactions: createFlow(fetchTransactions),
     fetchMoreTransactions: createFlow(fetchMoreTransactions),
     changeStateTransactions: createFlow(changeStateTransactions),
@@ -143,8 +163,6 @@ function initiateMessageTransaction(flow, store) {
       );
 
       const data = processJsonApi(res.data.data);
-      console.log('data: ', data);
-      // getParent(store, 2).add(data)
       store.list.add(data);
 
       flow.success();
@@ -291,55 +309,5 @@ function fetchMoreTransactions(flow, store) {
     }
   };
 }
-
-// function fetchChatTransaction(flow, store) {
-//   return function* initiateTransaction(listingId) {
-//     try {
-//       flow.start();
-
-//       const res = yield store.Api.transactionsQuery({
-//         // only: 'order',
-//         // lastTransitions: ['transition/request'],
-//       });
-
-//       const transactions = res.data.data.map((i) =>
-//         processJsonApi(i),
-//       );
-
-//       const normalizedEntities = normalizedIncluded(
-//         res.data.included,
-//       );
-
-//       // const listingsTransaction = transactions.filter(
-//       //   (i) =>
-//       //     i.relationships.listing.toString() === listingId.toString(),
-//       // );
-//       const listingTransaction = transactions[0];
-//       // const listingsTransaction = transactions.slice(-1)[0];
-
-//       // let listingTransaction;
-//       // if (Array.isArray(listingsTransaction)) {
-//       //   listingTransaction = listingsTransaction[0];
-//       // } else {
-//       //   listingTransaction = listingsTransaction;
-//       // }
-//       if (
-//         // listingTransaction.length === 0 &&
-//         typeof listingTransaction === 'undefined'
-//       ) {
-//         store.initiateMessageTransaction.run(listingId);
-//       } else {
-//         store.list.add(listingTransaction);
-//       }
-
-//       // debugger;
-
-//       flow.success();
-//     } catch (err) {
-//       // debugger;
-//       flow.failed(err, true);
-//     }
-//   };
-// }
 
 export default TransactionStore;

@@ -23,7 +23,7 @@ export const formatedDate = ({
   start,
   end,
   format = 'dd/MM/yyyy',
-  separator = '-',
+  separator = ' - ',
 }) => {
   const formatedDateStart = new XDate(start).toString(format);
 

@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { dimensions, colors, theme } from '../../styles';
+import { dimensions, colors } from '../../styles';
 
 const styles = StyleSheet.create({
   container: {},
@@ -68,6 +68,9 @@ const styles = StyleSheet.create({
   },
   buttonRentContainer: {
     flex: 1,
+  },
+  quantityDay: {
+    flexDirection: 'row',
   },
 });
 
