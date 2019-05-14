@@ -82,6 +82,11 @@ export const Transaction = t
       return getEnv(store).Api;
     },
 
+    get isViewer() {
+      return store.relationships.listing.relationships.author
+        .isViewer;
+    },
+
     get imageUrl() {
       return store.relationships.listing.relationships.getImages[0]
         .variants.default.url;
@@ -163,7 +168,7 @@ function initiateMessageTransaction(flow, store) {
       );
 
       const data = processJsonApi(res.data.data);
-      store.list.add(data);
+      store.list.addToBegin(data);
 
       flow.success();
     } catch (err) {

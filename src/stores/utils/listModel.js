@@ -37,7 +37,7 @@ export default function listModel(name, options) {
       },
 
       get latest() {
-        return store.array[store.array.length - 1];
+        return store.array[0];
       },
     }))
 

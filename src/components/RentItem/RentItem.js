@@ -41,6 +41,7 @@ function RentItem({
     ['payinTotal', 'amount'],
     transaction,
   );
+  const isViewerTransaction = transaction.isViewer;
   return (
     <View style={s.container}>
       <View style={s.containerMessage}>
@@ -82,7 +83,7 @@ function RentItem({
               </View>
             </React.Fragment>
           )}
-          {isOpenedChat && (
+          {isOpenedChat && !isViewerTransaction && (
             <View style={s.actionsInChat}>
               <Button
                 title={`${i18n.t('chat.requestToRent')}: `}

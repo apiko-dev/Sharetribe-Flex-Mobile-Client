@@ -12,7 +12,7 @@ import R from 'ramda';
 
 import ChatScreen from './ChatScreenView';
 import { withParamsToProps } from '../../utils/enhancers';
-import { NavigationService, AlertService } from '../../services';
+import { NavigationService } from '../../services';
 import { transitionStatuses } from '../../constants';
 import screens from '../../navigation/screens';
 
@@ -23,7 +23,6 @@ export default hoistStatics(
     withStateHandlers(
       (props) => ({
         transaction: R.pathOr({}, ['transaction'], props),
-        availableDates: {},
       }),
       {
         setTransaction: () => (value) => ({
@@ -72,7 +71,6 @@ export default hoistStatics(
       navigationToRequestToRent: (props) => () => {
         NavigationService.navigateTo(screens.RequestToRent, {
           product: props.transaction.relationships.listing,
-          availableDates: props.availableDates,
         });
       },
       navigateToListing: (props) => () => {
@@ -103,16 +101,6 @@ export default hoistStatics(
           }
         } catch (err) {
           console.log(err);
-        }
-
-        try {
-          const availableDates = await this.props.getAvailableDays.run(
-            this.props.listing,
-          );
-
-          this.props.onChange('availableDates', availableDates);
-        } catch (error) {
-          AlertService.showSomethingWentWrong();
         }
       },
     }),

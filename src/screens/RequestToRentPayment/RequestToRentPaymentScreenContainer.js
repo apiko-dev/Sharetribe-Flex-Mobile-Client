@@ -4,7 +4,6 @@ import { AlertService, NavigationService } from '../../services';
 import RequestToRentPaymentScreenView from './RequestToRentPaymentScreenView';
 import { withParamsToProps } from '../../utils/enhancers';
 import { payments } from '../../utils';
-import screens from '../../navigation/screens';
 
 export default hoistStatics(
   compose(
