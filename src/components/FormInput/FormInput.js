@@ -119,7 +119,7 @@ FormInput.FieldWithDropDown = ({ name, ...restProps }) => (
         {props.active && restProps.dropDownList.length !== 0 && (
           <FlatList
             style={s.dropDownList}
-            keyExtractor={(item) => item}
+            keyExtractor={restProps.keyExtractor}
             data={restProps.dropDownList}
             nestedScrollEnabled
             keyboardShouldPersistTaps="handled"
@@ -154,7 +154,7 @@ FormInput.Field.propTypes = {
 };
 
 FormInput.propTypes = {
-  inputStyle: ViewPropTypes.style,
+  inputStyle: T.any,
   containerStyle: ViewPropTypes.style,
   inputContainerStyle: ViewPropTypes.style,
   labelContainerStyle: ViewPropTypes.style,

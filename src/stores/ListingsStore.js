@@ -8,6 +8,7 @@ import {
 import Reactotron from 'reactotron-react-native';
 import R from 'ramda';
 import { transaction } from 'mobx';
+import XDate from 'xdate';
 import createFlow from './helpers/createFlow';
 import { AlertService } from '../services';
 import i18n from '../i18n';
@@ -88,13 +89,13 @@ export const Product = t
     price: t.optional(t.maybeNull(Price), null),
     metadata: t.model('metadata', {}),
     relationships: t.maybe(ProductRelationships),
-    availableDates: t.maybe(t.array(t.string)),
-    employedDates: t.maybe(t.array(t.string)),
-
+    availableDates: t.array(t.string),
+    employedDates: t.array(t.string),
     availabilityPlan: t.optional(t.maybeNull(AvailabilityPlan), null),
 
     update: createFlow(updateProduct),
     getOwnFields: createFlow(getOwnFields),
+    getAvailableDays: createFlow(getAvailableDays),
 
     //
     // calendarAvailability: t.maybe(CalendarAvailability),
@@ -108,18 +109,56 @@ export const Product = t
   }))
 
   .views((store) => ({
+    get Api() {
+      return getEnv(store).Api;
+    },
     get canEdit() {
       return (
         store.relationships.author.id ===
         R.path(['viewer', 'user', 'id'], getRoot(store))
       );
     },
-
     get getFull() {
       return (
         store.relationships.author.id ===
         R.path(['viewer', 'user', 'id'], getRoot(store))
       );
+    },
+    get getAvailableDates() {
+      return store.availableDates.slice();
+    },
+    get getEmployedDates() {
+      return store.employedDates.slice();
+    },
+    get leaseStatus() {
+      const employedDates = this.getEmployedDates;
+
+      const today = new XDate().toString('yyyy-MM-dd');
+      const isOnLease = employedDates.includes(today);
+      return isOnLease;
+    },
+    get nearestAvailableDate() {
+      const employedDates = this.getEmployedDates;
+      const availableDates = this.getAvailableDates;
+
+      let nearestAvailableDate;
+
+      if (this.leaseStatus) {
+        [nearestAvailableDate] = availableDates;
+      } else {
+        nearestAvailableDate =
+          employedDates[0] ||
+          availableDates[availableDates.length - 1];
+      }
+
+      if (nearestAvailableDate) {
+        const { start } = dates.formatedDate({
+          start: nearestAvailableDate,
+        });
+        nearestAvailableDate = start;
+      }
+
+      return nearestAvailableDate;
     },
   }))
 
@@ -128,6 +167,34 @@ export const Product = t
       store.transactionId = uuid;
     },
   }));
+
+function getAvailableDays(flow, store) {
+  return function* getAvailableDays(listingId) {
+    try {
+      flow.start();
+
+      const { start, end } = dates.getEndDateByStart(new Date(), 89);
+
+      const res = yield store.Api.getAvailableDays({
+        listingId,
+        start,
+        end,
+      });
+
+      const data = dates.getAvailableAndEmployedDates(
+        res.data.data,
+        start,
+        end,
+      );
+
+      store.update(data);
+
+      flow.success();
+    } catch (err) {
+      flow.failed(err, true);
+    }
+  };
+}
 
 function updateProduct(flow, store) {
   return function* updateProduct({ images, ...params }) {
@@ -156,12 +223,11 @@ function updateProduct(flow, store) {
       const res = yield flow.Api.updateOwnListings(body);
       const snapshot = processJsonApi(res.data.data);
       const entities = normalizedIncluded(res.data.included);
+
       getRoot(store).entities.merge(entities);
       Object.assign(store, snapshot);
-      // store.update(snapshot);
-      //
-      // yield getAvailableDays(store.id);
-      //
+
+      yield getRoot(store).listings.getAvailableDays.run(store.id);
       flow.success();
     } catch (err) {
       flow.failed(err, true);
@@ -234,7 +300,6 @@ export const ListingsStore = t
     fetchParticularUserListings: createFlow(
       fetchParticularUserListings,
     ),
-    getAvailableDays: createFlow(getAvailableDays),
   })
   .views((store) => ({
     get Api() {
@@ -415,35 +480,6 @@ function fetchParticularUserListings(flow, store) {
         i18n.t('alerts.somethingWentWrong.title'),
         i18n.t('alerts.somethingWentWrong.message'),
       );
-    }
-  };
-}
-
-function getAvailableDays(flow, store) {
-  return function* getAvailableDays(listingId) {
-    try {
-      flow.start();
-
-      const { start, end } = dates.getEndDateByStart(new Date(), 89);
-
-      const res = yield store.Api.getAvailableDays({
-        listingId,
-        start,
-        end,
-      });
-
-      const data = dates.getAvailableAndEmployedDates(
-        res.data.data,
-        start,
-        end,
-      );
-
-      // ////
-      flow.success();
-
-      return data;
-    } catch (err) {
-      flow.failed(err, true);
     }
   };
 }

@@ -109,6 +109,7 @@ const PayoutPreferencesScreen = ({
                   containerStyle={s.inputContainer}
                   name="country"
                   dropDownList={countries.stripeCountriesList}
+                  keyExtractor={(item) => item.key}
                 />
 
                 <FormInput.Field

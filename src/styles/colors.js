@@ -170,6 +170,7 @@ export default {
     labelBorderColor: '#E9E9E9',
     selectedDate: '#FF9900',
     selectedDateText: '#FFF',
+    disableDate: '#333333',
     arrows: '#333333',
   },
   calendarScreen: {

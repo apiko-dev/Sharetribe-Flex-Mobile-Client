@@ -1,6 +1,6 @@
+/* eslint-disable max-len */
 import React from 'react';
 import { View, ScrollView } from 'react-native';
-
 import { Text } from '../../components';
 import Accordion from './components/Accordion/Accordion';
 import i18n from '../../i18n';
@@ -45,7 +45,7 @@ function HomeScreen() {
         </Text>
       </View>
       {data.map((item) => (
-        <Accordion {...item} />
+        <Accordion {...item} key={item.id} />
       ))}
       <Text light gray style={s.footerText}>
         {`${i18n.t('helpScreen.privacyPolicy')}`}

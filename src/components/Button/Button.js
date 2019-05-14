@@ -75,7 +75,7 @@ Button.propTypes = {
   onPress: T.func,
   isLoading: T.bool,
   title: T.string,
-  titleStyle: ViewPropTypes.style,
+  titleStyle: T.any,
 };
 
 export default Button;
