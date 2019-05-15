@@ -146,7 +146,13 @@
     "cardNumber": "Card number",
     "cardExpiration": "MM/YY",
     "cardCVC": "CVC",
-    "cardCVCInfo": "The 3-digit security code is found on the back of most credit and debit cards"
+    "cardCVCInfo": "The 3-digit security code is found on the back of most credit and debit cards",
+    "somethingWentWrong": "Something went wrong",
+    "requestErrorInstruction": "Sorry we couldn't create request. Try send again",
+    "tryAgain": "Try again",
+    "goToChat": "Go to chat",
+    "requestSent": "Request sent",
+    "waitForConfirmation": "Wait for confirmation",
   },
   "payoutPreferences": {
     "payoutPreferences": "Payout Preferences",

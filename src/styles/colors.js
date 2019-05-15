@@ -164,6 +164,10 @@ export default {
     backgroundColor: '#F8F8F8',
     labelBorderColor: '#E9E9E9',
   },
+
+  requestToRentModal: {
+    backgroundColor: '#FFF',
+  },
   calendar: {
     availableDate: '#27AE60',
     employedDate: '#EB5757',
