@@ -54,25 +54,6 @@ export const MessageStore = t
     },
   }));
 
-function initiateMessage(flow, store) {
-  return function* initiateMessage(listingId) {
-    try {
-      flow.start();
-
-      const res = yield flow.Api.initiateMessageTransaction(
-        listingId,
-      );
-
-      const data = processJsonApi(res.data.data);
-      getParent(store, 2).add(data);
-
-      flow.success();
-    } catch (err) {
-      flow.failed(err, true);
-    }
-  };
-}
-
 function fetchMessages(flow, store) {
   return function* fetchMessages() {
     try {

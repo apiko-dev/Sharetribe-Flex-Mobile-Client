@@ -1,10 +1,6 @@
 import { types as t } from 'mobx-state-tree';
 
-// import { Transaction } from './TransactionStore';
-
-const Relationships = t.model('Relationships', {
-  // transaction: t.maybe(t.reference(Transaction)),
-});
+const Relationships = t.model('Relationships', {});
 
 const StateEnum = t.enumeration('BookingState', [
   'pending',

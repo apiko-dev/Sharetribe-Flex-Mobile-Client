@@ -42,17 +42,6 @@ import { normalizedIncluded } from './utils/normalize';
 //   1: t.optional(t.maybeNull(PayInfo), null),
 // });
 
-// const Transitions = t
-//   .model('Transactions', {
-//     transition: t.string,
-//     createdAt: t.Date,
-//     by: t.string,
-//   })
-// .preProcessSnapshot((snapshot) => ({
-//   ...snapshot,
-//   createdAt: new Date(snapshot.createdAt),
-// }));
-
 const Relationships = t.model('Relationships', {
   listing: t.maybe(t.reference(Product)),
   booking: t.optional(t.maybeNull(t.reference(Booking))),
@@ -71,7 +60,6 @@ export const Transaction = t
     payoutTotal: t.maybeNull(Price),
     // lineItems: t.optional(t.maybeNull(LineItems), null),
     protectedData: t.model({}),
-    // transitions: t.maybe(t.array(Transitions)),
     messages: t.optional(MessageStore, {}),
 
     relationships: t.maybe(Relationships),
@@ -127,9 +115,6 @@ const TransactionList = listModel('TransactionList', {
 });
 
 function responseTransformer(res) {
-  // if (Array.isArray(res)) {
-  //   return res.map((i) => processJsonApi(i));
-  // }
   return res.map(processJsonApi);
 }
 

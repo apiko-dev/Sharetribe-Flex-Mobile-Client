@@ -36,6 +36,7 @@ function ChatScreen({
   navigationToRequestToRent,
   isOpenedChat,
   navigateToListing,
+  rentPeriod,
 }) {
   if (isLoading) {
     return (
@@ -71,6 +72,7 @@ function ChatScreen({
               item={item}
               index={index}
               user={item.sender}
+              rentPeriod={rentPeriod}
             />
           )}
           keyExtractor={(item) => item.id}
@@ -113,6 +115,7 @@ ChatScreen.propTypes = {
   navigationToRequestToRent: T.func,
   isOpenedChat: T.bool,
   navigateToListing: T.func,
+  rentPeriod: T.string,
 };
 
 export default observer(ChatScreen);

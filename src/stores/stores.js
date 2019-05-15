@@ -18,7 +18,7 @@ const createStore = (initialState = {}) => {
 
   makeInspectable(store);
 
-  // persist.rehydrate();
+  persist.rehydrate();
 
   // persist.purge();
 

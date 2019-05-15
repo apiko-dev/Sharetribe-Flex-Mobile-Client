@@ -19,18 +19,8 @@ function RentItem({
   isOpenedChat,
   navigationToRequestToRent,
   navigateToListing,
+  rentPeriod,
 }) {
-  const start = R.pathOr(
-    '',
-    ['relationships', 'booking', 'displayStart'],
-    transaction,
-  );
-  const end = R.pathOr(
-    '',
-    ['relationships', 'booking', 'displayEnd'],
-    transaction,
-  );
-  const rentPeriod = formatedDate({ start, end });
   const amount = R.pathOr(
     '',
     ['relationships', 'listing', 'price', 'amount'],
@@ -141,6 +131,7 @@ RentItem.propTypes = {
   isOpenedChat: T.bool,
   navigationToRequestToRent: T.func,
   navigateToListing: T.func,
+  rentPeriod: T.string,
 };
 
 export default observer(RentItem);

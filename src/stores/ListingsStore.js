@@ -1,11 +1,5 @@
 /* eslint-disable no-shadow */
-import {
-  types as t,
-  getEnv,
-  getRoot,
-  applySnapshot,
-} from 'mobx-state-tree';
-import Reactotron from 'reactotron-react-native';
+import { types as t, getEnv, getRoot } from 'mobx-state-tree';
 import R from 'ramda';
 import { transaction } from 'mobx';
 import XDate from 'xdate';
@@ -16,14 +10,8 @@ import processJsonApi from './utils/processJsonApi';
 import listModel from './utils/listModel';
 import { Image } from './ImageStore';
 import { User } from './UserStore';
-import { MessageStore } from './MessagesStore';
 import { normalizedIncluded } from './utils/normalize';
 import { dates } from '../utils';
-
-// const CalendarAvailability = t.model('CalendarAvailability', {
-//   availableDates: t.array(t.string),
-//   employedDates: t.array(t.string),
-// });
 
 const DayOfWeek = t.model('DayOfWeek', {
   dayOfWeek: t.string,
@@ -82,9 +70,7 @@ export const Product = t
     createdAt: t.maybe(t.Date),
     state: t.string,
     title: t.string,
-
     transactionId: t.optional(t.maybeNull(t.string), null),
-
     publicData: t.optional(t.maybeNull(ProductPublicData), null),
     price: t.optional(t.maybeNull(Price), null),
     metadata: t.model('metadata', {}),
@@ -96,10 +82,6 @@ export const Product = t
     update: createFlow(updateProduct),
     getOwnFields: createFlow(getOwnFields),
     getAvailableDays: createFlow(getAvailableDays),
-
-    //
-    // calendarAvailability: t.maybe(CalendarAvailability),
-    //
   })
 
   .actions((store) => ({

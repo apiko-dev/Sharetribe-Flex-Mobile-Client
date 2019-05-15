@@ -20,6 +20,7 @@ export default hoistStatics(
   compose(
     withParamsToProps('transaction'),
     withParamsToProps('product'),
+    withParamsToProps('rentPeriod'),
     withStateHandlers(
       (props) => ({
         transaction: R.pathOr({}, ['transaction'], props),

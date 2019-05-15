@@ -15,7 +15,6 @@ const RootStore = types
     entities: types.optional(EntitiesStore, {}),
   })
 
-
   .actions((store) => ({
     bootstrap: flow(function* bootstrap() {
       const authInfo = yield getEnv(store).Api.isAuthenticated();

@@ -13,27 +13,8 @@ import {
   StripeService,
 } from './services';
 import { colors } from './styles';
-import { transactions } from './stores/mocks';
 
-const transactionCollection = transactions.reduce((acc, current) => {
-  acc[current.id] = current;
-  return acc;
-}, {});
-
-const initialState = {
-  entities: {
-    transaction: {
-      collection: transactionCollection,
-    },
-  },
-  transaction: {
-    list: {
-      array: transactions.map((i) => i.id),
-    },
-  },
-};
-
-const store = createStore(initialState);
+const store = createStore();
 
 if (__DEV__) {
   SplashScreen.hide();

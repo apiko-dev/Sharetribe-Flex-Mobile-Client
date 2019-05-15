@@ -61,12 +61,32 @@ function Message({ transaction }) {
   const createdTime = getHourAndMinutes(
     transaction.lastTransitionedAt,
   );
+
+  const start = R.pathOr(
+    '',
+    ['relationships', 'booking', 'displayStart'],
+    transaction,
+  );
+  const end = R.pathOr(
+    '',
+    ['relationships', 'booking', 'displayEnd'],
+    transaction,
+  );
+  const rentPeriod = formatedDate({ start, end });
+  const totalAmount = R.pathOr(
+    '',
+    ['payinTotal', 'amount'],
+    transaction,
+  );
   return (
     <ShadowContainer>
       <Touchable
         style={s.container}
         onPress={() =>
-          NavigationService.navigateTo('Chat', { transaction })
+          NavigationService.navigateTo('Chat', {
+            transaction,
+            rentPeriod,
+          })
         }
       >
         <View style={s.photoContainer}>
@@ -119,9 +139,11 @@ function Message({ transaction }) {
               )}
             </Text>
           </View>
-          {isEnquire && (
+          {!isEnquire && (
             <View style={s.rentInfo}>
-              {/* <Text xxsmallSize>{timeBooking}</Text> */}
+              <Text xxsmallSize>
+                {`${rentPeriod.rangeDate},$ ${totalAmount}`}
+              </Text>
             </View>
           )}
         </View>
