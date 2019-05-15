@@ -142,7 +142,7 @@ function Message({ transaction }) {
           {!isEnquire && (
             <View style={s.rentInfo}>
               <Text xxsmallSize>
-                {`${rentPeriod.rangeDate},$ ${totalAmount}`}
+                {`${rentPeriod.rangeDate}, $${totalAmount}`}
               </Text>
             </View>
           )}
