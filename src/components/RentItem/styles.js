@@ -11,6 +11,7 @@ const styles = StyleSheet.create({
   image: {
     height: 61,
     width: 80,
+    borderRadius: dimensions.borderRadius,
   },
   textContainer: {
     flex: 1,
@@ -48,6 +49,28 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginBottom: dimensions.indent,
     justifyContent: 'space-between',
+  },
+
+  actionsInChat: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: dimensions.indent / 2,
+  },
+  textNavigateToListing: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    textAlign: 'center',
+  },
+  buttonRent: {
+    padding: dimensions.indent / 2,
+  },
+  buttonRentContainer: {
+    flex: 1,
+  },
+  quantityDay: {
+    flexDirection: 'row',
   },
 });
 

@@ -216,7 +216,7 @@ class SharetribeSdkService {
         processAlias: 'preauth-with-nightly-booking/release-1',
         transition: 'transition/request',
         params: {
-          listingId: new types.UUID(listingId),
+          listingId,
           bookingStart: new Date(startRent),
           bookingEnd: new Date(endRent),
           cardToken,
@@ -224,19 +224,162 @@ class SharetribeSdkService {
       },
       {
         expand: true,
+        include: [
+          'customer',
+          'customer.profileImage',
+          'provider',
+          'provider.profileImage',
+          'listing',
+          'booking',
+          // 'reviews',
+          // 'reviews.author',
+          // 'reviews.subject',
+        ],
       },
     );
   }
 
-  fetchTransactions() {
-    return this.sdk.transactions.query({});
+  initiateMessageTransaction(listId) {
+    console.log('run service... ');
+    return this.sdk.transactions.initiate(
+      {
+        processAlias: 'preauth-with-nightly-booking/release-1',
+        transition: 'transition/enquire',
+        params: {
+          listingId: new types.UUID(listId),
+        },
+      },
+      {
+        expand: true,
+        include: [
+          'customer',
+          'customer.profileImage',
+          'provider',
+          'provider.profileImage',
+          'listing',
+          'listing.images',
+          // 'booking',
+          'reviews',
+          'reviews.author',
+          'reviews.subject',
+        ],
+      },
+    );
+  }
+
+  fetchMessage({ transactionId, perPage, page }) {
+    console.log('run service... ');
+    return this.sdk.messages.query({
+      transactionId: new types.UUID(transactionId),
+      include: ['sender', 'sender.profileImage'],
+      perPage,
+      page,
+    });
+  }
+
+  fetchMoreMessage({ transactionId, perPage, page }) {
+    console.log('run service... ');
+    return this.sdk.messages.query({
+      transactionId: new types.UUID(transactionId),
+      include: ['sender', 'sender.profileImage'],
+      perPage,
+      page,
+    });
   }
 
   sendMessage({ transactionId, content }) {
-    return this.sdk.messages.send({
-      transactionId,
-      content,
+    console.log('run service... ');
+    return this.sdk.messages.send(
+      {
+        transactionId: new types.UUID(transactionId),
+        content,
+      },
+      {
+        expand: true,
+      },
+    );
+  }
+
+  fetchTransactions(params) {
+    return this.sdk.transactions.query({
+      include: [
+        'customer',
+        'customer.profileImage',
+        'provider',
+        'provider.profileImage',
+        'listing',
+        'listing.images',
+        'booking',
+        'reviews',
+        'reviews.author',
+        'reviews.subject',
+      ],
+      ...params,
     });
+  }
+  // fetchTransactions(perPage, page) {
+  //   return this.sdk.transactions.query({ perPage, page });
+  // }
+
+  transactionsQuery() {
+    return this.sdk.transactions.query({
+      // only: 'order',
+      // lastTransitions: ['transition/request'],
+      include: [
+        // 'customer',
+        // 'customer.profileImage',
+        // 'provider',
+        // 'provider.profileImage',
+        'listing',
+        // 'booking',
+        // 'reviews',
+        // 'reviews.author',
+        // 'reviews.subject',
+      ],
+    });
+  }
+
+  transactionsShow({ transactionId }) {
+    return this.sdk.transactions.show({
+      id: new types.UUID(transactionId),
+      include: [
+        'customer',
+        'customer.profileImage',
+        'provider',
+        'provider.profileImage',
+        'listing',
+        // 'booking',
+        'reviews',
+        'reviews.author',
+        'reviews.subject',
+        'messages',
+      ],
+    });
+  }
+
+  changeStateTransactions({ transactionId, transition }) {
+    return this.sdk.transactions.transition(
+      {
+        id: new types.UUID(transactionId),
+        transition,
+        params: {},
+      },
+      {
+        expand: true,
+        include: [
+          'customer',
+          'customer.profileImage',
+          'provider',
+          'provider.profileImage',
+          'listing',
+          // 'booking',
+          'reviews',
+          'reviews.author',
+          'reviews.subject',
+          'messages',
+        ],
+      },
+    );
   }
 
   createStripeAccount(query) {

@@ -1,4 +1,5 @@
 import { types, getRoot } from 'mobx-state-tree';
+import { transaction } from 'mobx';
 import normalize from './normalize';
 
 export default function listModel(name, options) {
@@ -7,15 +8,36 @@ export default function listModel(name, options) {
     identifierName,
     entityName,
     responseTransformer,
+    shouldTransformSingle,
+    perPage,
   } = options;
 
   const listStore = types
     .model(name, {
       array: types.array(ofType),
+      hasNoMore: false,
     })
     .views((store) => ({
       get asArray() {
         return store.array.slice();
+      },
+
+      get count() {
+        return store.array.length;
+      },
+
+      get pageNumber() {
+        const pages = store.count / perPage;
+
+        if (Number.isInteger(pages)) {
+          return pages + 1;
+        }
+
+        return undefined;
+      },
+
+      get latest() {
+        return store.array[0];
       },
     }))
 
@@ -25,14 +47,51 @@ export default function listModel(name, options) {
 
         store.merge(entityName, entities);
         store.array = ids;
+        if (ids.length < perPage) {
+          store.hasNoMore = true;
+        }
+      },
+
+      append(data) {
+        const { ids, entities } = store.normalize(data);
+
+        store.merge(entityName, entities);
+        transaction(() => {
+          ids.forEach((i) => store.array.push(i));
+        });
+
+        if (ids.length < perPage) {
+          store.hasNoMore = true;
+        }
+      },
+
+      prepend(data) {
+        const { ids, entities } = store.normalize(data);
+
+        store.merge(entityName, entities);
+        transaction(() => {
+          ids.forEach((i) => store.array.unshift(i));
+        });
+        if (ids.length < perPage) {
+          store.hasNoMore = true;
+        }
       },
 
       add(item) {
+        if (shouldTransformSingle) {
+          // eslint-disable-next-line prefer-destructuring
+          item = responseTransformer([item])[0];
+        }
         store.mergeSingle(item);
         store.array.push(item.id);
       },
 
       addToBegin(item, shouldMerge = true) {
+        if (shouldTransformSingle) {
+          // eslint-disable-next-line prefer-destructuring
+          item = responseTransformer([item])[0];
+        }
+
         if (shouldMerge) {
           store.mergeSingle(item);
         }

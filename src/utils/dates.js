@@ -13,11 +13,17 @@ export const getEndDateByStart = (start, days) => {
   };
 };
 
+export const getHourAndMinutes = (date) => {
+  const xdate = new XDate(date);
+  const formatDate = xdate.toString('h(:mm)');
+  return formatDate;
+};
+
 export const formatedDate = ({
   start,
   end,
   format = 'dd/MM/yyyy',
-  separator = '-',
+  separator = ' - ',
 }) => {
   const formatedDateStart = new XDate(start).toString(format);
 

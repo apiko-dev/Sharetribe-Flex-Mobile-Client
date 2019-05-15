@@ -1,6 +1,6 @@
 import { compose, hoistStatics, withHandlers } from 'recompose';
 import { inject } from 'mobx-react';
-import { AlertService } from '../../services';
+import { AlertService, NavigationService } from '../../services';
 import RequestToRentPaymentScreenView from './RequestToRentPaymentScreenView';
 import { withParamsToProps } from '../../utils/enhancers';
 import { payments } from '../../utils';
@@ -12,6 +12,7 @@ export default hoistStatics(
     withParamsToProps('endRent'),
 
     inject(({ transaction }) => ({
+      transactionStore: transaction,
       initiateTransaction: transaction.initiateTransaction,
       isInitializationTransaction:
         transaction.initiateTransaction.inProgress,
@@ -20,6 +21,7 @@ export default hoistStatics(
     withHandlers({
       onRequest: ({
         initiateTransaction,
+        transactionStore,
         product,
         startRent,
         endRent,
@@ -46,7 +48,9 @@ export default hoistStatics(
             cardCVC: values.cardCVC,
             message: values.message,
           });
-          AlertService.showInDevelopmentAlert();
+          // TODO: Modal
+          const transaction = transactionStore.list.latest;
+          NavigationService.navigateToChat({ transaction });
         } catch (err) {
           AlertService.showInDevelopmentAlert();
         }

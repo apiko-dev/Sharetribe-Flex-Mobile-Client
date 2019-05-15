@@ -9,7 +9,6 @@ export default StyleSheet.create({
   button: {
     borderRadius: 10,
     padding: dimensions.indent * 0.8,
-    // marginBottom: 2,
   },
   view: {
     backgroundColor: colors.button.backgroundColor,

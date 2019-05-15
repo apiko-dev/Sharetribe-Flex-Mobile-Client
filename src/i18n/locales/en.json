@@ -284,12 +284,13 @@
   "availableDays": "Available days"
   },
 
-
   "chat": {
     "accept": "Accept",
     "deny": "Deny",
     "viewGoods": "View goods",
-    "viewDetails": "View details"
+    "viewDetails": "View details",
+    "closeDetails": "Close details",
+    "requestToRent": "Request to rent"
   },
 
   "inbox": {
@@ -298,7 +299,10 @@
     "day": "day",
     "request": "Request",
     "accepted": "Accepted",
-    "totalPrice": "Total price"
+    "totalPrice": "Total price",
+    "decline": "Decline",
+    "delivered": "Delivered",
+    "chat": "Chat"
 
   },
 
@@ -374,6 +378,9 @@
     "unitedStates": "United States",
     "italy": "Italy",
     "portugal": "Portugal"
-  } 
-
+  },
+  "rentItem": {
+    "totalPrice": "Total price",
+    "requestToRent": "Request to rent"
+  }
 }

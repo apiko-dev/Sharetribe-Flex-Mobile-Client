@@ -1,11 +1,7 @@
 /* eslint-disable no-shadow */
-import {
-  types as t,
-  getEnv,
-  getRoot,
-  applySnapshot,
-} from 'mobx-state-tree';
+import { types as t, getEnv, getRoot } from 'mobx-state-tree';
 import R from 'ramda';
+import { transaction } from 'mobx';
 import XDate from 'xdate';
 import createFlow from './helpers/createFlow';
 import { AlertService } from '../services';
@@ -52,7 +48,7 @@ export const Price = t.model('Price', {
 
 const ProductRelationships = t
   .model('ProductRelationships', {
-    images: t.maybe(t.array(t.reference(t.late(() => Image)))),
+    images: t.maybe(t.array(t.safeReference(t.late(() => Image)))),
     author: t.maybe(t.reference(User)),
   })
   .views((store) => ({
@@ -74,6 +70,7 @@ export const Product = t
     createdAt: t.maybe(t.Date),
     state: t.string,
     title: t.string,
+    transactionId: t.optional(t.maybeNull(t.string), null),
     publicData: t.optional(t.maybeNull(ProductPublicData), null),
     price: t.optional(t.maybeNull(Price), null),
     metadata: t.model('metadata', {}),
@@ -81,12 +78,29 @@ export const Product = t
     availableDates: t.array(t.string),
     employedDates: t.array(t.string),
     availabilityPlan: t.optional(t.maybeNull(AvailabilityPlan), null),
+
     update: createFlow(updateProduct),
     getOwnFields: createFlow(getOwnFields),
+    getAvailableDays: createFlow(getAvailableDays),
   })
 
+  .actions((store) => ({
+    update(snapshot) {
+      Object.assign(store, snapshot);
+    },
+  }))
+
   .views((store) => ({
+    get Api() {
+      return getEnv(store).Api;
+    },
     get canEdit() {
+      return (
+        store.relationships.author.id ===
+        R.path(['viewer', 'user', 'id'], getRoot(store))
+      );
+    },
+    get getFull() {
       return (
         store.relationships.author.id ===
         R.path(['viewer', 'user', 'id'], getRoot(store))
@@ -128,7 +142,41 @@ export const Product = t
 
       return nearestAvailableDate;
     },
+  }))
+
+  .actions((store) => ({
+    setTransactionId({ uuid }) {
+      store.transactionId = uuid;
+    },
   }));
+
+function getAvailableDays(flow, store) {
+  return function* getAvailableDays(listingId) {
+    try {
+      flow.start();
+
+      const { start, end } = dates.getEndDateByStart(new Date(), 89);
+
+      const res = yield store.Api.getAvailableDays({
+        listingId,
+        start,
+        end,
+      });
+
+      const data = dates.getAvailableAndEmployedDates(
+        res.data.data,
+        start,
+        end,
+      );
+
+      store.update(data);
+
+      flow.success();
+    } catch (err) {
+      flow.failed(err, true);
+    }
+  };
+}
 
 function updateProduct(flow, store) {
   return function* updateProduct({ images, ...params }) {
@@ -157,11 +205,11 @@ function updateProduct(flow, store) {
       const res = yield flow.Api.updateOwnListings(body);
       const snapshot = processJsonApi(res.data.data);
       const entities = normalizedIncluded(res.data.included);
+
       getRoot(store).entities.merge(entities);
-      applySnapshot(store, snapshot);
+      Object.assign(store, snapshot);
 
       yield getRoot(store).listings.getAvailableDays.run(store.id);
-
       flow.success();
     } catch (err) {
       flow.failed(err, true);
@@ -180,7 +228,7 @@ function getOwnFields(flow, store) {
       });
 
       const snapshot = processJsonApi(res.data.data);
-      applySnapshot(store, snapshot);
+      Object.assign(store, snapshot);
 
       flow.success();
     } catch (err) {
@@ -234,7 +282,6 @@ export const ListingsStore = t
     fetchParticularUserListings: createFlow(
       fetchParticularUserListings,
     ),
-    getAvailableDays: createFlow(getAvailableDays),
   })
   .views((store) => ({
     get Api() {
@@ -309,7 +356,9 @@ function fetchListings(flow, store) {
         res.data.included,
       );
 
-      getRoot(store).entities.merge(normalizedEntities);
+      transaction(() => {
+        getRoot(store).entities.merge(normalizedEntities);
+      });
 
       store.list.set(res.data.data);
 
@@ -413,45 +462,6 @@ function fetchParticularUserListings(flow, store) {
         i18n.t('alerts.somethingWentWrong.title'),
         i18n.t('alerts.somethingWentWrong.message'),
       );
-    }
-  };
-}
-
-function getAvailableDays(flow, store) {
-  return function* getAvailableDays(listingId) {
-    try {
-      flow.start();
-
-      const { start, end } = dates.getEndDateByStart(new Date(), 89);
-
-      const res = yield store.Api.getAvailableDays({
-        listingId,
-        start,
-        end,
-      });
-
-      const data = dates.getAvailableAndEmployedDates(
-        res.data.data,
-        start,
-        end,
-      );
-
-      const listing = {
-        [listingId]: {
-          ...getRoot(store).entities.listing.collection.get(
-            listingId,
-          ),
-          ...data,
-        },
-      };
-
-      getRoot(store).entities.merge({
-        listing,
-      });
-
-      flow.success();
-    } catch (err) {
-      flow.failed(err, true);
     }
   };
 }

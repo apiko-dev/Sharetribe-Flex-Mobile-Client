@@ -37,6 +37,7 @@ export default createStackNavigator(
   },
   {
     initialRouteKey: screens.Home,
+    headerMode: 'screen',
     defaultNavigationOptions,
   },
 );

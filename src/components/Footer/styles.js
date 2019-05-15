@@ -51,9 +51,6 @@ const styles = StyleSheet.create({
   containerRent: {
     flex: 1,
   },
-  textRent: {
-    color: colors.button.textColorPrimary,
-  },
 });
 
 export default styles;

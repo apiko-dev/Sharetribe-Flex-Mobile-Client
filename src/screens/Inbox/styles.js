@@ -5,6 +5,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.inbox.backgroundColor,
+    marginBottom: dimensions.smallIndent / 2,
   },
 });
 

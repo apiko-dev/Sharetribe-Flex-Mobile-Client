@@ -46,6 +46,6 @@ export const User = t
     get isViewer() {
       const { user } = getRoot(store).viewer;
 
-      return user && user.id === store && store.id;
+      return (user && user.id) === (store && store.id);
     },
   }));

@@ -53,6 +53,7 @@ const ProductScreen = ({
   navigationToCalendar,
   phoneNumber,
   onCall,
+  onSend,
 }) => (
   <ScrollView style={s.container} bounces={false}>
     <View style={s.carouselContainer}>
@@ -157,6 +158,7 @@ const ProductScreen = ({
         phone={phoneNumber}
         onCall={onCall}
         navigationToRequestToRent={navigationToRequestToRent}
+        onSend={onSend}
       />
     )}
   </ScrollView>
@@ -194,5 +196,6 @@ ProductScreen.propTypes = {
   navigationToRequestToRent: T.func,
   navigationToCalendar: T.func,
   phoneNumber: T.string,
+  onSend: T.func,
 };
 export default observer(ProductScreen);

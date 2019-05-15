@@ -19,6 +19,7 @@ export default createStackNavigator(
   },
   {
     initialRouteKey: screens.MyListings,
+    headerMode: 'screen',
     defaultNavigationOptions,
   },
 );

@@ -6,6 +6,7 @@ export const { width, height } = Dimensions.get('window');
 export const avatarSize = 56;
 
 export const indent = 16;
+export const smallIndent = 12;
 export const indentModerated = moderateScale(16);
 export const halfIndent = moderateScale(indent / 2);
 export const doubleIndent = moderateScale(indent * 2);

@@ -95,9 +95,9 @@ export default hoistStatics(
           month: '12',
           year: '2000',
           country: 'United States',
-          streetAddress: 'Some',
-          city: 'Some',
-          postalCode: '35630',
+          streetAddress: '560 S Lawrence St',
+          city: 'Montgomery',
+          postalCode: '36104',
           accountNumber: '123412341234',
         };
 

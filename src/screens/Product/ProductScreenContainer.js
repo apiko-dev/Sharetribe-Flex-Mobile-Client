@@ -10,8 +10,8 @@ import { inject } from 'mobx-react/native';
 import call from 'react-native-phone-call';
 import ProductScreenView from './ProductScreenView';
 import { withParamsToProps } from '../../utils/enhancers';
+import { NavigationService, AlertService } from '../../services';
 import screens from '../../navigation/screens';
-import { AlertService } from '../../services';
 
 export default hoistStatics(
   compose(
@@ -19,16 +19,21 @@ export default hoistStatics(
 
     inject((stores, { product }) => ({
       product,
-      images: R.path(['relationships', 'getImages'], product).map(
-        R.path(['variants', 'default', 'url']),
-      ),
-      gallery: R.path(['relationships', 'getImages'], product).map(
-        R.path(['variants', 'default']),
-      ),
-      getAvailableDays: stores.listings.getAvailableDays,
-      isLoadingDates: stores.listings.getAvailableDays.inProgress,
+      images: R.pathOr(
+        [],
+        ['relationships', 'getImages'],
+        product,
+      ).map(R.path(['variants', 'default', 'url'])),
+      gallery: R.pathOr(
+        [],
+        ['relationships', 'getImages'],
+        product,
+      ).map(R.path(['variants', 'default'])),
+      getAvailableDays: product.getAvailableDays,
+      isLoadingDates: product.getAvailableDays.inProgress,
       author: R.pathOr(false, ['relationships', 'author'], product),
-
+      transaction: stores.transaction.list.asArray,
+      transactionStore: stores.transaction,
       phoneNumber: R.path(
         [
           'relationships',
@@ -94,6 +99,12 @@ export default hoistStatics(
         };
 
         call(args).catch(console.log);
+      },
+
+      onSend: ({ product }) => async () => {
+        NavigationService.navigateToChat({
+          product,
+        });
       },
     }),
 

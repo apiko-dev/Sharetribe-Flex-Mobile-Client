@@ -44,9 +44,7 @@ export default {
     white: '#FFF',
     orange: '#FF9900',
     red: '#EB5757',
-
     lightGray: '#D9D9D9',
-
     green: '#27AE60',
   },
   loader: {

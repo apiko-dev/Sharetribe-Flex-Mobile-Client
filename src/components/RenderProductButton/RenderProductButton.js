@@ -1,5 +1,6 @@
 import React from 'react';
 import T from 'prop-types';
+import R from 'ramda';
 import { observer } from 'mobx-react/custom';
 import ProductButton from '../ProductButton/ProductButton';
 import IconAppLogo from '../../assets/png/icon-app-logo.png';
@@ -10,11 +11,18 @@ const RenderProductButton = ({ item, goToProduct, ...props }) => (
     id={item.id}
     title={item.title}
     price={item.price.amount}
-    src={
-      item.relationships.getImages[0]
-        ? item.relationships.getImages[0].variants.default.url
-        : IconAppLogo
-    }
+    src={R.pathOr(
+      IconAppLogo,
+      [
+        'relationships',
+        'getImages',
+        [0],
+        'variants',
+        'default',
+        'url',
+      ],
+      item,
+    )}
     {...props}
   />
 );
