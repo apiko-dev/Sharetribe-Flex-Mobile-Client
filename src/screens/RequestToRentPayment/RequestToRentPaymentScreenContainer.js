@@ -1,9 +1,16 @@
-import { compose, hoistStatics, withHandlers } from 'recompose';
+import {
+  compose,
+  hoistStatics,
+  withHandlers,
+  withStateHandlers,
+} from 'recompose';
 import { inject } from 'mobx-react';
-import { AlertService, NavigationService } from '../../services';
+import { NavigationService } from '../../services';
 import RequestToRentPaymentScreenView from './RequestToRentPaymentScreenView';
-import { withParamsToProps } from '../../utils/enhancers';
+import { withParamsToProps, withModal } from '../../utils/enhancers';
 import { payments } from '../../utils';
+import RequestSentModal from './components/RequestSentModal/RequestSentModal';
+import screens from '../../navigation/screens';
 
 export default hoistStatics(
   compose(
@@ -16,15 +23,26 @@ export default hoistStatics(
       initiateTransaction: transaction.initiateTransaction,
       isInitializationTransaction:
         transaction.initiateTransaction.inProgress,
+      isLoading: transaction.initiateTransaction.inProgress,
     })),
+    withStateHandlers(
+      {
+        isVisibleModal: false,
+      },
+      {
+        onChange: () => (field, value) => ({
+          [field]: value,
+        }),
+      },
+    ),
 
     withHandlers({
       onRequest: ({
         initiateTransaction,
-        transactionStore,
         product,
         startRent,
         endRent,
+        onChange,
       }) => async (values) => {
         try {
           console.log('onRequest: ', startRent, endRent);
@@ -37,6 +55,7 @@ export default hoistStatics(
             values.cardNumber,
             values.cardExpiration,
           );
+          onChange('isVisibleModal', true);
 
           await initiateTransaction.run({
             listingId: product.id,
@@ -48,13 +67,37 @@ export default hoistStatics(
             cardCVC: values.cardCVC,
             message: values.message,
           });
-          // TODO: Modal
-          const transaction = transactionStore.list.latest;
-          NavigationService.navigateToChat({ transaction });
         } catch (err) {
-          AlertService.showInDevelopmentAlert();
+          console.log(err);
         }
       },
     }),
+    withModal(
+      (props) => ({
+        isVisible: props.isVisibleModal,
+        goToChat: () => {
+          const transaction = props.transactionStore.list.latest;
+          NavigationService.navigateToChat({ transaction });
+          props.onChange('isVisibleModal', false);
+        },
+        gotoProduct: () => {
+          const { product } = props;
+          NavigationService.navigateToProduct({ product });
+          props.onChange('isVisibleModal', false);
+        },
+        navigationToRequestToRent: () => {
+          NavigationService.navigateTo(screens.RequestToRent, {
+            product: props.product,
+          });
+          props.onChange('isVisibleModal', false);
+        },
+        onCloseModal: () => {
+          props.onChange('isVisibleModal', false);
+        },
+        isLoading: props.isLoading,
+        isError: props.initiateTransaction.isError,
+      }),
+      RequestSentModal,
+    ),
   ),
 )(RequestToRentPaymentScreenView);
