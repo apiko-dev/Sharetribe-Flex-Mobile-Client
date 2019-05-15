@@ -110,6 +110,8 @@ android {
         versionCode 1
         versionName "0.1.2"
         vectorDrawables.useSupportLibrary = true
+        // allow it to build the app with tipsi-stripe
+        multiDexEnabled true
     }
 
     signingConfigs {
@@ -175,6 +177,7 @@ dependencies {
     implementation project(':react-native-sentry')
     implementation project(':react-native-devmenu')
     implementation project(':react-native-webview')
+    implementation 'com.android.support:multidex:1.0.3'
 
 
     implementation(project(':react-native-maps')) {
@@ -184,11 +187,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-base:16.1.0'
     implementation 'com.google.android.gms:play-services-maps:16.1.0'
 
-//     compile project(':tipsi-stripe')
-//     // compile (project(':tipsi-stripe')) {
-//     //     exclude group: 'com.google.android.gms'
-//     //     exclude group: 'com.google.firebase'
-// // }
+    implementation project(':tipsi-stripe')
 }
 
 // Run this once to be able to run the application with BUCK
