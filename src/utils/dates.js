@@ -12,7 +12,11 @@ export const getEndDateByStart = (start, days) => {
     end: endDate,
   };
 };
-
+export const addOneDay = (date, format = 'yyyy-MM-dd') => {
+  const end = new XDate(date).addDays(1);
+  const formatedDateEnd = new XDate(end).toString(format);
+  return formatedDateEnd;
+};
 export const getHourAndMinutes = (date) => {
   const xdate = new XDate(date);
   const formatDate = xdate.toString('h(:mm)');
@@ -31,7 +35,9 @@ export const formatedDate = ({
   let rangeDate;
 
   if (end) {
-    formatedDateEnd = new XDate(end).toString(format);
+    // remove one day as in sharetribe the last date is not included
+    // in the term of the lease
+    formatedDateEnd = new XDate(end).addDays(-1).toString(format);
 
     rangeDate = `${formatedDateStart}${separator}${formatedDateEnd}`;
   }

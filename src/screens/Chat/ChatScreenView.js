@@ -7,14 +7,14 @@ import T from 'prop-types';
 import { colors } from '../../styles';
 import { Conformation, Input, RenderItem } from './components';
 import { ShadowContainer, Loader } from '../../components';
-import { transitionStatuses, transitionName } from '../../constants';
+import { transitionStatuses } from '../../constants';
 import s from './styles';
 
 const getConfirmationStatus = (transaction) => {
   switch (transaction) {
     case transitionStatuses.REQUEST:
     case transitionStatuses.ENQUIRE:
-    case transitionName.TRANSITION_REQUEST_AFTER_ENQUIRY:
+    case transitionStatuses.AFTER_ENQUIRE:
       return true;
     default:
       return false;

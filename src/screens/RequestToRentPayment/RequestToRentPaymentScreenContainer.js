@@ -5,13 +5,14 @@ import {
   withStateHandlers,
 } from 'recompose';
 import { inject } from 'mobx-react';
+import R from 'ramda';
 import { NavigationService } from '../../services';
 import RequestToRentPaymentScreenView from './RequestToRentPaymentScreenView';
 import { withParamsToProps, withModal } from '../../utils/enhancers';
-import { payments } from '../../utils';
+import { payments, dates } from '../../utils';
 import RequestSentModal from './components/RequestSentModal/RequestSentModal';
 import screens from '../../navigation/screens';
-import { transitionName } from '../../constants';
+import { transitionStatuses } from '../../constants';
 
 export default hoistStatics(
   compose(
@@ -29,10 +30,18 @@ export default hoistStatics(
         transaction.initiateTransaction.inProgress,
       isLoading:
         transaction.initiateTransaction.inProgress ||
-        currentTransaction.initiateOrderAfterEnquiry.inProgress,
+        R.pathOr(
+          false,
+          ['initiateOrderAfterEnquiry', 'inProgress'],
+          currentTransaction,
+        ),
       isError:
         transaction.initiateTransaction.isError ||
-        currentTransaction.initiateOrderAfterEnquiry.isError,
+        R.pathOr(
+          false,
+          ['initiateOrderAfterEnquiry', 'isError'],
+          currentTransaction,
+        ),
     })),
     withStateHandlers(
       {
@@ -66,16 +75,18 @@ export default hoistStatics(
             values.cardNumber,
             values.cardExpiration,
           );
+          // add one day as in sharetribe the last date is not included
+          // in the term of the lease
+          const newEndRent = dates.addOneDay(endRent);
 
           onChange('isVisibleModal', true);
           if (currentTransaction) {
             await initiateOrderAfterEnquiry.run({
               transactionId: currentTransaction.id,
-              transition:
-                transitionName.TRANSITION_REQUEST_AFTER_ENQUIRY,
+              transition: transitionStatuses.AFTER_ENQUIRE,
               listingId: product.id,
               startRent,
-              endRent,
+              endRent: newEndRent,
               cardNumber,
               monthExpiration,
               yearExpiration,
@@ -86,7 +97,7 @@ export default hoistStatics(
             await initiateTransaction.run({
               listingId: product.id,
               startRent,
-              endRent,
+              endRent: newEndRent,
               cardNumber,
               monthExpiration,
               yearExpiration,

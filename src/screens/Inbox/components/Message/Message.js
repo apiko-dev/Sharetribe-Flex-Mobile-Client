@@ -18,10 +18,7 @@ import {
 } from '../../../../components';
 import { NavigationService } from '../../../../services';
 import i18n from '../../../../i18n';
-import {
-  transitionStatuses,
-  transitionName,
-} from '../../../../constants';
+import { transitionStatuses } from '../../../../constants';
 
 const messageImage = require('../../../../assets/png/message_image.png');
 
@@ -37,7 +34,7 @@ const getRentProps = (value) => {
         orange: true,
         children: i18n.t('inbox.request'),
       };
-    case transitionName.TRANSITION_REQUEST_AFTER_ENQUIRY:
+    case transitionStatuses.AFTER_ENQUIRE:
       return {
         orange: true,
         children: i18n.t('inbox.request'),
