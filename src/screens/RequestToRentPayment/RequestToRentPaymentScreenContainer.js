@@ -11,19 +11,28 @@ import { withParamsToProps, withModal } from '../../utils/enhancers';
 import { payments } from '../../utils';
 import RequestSentModal from './components/RequestSentModal/RequestSentModal';
 import screens from '../../navigation/screens';
+import { transitionName } from '../../constants';
 
 export default hoistStatics(
   compose(
     withParamsToProps('product'),
     withParamsToProps('startRent'),
     withParamsToProps('endRent'),
+    withParamsToProps('currentTransaction'),
 
-    inject(({ transaction }) => ({
+    inject(({ transaction }, { currentTransaction }) => ({
       transactionStore: transaction,
       initiateTransaction: transaction.initiateTransaction,
+      initiateOrderAfterEnquiry:
+        currentTransaction.initiateOrderAfterEnquiry,
       isInitializationTransaction:
         transaction.initiateTransaction.inProgress,
-      isLoading: transaction.initiateTransaction.inProgress,
+      isLoading:
+        transaction.initiateTransaction.inProgress ||
+        currentTransaction.initiateOrderAfterEnquiry.inProgress,
+      isError:
+        transaction.initiateTransaction.isError ||
+        currentTransaction.initiateOrderAfterEnquiry.isError,
     })),
     withStateHandlers(
       {
@@ -39,6 +48,8 @@ export default hoistStatics(
     withHandlers({
       onRequest: ({
         initiateTransaction,
+        initiateOrderAfterEnquiry,
+        currentTransaction,
         product,
         startRent,
         endRent,
@@ -55,18 +66,34 @@ export default hoistStatics(
             values.cardNumber,
             values.cardExpiration,
           );
-          onChange('isVisibleModal', true);
 
-          await initiateTransaction.run({
-            listingId: product.id,
-            startRent,
-            endRent,
-            cardNumber,
-            monthExpiration,
-            yearExpiration,
-            cardCVC: values.cardCVC,
-            message: values.message,
-          });
+          onChange('isVisibleModal', true);
+          if (currentTransaction) {
+            await initiateOrderAfterEnquiry.run({
+              transactionId: currentTransaction.id,
+              transition:
+                transitionName.TRANSITION_REQUEST_AFTER_ENQUIRY,
+              listingId: product.id,
+              startRent,
+              endRent,
+              cardNumber,
+              monthExpiration,
+              yearExpiration,
+              cardCVC: values.cardCVC,
+              message: values.message,
+            });
+          } else {
+            await initiateTransaction.run({
+              listingId: product.id,
+              startRent,
+              endRent,
+              cardNumber,
+              monthExpiration,
+              yearExpiration,
+              cardCVC: values.cardCVC,
+              message: values.message,
+            });
+          }
         } catch (err) {
           console.log(err);
         }
@@ -95,7 +122,7 @@ export default hoistStatics(
           props.onChange('isVisibleModal', false);
         },
         isLoading: props.isLoading,
-        isError: props.initiateTransaction.isError,
+        isError: props.isError,
       }),
       RequestSentModal,
     ),

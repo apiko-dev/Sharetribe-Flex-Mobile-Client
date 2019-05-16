@@ -258,7 +258,7 @@ class SharetribeSdkService {
           'provider.profileImage',
           'listing',
           'listing.images',
-          // 'booking',
+          'booking',
           'reviews',
           'reviews.author',
           'reviews.subject',
@@ -317,9 +317,7 @@ class SharetribeSdkService {
       ...params,
     });
   }
-  // fetchTransactions(perPage, page) {
-  //   return this.sdk.transactions.query({ perPage, page });
-  // }
+
 
   transactionsQuery() {
     return this.sdk.transactions.query({
@@ -376,6 +374,43 @@ class SharetribeSdkService {
           'reviews',
           'reviews.author',
           'reviews.subject',
+          'messages',
+        ],
+      },
+    );
+  }
+
+  changeTransactionsAfterEnquiry({
+    transactionId,
+    transition,
+    listingId,
+    startRent,
+    endRent,
+    cardToken,
+  }) {
+    return this.sdk.transactions.transition(
+      {
+        id: transactionId,
+        transition,
+        params: {
+          listingId,
+          bookingStart: new Date(startRent),
+          bookingEnd: new Date(endRent),
+          cardToken,
+        },
+      },
+      {
+        expand: true,
+        include: [
+          // 'customer',
+          // 'customer.profileImage',
+          // 'provider',
+          // 'provider.profileImage',
+          'listing',
+          'booking',
+          // 'reviews',
+          // 'reviews.author',
+          // 'reviews.subject',
           'messages',
         ],
       },

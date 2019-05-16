@@ -7,13 +7,14 @@ import T from 'prop-types';
 import { colors } from '../../styles';
 import { Conformation, Input, RenderItem } from './components';
 import { ShadowContainer, Loader } from '../../components';
-import { transitionStatuses } from '../../constants';
+import { transitionStatuses, transitionName } from '../../constants';
 import s from './styles';
 
 const getConfirmationStatus = (transaction) => {
   switch (transaction) {
     case transitionStatuses.REQUEST:
     case transitionStatuses.ENQUIRE:
+    case transitionName.TRANSITION_REQUEST_AFTER_ENQUIRY:
       return true;
     default:
       return false;
@@ -115,7 +116,7 @@ ChatScreen.propTypes = {
   navigationToRequestToRent: T.func,
   isOpenedChat: T.bool,
   navigateToListing: T.func,
-  rentPeriod: T.string,
+  rentPeriod: T.object,
 };
 
 export default observer(ChatScreen);

@@ -10,6 +10,7 @@ const Footer = ({
   onCall,
   navigationToRequestToRent,
   onSend,
+  isSending,
 }) => (
   <View style={s.container}>
     <View style={s.contactContainer}>
@@ -32,6 +33,7 @@ const Footer = ({
         titleStyle={s.textChat}
         borderless={false}
         onPress={onSend}
+        isLoading={isSending}
       >
         <IconFonts
           name="message"
@@ -57,6 +59,8 @@ Footer.propTypes = {
   navigationToRequestToRent: T.func,
   phone: T.string,
   onCall: T.func,
+  onSend: T.func,
+  isSending: T.bool,
 };
 
 export default Footer;

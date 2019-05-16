@@ -18,7 +18,10 @@ import {
 } from '../../../../components';
 import { NavigationService } from '../../../../services';
 import i18n from '../../../../i18n';
-import { transitionStatuses } from '../../../../constants';
+import {
+  transitionStatuses,
+  transitionName,
+} from '../../../../constants';
 
 const messageImage = require('../../../../assets/png/message_image.png');
 
@@ -30,6 +33,11 @@ const getRentProps = (value) => {
         children: i18n.t('inbox.chat'),
       };
     case transitionStatuses.REQUEST:
+      return {
+        orange: true,
+        children: i18n.t('inbox.request'),
+      };
+    case transitionName.TRANSITION_REQUEST_AFTER_ENQUIRY:
       return {
         orange: true,
         children: i18n.t('inbox.request'),

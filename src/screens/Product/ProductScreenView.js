@@ -49,6 +49,7 @@ const ProductScreen = ({
   navigateToImageScreen,
   gallery,
   isLoadingDates,
+  isSending,
   navigationToRequestToRent,
   navigationToCalendar,
   phoneNumber,
@@ -159,6 +160,7 @@ const ProductScreen = ({
         onCall={onCall}
         navigationToRequestToRent={navigationToRequestToRent}
         onSend={onSend}
+        isSending={isSending}
       />
     )}
   </ScrollView>
@@ -197,5 +199,6 @@ ProductScreen.propTypes = {
   navigationToCalendar: T.func,
   phoneNumber: T.string,
   onSend: T.func,
+  isSending: T.bool,
 };
 export default observer(ProductScreen);

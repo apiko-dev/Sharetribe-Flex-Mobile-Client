@@ -31,6 +31,8 @@ export default hoistStatics(
       ).map(R.path(['variants', 'default'])),
       getAvailableDays: product.getAvailableDays,
       isLoadingDates: product.getAvailableDays.inProgress,
+      isSending:
+        stores.transaction.initiateMessageTransaction.inProgress,
       author: R.pathOr(false, ['relationships', 'author'], product),
       transaction: stores.transaction.list.asArray,
       transactionStore: stores.transaction,
@@ -101,10 +103,18 @@ export default hoistStatics(
         call(args).catch(console.log);
       },
 
-      onSend: ({ product }) => async () => {
-        NavigationService.navigateToChat({
-          product,
-        });
+      onSend: ({ product, transactionStore }) => async () => {
+        try {
+          await transactionStore.initiateMessageTransaction.run(
+            product.id,
+          );
+          const transaction = transactionStore.list.latest;
+          NavigationService.navigateToChat({
+            transaction,
+          });
+        } catch (err) {
+          console.log(err);
+        }
       },
     }),
 

@@ -61,9 +61,10 @@ export const Transaction = t
     // lineItems: t.optional(t.maybeNull(LineItems), null),
     protectedData: t.model({}),
     messages: t.optional(MessageStore, {}),
-
     relationships: t.maybe(Relationships),
+
     changeStateTransactions: createFlow(changeStateTransactions),
+    initiateOrderAfterEnquiry: createFlow(initiateOrderAfterEnquiry),
   })
   .views((store) => ({
     get Api() {
@@ -99,6 +100,66 @@ function changeStateTransactions(flow, store) {
 
       const snapshot = processJsonApiTransactions(res.data.data);
       store.update(snapshot);
+      flow.success();
+    } catch (err) {
+      flow.failed(err, true);
+    }
+  };
+}
+
+function initiateOrderAfterEnquiry(flow, store) {
+  return function* initiateTransaction({
+    transition,
+    transactionId,
+    listingId,
+    startRent,
+    endRent,
+    cardNumber,
+    monthExpiration,
+    yearExpiration,
+    cardCVC,
+    message,
+  }) {
+    try {
+      flow.start();
+      const expMonth = Number(monthExpiration);
+      const expYear = Number(yearExpiration);
+
+      const paramsToken = {
+        number: cardNumber,
+        expMonth,
+        expYear,
+        cvc: cardCVC,
+      };
+
+      const cardToken = yield StripeService.createTokenWithCard(
+        paramsToken,
+      );
+
+      const { tokenId } = cardToken;
+
+      const res = yield store.Api.changeTransactionsAfterEnquiry({
+        transactionId,
+        transition,
+        listingId,
+        cardToken: tokenId,
+        startRent,
+        endRent,
+      });
+
+      const snapshot = processJsonApi(res.data.data);
+      store.update(snapshot);
+      const entities = normalizedIncluded(res.data.included);
+      getRoot(store).entities.merge(entities);
+
+      if (message) {
+        yield store.Api.sendMessage({
+          transactionId: snapshot.id,
+          content: message,
+          include: ['sender', 'sender.profileImage'],
+        });
+      }
+
       flow.success();
     } catch (err) {
       flow.failed(err, true);
@@ -233,7 +294,6 @@ function fetchTransactionById(flow, store) {
       );
       getRoot(store).entities.merge(normalizedEntities);
 
-      // store.list.set(res.data.data);
       const data = processJsonApiTransactions(res.data.data);
       store.list.add(data);
       flow.success();
