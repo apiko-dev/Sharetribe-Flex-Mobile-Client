@@ -20,16 +20,6 @@ export default hoistStatics(
     withParamsToProps('transaction'),
     withParamsToProps('product'),
     withParamsToProps('rentPeriod'),
-    withStateHandlers(
-      (props) => ({
-        transaction: R.pathOr({}, ['transaction'], props),
-      }),
-      {
-        onChange: () => (field, value) => ({
-          [field]: value,
-        }),
-      },
-    ),
     inject((stores, { transaction }) => ({
       messageCollection: R.pathOr(
         [],

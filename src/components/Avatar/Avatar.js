@@ -59,7 +59,7 @@ const Avatar = ({
             large && s.logoImageBackgroundLarge,
           ]}
         >
-          <Text xlargeSize white>
+          <Text xxmediumSize white>
             {avatarPlaceholder.abbreviatedName}
           </Text>
         </View>

@@ -87,7 +87,7 @@ function RentItem({
           {isOpenedChat && !isViewerTransaction && (
             <View style={s.actionsInChat}>
               <Button
-                title={`${i18n.t('chat.requestToRent')}: `}
+                title={`${i18n.t('chat.requestToRent')} `}
                 primary
                 containerStyle={s.buttonRentContainer}
                 buttonStyle={s.buttonRent}

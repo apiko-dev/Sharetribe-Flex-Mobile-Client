@@ -115,8 +115,8 @@ export default hoistStatics(
         isVisible: props.isVisibleModal,
         goToChat: () => {
           const transaction = props.transactionStore.list.latest;
-          NavigationService.navigateToChat({ transaction });
           props.onChange('isVisibleModal', false);
+          NavigationService.navigateToChat({ transaction });
         },
         gotoProduct: () => {
           const { product } = props;
