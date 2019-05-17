@@ -4,6 +4,7 @@ import {
   withStateHandlers,
   withState,
   withHandlers,
+  lifecycle,
 } from 'recompose';
 import { LayoutAnimation } from 'react-native';
 import { inject } from 'mobx-react';
@@ -91,6 +92,15 @@ export default hoistStatics(
           transitionStatuses.DECLINE,
         );
         NavigationService.navigateTo(screens.Inbox, {});
+      },
+    }),
+    lifecycle({
+      async componentDidMount() {
+        try {
+          this.props.transaction.messages.fetchMessages.run();
+        } catch (err) {
+          console.log(err);
+        }
       },
     }),
   ),
