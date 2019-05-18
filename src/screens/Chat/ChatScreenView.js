@@ -6,8 +6,14 @@ import T from 'prop-types';
 
 import { colors } from '../../styles';
 import { Conformation, Input, RenderItem } from './components';
-import { ShadowContainer, Loader } from '../../components';
+import {
+  ShadowContainer,
+  Loader,
+  Text,
+  TextTouchable,
+} from '../../components';
 import { transitionStatuses } from '../../constants';
+import i18n from '../../i18n';
 import s from './styles';
 
 const getConfirmationStatus = (transaction) => {
@@ -38,7 +44,28 @@ function ChatScreen({
   isOpenedChat,
   navigateToListing,
   rentPeriod,
+  writeReview,
+  listingAuthor,
+  isShowLinkReview,
 }) {
+  const linkToLeaveReview = () => (
+    <View>
+      <View styles={s.linkReviewContainer}>
+        <Text grey style={s.reviewText}>
+          {i18n.t('chat.completedBooking')}
+        </Text>
+        <TextTouchable
+          orange
+          style={s.linkReviewText}
+          onPress={writeReview}
+        >
+          {i18n.t('chat.leaveReviewFor')}
+          {` ${listingAuthor}`}
+        </TextTouchable>
+      </View>
+    </View>
+  );
+
   if (isLoading) {
     return (
       <View style={s.loader}>
@@ -79,6 +106,7 @@ function ChatScreen({
           keyExtractor={(item) => item.id}
           inverted
           onEndReached={() => fetchMoreMessages()}
+          ListHeaderComponent={isShowLinkReview && linkToLeaveReview}
         />
         <View style={s.rotate}>
           <ShadowContainer>
@@ -117,6 +145,9 @@ ChatScreen.propTypes = {
   isOpenedChat: T.bool,
   navigateToListing: T.func,
   rentPeriod: T.object,
+  writeReview: T.func,
+  listingAuthor: T.string,
+  isShowLinkReview: T.bool,
 };
 
 export default observer(ChatScreen);

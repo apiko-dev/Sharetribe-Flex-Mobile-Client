@@ -22,9 +22,10 @@ export default hoistStatics(
     withParamsToProps('product'),
     withParamsToProps('rentPeriod'),
     inject((stores, { transaction }) => ({
-      isDelivered:
+      isShowLinkReview:
+        !transaction.isViewer &&
         R.pathOr(false, ['lastTransition'], transaction) ===
-        transitionStatuses.DELIVERED,
+          transitionStatuses.DELIVERED,
       messageCollection: R.pathOr(
         [],
         ['messages', 'list', 'asArray'],
@@ -44,6 +45,18 @@ export default hoistStatics(
       isOpenedChat:
         R.pathOr(false, ['lastTransition'], transaction) ===
         transitionStatuses.ENQUIRE,
+      listingAuthor: R.pathOr(
+        '',
+        [
+          'relationships',
+          'listing',
+          'relationships',
+          'author',
+          'profile',
+          'displayName',
+        ],
+        transaction,
+      ),
     })),
     withStateHandlers(
       {

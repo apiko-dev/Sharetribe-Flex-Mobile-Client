@@ -301,7 +301,9 @@
     "viewGoods": "View goods",
     "viewDetails": "View details",
     "closeDetails": "Close details",
-    "requestToRent": "Request to rent"
+    "requestToRent": "Request to rent",
+    "completedBooking": "The booking was completed.",
+    "leaveReviewFor": "Request to rent"
   },
 
   "inbox": {

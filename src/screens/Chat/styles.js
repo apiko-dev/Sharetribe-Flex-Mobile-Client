@@ -11,6 +11,21 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 
+  linkReviewContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: dimensions.indent,
+  },
+
+  reviewText: {
+    textAlign: 'center',
+  },
+  linkReviewText: {
+    textAlign: 'center',
+    marginBottom: dimensions.smallIndent,
+  },
+
   inputContainer: {
     borderTopWidth: StyleSheet.hairlineWidth,
     borderColor: colors.chat.borderColor,

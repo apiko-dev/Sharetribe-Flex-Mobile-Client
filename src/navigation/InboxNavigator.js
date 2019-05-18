@@ -7,6 +7,7 @@ import {
   RequestToRentPaymentScreen,
   PayoutPreferencesScreen,
   RequestToRentScreen,
+  ReviewScreen,
 } from '../screens';
 import { defaultNavigationOptions } from './NavigationOptions';
 
@@ -18,6 +19,7 @@ export default createStackNavigator(
     [screens.RequestToRent]: RequestToRentScreen,
     [screens.RequestToRentPayment]: RequestToRentPaymentScreen,
     [screens.PayoutPreferences]: PayoutPreferencesScreen,
+    [screens.Review]: ReviewScreen,
   },
   {
     initialRouteKey: screens.Inbox,

@@ -48,4 +48,7 @@ export const User = t
 
       return (user && user.id) === (store && store.id);
     },
+    get getFullName() {
+      return `${store.profile.firstName} ${store.profile.firstName}`;
+    },
   }));
