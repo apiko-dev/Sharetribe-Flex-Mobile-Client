@@ -1,23 +1,38 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import T from 'prop-types';
 import { View, LayoutAnimation } from 'react-native';
 
+import { Transitioning, Transition } from 'react-native-reanimated';
 import { Touchable, IconFonts, Text } from '../../../../components';
 import s from './styles';
 
 function Accordion({ title, text }) {
   const [isVisible, setIsVisible] = React.useState(false);
 
+  const ref = useRef();
+
   function handleToggleVisible() {
-    LayoutAnimation.easeInEaseOut();
     setIsVisible(!isVisible);
   }
+
+  const transition = (
+    <Transition.Sequence>
+      <Transition.In
+        type="fade"
+        interpolation="easeInOut"
+        durationMs={400}
+      />
+    </Transition.Sequence>
+  );
 
   return (
     <View style={s.container}>
       <Touchable
         style={s.touchableContainer}
-        onPress={handleToggleVisible}
+        onPress={() => {
+          ref.current.animateNextTransition();
+          handleToggleVisible();
+        }}
       >
         <View style={s.top}>
           <Text bold>{title}</Text>
@@ -28,11 +43,13 @@ function Accordion({ title, text }) {
           )}
         </View>
       </Touchable>
-      {isVisible && (
-        <View style={s.bottom}>
-          <Text>{text}</Text>
-        </View>
-      )}
+      <Transitioning.View ref={ref} transition={transition}>
+        {isVisible && (
+          <View style={s.bottom}>
+            <Text>{text}</Text>
+          </View>
+        )}
+      </Transitioning.View>
     </View>
   );
 }

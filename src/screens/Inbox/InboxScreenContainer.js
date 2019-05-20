@@ -6,7 +6,6 @@ import {
 } from 'recompose';
 
 import { inject } from 'mobx-react/custom';
-import R from 'ramda';
 import InboxScreenView from './InboxScreenView';
 
 export default hoistStatics(

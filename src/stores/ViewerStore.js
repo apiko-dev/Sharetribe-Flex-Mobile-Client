@@ -195,6 +195,8 @@ function createStripeAccount(flow, store) {
         bankAccountToken,
       });
 
+      getRoot(store).userInterface.setShouldShowVerifyModal(true);
+
       flow.success();
     } catch (err) {
       flow.failed(err, true);

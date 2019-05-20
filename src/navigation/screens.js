@@ -31,6 +31,7 @@ export default {
   Chat: 'Chat',
   PayoutPreferences: 'PayoutPreferences',
   CardList: 'CardList',
+  Review: 'Review',
 
   // Stacks
   HomeStack: 'HomeStack',

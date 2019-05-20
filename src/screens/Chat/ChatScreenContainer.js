@@ -22,6 +22,10 @@ export default hoistStatics(
     withParamsToProps('product'),
     withParamsToProps('rentPeriod'),
     inject((stores, { transaction }) => ({
+      isShowLinkReview:
+        !transaction.isViewer &&
+        R.pathOr(false, ['lastTransition'], transaction) ===
+          transitionStatuses.DELIVERED,
       messageCollection: R.pathOr(
         [],
         ['messages', 'list', 'asArray'],
@@ -41,6 +45,18 @@ export default hoistStatics(
       isOpenedChat:
         R.pathOr(false, ['lastTransition'], transaction) ===
         transitionStatuses.ENQUIRE,
+      listingAuthor: R.pathOr(
+        '',
+        [
+          'relationships',
+          'listing',
+          'relationships',
+          'author',
+          'profile',
+          'displayName',
+        ],
+        transaction,
+      ),
     })),
     withStateHandlers(
       {
@@ -82,16 +98,19 @@ export default hoistStatics(
         props.transaction.messages.fetchMoreMessages.run();
       },
       onAccept: (props) => () => {
-        props.transaction.changeStateTransactions.run(
-          transitionStatuses.ACCEPT,
-        );
+        props.transaction.changeStateTransactions.run({
+          transition: transitionStatuses.ACCEPT,
+        });
         NavigationService.navigateTo(screens.Inbox, {});
       },
       onDeny: (props) => () => {
-        props.transaction.changeStateTransactions.run(
-          transitionStatuses.DECLINE,
-        );
+        props.transaction.changeStateTransactions.run({
+          transition: transitionStatuses.DECLINE,
+        });
         NavigationService.navigateTo(screens.Inbox, {});
+      },
+      writeReview: ({ transaction }) => () => {
+        NavigationService.navigateTo(screens.Review, { transaction });
       },
     }),
     lifecycle({

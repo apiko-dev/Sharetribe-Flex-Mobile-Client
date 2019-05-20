@@ -1,13 +1,20 @@
 import React from 'react';
-import { View, FlatList } from 'react-native';
+import { View, FlatList, KeyboardAvoidingView } from 'react-native';
 
 import { observer } from 'mobx-react/custom';
 import T from 'prop-types';
 
 import { colors } from '../../styles';
 import { Conformation, Input, RenderItem } from './components';
-import { ShadowContainer, Loader } from '../../components';
+import {
+  ShadowContainer,
+  Loader,
+  Text,
+  TextTouchable,
+} from '../../components';
 import { transitionStatuses } from '../../constants';
+import i18n from '../../i18n';
+import { isAndroid } from '../../utils';
 import s from './styles';
 
 const getConfirmationStatus = (transaction) => {
@@ -20,6 +27,8 @@ const getConfirmationStatus = (transaction) => {
       return false;
   }
 };
+
+const isAndroidDevice = isAndroid();
 
 function ChatScreen({
   isShowDetails,
@@ -38,7 +47,26 @@ function ChatScreen({
   isOpenedChat,
   navigateToListing,
   rentPeriod,
+  writeReview,
+  listingAuthor,
+  isShowLinkReview,
 }) {
+  const LinkToLeaveReview = () => (
+    <View styles={s.linkReviewContainer}>
+      <Text grey style={s.reviewText}>
+        {i18n.t('chat.completedBooking')}
+      </Text>
+      <TextTouchable
+        orange
+        style={s.linkReviewText}
+        onPress={writeReview}
+      >
+        {i18n.t('chat.leaveReviewFor')}
+        {` ${listingAuthor}`}
+      </TextTouchable>
+    </View>
+  );
+
   if (isLoading) {
     return (
       <View style={s.loader}>
@@ -48,7 +76,12 @@ function ChatScreen({
   }
 
   return (
-    <View style={s.container}>
+    <KeyboardAvoidingView
+      behavior="padding"
+      style={s.container}
+      contentContainerStyle={s.keyboardAvoidingViewContentContainer}
+      keyboardVerticalOffset={isAndroidDevice ? -30 : 65}
+    >
       {getConfirmationStatus(transaction.lastTransition) && (
         <ShadowContainer>
           <Conformation
@@ -79,6 +112,7 @@ function ChatScreen({
           keyExtractor={(item) => item.id}
           inverted
           onEndReached={() => fetchMoreMessages()}
+          ListHeaderComponent={isShowLinkReview && LinkToLeaveReview}
         />
         <View style={s.rotate}>
           <ShadowContainer>
@@ -96,7 +130,7 @@ function ChatScreen({
           </ShadowContainer>
         </View>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -117,6 +151,9 @@ ChatScreen.propTypes = {
   isOpenedChat: T.bool,
   navigateToListing: T.func,
   rentPeriod: T.object,
+  writeReview: T.func,
+  listingAuthor: T.string,
+  isShowLinkReview: T.bool,
 };
 
 export default observer(ChatScreen);

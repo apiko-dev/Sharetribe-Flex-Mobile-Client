@@ -45,3 +45,6 @@ export {
 export { default as HelpScreen } from './Help/HelpScreen';
 export { default as InboxScreen } from './Inbox/InboxScreenContainer';
 export { default as ChatScreen } from './Chat/ChatScreenContainer';
+export {
+  default as ReviewScreen,
+} from './Review/ReviewScreenContainer';

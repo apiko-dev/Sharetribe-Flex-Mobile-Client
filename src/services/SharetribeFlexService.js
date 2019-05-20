@@ -318,7 +318,6 @@ class SharetribeSdkService {
     });
   }
 
-
   transactionsQuery() {
     return this.sdk.transactions.query({
       // only: 'order',
@@ -415,6 +414,30 @@ class SharetribeSdkService {
         ],
       },
     );
+  }
+
+  changeTransactionsView({ transactionId, transition, content }) {
+    return this.sdk.transactions.transition(
+      {
+        id: new types.UUID(transactionId),
+        transition,
+        params: {
+          reviewRating: 3,
+          reviewContent: content,
+        },
+      },
+      {
+        expand: true,
+      },
+    );
+  }
+
+  getReviews({ listingId }) {
+    return this.sdk.reviews.query({
+      listingId: new types.UUID(listingId),
+      // state: 'public',
+      // include: ['author', 'author.profileImage'],
+    });
   }
 
   createStripeAccount(query) {

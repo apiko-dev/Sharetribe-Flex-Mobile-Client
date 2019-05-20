@@ -18,7 +18,6 @@ import { countries } from '../../constants';
 export default hoistStatics(
   compose(
     withParamsToProps('onContinue'),
-
     inject(({ viewer }) => ({
       user: viewer.user,
       createStripeAccount: viewer.createStripeAccount,

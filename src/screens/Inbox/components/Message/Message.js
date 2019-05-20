@@ -5,7 +5,6 @@ import R from 'ramda';
 import { observer } from 'mobx-react/custom';
 
 import {
-  getEndDateByStart,
   formatedDate,
   getHourAndMinutes,
 } from '../../../../utils/dates';
@@ -15,6 +14,7 @@ import {
   Text,
   Touchable,
   ShadowContainer,
+  Loader,
 } from '../../../../components';
 import { NavigationService } from '../../../../services';
 import i18n from '../../../../i18n';
@@ -54,12 +54,19 @@ const getRentProps = (value) => {
         red: true,
         children: i18n.t('inbox.decline'),
       };
+    case transitionStatuses.DELIVERED:
+      return {
+        gray: true,
+        children: i18n.t('inbox.complete'),
+      };
     default:
       return {};
   }
 };
 
 function Message({ transaction }) {
+  const isLoadingTransitionStatuses =
+    transaction.changeStateTransactions.inProgress;
   const isEnquire =
     R.pathOr('', ['lastTransition'], transaction) ===
     transitionStatuses.ENQUIRE;
@@ -102,12 +109,19 @@ function Message({ transaction }) {
             style={s.image}
           />
           <View style={s.requestContainer}>
-            <Text
-              style={s.request}
-              bold
-              xxsmallSize
-              {...getRentProps(transaction.lastTransition)}
-            />
+            {!isLoadingTransitionStatuses ? (
+              <Text
+                style={s.request}
+                bold
+                xxsmallSize
+                {...getRentProps(
+                  transaction.lastTransition,
+                  isLoadingTransitionStatuses,
+                )}
+              />
+            ) : (
+              <Loader small />
+            )}
           </View>
         </View>
         <View style={s.messageMainInfo}>

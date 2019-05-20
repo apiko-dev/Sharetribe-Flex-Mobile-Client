@@ -44,7 +44,7 @@ const transformEntries = (entries) =>
 export default hoistStatics(
   compose(
     withParamsToProps('product', 'isEditing'),
-    inject(({ listings, viewer }, { product }) => ({
+    inject(({ listings, viewer, userInterface }, { product }) => ({
       listings,
       user: viewer.user,
       isLoading:
@@ -55,6 +55,7 @@ export default hoistStatics(
         ['getOwnFields', 'inProgress'],
         product,
       ),
+      userInterface,
     })),
 
     withStateHandlers(
@@ -207,16 +208,23 @@ export default hoistStatics(
             entriesDay: transformEntries(props.entries),
           });
 
-          AlertService.showAlert(
-            i18n.t('alerts.createListingSuccess.title'),
-            i18n.t('alerts.createListingSuccess.message'),
-            [
-              {
-                text: i18n.t('common.ok'),
-                onPress: () => NavigationService.navigateToHome(),
+          const title = props.userInterface.shouldShowVerifyModal
+            ? i18n.t('stripeVerifyInstructions.attention')
+            : i18n.t('alerts.createListingSuccess.title');
+
+          const content = props.userInterface.shouldShowVerifyModal
+            ? i18n.t('stripeVerifyInstructions.message')
+            : i18n.t('alerts.createListingSuccess.message');
+
+          AlertService.showAlert(title, content, [
+            {
+              text: i18n.t('common.ok'),
+              onPress: () => {
+                props.userInterface.setShouldShowVerifyModal(false);
+                NavigationService.navigateToHome();
               },
-            ],
-          );
+            },
+          ]);
         } catch (err) {
           AlertService.showAlert(
             i18n.t('alerts.createListingError.title'),
