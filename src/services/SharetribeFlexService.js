@@ -419,7 +419,7 @@ class SharetribeSdkService {
   changeTransactionsView({ transactionId, transition, content }) {
     return this.sdk.transactions.transition(
       {
-        id: new types.UUID(transactionId),
+        id: transactionId,
         transition,
         params: {
           reviewRating: 3,
@@ -434,7 +434,7 @@ class SharetribeSdkService {
 
   getReviews({ listingId }) {
     return this.sdk.reviews.query({
-      listingId: new types.UUID(listingId),
+      listingId,
       // state: 'public',
       // include: ['author', 'author.profileImage'],
     });

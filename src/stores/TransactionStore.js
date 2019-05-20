@@ -12,6 +12,7 @@ import { Price, Product } from './ListingsStore';
 import { Booking } from './BookingStore';
 import { Reviews } from './ReviewsStore';
 import { normalizedIncluded } from './utils/normalize';
+import { transitionStatuses } from '../constants';
 
 // const UnitPrice = t.model('UnitPrice', {});
 // const LineTotal = t.model('LineTotal', {});
@@ -91,21 +92,36 @@ export const Transaction = t
   }));
 
 function sentReview(flow, store) {
-  return function* initiatechangeStateTransactionsTransaction() {
+  return function* initiatechangeStateTransactionsTransaction({
+    content,
+  }) {
     try {
       flow.start();
-
-      const transactionId = '5cd5601b-4740-4e40-af78-068835ea95e7';
-      const transitionTest = 'transition/review-1-by-provider';
-      const content = 'First review';
+      const transition1 = store.isViewer
+        ? transitionStatuses.REVIEW_PROVIDER_1
+        : transitionStatuses.REVIEW_CUSTOMER_1;
+      const transition2 = store.isViewer
+        ? transitionStatuses.REVIEW_PROVIDER_2
+        : transitionStatuses.REVIEW_CUSTOMER_2;
+      const transition =
+        store.lastTransition === transitionStatuses.DELIVERED
+          ? transition1
+          : transition2;
+      // const transactionId = '5cd5601b-4740-4e40-af78-068835ea95e7';
+      // const transitionTest = 'transition/review-1-by-provider';
+      // const content = 'First review';
       const test = yield store.Api.changeTransactionsView({
-        transactionId,
-        transition: transitionTest,
+        transactionId: store.id,
+        transition,
         content,
       });
+
       // const snapshot = processJsonApiTransactions(res.data.data);
       // store.update(snapshot);
-
+      // const res = yield store.Api.getReviews({
+      //   listingId: store.relationships.listing.id,
+      // });
+      debugger;
       flow.success();
     } catch (err) {
       flow.failed(err, true);
