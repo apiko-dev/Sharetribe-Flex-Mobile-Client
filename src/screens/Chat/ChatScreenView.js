@@ -14,6 +14,7 @@ const getConfirmationStatus = (transaction) => {
   switch (transaction) {
     case transitionStatuses.REQUEST:
     case transitionStatuses.ENQUIRE:
+    case transitionStatuses.AFTER_ENQUIRE:
       return true;
     default:
       return false;
@@ -115,7 +116,7 @@ ChatScreen.propTypes = {
   navigationToRequestToRent: T.func,
   isOpenedChat: T.bool,
   navigateToListing: T.func,
-  rentPeriod: T.string,
+  rentPeriod: T.object,
 };
 
 export default observer(ChatScreen);

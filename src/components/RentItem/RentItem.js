@@ -19,7 +19,6 @@ function RentItem({
   isOpenedChat,
   navigationToRequestToRent,
   navigateToListing,
-  rentPeriod,
 }) {
   const amount = R.pathOr(
     '',
@@ -32,6 +31,18 @@ function RentItem({
     transaction,
   );
   const isViewerTransaction = transaction.isViewer;
+  const start = R.pathOr(
+    '',
+    ['relationships', 'booking', 'displayStart'],
+    transaction,
+  );
+  const end = R.pathOr(
+    '',
+    ['relationships', 'booking', 'displayEnd'],
+    transaction,
+  );
+  const rentPeriod = formatedDate({ start, end });
+
   return (
     <View style={s.container}>
       <View style={s.containerMessage}>
@@ -76,7 +87,7 @@ function RentItem({
           {isOpenedChat && !isViewerTransaction && (
             <View style={s.actionsInChat}>
               <Button
-                title={`${i18n.t('chat.requestToRent')}: `}
+                title={`${i18n.t('chat.requestToRent')} `}
                 primary
                 containerStyle={s.buttonRentContainer}
                 buttonStyle={s.buttonRent}
@@ -131,7 +142,6 @@ RentItem.propTypes = {
   isOpenedChat: T.bool,
   navigationToRequestToRent: T.func,
   navigateToListing: T.func,
-  rentPeriod: T.string,
 };
 
 export default observer(RentItem);

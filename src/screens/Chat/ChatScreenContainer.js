@@ -2,9 +2,9 @@ import {
   compose,
   hoistStatics,
   withStateHandlers,
-  lifecycle,
   withState,
   withHandlers,
+  lifecycle,
 } from 'recompose';
 import { LayoutAnimation } from 'react-native';
 import { inject } from 'mobx-react';
@@ -21,26 +21,13 @@ export default hoistStatics(
     withParamsToProps('transaction'),
     withParamsToProps('product'),
     withParamsToProps('rentPeriod'),
-    withStateHandlers(
-      (props) => ({
-        transaction: R.pathOr({}, ['transaction'], props),
-      }),
-      {
-        setTransaction: () => (value) => ({
-          transaction: value,
-        }),
-        onChange: () => (field, value) => ({
-          [field]: value,
-        }),
-      },
-    ),
     inject((stores, { transaction }) => ({
       messageCollection: R.pathOr(
         [],
         ['messages', 'list', 'asArray'],
         transaction,
       ),
-      transactionId: R.path(['id'], transaction),
+      currentTransaction: transaction,
       isLoading: R.path(
         ['messages', 'fetchMessages', 'inProgress'],
         transaction,
@@ -51,18 +38,15 @@ export default hoistStatics(
         ['relationships', 'listing', 'id'],
         transaction,
       ),
+      isOpenedChat:
+        R.pathOr(false, ['lastTransition'], transaction) ===
+        transitionStatuses.ENQUIRE,
     })),
     withStateHandlers(
-      (props) => ({
-        isShowDetails: false,
-        isOpenedChat:
-          R.pathOr(false, ['lastTransition'], props.transaction) ===
-          transitionStatuses.ENQUIRE,
-      }),
       {
-        setIsOpenedChat: () => (value) => ({
-          isOpenedChat: value,
-        }),
+        isShowDetails: false,
+      },
+      {
         setShowDetails: (props) => () => ({
           isShowDetails: !props.isShowDetails,
         }),
@@ -72,37 +56,13 @@ export default hoistStatics(
       navigationToRequestToRent: (props) => () => {
         NavigationService.navigateTo(screens.RequestToRent, {
           product: props.transaction.relationships.listing,
+          currentTransaction: props.currentTransaction,
         });
       },
       navigateToListing: (props) => () => {
         NavigationService.navigateToProduct({
           product: props.transaction.relationships.listing,
         });
-      },
-    }),
-    lifecycle({
-      async componentDidMount() {
-        try {
-          if (this.props.product) {
-            await this.props.transactionStore.initiateMessageTransaction.run(
-              this.props.product.id,
-            );
-            const transaction = this.props.transactionStore.list
-              .latest;
-            this.props.setTransaction(transaction);
-            this.props.setIsOpenedChat(
-              R.pathOr(
-                '',
-                ['transaction', 'lastTransition'],
-                this.props,
-              ) === transitionStatuses.ENQUIRE,
-            );
-          } else {
-            this.props.transaction.messages.fetchMessages.run();
-          }
-        } catch (err) {
-          console.log(err);
-        }
       },
     }),
 
@@ -132,6 +92,15 @@ export default hoistStatics(
           transitionStatuses.DECLINE,
         );
         NavigationService.navigateTo(screens.Inbox, {});
+      },
+    }),
+    lifecycle({
+      async componentDidMount() {
+        try {
+          this.props.transaction.messages.fetchMessages.run();
+        } catch (err) {
+          console.log(err);
+        }
       },
     }),
   ),

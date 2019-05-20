@@ -15,9 +15,15 @@ import screens from '../../navigation/screens';
 export default hoistStatics(
   compose(
     withParamsToProps('product'),
+    withParamsToProps('currentTransaction'),
 
     withProps((props) => ({
       price: R.path(['product', 'price', 'amount'], props),
+      currentTransaction: R.pathOr(
+        false,
+        ['currentTransaction'],
+        props,
+      ),
     })),
 
     withStateHandlers(
@@ -39,12 +45,14 @@ export default hoistStatics(
         product,
         startRent,
         endRent,
+        currentTransaction,
       }) => () =>
         NavigationService.navigateTo(screens.RequestToRentPayment, {
           product,
           startRent,
           endRent,
           productName: product.title,
+          currentTransaction,
         }),
 
       getStartAndEndDate: (props) => (

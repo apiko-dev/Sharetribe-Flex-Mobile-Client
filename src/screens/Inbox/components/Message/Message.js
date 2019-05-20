@@ -34,6 +34,11 @@ const getRentProps = (value) => {
         orange: true,
         children: i18n.t('inbox.request'),
       };
+    case transitionStatuses.AFTER_ENQUIRE:
+      return {
+        orange: true,
+        children: i18n.t('inbox.request'),
+      };
     case transitionStatuses.ACCEPT:
       return {
         green: true,
