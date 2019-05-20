@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import R from 'ramda';
 import { Image, View, StyleSheet } from 'react-native';
+import { dimensions } from '../../styles';
 
 const styles = StyleSheet.create({
   container: {
@@ -13,6 +14,9 @@ const styles = StyleSheet.create({
     left: 0,
     bottom: 0,
     right: 0,
+  },
+  starContainer: {
+    margin: dimensions.smallIndent,
   },
 });
 
@@ -40,10 +44,11 @@ const Star = ({
   backgroundColor,
   value,
   color,
+  showOnlyRating,
 }) => (
   <View
     style={[
-      styles.starContainer,
+      showOnlyRating && styles.starContainer,
       needMargin && { marginRight: margin },
       { height },
     ]}
@@ -69,6 +74,7 @@ const Rating = ({
   imageSize,
   imageWidth,
   imageHeight,
+  showOnlyRating,
 }) => (
   <View
     style={[styles.container, { height: imageHeight || imageSize }]}
@@ -98,6 +104,7 @@ const Rating = ({
           needMargin={ratingCount !== index + 1}
           value={itemValue}
           margin={2}
+          showOnlyRating={showOnlyRating}
         />
       );
     }, ratingCount)}

@@ -13,24 +13,36 @@ const formatValue = (value) =>
     ? `${value},0`
     : `${value}`.replace('.', ',');
 
-const Rating = ({ value = 0, reviewsCount = 4 }) => {
+const Rating = ({
+  value = 0,
+  reviewsCount = 4,
+  imageSize = 14,
+  showOnlyRating = false,
+}) => {
   const formattedValue = formatValue(value);
   const formattedReviews = `(${reviewsCount})`;
 
   return value ? (
     <View style={s.row}>
-      <Text style={[s.text, s.value]}>{formattedValue}</Text>
+      {showOnlyRating || (
+        <Text style={[s.text, s.value]}>{formattedValue}</Text>
+      )}
       <RatingBase
         startingValue={round(value)}
         type="custom"
         ratingCount={5}
-        imageSize={14}
+        imageSize={imageSize}
         style={s.custom}
         ratingImage={ratingImage}
         ratingColor={colors.icon.tintColorOrange}
         ratingBackgroundColor={colors.icon.tintColorGray}
+        showOnlyRating={showOnlyRating}
       />
-      <Text style={[s.text, s.reviewCount]}>{formattedReviews}</Text>
+      {showOnlyRating || (
+        <Text style={[s.text, s.reviewCount]}>
+          {formattedReviews}
+        </Text>
+      )}
     </View>
   ) : null;
 };
@@ -38,6 +50,8 @@ const Rating = ({ value = 0, reviewsCount = 4 }) => {
 Rating.propTypes = {
   value: PropTypes.number,
   reviewsCount: PropTypes.number,
+  imageSize: PropTypes.number,
+  showOnlyRating: PropTypes.bool,
 };
 
 export default Rating;
