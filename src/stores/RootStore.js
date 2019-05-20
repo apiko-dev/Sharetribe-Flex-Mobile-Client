@@ -5,7 +5,7 @@ import { NavigationService } from '../services';
 import { ListingsStore } from './ListingsStore';
 import { TransactionStore } from './TransactionStore';
 import EntitiesStore from './EntitiesStore';
-import UiStore from './UiStore';
+import UserInterfaceStore from './UserInterfaceStore';
 
 const RootStore = types
   .model('RootStore', {
@@ -14,7 +14,7 @@ const RootStore = types
     listings: types.optional(ListingsStore, {}),
     transaction: types.optional(TransactionStore, {}),
     entities: types.optional(EntitiesStore, {}),
-    ui: types.optional(UiStore, {}),
+    userInterface: types.optional(UserInterfaceStore, {}),
   })
 
   .actions((store) => ({

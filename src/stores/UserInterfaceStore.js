@@ -1,7 +1,7 @@
 import { types } from 'mobx-state-tree';
 
-const UiStore = types
-  .model('UiStore', {
+const UserInterfaceStore = types
+  .model('UserInterfaceStore', {
     shouldShowVerifyModal: false,
   })
 
@@ -11,4 +11,4 @@ const UiStore = types
     },
   }));
 
-export default UiStore;
+export default UserInterfaceStore;

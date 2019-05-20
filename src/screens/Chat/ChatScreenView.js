@@ -51,21 +51,19 @@ function ChatScreen({
   listingAuthor,
   isShowLinkReview,
 }) {
-  const linkToLeaveReview = () => (
-    <View>
-      <View styles={s.linkReviewContainer}>
-        <Text grey style={s.reviewText}>
-          {i18n.t('chat.completedBooking')}
-        </Text>
-        <TextTouchable
-          orange
-          style={s.linkReviewText}
-          onPress={writeReview}
-        >
-          {i18n.t('chat.leaveReviewFor')}
-          {` ${listingAuthor}`}
-        </TextTouchable>
-      </View>
+  const LinkToLeaveReview = () => (
+    <View styles={s.linkReviewContainer}>
+      <Text grey style={s.reviewText}>
+        {i18n.t('chat.completedBooking')}
+      </Text>
+      <TextTouchable
+        orange
+        style={s.linkReviewText}
+        onPress={writeReview}
+      >
+        {i18n.t('chat.leaveReviewFor')}
+        {` ${listingAuthor}`}
+      </TextTouchable>
     </View>
   );
 
@@ -114,7 +112,7 @@ function ChatScreen({
           keyExtractor={(item) => item.id}
           inverted
           onEndReached={() => fetchMoreMessages()}
-          ListHeaderComponent={isShowLinkReview && linkToLeaveReview}
+          ListHeaderComponent={isShowLinkReview && LinkToLeaveReview}
         />
         <View style={s.rotate}>
           <ShadowContainer>
