@@ -11,6 +11,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 
+  keyboardAvoidingViewContentContainer: {
+    flex: 1,
+  },
+
   linkReviewContainer: {
     flex: 1,
     justifyContent: 'center',
