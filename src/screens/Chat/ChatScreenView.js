@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, FlatList } from 'react-native';
+import { View, FlatList, KeyboardAvoidingView } from 'react-native';
 
 import { observer } from 'mobx-react/custom';
 import T from 'prop-types';
@@ -14,6 +14,7 @@ import {
 } from '../../components';
 import { transitionStatuses } from '../../constants';
 import i18n from '../../i18n';
+import { isAndroid } from '../../utils';
 import s from './styles';
 
 const getConfirmationStatus = (transaction) => {
@@ -26,6 +27,8 @@ const getConfirmationStatus = (transaction) => {
       return false;
   }
 };
+
+const isAndroidDevice = isAndroid();
 
 function ChatScreen({
   isShowDetails,
@@ -75,7 +78,12 @@ function ChatScreen({
   }
 
   return (
-    <View style={s.container}>
+    <KeyboardAvoidingView
+      behavior="padding"
+      style={s.container}
+      contentContainerStyle={s.keyboardAvoidingViewContentContainer}
+      keyboardVerticalOffset={isAndroidDevice ? -30 : 65}
+    >
       {getConfirmationStatus(transaction.lastTransition) && (
         <ShadowContainer>
           <Conformation
@@ -124,7 +132,7 @@ function ChatScreen({
           </ShadowContainer>
         </View>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 
