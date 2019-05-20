@@ -5,12 +5,13 @@ import { StripeService } from '../services';
 import createFlow from './helpers/createFlow';
 import processJsonApi, {
   processJsonApiTransactions,
+  processJsonApiIncluded,
 } from './utils/processJsonApi';
 import listModel from './utils/listModel';
 import { MessageStore } from './MessagesStore';
 import { Price, Product } from './ListingsStore';
 import { Booking } from './BookingStore';
-import { Reviews } from './ReviewsStore';
+import { Review } from './ReviewsStore';
 import { normalizedIncluded } from './utils/normalize';
 import { transitionStatuses } from '../constants';
 
@@ -47,6 +48,7 @@ import { transitionStatuses } from '../constants';
 const Relationships = t.model('Relationships', {
   listing: t.maybe(t.reference(Product)),
   booking: t.optional(t.maybeNull(t.reference(Booking))),
+  reviews: t.optional(t.maybeNull(t.reference(Review))),
 });
 
 export const Transaction = t
@@ -63,7 +65,6 @@ export const Transaction = t
     // lineItems: t.optional(t.maybeNull(LineItems), null),
     protectedData: t.model({}),
     messages: t.optional(MessageStore, {}),
-    reviews: t.optional(Reviews, {}),
     relationships: t.maybe(Relationships),
 
     changeStateTransactions: createFlow(changeStateTransactions),
@@ -107,6 +108,8 @@ function sentReview(flow, store) {
         store.lastTransition === transitionStatuses.DELIVERED
           ? transition1
           : transition2;
+
+      // const transition = transitionStatuses.REVIEW_CUSTOMER_2;
       // const transactionId = '5cd5601b-4740-4e40-af78-068835ea95e7';
       // const transitionTest = 'transition/review-1-by-provider';
       // const content = 'First review';
@@ -118,10 +121,7 @@ function sentReview(flow, store) {
 
       // const snapshot = processJsonApiTransactions(res.data.data);
       // store.update(snapshot);
-      // const res = yield store.Api.getReviews({
-      //   listingId: store.relationships.listing.id,
-      // });
-      debugger;
+
       flow.success();
     } catch (err) {
       flow.failed(err, true);

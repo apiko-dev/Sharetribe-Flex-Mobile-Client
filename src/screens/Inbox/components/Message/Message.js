@@ -59,6 +59,14 @@ const getRentProps = (value) => {
         gray: true,
         children: i18n.t('inbox.complete'),
       };
+    case transitionStatuses.REVIEW_PROVIDER_1:
+    case transitionStatuses.REVIEW_PROVIDER_2:
+    case transitionStatuses.REVIEW_CUSTOMER_1:
+    case transitionStatuses.REVIEW_CUSTOMER_2:
+      return {
+        purple: true,
+        children: i18n.t('inbox.complete'),
+      };
     default:
       return {};
   }

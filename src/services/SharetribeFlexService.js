@@ -310,9 +310,9 @@ class SharetribeSdkService {
         'listing',
         'listing.images',
         'booking',
-        'reviews',
-        'reviews.author',
-        'reviews.subject',
+        // 'reviews',
+        // 'reviews.author',
+        // 'reviews.subject',
       ],
       ...params,
     });
@@ -435,8 +435,10 @@ class SharetribeSdkService {
   getReviews({ listingId }) {
     return this.sdk.reviews.query({
       listingId,
+      state: 'public',
+      include: ['author', 'author.profileImage'],
       // state: 'public',
-      // include: ['author', 'author.profileImage'],
+      // include: ['messages', 'author.profileImage'],
     });
   }
 

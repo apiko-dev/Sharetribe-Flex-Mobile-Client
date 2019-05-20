@@ -114,7 +114,8 @@ function ChatScreen({
           keyExtractor={(item) => item.id}
           inverted
           onEndReached={() => fetchMoreMessages()}
-          ListHeaderComponent={isShowLinkReview && linkToLeaveReview}
+          ListHeaderComponent={linkToLeaveReview}
+          // ListHeaderComponent={isShowLinkReview && linkToLeaveReview}
         />
         <View style={s.rotate}>
           <ShadowContainer>
