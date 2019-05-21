@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Text, View } from 'react-native';
 import RatingBase from './RatingBase';
@@ -21,14 +21,14 @@ const Rating = ({
 }) => {
   const formattedValue = formatValue(value);
   const formattedReviews = `(${reviewsCount})`;
-
+  const [rating, setRating] = React.useState(value);
   return value ? (
     <View style={s.row}>
       {showOnlyRating || (
         <Text style={[s.text, s.value]}>{formattedValue}</Text>
       )}
       <RatingBase
-        startingValue={round(value)}
+        startingValue={round(rating)}
         type="custom"
         ratingCount={5}
         imageSize={imageSize}
@@ -37,6 +37,7 @@ const Rating = ({
         ratingColor={colors.icon.tintColorOrange}
         ratingBackgroundColor={colors.icon.tintColorGray}
         showOnlyRating={showOnlyRating}
+        setRating={setRating}
       />
       {showOnlyRating || (
         <Text style={[s.text, s.reviewCount]}>

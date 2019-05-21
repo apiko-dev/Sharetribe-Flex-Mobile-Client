@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import R from 'ramda';
 import { Image, View, StyleSheet } from 'react-native';
 import { dimensions } from '../../styles';
+import { Touchable } from '..';
 
 const styles = StyleSheet.create({
   container: {
@@ -45,8 +46,11 @@ const Star = ({
   value,
   color,
   showOnlyRating,
+  setRating,
+  index,
 }) => (
-  <View
+  <Touchable
+    onPress={() => setRating(index + 1)}
     style={[
       showOnlyRating && styles.starContainer,
       needMargin && { marginRight: margin },
@@ -61,7 +65,7 @@ const Star = ({
       ]}
     />
     <Image source={image} style={{ width, height }} />
-  </View>
+  </Touchable>
 );
 
 const Rating = ({
@@ -75,6 +79,7 @@ const Rating = ({
   imageWidth,
   imageHeight,
   showOnlyRating,
+  setRating,
 }) => (
   <View
     style={[styles.container, { height: imageHeight || imageSize }]}
@@ -105,6 +110,7 @@ const Rating = ({
           value={itemValue}
           margin={2}
           showOnlyRating={showOnlyRating}
+          setRating={setRating}
         />
       );
     }, ratingCount)}
@@ -118,6 +124,8 @@ Rating.propTypes = {
   // ratingImage: PropTypes.object,
   ratingColor: PropTypes.string,
   ratingBackgroundColor: PropTypes.string,
+  showOnlyRating: PropTypes.bool,
+  setRating: PropTypes.func,
 };
 
 export default Rating;
