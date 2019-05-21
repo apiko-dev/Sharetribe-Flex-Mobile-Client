@@ -67,6 +67,7 @@ export default hoistStatics(
         const { rangeDate } = dates.formatedDate({
           start: startRent,
           end: endRent,
+          withoutFormattingEndDate: true,
         });
 
         props.onChange('formatedDate', rangeDate);
