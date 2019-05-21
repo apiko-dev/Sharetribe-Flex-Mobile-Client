@@ -17,10 +17,10 @@ export default StyleSheet.create({
   },
   input: {
     fontSize: 16,
-    marginTop: isAndroidDevice ? 4 : 0,
+    marginTop: 0,
     color: colors.searchInput.text,
     height: isAndroidDevice
-      ? dimensions.indent * 2.4
+      ? dimensions.indent * 2.7
       : dimensions.indent * 2,
     width: isAndroidDevice
       ? dimensions.indent * 10.5
