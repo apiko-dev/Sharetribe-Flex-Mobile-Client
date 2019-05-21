@@ -89,7 +89,7 @@ export default compose(
       },
       {
         screen: 'LogOut',
-        title: i18n.t('drawer.logOut'),
+        title: i18n.t('drawer.logout'),
         iconName: 'log-out',
         onPress: () => props.logout(),
       },

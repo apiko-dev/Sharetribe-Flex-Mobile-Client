@@ -5,6 +5,7 @@ import {
   withState,
   withHandlers,
   lifecycle,
+  withPropsOnChange,
 } from 'recompose';
 import { LayoutAnimation } from 'react-native';
 import { inject } from 'mobx-react';
@@ -58,6 +59,23 @@ export default hoistStatics(
         transaction,
       ),
     })),
+    withPropsOnChange(['listingAuthor'], (props) => {
+      let userName;
+      if (props.currentTransaction.isViewer) {
+        userName =
+          props.currentTransaction.relationships.customer.profile
+            .displayName;
+      } else {
+        userName =
+          props.currentTransaction.relationships.provider.profile
+            .displayName;
+      }
+
+      props.navigation.setParams({
+        userName,
+      });
+
+    }),
     withStateHandlers(
       {
         isShowDetails: false,

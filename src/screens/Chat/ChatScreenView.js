@@ -135,6 +135,10 @@ function ChatScreen({
   );
 }
 
+ChatScreen.navigationOptions = ({ navigation }) => ({
+  title: navigation.getParam('userName'),
+});
+
 ChatScreen.propTypes = {
   isShowDetails: T.bool,
   setShowDetails: T.func,

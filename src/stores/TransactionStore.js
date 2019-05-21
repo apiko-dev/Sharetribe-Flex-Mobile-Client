@@ -10,6 +10,7 @@ import processJsonApi, {
 import listModel from './utils/listModel';
 import { MessageStore } from './MessagesStore';
 import { Price, Product } from './ListingsStore';
+import { User } from './UserStore';
 import { Booking } from './BookingStore';
 import { Review } from './ReviewsStore';
 import { normalizedIncluded } from './utils/normalize';
@@ -49,6 +50,8 @@ const Relationships = t.model('Relationships', {
   listing: t.maybe(t.reference(Product)),
   booking: t.optional(t.maybeNull(t.reference(Booking))),
   reviews: t.optional(t.maybeNull(t.reference(Review))),
+  customer: t.optional(t.maybeNull(t.reference(User))),
+  provider: t.optional(t.maybeNull(t.reference(User))),
 });
 
 export const Transaction = t
