@@ -42,6 +42,7 @@ export default hoistStatics(
           ['initiateOrderAfterEnquiry', 'isError'],
           currentTransaction,
         ),
+      currentTransaction,
     })),
     withStateHandlers(
       {
@@ -80,7 +81,10 @@ export default hoistStatics(
           const newEndRent = dates.addOneDay(endRent);
 
           onChange('isVisibleModal', true);
-          if (currentTransaction) {
+          if (
+            currentTransaction.lastTransitions ===
+            transitionStatuses.ENQUIRE
+          ) {
             await initiateOrderAfterEnquiry.run({
               transactionId: currentTransaction.id,
               transition: transitionStatuses.AFTER_ENQUIRE,

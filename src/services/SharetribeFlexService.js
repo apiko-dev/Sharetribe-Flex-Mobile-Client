@@ -259,9 +259,6 @@ class SharetribeSdkService {
           'listing',
           'listing.images',
           'booking',
-          'reviews',
-          'reviews.author',
-          'reviews.subject',
         ],
       },
     );
@@ -310,9 +307,9 @@ class SharetribeSdkService {
         'listing',
         'listing.images',
         'booking',
-        'reviews',
-        'reviews.author',
-        'reviews.subject',
+        // 'reviews',
+        // 'reviews.author',
+        // 'reviews.subject',
       ],
       ...params,
     });
@@ -416,13 +413,18 @@ class SharetribeSdkService {
     );
   }
 
-  changeTransactionsView({ transactionId, transition, content }) {
+  changeTransactionsView({
+    transactionId,
+    transition,
+    content,
+    rating,
+  }) {
     return this.sdk.transactions.transition(
       {
-        id: new types.UUID(transactionId),
+        id: transactionId,
         transition,
         params: {
-          reviewRating: 3,
+          reviewRating: rating,
           reviewContent: content,
         },
       },
@@ -434,9 +436,11 @@ class SharetribeSdkService {
 
   getReviews({ listingId }) {
     return this.sdk.reviews.query({
-      listingId: new types.UUID(listingId),
+      listingId,
+      state: 'public',
+      include: ['author', 'author.profileImage'],
       // state: 'public',
-      // include: ['author', 'author.profileImage'],
+      // include: ['messages', 'author.profileImage'],
     });
   }
 

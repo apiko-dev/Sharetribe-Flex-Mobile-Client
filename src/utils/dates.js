@@ -28,6 +28,7 @@ export const formatedDate = ({
   end,
   format = 'dd/MM/yyyy',
   separator = ' - ',
+  withoutFormattingEndDate = false,
 }) => {
   const formatedDateStart = new XDate(start).toString(format);
 
@@ -37,7 +38,11 @@ export const formatedDate = ({
   if (end) {
     // remove one day as in sharetribe the last date is not included
     // in the term of the lease
-    formatedDateEnd = new XDate(end).addDays(-1).toString(format);
+    if (withoutFormattingEndDate) {
+      formatedDateEnd = new XDate(end).toString(format);
+    } else {
+      formatedDateEnd = new XDate(end).addDays(-1).toString(format);
+    }
 
     rangeDate = `${formatedDateStart}${separator}${formatedDateEnd}`;
   }

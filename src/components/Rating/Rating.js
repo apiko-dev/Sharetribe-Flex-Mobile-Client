@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Text, View } from 'react-native';
 import RatingBase from './RatingBase';
@@ -13,24 +13,37 @@ const formatValue = (value) =>
     ? `${value},0`
     : `${value}`.replace('.', ',');
 
-const Rating = ({ value = 0, reviewsCount = 4 }) => {
+const Rating = ({
+  value = 0,
+  reviewsCount = 4,
+  imageSize = 14,
+  showOnlyRating = false,
+}) => {
   const formattedValue = formatValue(value);
   const formattedReviews = `(${reviewsCount})`;
-
+  const [rating, setRating] = React.useState(value);
   return value ? (
     <View style={s.row}>
-      <Text style={[s.text, s.value]}>{formattedValue}</Text>
+      {showOnlyRating || (
+        <Text style={[s.text, s.value]}>{formattedValue}</Text>
+      )}
       <RatingBase
-        startingValue={round(value)}
+        startingValue={round(rating)}
         type="custom"
         ratingCount={5}
-        imageSize={14}
+        imageSize={imageSize}
         style={s.custom}
         ratingImage={ratingImage}
         ratingColor={colors.icon.tintColorOrange}
         ratingBackgroundColor={colors.icon.tintColorGray}
+        showOnlyRating={showOnlyRating}
+        setRating={setRating}
       />
-      <Text style={[s.text, s.reviewCount]}>{formattedReviews}</Text>
+      {showOnlyRating || (
+        <Text style={[s.text, s.reviewCount]}>
+          {formattedReviews}
+        </Text>
+      )}
     </View>
   ) : null;
 };
@@ -38,6 +51,8 @@ const Rating = ({ value = 0, reviewsCount = 4 }) => {
 Rating.propTypes = {
   value: PropTypes.number,
   reviewsCount: PropTypes.number,
+  imageSize: PropTypes.number,
+  showOnlyRating: PropTypes.bool,
 };
 
 export default Rating;

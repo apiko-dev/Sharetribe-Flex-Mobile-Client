@@ -5,13 +5,16 @@ import { StripeService } from '../services';
 import createFlow from './helpers/createFlow';
 import processJsonApi, {
   processJsonApiTransactions,
+  processJsonApiIncluded,
 } from './utils/processJsonApi';
 import listModel from './utils/listModel';
 import { MessageStore } from './MessagesStore';
 import { Price, Product } from './ListingsStore';
+import { User } from './UserStore';
 import { Booking } from './BookingStore';
-import { Reviews } from './ReviewsStore';
+import { Review } from './ReviewsStore';
 import { normalizedIncluded } from './utils/normalize';
+import { transitionStatuses } from '../constants';
 
 // const UnitPrice = t.model('UnitPrice', {});
 // const LineTotal = t.model('LineTotal', {});
@@ -46,6 +49,9 @@ import { normalizedIncluded } from './utils/normalize';
 const Relationships = t.model('Relationships', {
   listing: t.maybe(t.reference(Product)),
   booking: t.optional(t.maybeNull(t.reference(Booking))),
+  reviews: t.optional(t.maybeNull(t.reference(Review))),
+  customer: t.optional(t.maybeNull(t.reference(User))),
+  provider: t.optional(t.maybeNull(t.reference(User))),
 });
 
 export const Transaction = t
@@ -62,7 +68,6 @@ export const Transaction = t
     // lineItems: t.optional(t.maybeNull(LineItems), null),
     protectedData: t.model({}),
     messages: t.optional(MessageStore, {}),
-    reviews: t.optional(Reviews, {}),
     relationships: t.maybe(Relationships),
 
     changeStateTransactions: createFlow(changeStateTransactions),
@@ -91,18 +96,30 @@ export const Transaction = t
   }));
 
 function sentReview(flow, store) {
-  return function* initiatechangeStateTransactionsTransaction() {
+  return function* initiatechangeStateTransactionsTransaction({
+    content,
+    rating,
+  }) {
     try {
       flow.start();
+      const transition1 = store.isViewer
+        ? transitionStatuses.REVIEW_PROVIDER_1
+        : transitionStatuses.REVIEW_CUSTOMER_1;
+      const transition2 = store.isViewer
+        ? transitionStatuses.REVIEW_PROVIDER_2
+        : transitionStatuses.REVIEW_CUSTOMER_2;
+      const transition =
+        store.lastTransition === transitionStatuses.DELIVERED
+          ? transition1
+          : transition2;
 
-      const transactionId = '5cd5601b-4740-4e40-af78-068835ea95e7';
-      const transitionTest = 'transition/review-1-by-provider';
-      const content = 'First review';
-      const test = yield store.Api.changeTransactionsView({
-        transactionId,
-        transition: transitionTest,
+      const res = yield store.Api.changeTransactionsView({
+        transactionId: store.id,
+        transition,
         content,
+        rating,
       });
+
       // const snapshot = processJsonApiTransactions(res.data.data);
       // store.update(snapshot);
 

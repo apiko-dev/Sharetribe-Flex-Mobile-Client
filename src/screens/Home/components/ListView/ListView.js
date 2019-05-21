@@ -7,6 +7,7 @@ import s from './styles';
 import {
   FlatListVertical,
   RenderProductButton,
+  EmptyFlatList,
 } from '../../../../components';
 import FlatListHorizontal from '../FlatListHorizontal/FlatListHorizontal';
 import i18n from '../../../../i18n';
@@ -78,10 +79,13 @@ const ListView = React.memo(
       {!search && !(!!category && !!subCategory) && (
         <FlatList
           style={s.listContainer}
-          data={sectionList}
+          data={listings.length ? sectionList : []}
           keyExtractor={(item) => item}
           emptyListMessage={i18n.t('home.emptyList')}
-          contentContainerStyle={s.list}
+          contentContainerStyle={[
+            listings.length === 0 && s.emptyFlatList,
+            s.list,
+          ]}
           refreshControl={
             <RefreshControl
               refreshing={isRefreshing}
@@ -89,6 +93,9 @@ const ListView = React.memo(
               tintColor={colors.loader.secondary}
             />
           }
+          ListEmptyComponent={() => (
+            <EmptyFlatList message={i18n.t('home.emptyList')} />
+          )}
           renderItem={({ item: categoryItem }) =>
             !!listingsFilter(listings, categoryItem).length && (
               <FlatListHorizontal

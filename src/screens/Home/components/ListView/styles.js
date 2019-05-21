@@ -7,6 +7,10 @@ export default StyleSheet.create({
     alignItems: 'center',
     alignSelf: 'stretch',
   },
+
+  emptyFlatList: {
+    flex: 1,
+  },
   listContainer: {
     flex: 1,
   },

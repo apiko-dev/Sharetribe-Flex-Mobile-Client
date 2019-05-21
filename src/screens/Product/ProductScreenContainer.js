@@ -88,7 +88,12 @@ export default hoistStatics(
         });
       },
 
-      navigationToCalendar: (props) => () => {
+      navigationToCalendar: (props) => async () => {
+        try {
+          await props.getAvailableDays.run(props.product.id);
+        } catch (error) {
+          AlertService.showSomethingWentWrong();
+        }
         props.navigation.navigate(screens.Calendar, {
           product: props.product,
         });

@@ -1,6 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import T from 'prop-types';
+import { observer } from 'mobx-react/custom';
 import s, { styleConstructor } from './styles';
 import { colors, fontSizes } from '../../styles';
 import Text from '../Text/Text';
@@ -74,4 +75,4 @@ Calendar.propTypes = {
   availableDates: T.array,
 };
 
-export default Calendar;
+export default observer(Calendar);
