@@ -259,9 +259,6 @@ class SharetribeSdkService {
           'listing',
           'listing.images',
           'booking',
-          'reviews',
-          'reviews.author',
-          'reviews.subject',
         ],
       },
     );
