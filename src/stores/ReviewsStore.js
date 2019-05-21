@@ -11,14 +11,6 @@ const Relationships = t.model('Relationships', {
   subject: t.maybe(t.reference(User)),
 });
 
-// export const Reviews = t.model('Reviews', {
-//   type: t.frozen(),
-//   state: t.frozen(),
-//   rating: t.frozen(),
-//   content: t.frozen(),
-//   createdAt: t.frozen(),
-//   relationships: t.maybe(Relationships),
-// });
 export const Review = t.model('Reviews', {
   type: t.frozen(),
   state: t.frozen(),
@@ -50,16 +42,15 @@ function fetchReviews(flow, store) {
   return function* fetchReviews() {
     try {
       flow.start();
-      const res = yield store.Api.getReviews({
-        listingId: getEnv(store).relationships.listing.id,
-        // listingId: store.relationships.listing.id,
-      });
-      const entities = normalizedIncluded(res.data.included);
-      const snapshot = res.data.data.map((i) => processJsonApi(i));
-      console.log('SNAPSHOTS_REVIEW', snapshot);
-      // store.update(res.data.data);
-      const test = getRoot(store).reviews;
-      getRoot(store).reviews.merge(res.data.data);
+      // const res = yield store.Api.getReviews({
+      //   listingId: getEnv(store).relationships.listing.id,
+      // });
+      // const entities = normalizedIncluded(res.data.included);
+      // const snapshot = res.data.data.map((i) => processJsonApi(i));
+      // console.log('SNAPSHOTS_REVIEW', snapshot);
+      // // store.update(res.data.data);
+      // const test = getRoot(store).reviews;
+      // getRoot(store).reviews.merge(res.data.data);
 
       // const normalizedEntities = normalizedIncluded(
       //   res.data.included,

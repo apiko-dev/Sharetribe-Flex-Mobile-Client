@@ -109,10 +109,6 @@ function sentReview(flow, store) {
           ? transition1
           : transition2;
 
-      // const transition = transitionStatuses.REVIEW_CUSTOMER_2;
-      // const transactionId = '5cd5601b-4740-4e40-af78-068835ea95e7';
-      // const transitionTest = 'transition/review-1-by-provider';
-      // const content = 'First review';
       const test = yield store.Api.changeTransactionsView({
         transactionId: store.id,
         transition,

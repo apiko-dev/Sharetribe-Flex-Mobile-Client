@@ -1,6 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import T from 'prop-types';
 import {
   Text,
   Avatar,
@@ -24,7 +25,6 @@ const ReviewScreen = ({
       <View style={s.profileContainer}>
         <Avatar user={user} large />
         <Text xmediumSize style={s.userName}>
-          {/* {user.profile.displayName} */}
           {displayName}
         </Text>
         <View style={s.rating}>
@@ -39,8 +39,7 @@ const ReviewScreen = ({
           ]}
           labelStyle={s.descriptionLabel}
           inputStyle={s.descriptionInput}
-          placeholder="Write a review"
-          // placeholder={i18n.t('addNewItem.description')}
+          placeholder={i18n.t('review.writeReview')}
           value={review}
           active={activeField === 'review'}
           onFocus={() => onChange('activeField', 'review')}
@@ -52,7 +51,7 @@ const ReviewScreen = ({
       </View>
       <Button
         primary
-        title="Publish review"
+        title={i18n.t('review.publishReview')}
         containerStyle={s.publishContainer}
         onPress={onSentReview}
       />
@@ -64,6 +63,13 @@ ReviewScreen.navigationOptions = () => ({
   title: 'Add review',
 });
 
-ReviewScreen.propTypes = {};
+ReviewScreen.propTypes = {
+  displayName: T.func,
+  user: T.object,
+  onChange: T.func,
+  review: T.string,
+  activeField: T.string,
+  onSentReview: T.func,
+};
 
 export default ReviewScreen;

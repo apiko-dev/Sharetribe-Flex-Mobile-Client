@@ -8,15 +8,12 @@ const isLarge = isLargeDevice();
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgrouncolor: colors.
   },
   profileContainer: {
-    // flex: 1,
     width: '100%',
     alignItems: 'center',
     paddingTop: dimensions.indent * 1.3,
     backgroundColor: colors.profileScreen.backgroundColorTop,
-    // justifyContent
     paddingVertical: dimensions.indent,
   },
 
@@ -31,7 +28,7 @@ const styles = StyleSheet.create({
     paddingTop: dimensions.indent,
   },
   descriptionInputContainer: {
-    // flex: 1,
+
     height: dimensions.indent * 15,
     paddingTop: dimensions.indent * 0.5,
     paddingBottom: dimensions.indent * 0.5,

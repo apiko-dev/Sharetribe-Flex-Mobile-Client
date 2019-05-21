@@ -396,5 +396,9 @@
   "rentItem": {
     "totalPrice": "Total price",
     "requestToRent": "Request to rent"
+  },
+  "review": {
+    "writeReview": "Write a review",
+    "publishReview": "Publish review"
   }
 }
