@@ -413,13 +413,18 @@ class SharetribeSdkService {
     );
   }
 
-  changeTransactionsView({ transactionId, transition, content }) {
+  changeTransactionsView({
+    transactionId,
+    transition,
+    content,
+    rating,
+  }) {
     return this.sdk.transactions.transition(
       {
         id: transactionId,
         transition,
         params: {
-          reviewRating: 3,
+          reviewRating: rating,
           reviewContent: content,
         },
       },

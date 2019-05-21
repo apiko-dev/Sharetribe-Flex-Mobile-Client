@@ -98,6 +98,7 @@ export const Transaction = t
 function sentReview(flow, store) {
   return function* initiatechangeStateTransactionsTransaction({
     content,
+    rating,
   }) {
     try {
       flow.start();
@@ -112,10 +113,11 @@ function sentReview(flow, store) {
           ? transition1
           : transition2;
 
-      const test = yield store.Api.changeTransactionsView({
+      const res = yield store.Api.changeTransactionsView({
         transactionId: store.id,
         transition,
         content,
+        rating,
       });
 
       // const snapshot = processJsonApiTransactions(res.data.data);
