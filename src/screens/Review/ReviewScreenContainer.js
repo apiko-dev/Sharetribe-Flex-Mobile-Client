@@ -46,9 +46,9 @@ export default hoistStatics(
       },
     ),
     withHandlers({
-      onSentReview: ({ transaction, review }) => () => {
+      onSentReview: ({ transaction, review, rating }) => () => {
         try {
-          transaction.sentReview.run({ content: review });
+          transaction.sentReview.run({ content: review, rating });
         } catch (err) {
           console.log(err);
         }
