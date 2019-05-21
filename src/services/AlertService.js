@@ -77,7 +77,7 @@ class AlertService {
 
   logOut(onPress) {
     this.showAlert(
-      i18n.t('drawer.logOut'),
+      i18n.t('drawer.logout'),
       i18n.t('common.areYouSure'),
       [
         { text: i18n.t('common.ok'), onPress },
