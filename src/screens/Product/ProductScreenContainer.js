@@ -46,6 +46,8 @@ export default hoistStatics(
         ],
         product,
       ),
+      fetchReviewsForListing: stores.reviews.fetchReviewsForListing,
+      fetchReviewsForUser: stores.reviews.fetchReviewsForUser,
     })),
 
     withStateHandlers(
@@ -53,6 +55,8 @@ export default hoistStatics(
         currentIndex: 0,
         tabIndex: 0,
         availableDates: {},
+        averageRatingUser: 0,
+        averageRatingList: 0,
       },
       {
         onChangeIndex: () => (index) => ({
@@ -136,6 +140,21 @@ export default hoistStatics(
           await this.props.getAvailableDays.run(
             this.props.product.id,
           );
+          const averageRatingListing = await this.props.fetchReviewsForListing.run(
+            {
+              listingId: this.props.product.id,
+            },
+          );
+          this.props.onChange(
+            'averageRatingListing',
+            averageRatingListing,
+          );
+          const averageRatingUser = await this.props.fetchReviewsForUser.run(
+            {
+              subjectId: this.props.author.id,
+            },
+          );
+          this.props.onChange('averageRatingUser', averageRatingUser);
         } catch (error) {
           AlertService.showSomethingWentWrong();
         }
