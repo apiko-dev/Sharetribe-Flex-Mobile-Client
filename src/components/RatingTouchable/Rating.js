@@ -8,22 +8,10 @@ import { colors } from '../../styles';
 const ratingImage = require('../../assets/png/rate-star.png');
 
 const round = (value) => Math.round(value * 10) / 10;
-const formatValue = (value) =>
-  `${value}`.indexOf('.') === -1
-    ? `${value},0`
-    : `${value}`.replace('.', ',');
 
-const Rating = ({
-  value = 0,
-  reviewsCount = 4,
-  imageSize = 14,
-  showAverageRating = false,
-}) => {
-  const formattedValue = formatValue(value);
-  const formattedReviews = `(${reviewsCount})`;
+const Rating = ({ value = 0, imageSize = 14, setRating }) => {
   return (
     <View style={s.row}>
-      <Text style={[s.text, s.value]}>{formattedValue}</Text>
       <RatingBase
         startingValue={round(value)}
         type="custom"
@@ -33,21 +21,16 @@ const Rating = ({
         ratingImage={ratingImage}
         ratingColor={colors.icon.tintColorOrange}
         ratingBackgroundColor={colors.icon.tintColorGray}
+        setRating={setRating}
       />
-      {!showAverageRating || (
-        <Text style={[s.text, s.reviewCount]}>
-          {formattedReviews}
-        </Text>
-      )}
     </View>
   );
 };
 
 Rating.propTypes = {
   value: PropTypes.number,
-  reviewsCount: PropTypes.number,
+  setRating: PropTypes.func,
   imageSize: PropTypes.number,
-  showAverageRating: PropTypes.bool,
 };
 
 export default Rating;
