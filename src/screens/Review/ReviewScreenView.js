@@ -5,7 +5,7 @@ import T from 'prop-types';
 import {
   Text,
   Avatar,
-  Rating,
+  RatingTouchable,
   InputForm,
   Button,
 } from '../../components';
@@ -19,6 +19,8 @@ const ReviewScreen = ({
   review,
   activeField,
   onSentReview,
+  rating,
+  setRating,
 }) => {
   return (
     <KeyboardAwareScrollView style={s.container}>
@@ -28,7 +30,11 @@ const ReviewScreen = ({
           {displayName}
         </Text>
         <View style={s.rating}>
-          <Rating value={4} imageSize={34} showOnlyRating />
+          <RatingTouchable
+            value={rating}
+            imageSize={34}
+            setRating={setRating}
+          />
         </View>
       </View>
       <View style={s.reviewContainer}>
@@ -70,6 +76,8 @@ ReviewScreen.propTypes = {
   review: T.string,
   activeField: T.string,
   onSentReview: T.func,
+  rating: T.number,
+  setRating: T.func,
 };
 
 export default ReviewScreen;

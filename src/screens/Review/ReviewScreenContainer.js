@@ -40,6 +40,9 @@ export default hoistStatics(
         rating: '',
       }),
       {
+        setRating: () => (value) => ({
+          rating: value,
+        }),
         onChange: () => (field, value) => ({
           [field]: value,
         }),
