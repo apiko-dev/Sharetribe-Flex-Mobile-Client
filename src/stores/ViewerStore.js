@@ -5,11 +5,14 @@ import createFlow from './helpers/createFlow';
 import processJsonApi from './utils/processJsonApi';
 import { normalizedIncluded } from './utils/normalize';
 import normalizeError from './utils/normalizeError';
+import { ReviewStore } from './ReviewsStore';
 
 const Viewer = types.compose(
   User,
   types.model('Viewer', {
     id: types.maybe(types.string),
+
+    reviews: types.optional(ReviewStore, {}),
   }),
 );
 

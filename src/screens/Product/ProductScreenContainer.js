@@ -48,6 +48,8 @@ export default hoistStatics(
       ),
       fetchReviewsForListing: stores.reviews.fetchReviewsForListing,
       fetchReviewsForUser: stores.reviews.fetchReviewsForUser,
+      reviews: stores.viewer.user.reviews.list.asArray,
+      // reviews: stores.reviews.list.asArray,
     })),
 
     withStateHandlers(

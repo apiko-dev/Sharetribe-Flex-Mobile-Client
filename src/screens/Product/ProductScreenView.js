@@ -19,6 +19,7 @@ import {
   Touchable,
   TabHeader,
   Footer,
+  ReviewsList,
 } from '../../components';
 import Label from './components/Label/Label';
 import DescriptionTab from './components/DescriptionTab/DescriptionTabContainer';
@@ -57,6 +58,7 @@ const ProductScreen = ({
   onSend,
   averageRatingUser,
   averageRatingListing,
+  reviews,
 }) => (
   <ScrollView style={s.container} bounces={false}>
     <View style={s.carouselContainer}>
@@ -152,7 +154,7 @@ const ProductScreen = ({
         </Tab>
         <Tab lazy>
           <View style={s.tabReviews}>
-            <Text style={s.paragraph}>Second tab</Text>
+            <ReviewsList reviews={reviews} />
           </View>
         </Tab>
       </TabView>
@@ -205,5 +207,6 @@ ProductScreen.propTypes = {
   isSending: T.bool,
   averageRatingUser: T.number,
   averageRatingListing: T.number,
+  reviews: T.array,
 };
 export default observer(ProductScreen);

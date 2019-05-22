@@ -13,9 +13,10 @@ import {
   DrawerButton,
   HeaderBackButton,
   ExpandableText,
+  ReviewsList,
 } from '../../components';
 import i18n from '../../i18n';
-import { ListingsView, ReviewsView } from './components';
+import { ListingsView } from './components';
 import { dimensions, fontSizes, colors } from '../../styles';
 
 const ProfileScreen = ({
@@ -85,10 +86,7 @@ const ProfileScreen = ({
           />
         </Tab>
         <Tab>
-          <ReviewsView
-            reviews={reviews}
-            averageRating={averageRating}
-          />
+          <ReviewsList reviews={reviews} />
         </Tab>
       </TabView>
     </View>

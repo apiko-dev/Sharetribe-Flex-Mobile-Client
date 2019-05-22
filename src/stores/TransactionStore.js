@@ -102,16 +102,17 @@ function sentReview(flow, store) {
   }) {
     try {
       flow.start();
-      const transition1 = store.isViewer
-        ? transitionStatuses.REVIEW_PROVIDER_1
-        : transitionStatuses.REVIEW_CUSTOMER_1;
-      const transition2 = store.isViewer
-        ? transitionStatuses.REVIEW_PROVIDER_2
-        : transitionStatuses.REVIEW_CUSTOMER_2;
-      const transition =
-        store.lastTransition === transitionStatuses.DELIVERED
-          ? transition1
-          : transition2;
+      // const transition1 = store.isViewer
+      //   ? transitionStatuses.REVIEW_PROVIDER_1
+      //   : transitionStatuses.REVIEW_CUSTOMER_1;
+      // const transition2 = store.isViewer
+      //   ? transitionStatuses.REVIEW_PROVIDER_2
+      //   : transitionStatuses.REVIEW_CUSTOMER_2;
+      // const transition =
+      //   store.lastTransition === transitionStatuses.DELIVERED
+      //     ? transition1
+      //     : transition2;
+      const transition = transitionStatuses.REVIEW_CUSTOMER_1;
 
       const res = yield store.Api.changeTransactionsView({
         transactionId: store.id,
