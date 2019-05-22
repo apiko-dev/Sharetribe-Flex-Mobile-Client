@@ -1,6 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import T from 'prop-types';
+import { observer } from 'mobx-react/custom';
 import { FlatListVertical, UserInfo } from '../../../../components';
 import i18n from '../../../../i18n';
 import s from './styles';
@@ -27,4 +28,4 @@ ReviewsView.propTypes = {
   reviews: T.array,
 };
 
-export default ReviewsView;
+export default observer(ReviewsView);

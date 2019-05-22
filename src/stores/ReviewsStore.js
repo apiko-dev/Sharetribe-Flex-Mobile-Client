@@ -3,6 +3,7 @@ import { User } from './UserStore';
 import { Product } from './ListingsStore';
 import listModel from './utils/listModel';
 import processJsonApi from './utils/processJsonApi';
+// import { averageRating } from './utils/rating';
 import createFlow from './helpers/createFlow';
 import { normalizedIncluded } from './utils/normalize';
 
@@ -37,7 +38,8 @@ export const ReviewStore = t
   .model('ReviewsStore', {
     list: ReviewList,
 
-    fetchReviews: createFlow(fetchReviews),
+    fetchReviewsForUser: createFlow(fetchReviewsForUser),
+    fetchReviewsForListing: createFlow(fetchReviewsForListing),
   })
   .views((store) => ({
     get Api() {
@@ -45,22 +47,64 @@ export const ReviewStore = t
     },
   }));
 
-function fetchReviews(flow, store) {
-  return function* fetchReviews({ subjectId }) {
+function fetchReviewsForUser(flow, store) {
+  return function* fetchReviewsForUser({ subjectId }) {
     try {
       flow.start();
-
-      const res = yield store.Api.getReviews({
+      let averageRating = 0;
+      const res = yield store.Api.fetchReviewsForUser({
         subjectId,
+        perPage: 4,
+        page: 1,
       });
-
-      const normalizedEntities = normalizedIncluded(
-        res.data.included,
+      const ratings = res.data.data.map(
+        (i) => processJsonApi(i).rating,
       );
-      getRoot(store).entities.merge(normalizedEntities);
-      store.list.set(res.data.data);
-
+      if (ratings.length > 0) {
+        const rating = ratings.reduce((acc, current) => {
+          acc + current;
+        });
+        averageRating = rating / ratings.length;
+        const normalizedEntities = normalizedIncluded(
+          res.data.included,
+        );
+        getRoot(store).entities.merge(normalizedEntities);
+        store.list.set(res.data.data);
+      }
       flow.success();
+      return averageRating;
+    } catch (err) {
+      flow.failed(err, true);
+    }
+  };
+}
+
+function fetchReviewsForListing(flow, store) {
+  return function* fetchReviewsForListing({ listingId }) {
+    try {
+      flow.start();
+      let averageRating = 0;
+      const res = yield store.Api.fetchReviewsForListing({
+        listingId,
+        perPage: 4,
+        page: 1,
+      });
+      const ratings = res.data.data.map(
+        (i) => processJsonApi(i).rating,
+      );
+      if (ratings.length > 0) {
+        const rating = ratings.reduce((acc, current) => {
+          acc + current;
+        });
+        averageRating = rating / ratings.length;
+        const normalizedEntities = normalizedIncluded(
+          res.data.included,
+        );
+        getRoot(store).entities.merge(normalizedEntities);
+        store.list.set(res.data.data);
+      }
+      flow.success();
+      return averageRating;
     } catch (err) {
       flow.failed(err, true);
     }

@@ -3,6 +3,7 @@ import React from 'react';
 import { ScrollView, View, RefreshControl } from 'react-native';
 import T from 'prop-types';
 import { TabView, Tab } from 'react-native-easy-tabs';
+import { observer } from 'mobx-react/custom';
 import s from './styles';
 import {
   Text,
@@ -26,6 +27,7 @@ const ProfileScreen = ({
   isRefreshing,
   refresh,
   reviews,
+  averageRating,
 }) => (
   <ScrollView
     style={s.container}
@@ -43,7 +45,7 @@ const ProfileScreen = ({
         {user.profile.displayName}
       </Text>
       <View style={s.rating}>
-        <Rating value={4} showAverageRating />
+        <Rating value={averageRating} />
       </View>
       <ExpandableText
         containerStyle={s.bio}
@@ -83,7 +85,10 @@ const ProfileScreen = ({
           />
         </Tab>
         <Tab>
-          <ReviewsView reviews={reviews} />
+          <ReviewsView
+            reviews={reviews}
+            averageRating={averageRating}
+          />
         </Tab>
       </TabView>
     </View>
@@ -102,6 +107,7 @@ ProfileScreen.navigationOptions = ({ navigation }) => ({
 ProfileScreen.propTypes = {
   user: T.object,
   selectedTabIndex: T.number,
+  averageRating: T.number,
   onChangeTabIndex: T.func,
   listings: T.array,
   reviews: T.array,
@@ -110,4 +116,4 @@ ProfileScreen.propTypes = {
   refresh: T.func,
 };
 
-export default ProfileScreen;
+export default observer(ProfileScreen);

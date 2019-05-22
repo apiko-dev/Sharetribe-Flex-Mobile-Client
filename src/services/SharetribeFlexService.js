@@ -434,10 +434,22 @@ class SharetribeSdkService {
     );
   }
 
-  getReviews({ subjectId }) {
+  fetchReviewsForUser({ subjectId, perPage, page }) {
     return this.sdk.reviews.query({
       subjectId,
       state: 'public',
+      perPage,
+      page,
+      include: ['author', 'author.profileImage'],
+    });
+  }
+
+  fetchReviewsForListing({ listingId, perPage, page }) {
+    return this.sdk.reviews.query({
+      listingId,
+      state: 'public',
+      perPage,
+      page,
       include: ['author', 'author.profileImage'],
     });
   }

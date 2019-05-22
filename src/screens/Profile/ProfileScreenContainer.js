@@ -27,7 +27,7 @@ export default hoistStatics(
       fetchParticularUserListings:
         listings.fetchParticularUserListings,
       fetchOwnListings: listings.fetchOwnListings,
-      fetchReviews: reviews.fetchReviews,
+      fetchReviewsForUser: reviews.fetchReviewsForUser,
       reviews: reviews.list.asArray,
     })),
 
@@ -35,6 +35,7 @@ export default hoistStatics(
       {
         isRefreshing: false,
         selectedTabIndex: 0,
+        averageRating: 0,
       },
       {
         onChangeTabIndex: () => (index) => ({
@@ -93,10 +94,17 @@ export default hoistStatics(
       renderComponent(ScreenLoader),
     ),
     lifecycle({
-      componentDidMount() {
-        this.props.fetchReviews.run({
-          subjectId: this.props.user.id,
-        });
+      async componentDidMount() {
+        try {
+          const averageRating = await this.props.fetchReviewsForUser.run(
+            {
+              subjectId: this.props.user.id,
+            },
+          );
+          this.props.onChange('averageRating', averageRating);
+        } catch (err) {
+          console.log(err);
+        }
       },
     }),
   ),
