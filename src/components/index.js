@@ -59,3 +59,4 @@ export {
 export { default as RentItem } from './RentItem/RentItem';
 export { default as Calendar } from './Calendar/Calendar';
 export { default as Footer } from './Footer/Footer';
+export { default as UserInfo } from './UserInfo/UserInfo';

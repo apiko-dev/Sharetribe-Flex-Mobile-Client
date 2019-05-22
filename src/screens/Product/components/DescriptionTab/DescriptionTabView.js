@@ -8,6 +8,7 @@ import LeaseStatus from '../LeaseStatus/LeaseStatus';
 import {
   ShadowContainer,
   ExpandableText,
+  UserInfo,
 } from '../../../../components';
 import { fontSizes } from '../../../../styles';
 
@@ -48,10 +49,11 @@ const DescriptionTab = ({
       <Location location={location} geolocation={geolocation} />
     </ShadowContainer>
     <ShadowContainer>
-      <Seller
-        // image={image}
+      <UserInfo
         user={user}
         rating={4}
+        showViewProfile
+        showAverageRating
       />
     </ShadowContainer>
   </View>

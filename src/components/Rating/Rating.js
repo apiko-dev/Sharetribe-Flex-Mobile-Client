@@ -18,6 +18,7 @@ const Rating = ({
   reviewsCount = 4,
   imageSize = 14,
   showOnlyRating = false,
+  showAverageRating = false,
 }) => {
   const formattedValue = formatValue(value);
   const formattedReviews = `(${reviewsCount})`;
@@ -39,7 +40,7 @@ const Rating = ({
         showOnlyRating={showOnlyRating}
         setRating={setRating}
       />
-      {showOnlyRating || (
+      {showOnlyRating || !showAverageRating || (
         <Text style={[s.text, s.reviewCount]}>
           {formattedReviews}
         </Text>
@@ -53,6 +54,7 @@ Rating.propTypes = {
   reviewsCount: PropTypes.number,
   imageSize: PropTypes.number,
   showOnlyRating: PropTypes.bool,
+  showAverageRating: PropTypes.bool,
 };
 
 export default Rating;

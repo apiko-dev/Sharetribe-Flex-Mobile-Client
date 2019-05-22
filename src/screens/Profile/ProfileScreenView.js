@@ -25,6 +25,7 @@ const ProfileScreen = ({
   goToProduct,
   isRefreshing,
   refresh,
+  reviews,
 }) => (
   <ScrollView
     style={s.container}
@@ -42,7 +43,7 @@ const ProfileScreen = ({
         {user.profile.displayName}
       </Text>
       <View style={s.rating}>
-        <Rating value={4} />
+        <Rating value={4} showAverageRating />
       </View>
       <ExpandableText
         containerStyle={s.bio}
@@ -82,7 +83,7 @@ const ProfileScreen = ({
           />
         </Tab>
         <Tab>
-          <ReviewsView reviews={[]} />
+          <ReviewsView reviews={reviews} />
         </Tab>
       </TabView>
     </View>
@@ -103,6 +104,7 @@ ProfileScreen.propTypes = {
   selectedTabIndex: T.number,
   onChangeTabIndex: T.func,
   listings: T.array,
+  reviews: T.array,
   goToProduct: T.func,
   isRefreshing: T.bool,
   refresh: T.func,

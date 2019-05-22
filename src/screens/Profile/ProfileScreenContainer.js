@@ -28,6 +28,7 @@ export default hoistStatics(
         listings.fetchParticularUserListings,
       fetchOwnListings: listings.fetchOwnListings,
       fetchReviews: reviews.fetchReviews,
+      reviews: reviews.list.asArray,
     })),
 
     withStateHandlers(
