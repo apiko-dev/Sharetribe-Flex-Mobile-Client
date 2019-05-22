@@ -6,6 +6,7 @@ import {
   renderComponent,
   withPropsOnChange,
   withHandlers,
+  lifecycle,
 } from 'recompose';
 import { inject } from 'mobx-react';
 import { withParamsToProps } from '../../utils/enhancers';
@@ -17,7 +18,7 @@ export default hoistStatics(
   compose(
     withParamsToProps('user'),
 
-    inject(({ listings }, { user }) => ({
+    inject(({ listings, reviews }, { user }) => ({
       listings: user.isViewer
         ? listings.ownList.asArray
         : listings.particularUserList.asArray,
@@ -26,6 +27,7 @@ export default hoistStatics(
       fetchParticularUserListings:
         listings.fetchParticularUserListings,
       fetchOwnListings: listings.fetchOwnListings,
+      fetchReviews: reviews.fetchReviews,
     })),
 
     withStateHandlers(
@@ -89,5 +91,12 @@ export default hoistStatics(
       (props) => !props.isRefreshing && props.isLoadingListings,
       renderComponent(ScreenLoader),
     ),
+    lifecycle({
+      componentDidMount() {
+        this.props.fetchReviews.run({
+          subjectId: this.props.user.id,
+        });
+      },
+    }),
   ),
 )(ProfileScreenView);

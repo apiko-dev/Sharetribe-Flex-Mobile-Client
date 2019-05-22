@@ -1,9 +1,10 @@
-import { types as t, getEnv } from 'mobx-state-tree';
+import { types as t, getEnv, getRoot } from 'mobx-state-tree';
 import { User } from './UserStore';
 import { Product } from './ListingsStore';
 import listModel from './utils/listModel';
 import processJsonApi from './utils/processJsonApi';
 import createFlow from './helpers/createFlow';
+import { normalizedIncluded } from './utils/normalize';
 
 const Relationships = t.model('Relationships', {
   author: t.maybe(t.reference(User)),
@@ -12,13 +13,13 @@ const Relationships = t.model('Relationships', {
 });
 
 export const Review = t.model('Reviews', {
-  type: t.frozen(),
-  state: t.frozen(),
-  rating: t.frozen(),
-  content: t.frozen(),
-  createdAt: t.frozen(),
-  relationships: t.frozen(),
-  // relationships: t.maybe(Relationships),
+  id: t.identifier,
+  type: t.string,
+  state: t.string,
+  rating: t.number,
+  content: t.string,
+  createdAt: t.Date,
+  relationships: t.maybe(Relationships),
 });
 
 export const ReviewList = listModel('ReviewList', {
@@ -32,32 +33,32 @@ function responseTransformer(res) {
   return res.map(processJsonApi);
 }
 
-export const ReviewStore = t.model('ReviewsStore', {
-  list: ReviewList,
+export const ReviewStore = t
+  .model('ReviewsStore', {
+    list: ReviewList,
 
-  fetchReviews: createFlow(fetchReviews),
-});
+    fetchReviews: createFlow(fetchReviews),
+  })
+  .views((store) => ({
+    get Api() {
+      return getEnv(store).Api;
+    },
+  }));
 
 function fetchReviews(flow, store) {
-  return function* fetchReviews() {
+  return function* fetchReviews({ subjectId }) {
     try {
       flow.start();
-      // const res = yield store.Api.getReviews({
-      //   listingId: getEnv(store).relationships.listing.id,
-      // });
-      // const entities = normalizedIncluded(res.data.included);
-      // const snapshot = res.data.data.map((i) => processJsonApi(i));
-      // console.log('SNAPSHOTS_REVIEW', snapshot);
-      // // store.update(res.data.data);
-      // const test = getRoot(store).reviews;
-      // getRoot(store).reviews.merge(res.data.data);
 
-      // const normalizedEntities = normalizedIncluded(
-      //   res.data.included,
-      // );
-      // getRoot(store).entities.merge(normalizedEntities);
+      const res = yield store.Api.getReviews({
+        subjectId,
+      });
 
-      // store.list.append(res.data.data);
+      const normalizedEntities = normalizedIncluded(
+        res.data.included,
+      );
+      getRoot(store).entities.merge(normalizedEntities);
+      store.list.set(res.data.data);
 
       flow.success();
     } catch (err) {

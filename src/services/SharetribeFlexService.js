@@ -434,13 +434,11 @@ class SharetribeSdkService {
     );
   }
 
-  getReviews({ listingId }) {
+  getReviews({ subjectId }) {
     return this.sdk.reviews.query({
-      listingId,
+      subjectId,
       state: 'public',
       include: ['author', 'author.profileImage'],
-      // state: 'public',
-      // include: ['messages', 'author.profileImage'],
     });
   }
 
