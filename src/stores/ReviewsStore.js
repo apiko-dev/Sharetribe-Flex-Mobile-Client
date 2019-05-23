@@ -15,11 +15,11 @@ const Relationships = t.model('Relationships', {
 
 export const Review = t.model('Reviews', {
   id: t.identifier,
-  type: t.string,
-  state: t.string,
-  rating: t.number,
-  content: t.string,
-  createdAt: t.Date,
+  type: t.maybeNull(t.string),
+  state: t.maybeNull(t.string),
+  rating: t.maybeNull(t.number),
+  content: t.maybeNull(t.string),
+  createdAt: t.maybeNull(t.Date),
   relationships: t.maybe(Relationships),
 });
 
@@ -54,7 +54,7 @@ function fetchReviewsForUser(flow, store) {
       let averageRating = 0;
       const res = yield store.Api.fetchReviewsForUser({
         subjectId,
-        perPage: 4,
+        perPage: 10,
         page: 1,
       });
       const ratings = res.data.data.map(
@@ -86,7 +86,7 @@ function fetchReviewsForListing(flow, store) {
       let averageRating = 0;
       const res = yield store.Api.fetchReviewsForListing({
         listingId,
-        perPage: 4,
+        perPage: 10,
         page: 1,
       });
       const ratings = res.data.data.map(

@@ -5,6 +5,7 @@ import Rating from '../../../Rating/Rating';
 import s from './styles';
 
 function RatingTable({ ratings, averageRating }) {
+  const checkRating = isNaN(averageRating) ? 0 : averageRating;
   const normalizeRating = ratings.reduce(
     (acc, current) => {
       try {
@@ -58,7 +59,7 @@ function RatingTable({ ratings, averageRating }) {
     <View style={s.container}>
       <View style={s.ratingContainer}>
         <Rating
-          value={averageRating}
+          value={checkRating}
           containerStyle={s.ratingContainerStyle}
           ratingNumberStyle={s.ratingNumberStyle}
           ratingCountStyle={s.ratingCountStyle}

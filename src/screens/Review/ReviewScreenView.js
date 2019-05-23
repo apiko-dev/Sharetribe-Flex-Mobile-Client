@@ -70,7 +70,7 @@ ReviewScreen.navigationOptions = () => ({
 });
 
 ReviewScreen.propTypes = {
-  displayName: T.func,
+  displayName: T.string,
   user: T.object,
   onChange: T.func,
   review: T.string,

@@ -430,27 +430,31 @@ class SharetribeSdkService {
       },
       {
         expand: true,
+        include: ['reviews', 'reviews.author', 'reviews.subject'],
       },
     );
   }
 
   fetchReviewsForUser({ subjectId, perPage, page }) {
     return this.sdk.reviews.query({
+      // subjectId,
       subjectId,
-      state: 'public',
+      // state: 'public',
+      // type: 'ofCustomer',
       perPage,
       page,
-      include: ['author', 'author.profileImage'],
+      include: ['author', 'author.profileImage', 'listing'],
     });
   }
 
   fetchReviewsForListing({ listingId, perPage, page }) {
     return this.sdk.reviews.query({
       listingId,
-      state: 'public',
+      // state: 'public',
       perPage,
       page,
-      include: ['author', 'author.profileImage'],
+      // type: 'ofCustomer',
+      include: ['author', 'author.profileImage', 'listing'],
     });
   }
 

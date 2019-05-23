@@ -121,7 +121,6 @@ function sentReview(flow, store) {
         rating,
       });
 
-      // const snapshot = processJsonApiTransactions(res.data.data);
       // store.update(snapshot);
 
       flow.success();
@@ -405,3 +404,217 @@ function fetchMoreTransactions(flow, store) {
 }
 
 export default TransactionStore;
+
+JW->MR
+review by customer 1
+const data = {
+  status: 200,
+  data: {
+    data: {
+      id: { uuid: '5ce5649e-ea54-4f4e-b84e-1fe33f31756f' },
+      type: 'transaction',
+      attributes: {
+        processName: 'preauth-with-nightly-booking',
+        transitions: [
+          {
+            transition: 'transition/request',
+            createdAt: '2019-05-22T15:02:55.967Z',
+            by: 'customer',
+          },
+          {
+            transition: 'transition/accept',
+            createdAt: '2019-05-22T15:07:45.159Z',
+            by: 'provider',
+          },
+          {
+            transition: 'transition/complete',
+            createdAt: '2019-05-23T00:00:30.376Z',
+            by: 'system',
+          },
+          {
+            transition: 'transition/review-1-by-customer',
+            createdAt: '2019-05-23T13:17:16.204Z',
+            by: 'customer',
+          },
+        ],
+        payoutTotal: { amount: 8010, currency: 'USD' },
+        processVersion: 2,
+        createdAt: '2019-05-22T15:02:54.713Z',
+        lastTransitionedAt: '2019-05-23T13:17:16.204Z',
+        protectedData: {},
+        lineItems: [
+          {
+            code: 'line-item/night',
+            unitPrice: { amount: 8900, currency: 'USD' },
+            lineTotal: { amount: 8900, currency: 'USD' },
+            reversal: false,
+            includeFor: ['customer', 'provider'],
+            quantity: { value: '1' },
+          },
+          {
+            code: 'line-item/provider-commission',
+            unitPrice: { amount: 8900, currency: 'USD' },
+            lineTotal: { amount: -890, currency: 'USD' },
+            reversal: false,
+            includeFor: ['provider'],
+            percentage: { value: '-10.0' },
+          },
+        ],
+        lastTransition: 'transition/review-1-by-customer',
+        payinTotal: { amount: 8900, currency: 'USD' },
+      },
+      relationships: {
+        provider: {
+          data: {
+            id: { uuid: '5cd190e1-137a-428e-8cc9-0f29921f2526' },
+            type: 'user',
+          },
+        },
+        customer: {
+          data: {
+            id: { uuid: '5cd188f0-1915-4c64-abea-00ebb6c3e235' },
+            type: 'user',
+          },
+        },
+        listing: {
+          data: {
+            id: { uuid: '5cdd98e1-1f09-460e-80d6-214e44879e00' },
+            type: 'listing',
+          },
+        },
+        reviews: {
+          data: [
+            {
+              id: { uuid: '5ce69d5c-6266-415e-b2e3-d5a311d82f18' },
+              type: 'review',
+            },
+          ],
+        },
+        messages: {
+          data: [
+            {
+              id: { uuid: '5ce564a0-7344-43e3-96df-944f145bf279' },
+              type: 'message',
+            },
+            {
+              id: { uuid: '5ce69597-643b-4f0e-91fb-562da2bc9e9d' },
+              type: 'message',
+            },
+            {
+              id: { uuid: '5ce69b9b-0e54-472c-a8db-3ea226a0864c' },
+              type: 'message',
+            },
+          ],
+        },
+      },
+    },
+    included: [
+      {
+        id: { uuid: '5cd190e1-137a-428e-8cc9-0f29921f2526' },
+        type: 'user',
+        attributes: {
+          banned: false,
+          deleted: false,
+          createdAt: '2019-05-07T14:06:25.334Z',
+          profile: {
+            displayName: 'Mark Ruffalo',
+            abbreviatedName: 'MR',
+            bio: null,
+            publicData: {},
+          },
+        },
+        relationships: { profileImage: { data: null } },
+      },
+      {
+        id: { uuid: '5cd188f0-1915-4c64-abea-00ebb6c3e235' },
+        type: 'user',
+        attributes: {
+          banned: false,
+          deleted: false,
+          createdAt: '2019-05-07T13:32:33.274Z',
+          profile: {
+            displayName: 'John Wick',
+            abbreviatedName: 'JW',
+            bio: null,
+            publicData: {},
+          },
+        },
+        relationships: { profileImage: { data: null } },
+      },
+      {
+        id: { uuid: '5cdd98e1-1f09-460e-80d6-214e44879e00' },
+        type: 'listing',
+        attributes: {
+          description: 'Bxbzbxbx d d dd. D d',
+          deleted: false,
+          geolocation: { lat: 34.094994, lng: -118.332245 },
+          createdAt: '2019-05-16T17:07:45.680Z',
+          state: 'published',
+          title: 'Wood',
+          publicData: {
+            brand: 'Hh',
+            category: 'Sport',
+            description: 'Bxbzbxbx d d dd. D d',
+            level: 'Dfg',
+            location: 'Savannah, GA, USA',
+            price: 8900,
+            subCategory: 'Football',
+            title: 'Wood',
+          },
+          price: { amount: 8900, currency: 'USD' },
+          metadata: {},
+        },
+      },
+      {
+        id: { uuid: '5ce69d5c-6266-415e-b2e3-d5a311d82f18' },
+        type: 'review',
+        attributes: {
+          type: 'ofProvider',
+          state: 'pending',
+          createdAt: '2019-05-23T13:17:16.189Z',
+          rating: null,
+          content: null,
+        },
+        relationships: {
+          author: {
+            data: {
+              id: { uuid: '5cd188f0-1915-4c64-abea-00ebb6c3e235' },
+              type: 'user',
+            },
+          },
+          subject: {
+            data: {
+              id: { uuid: '5cd190e1-137a-428e-8cc9-0f29921f2526' },
+              type: 'user',
+            },
+          },
+        },
+      },
+      {
+        id: { uuid: '5ce564a0-7344-43e3-96df-944f145bf279' },
+        type: 'message',
+        attributes: {
+          content:
+            'REVIEW_PROVIDER_1 REVIEW_PROVIDER_1 REVIEW_PROVIDER_1 REVIEW_PROVIDER_1 REVIEW_PROVIDER_1 REVIEW_PROVIDER_1 REVIEW_PROVIDER_1 REVIEW_PROVIDER_1 REVIEW_PROVIDER_1 REVIEW_PROVIDER_1 ',
+          createdAt: '2019-05-22T15:02:56.337Z',
+        },
+      },
+      {
+        id: { uuid: '5ce69597-643b-4f0e-91fb-562da2bc9e9d' },
+        type: 'message',
+        attributes: {
+          content: 'Ннн',
+          createdAt: '2019-05-23T12:44:07.342Z',
+        },
+      },
+      {
+        id: { uuid: '5ce69b9b-0e54-472c-a8db-3ea226a0864c' },
+        type: 'message',
+        attributes: {
+          content: 'T',
+          createdAt: '2019-05-23T13:09:47.913Z',
+        },
+      },
+    ],
+  },
+};

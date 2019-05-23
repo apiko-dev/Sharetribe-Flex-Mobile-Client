@@ -7,7 +7,6 @@ const styles = StyleSheet.create({
     padding: dimensions.indent,
     paddingBottom: 0,
     backgroundColor: colors.seller.background,
-    marginBottom: dimensions.indent * 1.5,
     marginTop: dimensions.indent * 0.7,
     minHeight: dimensions.indent * 7.6,
   },

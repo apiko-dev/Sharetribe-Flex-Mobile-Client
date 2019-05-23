@@ -7,6 +7,8 @@ import RatingTable from './components/RatingTable/RatingTable';
 import i18n from '../../i18n';
 import s from './styles';
 
+const ratings = [2, 4, 4, 4, 5, 3, 1, 1, 3, 3, 4];
+
 const ReviewsView = ({ reviews, averageRating }) => (
   <View style={s.container}>
     <FlatListVertical
