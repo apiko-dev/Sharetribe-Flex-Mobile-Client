@@ -86,7 +86,10 @@ const ProfileScreen = ({
           />
         </Tab>
         <Tab>
-          <ReviewsList reviews={reviews} />
+          <ReviewsList
+            reviews={reviews}
+            averageRating={averageRating}
+          />
         </Tab>
       </TabView>
     </View>

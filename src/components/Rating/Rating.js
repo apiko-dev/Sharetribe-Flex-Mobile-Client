@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Text, View } from 'react-native';
+import { Text, View, ViewPropTypes } from 'react-native';
 import RatingBase from './RatingBase';
 import s from './styles';
 import { colors } from '../../styles';
@@ -18,12 +18,17 @@ const Rating = ({
   reviewsCount = 4,
   imageSize = 14,
   showAverageRating = false,
+  containerStyle,
+  ratingNumberStyle,
+  ratingCountStyle,
 }) => {
   const formattedValue = formatValue(value);
   const formattedReviews = `(${reviewsCount})`;
   return (
-    <View style={s.row}>
-      <Text style={[s.text, s.value]}>{formattedValue}</Text>
+    <View style={[s.row, containerStyle]}>
+      <Text style={[s.text, s.value, ratingNumberStyle]}>
+        {formattedValue}
+      </Text>
       <RatingBase
         startingValue={round(value)}
         type="custom"
@@ -35,7 +40,7 @@ const Rating = ({
         ratingBackgroundColor={colors.icon.tintColorGray}
       />
       {!showAverageRating || (
-        <Text style={[s.text, s.reviewCount]}>
+        <Text style={[s.text, s.reviewCount, ratingCountStyle]}>
           {formattedReviews}
         </Text>
       )}
@@ -48,6 +53,9 @@ Rating.propTypes = {
   reviewsCount: PropTypes.number,
   imageSize: PropTypes.number,
   showAverageRating: PropTypes.bool,
+  containerStyle: PropTypes.any,
+  ratingNumberStyle: PropTypes.any,
+  ratingCountStyle: PropTypes.any,
 };
 
 export default Rating;
