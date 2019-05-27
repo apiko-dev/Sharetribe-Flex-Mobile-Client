@@ -213,7 +213,7 @@ class SharetribeSdkService {
   initiateTransaction({ listingId, startRent, endRent, cardToken }) {
     return this.sdk.transactions.initiate(
       {
-        processAlias: 'preauth-with-nightly-booking/release-1',
+        processAlias: 'preauth-with-nightly-booking/insta-reviews',
         transition: 'transition/request',
         params: {
           listingId,
@@ -243,7 +243,7 @@ class SharetribeSdkService {
     console.log('run service... ');
     return this.sdk.transactions.initiate(
       {
-        processAlias: 'preauth-with-nightly-booking/release-1',
+        processAlias: 'preauth-with-nightly-booking/insta-reviews',
         transition: 'transition/enquire',
         params: {
           listingId: new types.UUID(listId),
@@ -435,28 +435,32 @@ class SharetribeSdkService {
     );
   }
 
-  fetchReviewsForUser({ subjectId, perPage, page }) {
+  fetchReviews({ params }) {
     return this.sdk.reviews.query({
-      // subjectId,
-      subjectId,
-      // state: 'public',
-      // type: 'ofCustomer',
-      perPage,
-      page,
-      include: ['author', 'author.profileImage', 'listing'],
+      ...params,
+      state: 'public',
+      type: 'ofCustomer',
+      include: [
+        'author',
+        'author.profileImage',
+        'listing',
+        'reviews',
+        'reviews.author',
+        'reviews.subject',
+      ],
     });
   }
 
-  fetchReviewsForListing({ listingId, perPage, page }) {
-    return this.sdk.reviews.query({
-      listingId,
-      // state: 'public',
-      perPage,
-      page,
-      // type: 'ofCustomer',
-      include: ['author', 'author.profileImage', 'listing'],
-    });
-  }
+  // fetchReviewsForListing({ listingId, perPage, page }) {
+  //   return this.sdk.reviews.query({
+  //     listingId,
+  //     // state: 'public',
+  //     perPage,
+  //     page,
+  //     // type: 'ofCustomer',
+  //     include: ['author', 'author.profileImage', 'listing'],
+  //   });
+  // }
 
   createStripeAccount(query) {
     return this.sdk.stripeAccount.create(query, {

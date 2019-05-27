@@ -33,6 +33,8 @@ const styles = StyleSheet.create({
   reviewTextContainer: {
     marginBottom: dimensions.indent / 1.6,
     marginTop: dimensions.indent / 1.6,
+    overflow: 'hidden',
+    maxWidth: '100%',
   },
 });
 
