@@ -27,8 +27,10 @@ export default hoistStatics(
       fetchParticularUserListings:
         listings.fetchParticularUserListings,
       fetchOwnListings: listings.fetchOwnListings,
-      fetchReviewsForUser: reviews.fetchReviewsForUser,
-      reviews: reviews.list.asArray,
+      fetchReviewsForUser: user.reviews.fetchReviews,
+      reviews: user.reviews.list.asArray,
+      averageRating: user.reviews.averageRating,
+      ratings: user.reviews.ratings,
     })),
 
     withStateHandlers(
@@ -96,12 +98,7 @@ export default hoistStatics(
     lifecycle({
       async componentDidMount() {
         try {
-          const averageRating = await this.props.fetchReviewsForUser.run(
-            {
-              subjectId: this.props.user.id,
-            },
-          );
-          this.props.onChange('averageRating', averageRating);
+          await this.props.fetchReviewsForUser.run();
         } catch (err) {
           console.log(err);
         }

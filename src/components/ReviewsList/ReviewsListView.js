@@ -1,19 +1,16 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, FlatList } from 'react-native';
 import T from 'prop-types';
 import { observer } from 'mobx-react/custom';
-import { FlatListVertical, UserInfo } from '..';
+import { UserInfo } from '..';
 import RatingTable from './components/RatingTable/RatingTable';
 import i18n from '../../i18n';
 import s from './styles';
 
-const ratings = [2, 4, 4, 4, 5, 3, 1, 1, 3, 3, 4];
-
-const ReviewsView = ({ reviews, averageRating }) => (
+const ReviewsView = ({ reviews, averageRating, ratingForTable }) => (
   <View style={s.container}>
-    <FlatListVertical
+    <FlatList
       data={reviews}
-      numColumns={2}
       emptyListMessage={i18n.t('profile.noReviews')}
       keyExtractor={(item) => item.id}
       renderItem={({ item }) => (
@@ -23,12 +20,16 @@ const ReviewsView = ({ reviews, averageRating }) => (
           user={item.relationships.author}
         />
       )}
-      ListHeaderComponent={() => (
-        <RatingTable
-          ratings={ratings}
-          averageRating={averageRating}
-        />
-      )}
+      ListHeaderComponent={() =>
+        ratingForTable ? (
+          <RatingTable
+            ratings={ratingForTable}
+            averageRating={averageRating}
+          />
+        ) : (
+          <View />
+        )
+      }
     />
   </View>
 );
@@ -36,6 +37,7 @@ const ReviewsView = ({ reviews, averageRating }) => (
 ReviewsView.propTypes = {
   reviews: T.array,
   averageRating: T.number,
+  ratingForTable: T.array,
 };
 
 export default observer(ReviewsView);

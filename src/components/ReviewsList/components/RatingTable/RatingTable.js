@@ -19,7 +19,7 @@ function RatingTable({ ratings, averageRating }) {
     }
 
     return acc;
-  }, Array(5));
+  }, Array(5).fill());
 
   function ratingCalculate(arr) {
     if (!arr) {
@@ -39,6 +39,7 @@ function RatingTable({ ratings, averageRating }) {
           containerStyle={s.ratingContainerStyle}
           ratingNumberStyle={s.ratingNumberStyle}
           ratingCountStyle={s.ratingCountStyle}
+          reviewsCount={ratings.length}
           showAverageRating
         />
       </View>

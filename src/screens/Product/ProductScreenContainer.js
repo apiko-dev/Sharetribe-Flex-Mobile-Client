@@ -46,10 +46,13 @@ export default hoistStatics(
         ],
         product,
       ),
-      fetchReviewsForListing: stores.reviews.fetchReviewsForListing,
-      fetchReviewsForUser: stores.reviews.fetchReviewsForUser,
-      reviews: stores.viewer.user.reviews.list.asArray,
-      // reviews: stores.reviews.list.asArray,
+      fetchReviewsForUser:
+        product.relationships.author.reviews.fetchReviews,
+      fetchReviewsForListing: product.reviews.fetchReviews,
+      reviews: product.reviews.list.asArray,
+      averageRatingForListing: product.reviews.averageRating,
+      averageRatingForUser:
+        product.relationships.author.reviews.averageRating,
     })),
 
     withStateHandlers(
@@ -137,26 +140,13 @@ export default hoistStatics(
               this.props.navigationToEditProduct(),
           });
         }
-
         try {
           await this.props.getAvailableDays.run(
             this.props.product.id,
           );
-          const averageRatingListing = await this.props.fetchReviewsForListing.run(
-            {
-              listingId: this.props.product.id,
-            },
-          );
-          this.props.onChange(
-            'averageRatingListing',
-            averageRatingListing,
-          );
-          const averageRatingUser = await this.props.fetchReviewsForUser.run(
-            {
-              subjectId: this.props.author.id,
-            },
-          );
-          this.props.onChange('averageRatingUser', averageRatingUser);
+
+          await this.props.fetchReviewsForUser.run();
+          await this.props.fetchReviewsForListing.run();
         } catch (error) {
           AlertService.showSomethingWentWrong();
         }

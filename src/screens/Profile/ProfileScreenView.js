@@ -29,6 +29,7 @@ const ProfileScreen = ({
   refresh,
   reviews,
   averageRating,
+  ratings,
 }) => (
   <ScrollView
     style={s.container}
@@ -89,6 +90,7 @@ const ProfileScreen = ({
           <ReviewsList
             reviews={reviews}
             averageRating={averageRating}
+            ratingForTable={ratings}
           />
         </Tab>
       </TabView>
@@ -115,6 +117,7 @@ ProfileScreen.propTypes = {
   goToProduct: T.func,
   isRefreshing: T.bool,
   refresh: T.func,
+  ratings: T.array,
 };
 
 export default observer(ProfileScreen);

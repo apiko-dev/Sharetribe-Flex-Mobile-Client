@@ -39,7 +39,7 @@ export default hoistStatics(
       (props) => ({
         activeField: '',
         review: '',
-        rating: '',
+        rating: 0,
       }),
       {
         setRating: () => (value) => ({
