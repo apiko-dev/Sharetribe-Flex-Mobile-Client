@@ -316,6 +316,8 @@
     "decline": "Decline",
     "delivered": "Delivered",
     "chat": "Chat",
+    "review": "Review",
+    "reviewing": "Reviewing",
     "complete": "Complete"
 
   },
@@ -399,6 +401,7 @@
   },
   "review": {
     "writeReview": "Write a review",
-    "publishReview": "Publish review"
+    "publishReview": "Publish review",
+    "emptyReview": "Not yet reviewed"
   }
 }

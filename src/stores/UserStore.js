@@ -1,5 +1,6 @@
 import { types as t, getRoot } from 'mobx-state-tree';
 import { Image } from './ImageStore';
+import { ReviewStore } from './ReviewsStore';
 
 const UserRelationships = t.model('ProductRelationships', {
   profileImage: t.maybe(t.safeReference(t.late(() => Image))),
@@ -40,6 +41,8 @@ export const User = t
     stripeChargesEnabled: t.maybe(t.boolean),
     stripeConnected: t.maybe(t.boolean),
     relationships: t.optional(UserRelationships, {}),
+
+    reviews: t.optional(ReviewStore, {}),
   })
 
   .views((store) => ({

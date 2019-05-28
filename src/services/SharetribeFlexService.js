@@ -213,7 +213,7 @@ class SharetribeSdkService {
   initiateTransaction({ listingId, startRent, endRent, cardToken }) {
     return this.sdk.transactions.initiate(
       {
-        processAlias: 'preauth-with-nightly-booking/release-1',
+        processAlias: 'preauth-with-nightly-booking/insta-reviews',
         transition: 'transition/request',
         params: {
           listingId,
@@ -231,9 +231,6 @@ class SharetribeSdkService {
           'provider.profileImage',
           'listing',
           'booking',
-          // 'reviews',
-          // 'reviews.author',
-          // 'reviews.subject',
         ],
       },
     );
@@ -243,7 +240,7 @@ class SharetribeSdkService {
     console.log('run service... ');
     return this.sdk.transactions.initiate(
       {
-        processAlias: 'preauth-with-nightly-booking/release-1',
+        processAlias: 'preauth-with-nightly-booking/insta-reviews',
         transition: 'transition/enquire',
         params: {
           listingId: new types.UUID(listId),
@@ -315,24 +312,6 @@ class SharetribeSdkService {
     });
   }
 
-  transactionsQuery() {
-    return this.sdk.transactions.query({
-      // only: 'order',
-      // lastTransitions: ['transition/request'],
-      include: [
-        // 'customer',
-        // 'customer.profileImage',
-        // 'provider',
-        // 'provider.profileImage',
-        'listing',
-        // 'booking',
-        // 'reviews',
-        // 'reviews.author',
-        // 'reviews.subject',
-      ],
-    });
-  }
-
   transactionsShow({ transactionId }) {
     return this.sdk.transactions.show({
       id: new types.UUID(transactionId),
@@ -342,7 +321,6 @@ class SharetribeSdkService {
         'provider',
         'provider.profileImage',
         'listing',
-        // 'booking',
         'reviews',
         'reviews.author',
         'reviews.subject',
@@ -366,7 +344,6 @@ class SharetribeSdkService {
           'provider',
           'provider.profileImage',
           'listing',
-          // 'booking',
           'reviews',
           'reviews.author',
           'reviews.subject',
@@ -397,18 +374,7 @@ class SharetribeSdkService {
       },
       {
         expand: true,
-        include: [
-          // 'customer',
-          // 'customer.profileImage',
-          // 'provider',
-          // 'provider.profileImage',
-          'listing',
-          'booking',
-          // 'reviews',
-          // 'reviews.author',
-          // 'reviews.subject',
-          'messages',
-        ],
+        include: ['listing', 'booking', 'messages'],
       },
     );
   }
@@ -430,17 +396,24 @@ class SharetribeSdkService {
       },
       {
         expand: true,
+        include: ['reviews', 'reviews.author', 'reviews.subject'],
       },
     );
   }
 
-  getReviews({ listingId }) {
+  fetchReviews({ params }) {
     return this.sdk.reviews.query({
-      listingId,
+      ...params,
       state: 'public',
-      include: ['author', 'author.profileImage'],
-      // state: 'public',
-      // include: ['messages', 'author.profileImage'],
+      type: 'ofCustomer',
+      include: [
+        'author',
+        'author.profileImage',
+        'listing',
+        'reviews',
+        'reviews.author',
+        'reviews.subject',
+      ],
     });
   }
 

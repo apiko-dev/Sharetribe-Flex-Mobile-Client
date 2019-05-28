@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { dimensions, colors } from '../../../../styles';
+import { dimensions, colors } from '../../styles';
 
 const styles = StyleSheet.create({
   container: {
@@ -7,10 +7,9 @@ const styles = StyleSheet.create({
     padding: dimensions.indent,
     paddingBottom: 0,
     backgroundColor: colors.seller.background,
-    marginBottom: dimensions.indent * 1.5,
     marginTop: dimensions.indent * 0.7,
-    height: dimensions.indent * 8,
-    justifyContent: 'space-between',
+    minHeight: dimensions.indent * 7.6,
+    marginBottom: dimensions.smallIndent,
   },
   mainContainer: {
     flexDirection: 'row',
@@ -24,12 +23,19 @@ const styles = StyleSheet.create({
   button: {
     alignSelf: 'center',
     marginBottom: dimensions.indent / 1.6,
+    marginTop: dimensions.indent / 1.6,
   },
   avatarContainer: {
     marginRight: dimensions.indent * 0.75,
   },
   avatarBackgroundImage: {
     flex: 1,
+  },
+  reviewTextContainer: {
+    marginBottom: dimensions.indent / 1.6,
+    marginTop: dimensions.indent / 1.6,
+    overflow: 'hidden',
+    maxWidth: '100%',
   },
 });
 

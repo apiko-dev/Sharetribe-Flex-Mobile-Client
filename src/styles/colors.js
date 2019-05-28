@@ -234,4 +234,11 @@ export default {
     backgroundColorMessageUser: '#F2F6FF',
     backgroundColorMessage: '#FFF',
   },
+
+  ratingTable: {
+    activeColor: '#FF9900',
+    backgroundLine: '#E9E9E9',
+    backgroundColor: '#FFF',
+    borderBottomColor: '#E9E9E9',
+  },
 };

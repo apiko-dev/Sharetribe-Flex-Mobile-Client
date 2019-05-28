@@ -3,11 +3,11 @@ import { View } from 'react-native';
 import T from 'prop-types';
 import s from './styles';
 import Location from '../Location/Location';
-import Seller from '../Seller/Seller';
 import LeaseStatus from '../LeaseStatus/LeaseStatus';
 import {
   ShadowContainer,
   ExpandableText,
+  UserInfo,
 } from '../../../../components';
 import { fontSizes } from '../../../../styles';
 
@@ -20,6 +20,7 @@ const DescriptionTab = ({
   navigationToCalendar,
   nearestAvailableDate,
   isOnLease,
+  averageRatingForUser,
 }) => (
   <View style={s.container}>
     <ShadowContainer>
@@ -48,10 +49,10 @@ const DescriptionTab = ({
       <Location location={location} geolocation={geolocation} />
     </ShadowContainer>
     <ShadowContainer>
-      <Seller
-        // image={image}
+      <UserInfo
         user={user}
-        rating={4}
+        rating={averageRatingForUser}
+        showViewProfile
       />
     </ShadowContainer>
   </View>
@@ -64,6 +65,7 @@ DescriptionTab.propTypes = {
   geolocation: T.object,
   isLoadingDates: T.bool,
   isOnLease: T.bool,
+  averageRatingForUser: T.number,
   navigationToCalendar: T.func,
   nearestAvailableDate: T.oneOfType([T.string, T.bool]),
 };

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Text, View } from 'react-native';
+import { Text, View, ViewPropTypes } from 'react-native';
 import RatingBase from './RatingBase';
 import s from './styles';
 import { colors } from '../../styles';
@@ -17,18 +17,20 @@ const Rating = ({
   value = 0,
   reviewsCount = 4,
   imageSize = 14,
-  showOnlyRating = false,
+  showAverageRating = false,
+  containerStyle,
+  ratingNumberStyle,
+  ratingCountStyle,
 }) => {
   const formattedValue = formatValue(value);
   const formattedReviews = `(${reviewsCount})`;
-  const [rating, setRating] = React.useState(value);
-  return value ? (
-    <View style={s.row}>
-      {showOnlyRating || (
-        <Text style={[s.text, s.value]}>{formattedValue}</Text>
-      )}
+  return (
+    <View style={[s.row, containerStyle]}>
+      <Text style={[s.text, s.value, ratingNumberStyle]}>
+        {formattedValue}
+      </Text>
       <RatingBase
-        startingValue={round(rating)}
+        startingValue={round(value)}
         type="custom"
         ratingCount={5}
         imageSize={imageSize}
@@ -36,23 +38,24 @@ const Rating = ({
         ratingImage={ratingImage}
         ratingColor={colors.icon.tintColorOrange}
         ratingBackgroundColor={colors.icon.tintColorGray}
-        showOnlyRating={showOnlyRating}
-        setRating={setRating}
       />
-      {showOnlyRating || (
-        <Text style={[s.text, s.reviewCount]}>
+      {!showAverageRating || (
+        <Text style={[s.text, s.reviewCount, ratingCountStyle]}>
           {formattedReviews}
         </Text>
       )}
     </View>
-  ) : null;
+  );
 };
 
 Rating.propTypes = {
   value: PropTypes.number,
   reviewsCount: PropTypes.number,
   imageSize: PropTypes.number,
-  showOnlyRating: PropTypes.bool,
+  showAverageRating: PropTypes.bool,
+  containerStyle: PropTypes.any,
+  ratingNumberStyle: PropTypes.any,
+  ratingCountStyle: PropTypes.any,
 };
 
 export default Rating;

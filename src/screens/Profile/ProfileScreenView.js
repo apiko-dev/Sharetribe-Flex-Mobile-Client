@@ -3,6 +3,7 @@ import React from 'react';
 import { ScrollView, View, RefreshControl } from 'react-native';
 import T from 'prop-types';
 import { TabView, Tab } from 'react-native-easy-tabs';
+import { observer } from 'mobx-react/custom';
 import s from './styles';
 import {
   Text,
@@ -12,9 +13,10 @@ import {
   DrawerButton,
   HeaderBackButton,
   ExpandableText,
+  ReviewsList,
 } from '../../components';
 import i18n from '../../i18n';
-import { ListingsView, ReviewsView } from './components';
+import { ListingsView } from './components';
 import { dimensions, fontSizes, colors } from '../../styles';
 
 const ProfileScreen = ({
@@ -25,6 +27,9 @@ const ProfileScreen = ({
   goToProduct,
   isRefreshing,
   refresh,
+  reviews,
+  averageRating,
+  ratings,
 }) => (
   <ScrollView
     style={s.container}
@@ -42,7 +47,7 @@ const ProfileScreen = ({
         {user.profile.displayName}
       </Text>
       <View style={s.rating}>
-        <Rating value={4} />
+        <Rating value={averageRating} />
       </View>
       <ExpandableText
         containerStyle={s.bio}
@@ -82,7 +87,11 @@ const ProfileScreen = ({
           />
         </Tab>
         <Tab>
-          <ReviewsView reviews={[]} />
+          <ReviewsList
+            reviews={reviews}
+            averageRating={averageRating}
+            ratingForTable={ratings}
+          />
         </Tab>
       </TabView>
     </View>
@@ -101,11 +110,14 @@ ProfileScreen.navigationOptions = ({ navigation }) => ({
 ProfileScreen.propTypes = {
   user: T.object,
   selectedTabIndex: T.number,
+  averageRating: T.number,
   onChangeTabIndex: T.func,
   listings: T.array,
+  reviews: T.array,
   goToProduct: T.func,
   isRefreshing: T.bool,
   refresh: T.func,
+  ratings: T.array,
 };
 
-export default ProfileScreen;
+export default observer(ProfileScreen);

@@ -6,6 +6,7 @@ import {
   renderComponent,
   withPropsOnChange,
   withHandlers,
+  lifecycle,
 } from 'recompose';
 import { inject } from 'mobx-react';
 import { withParamsToProps } from '../../utils/enhancers';
@@ -26,6 +27,11 @@ export default hoistStatics(
       fetchParticularUserListings:
         listings.fetchParticularUserListings,
       fetchOwnListings: listings.fetchOwnListings,
+      fetchReviewsForUser: user.reviews.fetchReviews,
+      reviews: user.reviews.list.asArray,
+      averageRating: user.reviews.averageRating,
+      ratings: user.reviews.ratings,
+      averageRatingListing: user.reviews.averageRating,
     })),
 
     withStateHandlers(
@@ -89,5 +95,14 @@ export default hoistStatics(
       (props) => !props.isRefreshing && props.isLoadingListings,
       renderComponent(ScreenLoader),
     ),
+    lifecycle({
+      async componentDidMount() {
+        try {
+          await this.props.fetchReviewsForUser.run();
+        } catch (err) {
+          console.log(err);
+        }
+      },
+    }),
   ),
 )(ProfileScreenView);

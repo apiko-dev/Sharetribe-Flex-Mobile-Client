@@ -19,6 +19,7 @@ import {
   Touchable,
   TabHeader,
   Footer,
+  ReviewsList,
 } from '../../components';
 import Label from './components/Label/Label';
 import DescriptionTab from './components/DescriptionTab/DescriptionTabContainer';
@@ -55,6 +56,9 @@ const ProductScreen = ({
   phoneNumber,
   onCall,
   onSend,
+  averageRatingForUser,
+  averageRatingForListing,
+  reviews,
 }) => (
   <ScrollView style={s.container} bounces={false}>
     <View style={s.carouselContainer}>
@@ -114,7 +118,7 @@ const ProductScreen = ({
         </Text>
       </View>
       <View style={s.rating}>
-        <Rating value={4} />
+        <Rating value={averageRatingForListing} />
       </View>
     </View>
     <Label.Row style={s.labelContainer}>
@@ -144,12 +148,13 @@ const ProductScreen = ({
               navigationToCalendar={navigationToCalendar}
               isOnLease={product.leaseStatus}
               nearestAvailableDate={product.nearestAvailableDate}
+              averageRatingForUser={averageRatingForUser}
             />
           </View>
         </Tab>
         <Tab lazy>
           <View style={s.tabReviews}>
-            <Text style={s.paragraph}>Second tab</Text>
+            <ReviewsList reviews={reviews} />
           </View>
         </Tab>
       </TabView>
@@ -200,5 +205,8 @@ ProductScreen.propTypes = {
   phoneNumber: T.string,
   onSend: T.func,
   isSending: T.bool,
+  averageRatingForUser: T.number,
+  averageRatingForListing: T.number,
+  reviews: T.array,
 };
 export default observer(ProductScreen);

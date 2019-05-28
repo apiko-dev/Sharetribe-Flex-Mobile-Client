@@ -46,6 +46,13 @@ export default hoistStatics(
         ],
         product,
       ),
+      fetchReviewsForUser:
+        product.relationships.author.reviews.fetchReviews,
+      fetchReviewsForListing: product.reviews.fetchReviews,
+      reviews: product.reviews.list.asArray,
+      averageRatingForListing: product.reviews.averageRating,
+      averageRatingForUser:
+        product.relationships.author.reviews.averageRating,
     })),
 
     withStateHandlers(
@@ -53,6 +60,8 @@ export default hoistStatics(
         currentIndex: 0,
         tabIndex: 0,
         availableDates: {},
+        averageRatingUser: 0,
+        averageRatingList: 0,
       },
       {
         onChangeIndex: () => (index) => ({
@@ -131,11 +140,13 @@ export default hoistStatics(
               this.props.navigationToEditProduct(),
           });
         }
-
         try {
           await this.props.getAvailableDays.run(
             this.props.product.id,
           );
+
+          await this.props.fetchReviewsForUser.run();
+          await this.props.fetchReviewsForListing.run();
         } catch (error) {
           AlertService.showSomethingWentWrong();
         }

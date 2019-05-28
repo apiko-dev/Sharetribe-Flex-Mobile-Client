@@ -5,7 +5,6 @@ import { StripeService } from '../services';
 import createFlow from './helpers/createFlow';
 import processJsonApi, {
   processJsonApiTransactions,
-  processJsonApiIncluded,
 } from './utils/processJsonApi';
 import listModel from './utils/listModel';
 import { MessageStore } from './MessagesStore';
@@ -102,16 +101,7 @@ function sentReview(flow, store) {
   }) {
     try {
       flow.start();
-      const transition1 = store.isViewer
-        ? transitionStatuses.REVIEW_PROVIDER_1
-        : transitionStatuses.REVIEW_CUSTOMER_1;
-      const transition2 = store.isViewer
-        ? transitionStatuses.REVIEW_PROVIDER_2
-        : transitionStatuses.REVIEW_CUSTOMER_2;
-      const transition =
-        store.lastTransition === transitionStatuses.DELIVERED
-          ? transition1
-          : transition2;
+      const transition = transitionStatuses.REVIEW_CUSTOMER_1;
 
       const res = yield store.Api.changeTransactionsView({
         transactionId: store.id,
@@ -119,10 +109,8 @@ function sentReview(flow, store) {
         content,
         rating,
       });
-
-      // const snapshot = processJsonApiTransactions(res.data.data);
-      // store.update(snapshot);
-
+      const snapshot = processJsonApiTransactions(res.data.data);
+      store.update(snapshot);
       flow.success();
     } catch (err) {
       flow.failed(err, true);

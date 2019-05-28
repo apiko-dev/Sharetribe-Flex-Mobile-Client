@@ -23,7 +23,7 @@ import { transitionStatuses } from '../../../../constants';
 const messageImage = require('../../../../assets/png/message_image.png');
 
 const getRentProps = (value) => {
-  switch (value) {
+  switch (value.lastTransition) {
     case transitionStatuses.ENQUIRE:
       return {
         gray: true,
@@ -45,9 +45,17 @@ const getRentProps = (value) => {
         children: i18n.t('inbox.accepted'),
       };
     case transitionStatuses.COMPLETE:
+      const label = value.isViewer
+        ? i18n.t('inbox.reviewing')
+        : i18n.t('inbox.review');
       return {
-        green: true,
-        children: i18n.t('inbox.delivered'),
+        black: true,
+        children: label,
+      };
+    case transitionStatuses.REVIEW_CUSTOMER_1:
+      return {
+        black: true,
+        children: i18n.t('inbox.reviewing'),
       };
     case transitionStatuses.DECLINE:
       return {
@@ -55,17 +63,12 @@ const getRentProps = (value) => {
         children: i18n.t('inbox.decline'),
       };
     case transitionStatuses.DELIVERED:
-      return {
-        gray: true,
-        children: i18n.t('inbox.complete'),
-      };
     case transitionStatuses.REVIEW_PROVIDER_1:
     case transitionStatuses.REVIEW_PROVIDER_2:
-    case transitionStatuses.REVIEW_CUSTOMER_1:
     case transitionStatuses.REVIEW_CUSTOMER_2:
       return {
         purple: true,
-        children: i18n.t('inbox.complete'),
+        children: i18n.t('inbox.delivered'),
       };
     default:
       return {};
@@ -123,7 +126,7 @@ function Message({ transaction }) {
                 bold
                 xxsmallSize
                 {...getRentProps(
-                  transaction.lastTransition,
+                  transaction,
                   isLoadingTransitionStatuses,
                 )}
               />

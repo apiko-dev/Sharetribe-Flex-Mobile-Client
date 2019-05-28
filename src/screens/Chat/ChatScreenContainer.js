@@ -26,7 +26,7 @@ export default hoistStatics(
       isShowLinkReview:
         !transaction.isViewer &&
         R.pathOr(false, ['lastTransition'], transaction) ===
-          transitionStatuses.DELIVERED,
+          transitionStatuses.COMPLETE,
       messageCollection: R.pathOr(
         [],
         ['messages', 'list', 'asArray'],

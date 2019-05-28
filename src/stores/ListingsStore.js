@@ -12,6 +12,7 @@ import { Image } from './ImageStore';
 import { User } from './UserStore';
 import { normalizedIncluded } from './utils/normalize';
 import { dates } from '../utils';
+import { ReviewStore } from './ReviewsStore';
 
 const DayOfWeek = t.model('DayOfWeek', {
   dayOfWeek: t.string,
@@ -49,7 +50,7 @@ export const Price = t.model('Price', {
 const ProductRelationships = t
   .model('ProductRelationships', {
     images: t.maybe(t.array(t.safeReference(t.late(() => Image)))),
-    author: t.maybe(t.reference(User)),
+    author: t.maybe(t.reference(t.late(() => User))),
   })
   .views((store) => ({
     get getImages() {
@@ -78,6 +79,8 @@ export const Product = t
     availableDates: t.array(t.string),
     employedDates: t.array(t.string),
     availabilityPlan: t.optional(t.maybeNull(AvailabilityPlan), null),
+
+    reviews: t.optional(t.late(() => ReviewStore), {}),
 
     update: createFlow(updateProduct),
     getOwnFields: createFlow(getOwnFields),

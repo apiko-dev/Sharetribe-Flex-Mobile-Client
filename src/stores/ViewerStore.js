@@ -6,10 +6,10 @@ import processJsonApi from './utils/processJsonApi';
 import { normalizedIncluded } from './utils/normalize';
 import normalizeError from './utils/normalizeError';
 
-const Viewer = types.compose(
+export const Viewer = types.compose(
   User,
   types.model('Viewer', {
-    id: types.maybe(types.string),
+    id: types.identifier,
   }),
 );
 

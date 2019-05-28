@@ -5,6 +5,7 @@ import { Image } from './ImageStore';
 import { Transaction } from './TransactionStore';
 import { Message } from './MessagesStore';
 import { Booking } from './BookingStore';
+import { Review } from './ReviewsStore';
 
 const EntitiesStore = createEntitiesStore({
   listing: Product,
@@ -13,6 +14,7 @@ const EntitiesStore = createEntitiesStore({
   transaction: Transaction,
   message: Message,
   booking: Booking,
+  reviews: Review,
 });
 
 export default EntitiesStore;

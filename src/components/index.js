@@ -47,6 +47,7 @@ export {
   default as NavigationButton,
 } from './NavigationButton/NavigationButton';
 export { default as Rating } from './Rating/Rating';
+export { default as RatingTouchable } from './RatingTouchable/Rating';
 export { default as TabHeader } from './TabHeader/TabHeader';
 export { default as MapView } from './MapView/MapView';
 export {
@@ -59,3 +60,7 @@ export {
 export { default as RentItem } from './RentItem/RentItem';
 export { default as Calendar } from './Calendar/Calendar';
 export { default as Footer } from './Footer/Footer';
+export { default as UserInfo } from './UserInfo/UserInfo';
+export {
+  default as ReviewsList,
+} from './ReviewsList/ReviewsListView';
