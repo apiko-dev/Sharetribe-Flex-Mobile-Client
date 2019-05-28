@@ -18,7 +18,7 @@ export default hoistStatics(
   compose(
     withParamsToProps('user'),
 
-    inject(({ listings, reviews }, { user }) => ({
+    inject(({ listings }, { user }) => ({
       listings: user.isViewer
         ? listings.ownList.asArray
         : listings.particularUserList.asArray,

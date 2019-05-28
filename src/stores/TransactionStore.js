@@ -5,7 +5,6 @@ import { StripeService } from '../services';
 import createFlow from './helpers/createFlow';
 import processJsonApi, {
   processJsonApiTransactions,
-  processJsonApiIncluded,
 } from './utils/processJsonApi';
 import listModel from './utils/listModel';
 import { MessageStore } from './MessagesStore';

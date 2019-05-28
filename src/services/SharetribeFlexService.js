@@ -231,9 +231,6 @@ class SharetribeSdkService {
           'provider.profileImage',
           'listing',
           'booking',
-          // 'reviews',
-          // 'reviews.author',
-          // 'reviews.subject',
         ],
       },
     );
@@ -315,24 +312,6 @@ class SharetribeSdkService {
     });
   }
 
-  transactionsQuery() {
-    return this.sdk.transactions.query({
-      // only: 'order',
-      // lastTransitions: ['transition/request'],
-      include: [
-        // 'customer',
-        // 'customer.profileImage',
-        // 'provider',
-        // 'provider.profileImage',
-        'listing',
-        // 'booking',
-        // 'reviews',
-        // 'reviews.author',
-        // 'reviews.subject',
-      ],
-    });
-  }
-
   transactionsShow({ transactionId }) {
     return this.sdk.transactions.show({
       id: new types.UUID(transactionId),
@@ -342,7 +321,6 @@ class SharetribeSdkService {
         'provider',
         'provider.profileImage',
         'listing',
-        // 'booking',
         'reviews',
         'reviews.author',
         'reviews.subject',
@@ -366,7 +344,6 @@ class SharetribeSdkService {
           'provider',
           'provider.profileImage',
           'listing',
-          // 'booking',
           'reviews',
           'reviews.author',
           'reviews.subject',
@@ -397,18 +374,7 @@ class SharetribeSdkService {
       },
       {
         expand: true,
-        include: [
-          // 'customer',
-          // 'customer.profileImage',
-          // 'provider',
-          // 'provider.profileImage',
-          'listing',
-          'booking',
-          // 'reviews',
-          // 'reviews.author',
-          // 'reviews.subject',
-          'messages',
-        ],
+        include: ['listing', 'booking', 'messages'],
       },
     );
   }
@@ -450,17 +416,6 @@ class SharetribeSdkService {
       ],
     });
   }
-
-  // fetchReviewsForListing({ listingId, perPage, page }) {
-  //   return this.sdk.reviews.query({
-  //     listingId,
-  //     // state: 'public',
-  //     perPage,
-  //     page,
-  //     // type: 'ofCustomer',
-  //     include: ['author', 'author.profileImage', 'listing'],
-  //   });
-  // }
 
   createStripeAccount(query) {
     return this.sdk.stripeAccount.create(query, {
