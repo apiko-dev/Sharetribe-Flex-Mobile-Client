@@ -188,6 +188,8 @@ dependencies {
     implementation 'com.google.android.gms:play-services-maps:16.1.0'
 
     implementation project(':tipsi-stripe')
+
+    implementation project(':react-native-set-soft-input-mode')
 }
 
 // Run this once to be able to run the application with BUCK

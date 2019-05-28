@@ -1,5 +1,6 @@
 package com.sharetribeflexmobileclient;
 
+import io.github.mr03web.softinputmodemodule.SoftInputModePackage;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
@@ -50,7 +51,8 @@ public class MainApplication extends Application implements ReactApplication {
           new MapsPackage(),
           new RNSentryPackage(),
           new DevMenuPackage(this),
-          new RNCWebViewPackage()
+          new RNCWebViewPackage(),
+          new SoftInputModePackage() 
       );
     }
 

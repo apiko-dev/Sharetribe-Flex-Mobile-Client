@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, KeyboardAvoidingView, ScrollView } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { SafeAreaView } from 'react-navigation';
 import { Tab, TabView } from 'react-native-easy-tabs';
 import T from 'prop-types';
@@ -21,6 +22,11 @@ const AuthScreen = ({
 }) => (
   <SafeAreaView style={s.containerSafeAreaView}>
     <View style={s.circle} />
+    {/* <KeyboardAwareScrollView
+      contentContainerStyle={s.container}
+      keyboardShouldPersistTaps="handled"
+      scrollEnabled={false}
+    > */}
     <ScrollView
       contentContainerStyle={s.container}
       keyboardShouldPersistTaps="handled"
@@ -71,6 +77,12 @@ const AuthScreen = ({
         contentContainerStyle={s.keyboardAvoidingViewContentContainer}
         keyboardVerticalOffset={isAndroidDevice ? -30 : -50}
       >
+        {/* <View
+        style={[
+          s.keyboardAvoidingView,
+          s.keyboardAvoidingViewContentContainer,
+        ]}
+      > */}
         <TabView
           selectedTabIndex={selectedTabIndex}
           layoutWidth={dimensions.width}
@@ -91,6 +103,7 @@ const AuthScreen = ({
           </Tab>
         </TabView>
       </KeyboardAvoidingView>
+      {/* </View> */}
       {isAndroidDevice ? (
         // Empty component for "Skip" button.
         <View style={s.bottom} />
@@ -106,6 +119,7 @@ const AuthScreen = ({
           </TextTouchable>
         </View>
       )}
+      {/* </KeyboardAwareScrollView> */}
     </ScrollView>
   </SafeAreaView>
 );
