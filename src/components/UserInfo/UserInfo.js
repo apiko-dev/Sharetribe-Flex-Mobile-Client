@@ -22,6 +22,7 @@ const UserInfo = ({
   textReview = false,
   showAverageRating = false,
   styleContainer,
+  reviewsCount,
 }) => {
   return (
     <ShadowContainer>
@@ -37,6 +38,7 @@ const UserInfo = ({
             <Rating
               value={rating}
               showAverageRating={showAverageRating}
+              reviewsCount={reviewsCount}
             />
           </View>
         </View>
@@ -69,6 +71,7 @@ UserInfo.propTypes = {
   showViewProfile: T.bool,
   showAverageRating: T.bool,
   rating: T.number,
+  reviewsCount: T.number,
   user: T.object,
   styleContainer: T.any,
 };

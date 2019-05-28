@@ -28,7 +28,7 @@ export default compose(
     goToAddNewItem: () => () =>
       NavigationService.navigateTo(screens.AddNewItem),
     goToProfile: () => (user) => {
-      NavigationService.navigateToProfile({
+      NavigationService.navigateTo(screens.ownProfile, {
         user,
         isDrawerButton: true,
       });
