@@ -20,7 +20,7 @@ const DescriptionTab = ({
   navigationToCalendar,
   nearestAvailableDate,
   isOnLease,
-  averageRatingUser,
+  averageRatingForUser,
 }) => (
   <View style={s.container}>
     <ShadowContainer>
@@ -51,7 +51,7 @@ const DescriptionTab = ({
     <ShadowContainer>
       <UserInfo
         user={user}
-        rating={averageRatingUser}
+        rating={averageRatingForUser}
         showViewProfile
       />
     </ShadowContainer>
@@ -65,7 +65,7 @@ DescriptionTab.propTypes = {
   geolocation: T.object,
   isLoadingDates: T.bool,
   isOnLease: T.bool,
-  averageRatingUser: T.number,
+  averageRatingForUser: T.number,
   navigationToCalendar: T.func,
   nearestAvailableDate: T.oneOfType([T.string, T.bool]),
 };

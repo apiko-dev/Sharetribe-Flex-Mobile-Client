@@ -65,7 +65,7 @@ export const ReviewStore = t
         });
 
         const averageRating = rating / ratings.length;
-        return averageRating;
+        return Number(averageRating.toFixed(1));
       }
     },
 
@@ -87,9 +87,8 @@ function fetchReviews(flow, store) {
       };
 
       const parent = getParent(store);
- 
-      if (isSameType(parent, User) || isSameType(parent, Viewer)) {
 
+      if (isSameType(parent, User) || isSameType(parent, Viewer)) {
         params.subjectId = getIdentifier(parent);
       } else {
         params.listingId = getIdentifier(parent);

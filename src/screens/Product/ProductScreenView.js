@@ -56,8 +56,8 @@ const ProductScreen = ({
   phoneNumber,
   onCall,
   onSend,
-  averageRatingUser,
-  averageRatingListing,
+  averageRatingForUser,
+  averageRatingForListing,
   reviews,
 }) => (
   <ScrollView style={s.container} bounces={false}>
@@ -118,7 +118,7 @@ const ProductScreen = ({
         </Text>
       </View>
       <View style={s.rating}>
-        <Rating value={averageRatingListing} />
+        <Rating value={averageRatingForListing} />
       </View>
     </View>
     <Label.Row style={s.labelContainer}>
@@ -148,7 +148,7 @@ const ProductScreen = ({
               navigationToCalendar={navigationToCalendar}
               isOnLease={product.leaseStatus}
               nearestAvailableDate={product.nearestAvailableDate}
-              averageRatingUser={averageRatingUser}
+              averageRatingForUser={averageRatingForUser}
             />
           </View>
         </Tab>
@@ -205,8 +205,8 @@ ProductScreen.propTypes = {
   phoneNumber: T.string,
   onSend: T.func,
   isSending: T.bool,
-  averageRatingUser: T.number,
-  averageRatingListing: T.number,
+  averageRatingForUser: T.number,
+  averageRatingForListing: T.number,
   reviews: T.array,
 };
 export default observer(ProductScreen);

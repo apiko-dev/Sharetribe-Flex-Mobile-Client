@@ -2,7 +2,7 @@ import React from 'react';
 import { View, FlatList } from 'react-native';
 import T from 'prop-types';
 import { observer } from 'mobx-react/custom';
-import { UserInfo } from '..';
+import { UserInfo, Text } from '..';
 import RatingTable from './components/RatingTable/RatingTable';
 import i18n from '../../i18n';
 import s from './styles';
@@ -18,6 +18,7 @@ const ReviewsView = ({ reviews, averageRating, ratingForTable }) => (
           rating={item.rating}
           textReview={item.content}
           user={item.relationships.author}
+          styleContainer={s.userInfoContainer}
         />
       )}
       ListHeaderComponent={() =>
@@ -27,7 +28,11 @@ const ReviewsView = ({ reviews, averageRating, ratingForTable }) => (
             averageRating={averageRating}
           />
         ) : (
-          <View />
+          <View style={s.emptyReviewsContainer}>
+            <Text gray largeSize>
+              {i18n.t('review.emptyReview')}
+            </Text>
+          </View>
         )
       }
     />

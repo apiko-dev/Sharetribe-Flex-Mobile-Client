@@ -21,10 +21,11 @@ const UserInfo = ({
   showViewProfile = false,
   textReview = false,
   showAverageRating = false,
+  styleContainer,
 }) => {
   return (
     <ShadowContainer>
-      <View style={s.container}>
+      <View style={[s.container, styleContainer]}>
         <View style={s.mainContainer}>
           <View style={s.avatarContainer}>
             <Avatar user={user} />
@@ -69,6 +70,7 @@ UserInfo.propTypes = {
   showAverageRating: T.bool,
   rating: T.number,
   user: T.object,
+  styleContainer: T.any,
 };
 
 export default UserInfo;

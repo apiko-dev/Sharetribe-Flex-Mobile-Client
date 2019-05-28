@@ -5,6 +5,9 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     flexDirection: 'row',
+    backgroundColor: colors.ratingTable.backgroundColor,
+    borderBottomWidth: StyleSheet.hairlineWidth * 2,
+    borderBottomColor: colors.ratingTable.borderBottomColor,
   },
   tableContainer: {
     height: dimensions.indent * 5,

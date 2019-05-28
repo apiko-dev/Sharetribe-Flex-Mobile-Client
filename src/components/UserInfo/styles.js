@@ -9,6 +9,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.seller.background,
     marginTop: dimensions.indent * 0.7,
     minHeight: dimensions.indent * 7.6,
+    marginBottom: dimensions.smallIndent,
   },
   mainContainer: {
     flexDirection: 'row',

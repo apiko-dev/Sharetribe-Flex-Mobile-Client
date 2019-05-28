@@ -31,13 +31,13 @@ export default hoistStatics(
       reviews: user.reviews.list.asArray,
       averageRating: user.reviews.averageRating,
       ratings: user.reviews.ratings,
+      averageRatingListing: user.reviews.averageRating,
     })),
 
     withStateHandlers(
       {
         isRefreshing: false,
         selectedTabIndex: 0,
-        averageRating: 0,
       },
       {
         onChangeTabIndex: () => (index) => ({
