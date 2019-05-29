@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 import {
   compose,
   hoistStatics,
@@ -6,9 +7,12 @@ import {
   lifecycle,
 } from 'recompose';
 import { inject } from 'mobx-react';
+import { Platform } from 'react-native';
 import SoftInputMode from 'react-native-set-soft-input-mode';
 import AuthScreenView from './AuthScreenView';
 import { NavigationService } from '../../services';
+
+const isAndroid = () => Platform.OS === 'android';
 
 export default hoistStatics(
   compose(
@@ -30,10 +34,10 @@ export default hoistStatics(
     }),
     lifecycle({
       componentDidMount() {
-        SoftInputMode.set(SoftInputMode.ADJUST_PAN);
+        isAndroid() && SoftInputMode.set(SoftInputMode.ADJUST_PAN);
       },
       componentWillUnmount() {
-        SoftInputMode.set(SoftInputMode.ADJUST_RESIZE);
+        isAndroid() && SoftInputMode.set(SoftInputMode.ADJUST_RESIZE);
       },
     }),
   ),

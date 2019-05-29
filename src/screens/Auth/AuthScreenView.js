@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, KeyboardAvoidingView, ScrollView } from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { View, KeyboardAvoidingView } from 'react-native';
 import { SafeAreaView } from 'react-navigation';
 import { Tab, TabView } from 'react-native-easy-tabs';
 import T from 'prop-types';
@@ -20,18 +19,14 @@ const AuthScreen = ({
   selectedTabIndex,
   onSkip,
 }) => (
-  <SafeAreaView style={s.containerSafeAreaView}>
-    <View style={s.circle} />
-    {/* <KeyboardAwareScrollView
-      contentContainerStyle={s.container}
-      keyboardShouldPersistTaps="handled"
-      scrollEnabled={false}
-    > */}
-    <ScrollView
-      contentContainerStyle={s.container}
-      keyboardShouldPersistTaps="handled"
-      scrollEnabled={false}
-    >
+  <KeyboardAvoidingView
+    behavior="position"
+    style={s.keyboardAvoidingView}
+    contentContainerStyle={s.keyboardAvoidingViewContentContainer}
+    keyboardVerticalOffset={isAndroidDevice ? -30 : -50}
+  >
+    <SafeAreaView style={s.containerSafeAreaView}>
+      <View style={s.circle} />
       <Logo
         size={
           (smallDevice && 'small') ||
@@ -71,39 +66,25 @@ const AuthScreen = ({
           </TextTouchable>
         </View>
       )}
-      <KeyboardAvoidingView
-        behavior="position"
-        style={s.keyboardAvoidingView}
-        contentContainerStyle={s.keyboardAvoidingViewContentContainer}
-        keyboardVerticalOffset={isAndroidDevice ? -30 : -50}
+      <TabView
+        selectedTabIndex={selectedTabIndex}
+        layoutWidth={dimensions.width}
       >
-        {/* <View
-        style={[
-          s.keyboardAvoidingView,
-          s.keyboardAvoidingViewContentContainer,
-        ]}
-      > */}
-        <TabView
-          selectedTabIndex={selectedTabIndex}
-          layoutWidth={dimensions.width}
-        >
-          <Tab>
-            <View style={s.tabViewContainer}>
-              <View style={s.tabViewWrapper}>
-                <SignInForm onChangeTabIndex={onChangeTabIndex} />
-              </View>
+        <Tab>
+          <View style={s.tabViewContainer}>
+            <View style={s.tabViewWrapper}>
+              <SignInForm onChangeTabIndex={onChangeTabIndex} />
             </View>
-          </Tab>
-          <Tab lazy>
-            <View style={s.tabViewContainer}>
-              <View style={s.tabViewWrapper}>
-                <SignUpForm onChangeTabIndex={onChangeTabIndex} />
-              </View>
+          </View>
+        </Tab>
+        <Tab lazy>
+          <View style={s.tabViewContainer}>
+            <View style={s.tabViewWrapper}>
+              <SignUpForm onChangeTabIndex={onChangeTabIndex} />
             </View>
-          </Tab>
-        </TabView>
-      </KeyboardAvoidingView>
-      {/* </View> */}
+          </View>
+        </Tab>
+      </TabView>
       {isAndroidDevice ? (
         // Empty component for "Skip" button.
         <View style={s.bottom} />
@@ -119,9 +100,8 @@ const AuthScreen = ({
           </TextTouchable>
         </View>
       )}
-      {/* </KeyboardAwareScrollView> */}
-    </ScrollView>
-  </SafeAreaView>
+    </SafeAreaView>
+  </KeyboardAvoidingView>
 );
 
 AuthScreen.propTypes = {
