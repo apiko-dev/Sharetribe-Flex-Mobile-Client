@@ -60,6 +60,7 @@ const ProductScreen = ({
   averageRatingForListing,
   reviews,
   reviewsCountUser,
+  ratingsForListing,
 }) => (
   <ScrollView style={s.container} bounces={false}>
     <View style={s.carouselContainer}>
@@ -159,7 +160,11 @@ const ProductScreen = ({
         </Tab>
         <Tab lazy>
           <View style={s.tabReviews}>
-            <ReviewsList reviews={reviews} />
+            <ReviewsList
+              reviews={reviews}
+              averageRating={averageRatingForListing}
+              ratingForTable={ratingsForListing}
+            />
           </View>
         </Tab>
       </TabView>
@@ -214,5 +219,6 @@ ProductScreen.propTypes = {
   averageRatingForListing: T.number,
   reviewsCountUser: T.number,
   reviews: T.array,
+  ratingsForListing: T.number,
 };
 export default observer(ProductScreen);

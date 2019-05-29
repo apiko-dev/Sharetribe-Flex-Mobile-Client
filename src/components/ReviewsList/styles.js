@@ -12,11 +12,10 @@ export default StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth * 2,
     borderBottomColor: colors.ratingTable.borderBottomColor,
   },
-  emptyReviewsContainer: {
+  flatListContentContainer: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     textAlign: 'center',
-    marginVertical: dimensions.indent * 4,
   },
 });
