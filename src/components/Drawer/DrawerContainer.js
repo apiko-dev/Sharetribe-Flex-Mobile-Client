@@ -73,7 +73,7 @@ export default compose(
         iconName: 'message',
       },
       {
-        screen: screens.Home,
+        screen: screens.Rentals,
         title: i18n.t('drawer.rentals'),
         iconName: 'rentals',
       },

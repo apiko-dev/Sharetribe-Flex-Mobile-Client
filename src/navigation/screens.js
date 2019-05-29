@@ -33,6 +33,7 @@ export default {
   PayoutPreferences: 'PayoutPreferences',
   CardList: 'CardList',
   Review: 'Review',
+  Rentals: 'Rentals',
 
   // Stacks
   HomeStack: 'HomeStack',
@@ -40,4 +41,5 @@ export default {
   ProfileStack: 'ProfileStack',
   SettingsStack: 'SettingsStack',
   InboxStack: 'InboxStack',
+  RentalsStack: 'RentalsStack',
 };

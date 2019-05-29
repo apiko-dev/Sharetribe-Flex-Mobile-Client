@@ -48,3 +48,6 @@ export { default as ChatScreen } from './Chat/ChatScreenContainer';
 export {
   default as ReviewScreen,
 } from './Review/ReviewScreenContainer';
+export {
+  default as RentalsScreen,
+} from './Rentals/RentalsScreenContainer';
