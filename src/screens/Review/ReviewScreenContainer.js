@@ -36,7 +36,7 @@ export default hoistStatics(
       transaction,
     })),
     withStateHandlers(
-      (props) => ({
+      () => ({
         activeField: '',
         review: '',
         rating: 0,
@@ -53,8 +53,10 @@ export default hoistStatics(
     withHandlers({
       onSentReview: ({ transaction, review, rating }) => () => {
         try {
-          transaction.sentReview.run({ content: review, rating });
-          NavigationService.navigateTo(screens.Inbox);
+          if (rating !== 0 && review.trim().length > 0) {
+            transaction.sentReview.run({ content: review, rating });
+            NavigationService.navigateTo(screens.Inbox);
+          }
         } catch (err) {
           console.log(err);
         }
