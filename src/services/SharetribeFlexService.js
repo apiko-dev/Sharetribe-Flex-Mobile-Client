@@ -296,6 +296,16 @@ class SharetribeSdkService {
 
   fetchTransactions(params) {
     return this.sdk.transactions.query({
+      lastTransitions: [
+        'transition/request',
+        'transition/enquire',
+        'transition/request-after-enquiry',
+        'transition/accept',
+        'transition/decline',
+        'transition/complete',
+        'transition/expire-provider-review-period',
+        'transition/review-1-by-customer',
+      ],
       include: [
         'customer',
         'customer.profileImage',

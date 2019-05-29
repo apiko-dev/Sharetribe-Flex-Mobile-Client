@@ -1,5 +1,6 @@
 /* eslint-disable no-shadow */
 import { types as t, getEnv, getRoot } from 'mobx-state-tree';
+import R from 'ramda';
 import { StripeService } from '../services';
 
 import createFlow from './helpers/createFlow';
@@ -84,8 +85,20 @@ export const Transaction = t
     },
 
     get imageUrl() {
-      return store.relationships.listing.relationships.getImages[0]
-        .variants.default.url;
+      return R.pathOr(
+        '',
+        [
+          'relationships',
+          'listing',
+          'relationships',
+          'getImages',
+          [0],
+          'variants',
+          'default',
+          'url',
+        ],
+        store,
+      );
     },
   }))
   .actions((store) => ({

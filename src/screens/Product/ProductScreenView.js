@@ -219,6 +219,6 @@ ProductScreen.propTypes = {
   averageRatingForListing: T.number,
   reviewsCountUser: T.number,
   reviews: T.array,
-  ratingsForListing: T.number,
+  ratingsForListing: T.array,
 };
 export default observer(ProductScreen);

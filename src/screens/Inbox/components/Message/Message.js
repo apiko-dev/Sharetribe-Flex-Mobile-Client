@@ -58,6 +58,7 @@ const getRentProps = (value) => {
         children: i18n.t('inbox.reviewing'),
       };
     case transitionStatuses.DECLINE:
+    case transitionStatuses.EXPIRED:
       return {
         red: true,
         children: i18n.t('inbox.decline'),
