@@ -53,6 +53,9 @@ export default hoistStatics(
       averageRatingForListing: product.reviews.averageRating,
       averageRatingForUser:
         product.relationships.author.reviews.averageRating,
+      reviewsCountUser:
+        product.relationships.author.reviews.reviewsCount,
+      ratingsForListing: product.reviews.ratings,
     })),
 
     withStateHandlers(

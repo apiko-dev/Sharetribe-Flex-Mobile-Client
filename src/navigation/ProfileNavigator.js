@@ -10,7 +10,7 @@ import { defaultNavigationOptions } from './NavigationOptions';
 
 export default createStackNavigator(
   {
-    [screens.Profile]: ProfileScreen,
+    [screens.ownProfile]: ProfileScreen,
     [screens.Product]: ProductScreen,
     [screens.Gallery]: GalleryScreen,
     [screens.Calendar]: CalendarScreen,

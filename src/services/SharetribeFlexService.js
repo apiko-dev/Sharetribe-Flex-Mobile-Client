@@ -405,7 +405,7 @@ class SharetribeSdkService {
     return this.sdk.reviews.query({
       ...params,
       state: 'public',
-      type: 'ofCustomer',
+      type: 'ofProvider',
       include: [
         'author',
         'author.profileImage',

@@ -47,11 +47,14 @@ export const ReviewStore = t
     list: ReviewList,
 
     fetchReviews: createFlow(fetchReviews),
-    // fetchReviewsForListing: createFlow(fetchReviewsForListing),
   })
   .views((store) => ({
     get Api() {
       return getEnv(store).Api;
+    },
+
+    get reviewsCount() {
+      return store.list.asArray.length;
     },
 
     get averageRating() {

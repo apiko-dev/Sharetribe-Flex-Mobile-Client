@@ -21,6 +21,7 @@ export default {
   MyListings: 'MyListings',
   Settings: 'Settings',
   Profile: 'Profile',
+  ownProfile: 'ownProfile',
   VerifyEmail: 'VerifyEmail',
   Gallery: 'Gallery',
   RequestToRent: 'RequestToRent',

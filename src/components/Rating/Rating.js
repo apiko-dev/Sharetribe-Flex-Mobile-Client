@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { Text, View, ViewPropTypes } from 'react-native';
+import { Text, View } from 'react-native';
+import { observer } from 'mobx-react/custom';
 import RatingBase from './RatingBase';
 import s from './styles';
 import { colors } from '../../styles';
@@ -15,7 +16,7 @@ const formatValue = (value) =>
 
 const Rating = ({
   value = 0,
-  reviewsCount = 4,
+  reviewsCount,
   imageSize = 14,
   showAverageRating = false,
   containerStyle,
@@ -41,7 +42,7 @@ const Rating = ({
       />
       {!showAverageRating || (
         <Text style={[s.text, s.reviewCount, ratingCountStyle]}>
-          {formattedReviews}
+          {!!reviewsCount && `${formattedReviews}`}
         </Text>
       )}
     </View>
@@ -58,4 +59,4 @@ Rating.propTypes = {
   ratingCountStyle: PropTypes.any,
 };
 
-export default Rating;
+export default observer(Rating);

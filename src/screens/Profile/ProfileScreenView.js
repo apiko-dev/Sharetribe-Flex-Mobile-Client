@@ -47,7 +47,11 @@ const ProfileScreen = ({
         {user.profile.displayName}
       </Text>
       <View style={s.rating}>
-        <Rating value={averageRating} />
+        <Rating
+          value={averageRating}
+          reviewsCount={ratings.length}
+          showAverageRating
+        />
       </View>
       <ExpandableText
         containerStyle={s.bio}
