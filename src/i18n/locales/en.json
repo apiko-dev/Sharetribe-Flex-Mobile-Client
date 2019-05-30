@@ -403,5 +403,11 @@
     "writeReview": "Write a review",
     "publishReview": "Publish review",
     "emptyReview": "Not yet reviewed"
+  },
+
+  "rentals": {
+    "dashboard": "Dashboard",
+    "borrowing": "Borrowing",
+    "lending": "Lending"
   }
 }

@@ -138,8 +138,11 @@ export default {
   },
   tabViewHeader: {
     backgroundColor: '#FFF',
+    activeColor: '#FFF',
+    inactiveColor: '#FFF',
     activeText: '#FF9900',
     text: '#8F8F8F',
+    red: '#ff0000',
   },
   productScreen: {
     white: '#FFF',
@@ -240,5 +243,14 @@ export default {
     backgroundLine: '#E9E9E9',
     backgroundColor: '#FFF',
     borderBottomColor: '#E9E9E9',
+  },
+
+  rentalsTab: {
+    activeColor: '#FF9900',
+    backgroundLine: '#E9E9E9',
+    backgroundColor: '#FF9900',
+    borderBottomColor: '#E9E9E9',
+    text: '#FFF',
+    white: '#FFF',
   },
 };
