@@ -1,12 +1,13 @@
 /* eslint-disable react/jsx-wrap-multilines  */
 import React from 'react';
-import { View, ScrollView } from 'react-native';
+import { View } from 'react-native';
 import T from 'prop-types';
 import { TabView, Tab } from 'react-native-easy-tabs';
 import { observer } from 'mobx-react/custom';
 import s from './styles';
 import { Text, TabHeader } from '../../components';
 import i18n from '../../i18n';
+import { BorrowingView } from './components';
 
 const tabs = [
   {
@@ -46,7 +47,7 @@ const RentalsScreen = ({ tabIndex, onChangeTabIndex }) => (
         </Tab>
         <Tab>
           <View style={s.tabHeader}>
-            <Text>Tab2</Text>
+            <BorrowingView />
           </View>
         </Tab>
         <Tab>

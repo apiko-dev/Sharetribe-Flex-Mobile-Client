@@ -408,6 +408,7 @@
   "rentals": {
     "dashboard": "Dashboard",
     "borrowing": "Borrowing",
-    "lending": "Lending"
+    "lending": "Lending",
+    "emptyList": "Sorry list is empty"
   }
 }

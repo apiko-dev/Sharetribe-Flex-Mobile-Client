@@ -348,13 +348,14 @@ function fetchTransactionById(flow, store) {
 }
 
 function fetchTransactions(flow, store) {
-  return function* fetchTransaction() {
+  return function* fetchTransaction(params) {
     try {
       flow.start();
 
       const res = yield store.Api.fetchTransactions({
         perPage: 15,
         page: 1,
+        ...params,
       });
       const normalizedEntities = normalizedIncluded(
         res.data.included,
@@ -375,7 +376,7 @@ function fetchTransactions(flow, store) {
 }
 
 function fetchMoreTransactions(flow, store) {
-  return function* fetchTransactions() {
+  return function* fetchTransactions(params) {
     try {
       if (store.list.hasNoMore || flow.inProgress) {
         return;
@@ -388,6 +389,7 @@ function fetchMoreTransactions(flow, store) {
       const res = yield store.Api.fetchTransactions({
         perPage,
         page,
+        ...params,
       });
 
       const normalizedEntities = normalizedIncluded(
