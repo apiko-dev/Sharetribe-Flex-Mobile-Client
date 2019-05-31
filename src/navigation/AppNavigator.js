@@ -6,6 +6,7 @@ import MyListingsNavigator from './MyListingsNavigator';
 import SettingsNavigator from './SettingsNavigator';
 import ProfileNavigator from './ProfileNavigator';
 import InboxNavigator from './InboxNavigator';
+import RentalsNavigator from './RentalsNavigator';
 
 export default createDrawerNavigator(
   {
@@ -14,6 +15,7 @@ export default createDrawerNavigator(
     [screens.ProfileStack]: ProfileNavigator,
     [screens.SettingsStack]: SettingsNavigator,
     [screens.InboxStack]: InboxNavigator,
+    [screens.RentalsStack]: RentalsNavigator,
   },
   {
     initialRouteName: screens.HomeStack,
