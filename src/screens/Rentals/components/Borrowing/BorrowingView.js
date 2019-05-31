@@ -1,8 +1,9 @@
 import React from 'react';
 import T from 'prop-types';
 import { FlatList } from 'react-native';
+
 import { EmptyFlatList } from '../../../../components';
-import RentItem from './components/RentItem/RentItem';
+import RentalsItem from './components/RentalsItem/RentalsItem';
 import i18n from '../../../../i18n';
 import s from './styles';
 
@@ -12,7 +13,7 @@ function BorrowingView({ transactions, fetchMoreTransactions }) {
       data={transactions}
       style={s.container}
       renderItem={({ item }) => (
-        <RentItem transaction={item} key={item.id} />
+        <RentalsItem transaction={item} key={item.id} />
       )}
       keyExtractor={(item) => item.id}
       onEndReached={() => fetchMoreTransactions()}
@@ -27,7 +28,7 @@ function BorrowingView({ transactions, fetchMoreTransactions }) {
 }
 
 BorrowingView.propTypes = {
-  transactions: T.object,
+  transactions: T.array,
   fetchMoreTransactions: T.func,
 };
 
