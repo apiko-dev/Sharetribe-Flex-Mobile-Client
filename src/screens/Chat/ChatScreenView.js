@@ -77,7 +77,7 @@ function ChatScreen({
 
   return (
     <KeyboardAvoidingView
-      behavior="padding"
+      behavior={isAndroidDevice ? null : 'padding'}
       style={s.container}
       contentContainerStyle={s.keyboardAvoidingViewContentContainer}
       keyboardVerticalOffset={isAndroidDevice ? -30 : 65}

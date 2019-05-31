@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, ScrollView } from 'react-native';
+import { View } from 'react-native';
 import { SafeAreaView } from 'react-navigation';
 import T from 'prop-types';
 import { observer } from 'mobx-react/custom';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import s from './styles';
 import {
   FormContainer,
@@ -18,7 +19,11 @@ const RequestToRentPaymentScreen = ({
   isInitializationTransaction,
 }) => (
   <SafeAreaView style={s.safeAreaViewContainer}>
-    <ScrollView containerStyle={s.container}>
+    <KeyboardAwareScrollView
+      keyboardShouldPersistTaps="handled"
+      extraScrollHeight={30}
+      containerStyle={s.container}
+    >
       <Form
         enableReinitialize
         validationSchema={PaymentSchema}
@@ -82,7 +87,7 @@ const RequestToRentPaymentScreen = ({
           </View>
         )}
       </Form>
-    </ScrollView>
+    </KeyboardAwareScrollView>
   </SafeAreaView>
 );
 
