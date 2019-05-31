@@ -409,6 +409,17 @@
     "dashboard": "Dashboard",
     "borrowing": "Borrowing",
     "lending": "Lending",
-    "emptyList": "Sorry list is empty"
+    "emptyList": "Sorry list is empty",
+    "provider": "Provider: ",
+    "renter": "Renter: ",
+    "viewChat": "View chat",
+    "viewGoods": "View goods",
+    "statsBorrowing": "Stats Borrowing",
+    "statsLending": "Stats Lending",
+    "itemsListed": "Items listed",
+    "rentals": "Rentals",
+    "spend": "Spend",
+    "earnings": "Earnings"
+
   }
 }

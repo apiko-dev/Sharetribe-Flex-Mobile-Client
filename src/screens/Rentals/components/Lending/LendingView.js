@@ -8,17 +8,17 @@ import RentalsItem from '../RentalsItem/RentalsItem';
 import i18n from '../../../../i18n';
 import s from './styles';
 
-function BorrowingView({ borrowingTransactions }) {
+function LendingView({ lendingTransactions }) {
   return (
     <FlatList
-      data={borrowingTransactions}
+      data={lendingTransactions}
       style={s.container}
       renderItem={({ item }) => (
         <RentalsItem transaction={item} key={item.id} />
       )}
       keyExtractor={(item) => item.id}
       contentContainerStyle={[
-        borrowingTransactions.length === 0 && s.emptyFlatList,
+        lendingTransactions.length === 0 && s.emptyFlatList,
       ]}
       ListEmptyComponent={() => (
         <EmptyFlatList message={i18n.t('rentals.emptyList')} />
@@ -27,8 +27,8 @@ function BorrowingView({ borrowingTransactions }) {
   );
 }
 
-BorrowingView.propTypes = {
-  borrowingTransactions: T.array,
+LendingView.propTypes = {
+  lendingTransactions: T.array,
 };
 
-export default observer(BorrowingView);
+export default observer(LendingView);

@@ -1,9 +1,10 @@
 import React from 'react';
 import T from 'prop-types';
 import { View } from 'react-native';
-import { Text, Touchable } from '../../../../../../../components';
-import { NavigationService } from '../../../../../../../services';
+import { Text, Touchable } from '../../../../../components';
+import { NavigationService } from '../../../../../services';
 import s from './styles';
+import i18n from '../../../../../i18n';
 
 function NavigateInfoBlock({ transaction }) {
   function navigateToChat() {
@@ -30,21 +31,21 @@ function NavigateInfoBlock({ transaction }) {
     <View style={s.container}>
       <View style={s.nameContainer}>
         {transaction.isViewer ? (
-          <Text>Provider: </Text>
+          <Text>{i18n.t('rentals.renter')}</Text>
         ) : (
-          <Text>Renter: </Text>
+          <Text>{i18n.t('rentals.provider')}</Text>
         )}
         {name()}
       </View>
       <View style={s.navigateContainer}>
         <Touchable onPress={() => navigateToChat()}>
           <Text xxsmallSize orange>
-            View chat
+            {i18n.t('rentals.viewChat')}
           </Text>
         </Touchable>
         <Touchable onPress={() => navigateToGoods()}>
           <Text xxsmallSize orange>
-            View goods
+            {i18n.t('rentals.viewGoods')}
           </Text>
         </Touchable>
       </View>

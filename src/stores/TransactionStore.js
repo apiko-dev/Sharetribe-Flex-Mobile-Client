@@ -240,6 +240,19 @@ export const TransactionStore = t
     get Api() {
       return getEnv(store).Api;
     },
+
+    countAmount(bool) {
+      return store.list.asArray
+        .filter(
+          (i) =>
+            i.isViewer === bool &&
+            i.lastTransition === 'transition/accept',
+        )
+        .reduce((acc, current) => {
+          acc += R.pathOr(0, ['payinTotal', 'amount'], current);
+          return acc;
+        }, 0);
+    },
   }))
 
   .actions((store) => ({

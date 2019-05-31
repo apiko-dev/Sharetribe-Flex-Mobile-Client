@@ -5,9 +5,13 @@ import T from 'prop-types';
 import { TabView, Tab } from 'react-native-easy-tabs';
 import { observer } from 'mobx-react/custom';
 import s from './styles';
-import { Text, TabHeader } from '../../components';
+import { TabHeader, DrawerButton } from '../../components';
 import i18n from '../../i18n';
-import { BorrowingView } from './components';
+import {
+  BorrowingView,
+  LendingView,
+  DashboardView,
+} from './components';
 
 const tabs = [
   {
@@ -24,7 +28,14 @@ const tabs = [
   },
 ];
 
-const RentalsScreen = ({ tabIndex, onChangeTabIndex }) => (
+const RentalsScreen = ({
+  tabIndex,
+  onChangeTabIndex,
+  borrowingTransactions,
+  lendingTransactions,
+  totalEarnings,
+  totalSpend,
+}) => (
   <View style={s.container}>
     <View style={s.tabHeaderContainer}>
       <TabHeader
@@ -42,17 +53,24 @@ const RentalsScreen = ({ tabIndex, onChangeTabIndex }) => (
       <TabView selectedTabIndex={tabIndex}>
         <Tab>
           <View style={s.tabHeader}>
-            <Text>Tab1</Text>
+            <DashboardView
+              totalEarnings={totalEarnings}
+              totalSpend={totalSpend}
+              lendingRentals={lendingTransactions.length}
+              borrowingRentals={borrowingTransactions.length}
+            />
           </View>
         </Tab>
-        <Tab>
+        <Tab lazy>
           <View style={s.tabHeader}>
-            <BorrowingView />
+            <BorrowingView
+              borrowingTransactions={borrowingTransactions}
+            />
           </View>
         </Tab>
-        <Tab>
+        <Tab lazy>
           <View style={s.tabHeader}>
-            <Text>Tab3</Text>
+            <LendingView lendingTransactions={lendingTransactions} />
           </View>
         </Tab>
       </TabView>
@@ -61,12 +79,17 @@ const RentalsScreen = ({ tabIndex, onChangeTabIndex }) => (
 );
 
 RentalsScreen.navigationOptions = () => ({
+  headerLeft: <DrawerButton />,
   title: 'Rentals',
 });
 
 RentalsScreen.propTypes = {
   onChangeTabIndex: T.func,
   tabIndex: T.number,
+  borrowingTransactions: T.array,
+  lendingTransactions: T.array,
+  totalEarnings: T.func,
+  totalSpend: T.func,
 };
 
 export default observer(RentalsScreen);

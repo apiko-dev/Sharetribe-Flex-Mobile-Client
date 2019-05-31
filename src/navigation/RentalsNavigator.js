@@ -10,7 +10,7 @@ export default createStackNavigator(
     [screens.Chat]: ChatScreen,
   },
   {
-    initialRouteKey: screens.RentalsStack,
+    initialRouteKey: screens.Rentals,
     headerMode: 'screen',
     defaultNavigationOptions,
   },

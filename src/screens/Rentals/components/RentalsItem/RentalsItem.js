@@ -7,7 +7,7 @@ import {
   Touchable,
   ShadowContainer,
   RentItem,
-} from '../../../../../../components';
+} from '../../../../components';
 import s from './styles';
 import NavigateInfoBlock from './components/NavigateInfoBlock';
 

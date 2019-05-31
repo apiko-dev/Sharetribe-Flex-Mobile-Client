@@ -253,4 +253,9 @@ export default {
     text: '#FFF',
     white: '#FFF',
   },
+
+  rentalsScreen: {
+    cardBackgroundColor: '#FFFFFF',
+    backgroundColor: '#F8F8F8',
+  },
 };
