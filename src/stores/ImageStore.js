@@ -11,7 +11,14 @@ const ImageVariants = t.model('ImageVariants', {
   default: t.maybe(ImageData),
 });
 
-export const Image = t.model('Image', {
-  id: t.identifier,
-  variants: t.maybe(ImageVariants),
-});
+export const Image = t
+  .model('Image', {
+    id: t.identifier,
+    variants: t.maybe(ImageVariants),
+  })
+
+  .views((store) => ({
+    get getTitleImage() {
+      return store.variants.default.url;
+    },
+  }));

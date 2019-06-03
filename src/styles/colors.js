@@ -258,4 +258,10 @@ export default {
     cardBackgroundColor: '#FFFFFF',
     backgroundColor: '#F8F8F8',
   },
+
+  mapView: {
+    backgroundColor: '#FFFFFF',
+    activeText: '#FFFFFF',
+    backgroundActiveColor: '#FF9900',
+  },
 };

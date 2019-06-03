@@ -19,6 +19,7 @@ const HomeScreen = ({
   chooseCategory,
   fetchAllListings,
   isRefreshing,
+  listings,
 }) => (
   <View style={s.container}>
     <TabBar
@@ -44,7 +45,7 @@ const HomeScreen = ({
           />
         </Tab>
         <Tab lazy>
-          <MapView />
+          <MapView listings={listings} />
         </Tab>
       </TabView>
     </View>
