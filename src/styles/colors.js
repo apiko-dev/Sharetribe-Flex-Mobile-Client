@@ -263,5 +263,6 @@ export default {
     backgroundColor: '#FFFFFF',
     activeText: '#FFFFFF',
     backgroundActiveColor: '#FF9900',
+    cardBackgroundColor: '#FFFFFF',
   },
 };

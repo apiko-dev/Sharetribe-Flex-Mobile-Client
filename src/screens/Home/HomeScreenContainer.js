@@ -8,6 +8,7 @@ import {
   withPropsOnChange,
 } from 'recompose';
 import { inject } from 'mobx-react';
+import uuid from 'uuid/v4';
 import HomeScreenComponent from './HomeScreenView';
 import { NavigationService } from '../../services';
 import { categories as categoriesConstants } from '../../constants';
@@ -15,10 +16,28 @@ import { withDebounce } from '../../utils/enhancers';
 
 const categories = categoriesConstants.map((item) => item.title);
 
+const arrCoordinates = (value) => {
+  const markers = value.reduce((acc, current) => {
+    const body = {
+      coordinate: {
+        latitude: current.geolocation.lat,
+        longitude: current.geolocation.lng,
+      },
+      cost: `${current.price.amount}`,
+      key: uuid(),
+    };
+    acc.push(body);
+    return acc;
+  }, []);
+  return markers;
+};
+
 export default hoistStatics(
   compose(
     inject((stores) => ({
       listings: stores.listings,
+      markers: arrCoordinates(stores.listings.list.asArray),
+      products: stores.listings.list.asArray,
     })),
 
     defaultProps({
@@ -28,10 +47,14 @@ export default hoistStatics(
     withStateHandlers(
       {
         selectedTabIndex: 0,
+        selectedMarkerIndex: 0,
       },
       {
         onChangeTabIndex: () => (index) => ({
           selectedTabIndex: index,
+        }),
+        onPressMarker: () => (index) => ({
+          selectedMarkerIndex: index,
         }),
       },
     ),

@@ -5,9 +5,10 @@ import { TabView, Tab } from 'react-native-easy-tabs';
 import { observer } from 'mobx-react/custom';
 import s from './styles';
 import { DrawerButton } from '../../components';
-import { ListView, MapView, TabBar, SearchInput } from './components';
+import { ListView, TabBar, SearchInput, MapBox } from './components';
 import i18n from '../../i18n';
 import { dimensions } from '../../styles';
+import { width } from '../../styles/dimensions';
 
 const HomeScreen = ({
   goToCategory,
@@ -19,7 +20,10 @@ const HomeScreen = ({
   chooseCategory,
   fetchAllListings,
   isRefreshing,
-  listings,
+  markers,
+  products,
+  selectedMarkerIndex,
+  onPressMarker,
 }) => (
   <View style={s.container}>
     <TabBar
@@ -45,7 +49,14 @@ const HomeScreen = ({
           />
         </Tab>
         <Tab lazy>
-          <MapView listings={listings} />
+          <MapBox
+            markers={markers}
+            items={products}
+            currentWidth={width}
+            currentHeight={200}
+            selectedMarkerIndex={selectedMarkerIndex}
+            onPressMarker={onPressMarker}
+          />
         </Tab>
       </TabView>
     </View>
@@ -73,6 +84,10 @@ HomeScreen.propTypes = {
   chooseCategory: T.func,
   fetchAllListings: T.func,
   isRefreshing: T.bool,
+  markers: T.array,
+  products: T.array,
+  selectedMarkerIndex: T.number,
+  onPressMarker: T.func,
 };
 
 export default observer(HomeScreen);
