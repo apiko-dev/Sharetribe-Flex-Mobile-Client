@@ -27,6 +27,7 @@ const s = StyleSheet.create({
   },
 });
 
+// It for empty card, this component is not currently in use
 const PlaceholderCard = ({
   showSpinner,
   loadingError,

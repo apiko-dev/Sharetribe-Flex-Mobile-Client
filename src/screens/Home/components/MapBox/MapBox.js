@@ -105,6 +105,7 @@ const MapBox = ({
         itemWidth={getItemWidth(currentWidth)}
         inactiveSlideOpacity={1}
         onEndReachedThreshold={0.3}
+        // Use this with pagination listings, it adds empty card in the end to fetch new product
         // onEndReached={() => {
         //   if (!props.isLoadingMore && !props.loadingMoreError) {
         //     props.fetchMore();
