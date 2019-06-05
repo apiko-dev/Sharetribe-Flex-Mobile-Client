@@ -1,6 +1,7 @@
 import React from 'react';
 import T from 'prop-types';
 import { View } from 'react-native';
+import { observer } from 'mobx-react/custom';
 import s from './styles';
 import {
   Touchable,
@@ -72,4 +73,4 @@ LeaseStatus.propTypes = {
   navigationToCalendar: T.func,
 };
 
-export default LeaseStatus;
+export default observer(LeaseStatus);

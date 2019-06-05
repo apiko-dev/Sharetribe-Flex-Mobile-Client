@@ -1,6 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import T from 'prop-types';
+import { observer } from 'mobx-react/custom';
 import s from './styles';
 import Location from '../Location/Location';
 import LeaseStatus from '../LeaseStatus/LeaseStatus';
@@ -74,4 +75,4 @@ DescriptionTab.propTypes = {
   nearestAvailableDate: T.oneOfType([T.string, T.bool]),
 };
 
-export default DescriptionTab;
+export default observer(DescriptionTab);
