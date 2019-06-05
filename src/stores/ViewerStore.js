@@ -6,12 +6,18 @@ import processJsonApi from './utils/processJsonApi';
 import { normalizedIncluded } from './utils/normalize';
 import normalizeError from './utils/normalizeError';
 
-export const Viewer = types.compose(
-  User,
-  types.model('Viewer', {
-    id: types.identifier,
-  }),
-);
+export const Viewer = types
+  .compose(
+    User,
+    types.model('Viewer', {
+      id: types.identifier,
+    }),
+  )
+  .actions((store) => ({
+    update(patch) {
+      Object.assign(store, patch);
+    },
+  }));
 
 const ViewerStore = types
   .model('ViewerStore', {
@@ -33,6 +39,8 @@ const ViewerStore = types
   .actions((store) => ({
     setUser(data) {
       store.user = data;
+
+      getRoot(store).entities.user.add(data.id, data);
     },
     removeUser() {
       store.user = null;
@@ -70,9 +78,16 @@ function changeAvatar(flow, store) {
       const imagesRes = yield store.Api.imagesUpload(avatar);
       const avatarId = imagesRes.data.data.id.uuid;
 
-      yield store.Api.updateAvatar(avatarId);
+      const res = yield store.Api.updateAvatar(avatarId);
 
-      yield store.getCurrentUser.run();
+      const normalizedEntities = normalizedIncluded(
+        res.data.included,
+      );
+
+      getRoot(store).entities.merge(normalizedEntities);
+
+      const user = processJsonApi(res.data.data);
+      store.setUser(user);
 
       flow.success();
     } catch (err) {

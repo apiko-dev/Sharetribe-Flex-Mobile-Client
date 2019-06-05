@@ -113,9 +113,15 @@ class SharetribeSdkService {
 
   updateAvatar(avatarId) {
     const profileImageId = new types.UUID(avatarId);
-    return this.sdk.currentUser.updateProfile({
-      profileImageId,
-    });
+    return this.sdk.currentUser.updateProfile(
+      {
+        profileImageId,
+      },
+      {
+        expand: true,
+        include: ['profileImage'],
+      },
+    );
   }
 
   getOwnListing({ id, include }) {

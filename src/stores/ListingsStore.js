@@ -88,7 +88,7 @@ export const Product = t
   })
 
   .actions((store) => ({
-    update(snapshot) {
+    updateStore(snapshot) {
       Object.assign(store, snapshot);
     },
   }))
@@ -172,7 +172,7 @@ function getAvailableDays(flow, store) {
         end,
       );
 
-      store.update(data);
+      store.updateStore(data);
 
       flow.success();
     } catch (err) {

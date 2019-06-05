@@ -4,6 +4,8 @@ import Reactotron, {
 } from 'reactotron-react-native';
 import { mst } from 'reactotron-mst';
 
+const filterRegex = /(entities\.(.*)\.add\(\))|(@APPLY_SNAPSHOT)|(afterAttach)/;
+
 export default Reactotron.configure({
   name: 'React Native Demo',
 })
@@ -12,7 +14,7 @@ export default Reactotron.configure({
   }) // add all built-in react native plugins
   .use(
     mst({
-      filter: (event) => event.name.match(/entities\.(.*)\.add\(\)/),
+      filter: (event) => !event.name.match(filterRegex),
     }),
     asyncStorage(),
     trackGlobalErrors(),

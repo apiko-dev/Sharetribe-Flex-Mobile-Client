@@ -1,4 +1,4 @@
-import { types } from 'mobx-state-tree';
+import { types, getSnapshot, applySnapshot } from 'mobx-state-tree';
 import { runInAction } from 'mobx';
 import deepMerge from 'deepmerge';
 
@@ -17,10 +17,12 @@ export const createCollectionStore = (name, Model) =>
       add(key, value) {
         const item = store.collection.get(key);
         if (item) {
-          deepMerge(item, value, {
+          const snapshot = deepMerge(getSnapshot(item), value, {
             arrayMerge: (destinationArray, sourceArray) =>
               sourceArray,
           });
+
+          applySnapshot(item, snapshot);
         } else {
           store.collection.set(key, value);
         }
