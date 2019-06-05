@@ -352,7 +352,12 @@ function fetchListings(flow, store) {
       const res = yield store.Api.fetchListings({
         pub_category: categories,
         pub_title: title,
-        include: ['images', 'author', 'author.profileImage'],
+        include: [
+          'images',
+          'author',
+          'author.profileImage',
+          'reviews',
+        ],
       });
 
       const normalizedEntities = normalizedIncluded(
