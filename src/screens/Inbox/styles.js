@@ -4,6 +4,7 @@ import { colors, dimensions } from '../../styles';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: colors.rentalsScreen.backgroundColor,
   },
   listContainer: {
     flex: 1,
