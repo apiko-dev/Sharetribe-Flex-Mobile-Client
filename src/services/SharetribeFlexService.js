@@ -107,6 +107,7 @@ class SharetribeSdkService {
 
   updateProfile(query) {
     return this.sdk.currentUser.updateProfile(query, {
+      expand: true,
       include: ['profileImage'],
     });
   }

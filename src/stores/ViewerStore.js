@@ -38,9 +38,13 @@ const ViewerStore = types
   }))
   .actions((store) => ({
     setUser(data) {
-      store.user = data;
+      try {
+        store.user = data;
 
-      getRoot(store).entities.user.add(data.id, data);
+        getRoot(store).entities.user.add(data.id, data);
+      } catch (err) {
+        console.log(err);
+      }
     },
     removeUser() {
       store.user = null;
@@ -106,7 +110,7 @@ function updateProfile(flow, store) {
     try {
       flow.start();
 
-      yield store.Api.updateProfile({
+      const res = yield store.Api.updateProfile({
         firstName,
         lastName,
         bio,
@@ -116,7 +120,8 @@ function updateProfile(flow, store) {
         displayName: `${firstName} ${lastName}`,
       });
 
-      yield store.getCurrentUser.run();
+      const user = processJsonApi(res.data.data);
+      store.setUser(user);
 
       flow.success();
     } catch (err) {
