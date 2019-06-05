@@ -53,9 +53,6 @@ export default hoistStatics(
         onChangeTabIndex: () => (index) => ({
           selectedTabIndex: index,
         }),
-        onPressMarker: () => (index) => ({
-          selectedMarkerIndex: index,
-        }),
       },
     ),
 

@@ -24,6 +24,7 @@ const HomeScreen = ({
   products,
   selectedMarkerIndex,
   onPressMarker,
+  onCalloutPress,
 }) => (
   <View style={s.container}>
     <TabBar
@@ -56,6 +57,7 @@ const HomeScreen = ({
             currentHeight={200}
             selectedMarkerIndex={selectedMarkerIndex}
             onPressMarker={onPressMarker}
+            onCalloutPress={onCalloutPress}
           />
         </Tab>
       </TabView>
@@ -88,6 +90,7 @@ HomeScreen.propTypes = {
   products: T.array,
   selectedMarkerIndex: T.number,
   onPressMarker: T.func,
+  onCalloutPress: T.func,
 };
 
 export default observer(HomeScreen);
