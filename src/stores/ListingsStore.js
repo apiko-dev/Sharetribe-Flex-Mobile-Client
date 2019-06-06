@@ -151,6 +151,10 @@ export const Product = t
     setTransactionId({ uuid }) {
       store.transactionId = uuid;
     },
+
+    updateStore(snapshot) {
+      Object.assign(store, snapshot);
+    },
   }));
 
 function getAvailableDays(flow, store) {
@@ -210,9 +214,9 @@ function updateProduct(flow, store) {
       const entities = normalizedIncluded(res.data.included);
 
       getRoot(store).entities.merge(entities);
-      Object.assign(store, snapshot);
+      store.updateStore(snapshot);
 
-      yield getRoot(store).listings.getAvailableDays.run(store.id);
+      yield store.getAvailableDays.run(store.id);
       flow.success();
     } catch (err) {
       flow.failed(err, true);

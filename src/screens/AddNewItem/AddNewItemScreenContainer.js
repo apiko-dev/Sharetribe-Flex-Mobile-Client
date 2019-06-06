@@ -63,7 +63,7 @@ export default hoistStatics(
         const getPublic = getPublicData(props);
 
         return {
-          id: getPublic('id'),
+          id: R.pathOr('', ['product', 'id'], props),
           photos: getImages(props.product),
           title: R.pathOr('', ['product', 'title'], props),
           category: getPublic('category'),
@@ -296,6 +296,10 @@ export default hoistStatics(
             ['data', 'result', 'geometry', 'location'],
             res,
           );
+          const text = R.path(
+            ['data', 'result', 'formatted_address'],
+            res,
+          );
 
           if (typeof location === 'undefined') {
             throw new Error(
@@ -304,16 +308,18 @@ export default hoistStatics(
           }
 
           props.setLocation(location);
+          props.onChange('location', text);
         } catch (err) {
           props.onChange('isErrorPlaceDetails', true);
           console.log(err.message);
         } finally {
           props.onChange('isLoadingPlaceDetails', false);
+          props.onChange('isErrorPlaceDetails', false);
         }
       },
-      // repeatRequestLocation:
     }),
 
+    // to reduce the number of requests
     withDebounce('getPredictions', 300),
 
     withHandlers({

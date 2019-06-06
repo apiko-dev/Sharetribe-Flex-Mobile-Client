@@ -1,6 +1,7 @@
 import React from 'react';
 import T from 'prop-types';
 import { View } from 'react-native';
+import { observer } from 'mobx-react/custom';
 import { MapView, Text } from '../../../../components';
 import s from './styles';
 
@@ -28,4 +29,4 @@ Location.propTypes = {
   geolocation: T.object,
 };
 
-export default Location;
+export default observer(Location);
