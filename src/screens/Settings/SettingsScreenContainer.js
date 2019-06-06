@@ -28,6 +28,7 @@ export default hoistStatics(
       sendVerifyEmail: viewer.sendVerifyEmail,
       isUpdatingProfile: viewer.updateProfile.inProgress,
       isChangingEmail: viewer.changeEmail.inProgress,
+      isChangingPassword: viewer.changePassword.inProgress,
       isChangingAvatar: viewer.changeAvatar.inProgress,
     })),
 
@@ -184,26 +185,37 @@ export default hoistStatics(
           data.newPassword === data.replyPassword
         ) {
           changePassword(data);
+          data.newPassword = '';
+          data.replyPassword = '';
+          data.currentPassword = '';
         }
       },
     }),
 
-    withProps(({ user, isUpdatingProfile, isChangingEmail }) => {
-      const initialValues = {
-        firstName: user.profile.firstName,
-        lastName: user.profile.lastName,
-        bio: user.profile.bio,
-        email: user.email,
-        phone:
-          user.profile.protectedData &&
-          user.profile.protectedData.phoneNumber,
-      };
+    withProps(
+      ({
+        user,
+        isUpdatingProfile,
+        isChangingEmail,
+        isChangingPassword,
+      }) => {
+        const initialValues = {
+          firstName: user.profile.firstName,
+          lastName: user.profile.lastName,
+          bio: user.profile.bio,
+          email: user.email,
+          phone:
+            user.profile.protectedData &&
+            user.profile.protectedData.phoneNumber,
+        };
 
-      const isLoading = isUpdatingProfile || isChangingEmail;
-      return {
-        initialValues,
-        isLoading,
-      };
-    }),
+        const isLoading =
+          isChangingPassword || isUpdatingProfile || isChangingEmail;
+        return {
+          initialValues,
+          isLoading,
+        };
+      },
+    ),
   ),
 )(SettingsScreenView);
