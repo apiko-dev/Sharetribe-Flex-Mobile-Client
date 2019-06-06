@@ -15,6 +15,7 @@ import {
   PayoutPreferencesScreen,
   CardListScreen,
   ProfileScreen,
+  ChatScreen,
 } from '../screens';
 import { defaultNavigationOptions } from './NavigationOptions';
 
@@ -34,6 +35,7 @@ export default createStackNavigator(
     [screens.CardList]: CardListScreen,
     [screens.Help]: HelpScreen,
     [screens.PayoutPreferences]: PayoutPreferencesScreen,
+    [screens.Chat]: ChatScreen,
   },
   {
     initialRouteKey: screens.Home,
