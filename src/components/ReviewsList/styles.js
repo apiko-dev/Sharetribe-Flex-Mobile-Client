@@ -4,7 +4,7 @@ import { dimensions, colors } from '../../styles';
 export default StyleSheet.create({
   container: {
     flex: 1,
-    minHeight: dimensions.indent * 20,
+    minHeight: dimensions.indent * 10,
   },
   userInfoContainer: {
     marginTop: 0,
