@@ -68,8 +68,8 @@ export default hoistStatics(
           title: R.pathOr('', ['product', 'title'], props),
           category: getPublic('category'),
           subCategory: getPublic('subCategory'),
-          brand: getPublic('subCategory'),
-          level: getPublic('subCategory'),
+          brand: getPublic('brand'),
+          level: getPublic('level'),
           description: R.pathOr(
             '',
             ['product', 'description'],
@@ -386,8 +386,6 @@ export default hoistStatics(
     lifecycle({
       async componentDidMount() {
         if (this.props.isEditing) {
-          await this.props.product.getOwnFields.run();
-
           const entries = R.pathOr(
             [],
             ['availabilityPlan', 'entries'],
