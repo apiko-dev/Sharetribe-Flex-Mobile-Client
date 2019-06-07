@@ -1,10 +1,12 @@
 /* eslint-disable max-len */
 import React from 'react';
 import { View, ScrollView } from 'react-native';
-import { Text } from '../../components';
+import { Text, Touchable } from '../../components';
 import Accordion from './components/Accordion/Accordion';
 import i18n from '../../i18n';
 import s from './styles';
+import { NavigationService } from '../../services';
+import screens from '../../navigation/screens';
 
 const data = [
   {
@@ -47,9 +49,15 @@ function HomeScreen() {
       {data.map((item) => (
         <Accordion {...item} key={item.id} />
       ))}
-      <Text light gray style={s.footerText}>
-        {`${i18n.t('helpScreen.privacyPolicy')}`}
-      </Text>
+      <Touchable
+        onPress={() =>
+          NavigationService.navigateTo(screens.PrivacyPolicies)
+        }
+      >
+        <Text light gray style={s.footerText}>
+          {`${i18n.t('helpScreen.privacyPolicy')}`}
+        </Text>
+      </Touchable>
     </ScrollView>
   );
 }

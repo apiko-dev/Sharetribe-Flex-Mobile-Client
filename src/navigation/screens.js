@@ -28,6 +28,7 @@ export default {
   RequestToRentPayment: 'RequestToRentPayment',
   Calendar: 'Calendar',
   Help: 'Help',
+  PrivacyPolicies: 'PrivacyPolicies',
   Inbox: 'Inbox',
   Chat: 'Chat',
   PayoutPreferences: 'PayoutPreferences',
