@@ -2,6 +2,7 @@ import React from 'react';
 import { View } from 'react-native';
 import Modal from 'react-native-modal';
 import T from 'prop-types';
+import { observer } from 'mobx-react/custom';
 import { IconFonts, Loader } from '../../../../components';
 import s from './styles';
 import { colors } from '../../../../styles';
@@ -15,12 +16,14 @@ const RequestSentModal = ({
   gotoProduct,
   isError,
   goToChat,
+  // errorMessage,
 }) => {
   const modalContentComponent = () => {
     if (isError) {
       return (
         <ErrorModal
           navigationToRequestToRent={navigationToRequestToRent}
+          // errorMessage={errorMessage}
         />
       );
     }
@@ -66,4 +69,4 @@ RequestSentModal.propTypes = {
   isError: T.bool,
 };
 
-export default RequestSentModal;
+export default observer(RequestSentModal);

@@ -25,6 +25,17 @@ const HomeScreen = ({
   selectedMarkerIndex,
   onPressMarker,
   onCalloutPress,
+  dataForMap,
+  sectionListForMap,
+  dataFor,
+  sectionList,
+  // /
+  listings,
+  goToProduct,
+  searchListings,
+  data,
+  listingsFilter,
+  sort,
 }) => (
   <View style={s.container}>
     <TabBar
@@ -47,6 +58,13 @@ const HomeScreen = ({
             chooseCategory={chooseCategory}
             fetchAllListings={fetchAllListings}
             isRefreshing={isRefreshing}
+            //
+            // listings={listings}
+            // goToProduct={goToProduct}
+            // searchListings={searchListings}
+            // data={data}
+            // sectionList={sectionList}
+            // listingsFilter={listingsFilter}
           />
         </Tab>
         <Tab lazy>
@@ -58,6 +76,17 @@ const HomeScreen = ({
             selectedMarkerIndex={selectedMarkerIndex}
             onPressMarker={onPressMarker}
             onCalloutPress={onCalloutPress}
+            //
+            category={category}
+            subCategory={subCategory}
+            search={search}
+            // chooseCategory={chooseCategory}
+            // fetchAllListings={fetchAllListings}
+            //
+            // // sectionListForMap={sectionListForMap}
+            // // dataForMap={dataForMap}
+            // sort={sort}
+            // listingsFilter={listingsFilter}
           />
         </Tab>
       </TabView>

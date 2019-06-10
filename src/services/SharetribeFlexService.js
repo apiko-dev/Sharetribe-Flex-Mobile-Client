@@ -243,6 +243,37 @@ class SharetribeSdkService {
     );
   }
 
+  initiateSpeculativelyTransaction({
+    listingId,
+    startRent,
+    endRent,
+    cardToken,
+  }) {
+    return this.sdk.transactions.initiateSpeculative(
+      {
+        processAlias: 'preauth-with-nightly-booking/insta-reviews',
+        transition: 'transition/request',
+        params: {
+          listingId,
+          bookingStart: new Date(startRent),
+          bookingEnd: new Date(endRent),
+          cardToken,
+        },
+      },
+      {
+        expand: true,
+        include: [
+          'customer',
+          'customer.profileImage',
+          'provider',
+          'provider.profileImage',
+          'listing',
+          'booking',
+        ],
+      },
+    );
+  }
+
   initiateMessageTransaction(listId) {
     console.log('run service... ');
     return this.sdk.transactions.initiate(
@@ -328,6 +359,16 @@ class SharetribeSdkService {
       ...params,
     });
   }
+
+  // fetchCountIncomingTransaction(params) {
+  //   return this.sdk.transactions.query({
+  //     only: 'sale',
+  //     lastTransitions: [
+  //       'transition/request',
+  //       'transition/request-after-enquiry',
+  //     ],
+  //   });
+  // }
 
   transactionsShow({ transactionId }) {
     return this.sdk.transactions.show({

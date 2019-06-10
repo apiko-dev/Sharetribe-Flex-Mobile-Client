@@ -38,6 +38,7 @@ export default hoistStatics(
       listings: stores.listings,
       markers: arrCoordinates(stores.listings.list.asArray),
       products: stores.listings.list.asArray,
+      // searchListings: stores.listings.searchListings.asArray,
     })),
 
     defaultProps({
@@ -150,5 +151,49 @@ export default hoistStatics(
         value: props.search,
       });
     }),
+
+    // ////////////////
+
+    defaultProps({
+      categories,
+    }),
+
+    withHandlers({
+      // Filter products by category or if we've selected category
+      // filter by category and sub category
+      listingsFilter: (props) => (listings, categoryItem) =>
+        listings.filter((i) =>
+          props.category
+            ? categoryItem &&
+              i.publicData.category === props.category &&
+              i.publicData.subCategory === categoryItem
+            : categoryItem && i.publicData.category === categoryItem,
+        ),
+    }),
+
+    // withHandlers({
+    //   sort: (props) => () =>
+    //     props.sectionList.map((i) =>
+    //       props.listingsFilter(props.listings, i),
+    //     ),
+    // }),
+
+    // withPropsOnChange(
+    //   ['category', 'subCategory', 'search'],
+    //   (props) => ({
+    //     // Filter by sub category
+    //     data: props.listings.list.asArray.filter(
+    //       (i) => i.publicData.subCategory === props.subCategory && i,
+    //     ),
+
+    //     // Form section list by category
+    //     // When we have selected category we form section list by subcategory
+    //     sectionList: props.category
+    //       ? categories[
+    //           categories.findIndex((i) => i.title === props.category)
+    //         ].data
+    //       : categories.map((i) => i.title),
+    //   }),
+    // ),
   ),
 )(HomeScreenComponent);
