@@ -5,7 +5,6 @@ import {
   compose,
   withHandlers,
   withState,
-  lifecycle,
   withPropsOnChange,
   defaultProps,
 } from 'recompose';
@@ -14,13 +13,11 @@ import { inject } from 'mobx-react';
 import MapBox from './MapBox';
 import { categories } from '../../../../constants';
 
-// const LATITUDE_DELTA = 0.0222;
 const ZOOMED_DELTA = 0.015;
 
 const enhancer = compose(
   inject((store, props) => ({
     props,
-    // listings: store.listings.list.asArray,
     listings: store.listings.list.asArray,
     isLoading: store.listings.fetchListings.inProgress,
     isSearching: store.listings.searchListings.inProgress,
@@ -83,17 +80,7 @@ const enhancer = compose(
       props.getMapViewRef.animateToRegion(region);
     },
   }),
-  // lifecycle({
-  //   componentDidMount() {
-  //     this.props.setListingForMap(
-  //       this.props.listingsFilter(listings, categoryItem),
-  //     );
-  //     //     this.props.navigation.setParams({
-  //     //       onChangeSearch: this.props.onChangeSearch,
-  //     //       value: this.props.search,
-  //     //     });
-  //   },
-  // }),
+
   withHandlers({
     // Filter products by category or if we've selected category
     // filter by category and sub category
@@ -124,20 +111,6 @@ const enhancer = compose(
         : categories.map((i) => i.title),
     }),
   ),
-  // lifecycle({
-  //   componentDidMount() {
-  //     const filteredItem = this.props.sectionList.map((i) =>
-  //       this.props.setListingForMap(
-  //         this.props.listingsFilter(this.props.listings, i),
-  //       ),
-  //     );
-  //     debugger;
-  //     //     this.props.navigation.setParams({
-  //     //       onChangeSearch: this.props.onChangeSearch,
-  //     //       value: this.props.search,
-  //     //     });
-  //   },
-  // }),
 );
 
 export default enhancer(MapBox);

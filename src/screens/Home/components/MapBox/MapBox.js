@@ -70,26 +70,20 @@ const MapBox = ({
   onMapLayout,
   selectedMarkerIndex,
   onPressMarker,
-  // sectionListForMap,
-  // dataForMap,
-  //
+  data,
   listings,
-  // chooseCategory,
-  // category,
-  // subCategory,
-  // goToProduct,
-  // search,
-  // searchListings,
-  // data,
   sectionList,
   listingsFilter,
   isRefreshing,
-  // fetchAllListings,
+  isLoading,
   ...props
 }) => {
-  const filterItem = sectionList
+  let filterItem = sectionList
     .map((i) => listingsFilter(listings, i))
     .flat();
+  if (data.length > 0) {
+    filterItem = data;
+  }
   return (
     <View style={s.flex}>
       <MapView
@@ -119,8 +113,9 @@ const MapBox = ({
           onSnapToItem={onSnapToItem}
           keyExtractor={R.prop('id')}
           data={filterItem}
-          // data={items}
-          renderItem={({ item }) => <CarouselItem item={item} />}
+          renderItem={({ item }) => (
+            <CarouselItem item={item} isLoading={isLoading} />
+          )}
           initialNumToRender={10}
           sliderWidth={currentWidth}
           itemWidth={getItemWidth(currentWidth)}
@@ -160,63 +155,12 @@ MapBox.propTypes = {
   onMapLayout: T.func,
   removeClippedSubviews: T.bool,
   items: T.array,
+  data: T.array,
+  listings: T.array,
+  sectionList: T.array,
+  listingsFilter: T.func,
+  isRefreshing: T.bool,
+  isLoading: T.bool,
 };
 
-// const enhancer = compose(
-//   withState('getMapViewRef', 'setMapViewRef', React.createRef()),
-//   withState('isMounted', 'setIsMounted', false),
-//   withState(
-//     'removeClippedSubviews',
-//     'setRemoveClippedSubviews',
-//     false,
-//   ),
-//   withHandlers({
-//     fixCoordinates: (props) => () => {
-//       if (!props.getMapViewRef || props.markers.length < 1) {
-//         return;
-//       }
-
-//       const { latitude, longitude } = props.markers[0].coordinate;
-
-//       const region = {
-//         latitude,
-//         longitude,
-//         latitudeDelta: ZOOMED_DELTA,
-//         longitudeDelta: ZOOMED_DELTA,
-//       };
-
-//       props.getMapViewRef.animateToRegion(region);
-//     },
-//     handleClippedSubviews: (props) => () => {
-//       if (!props.removeClippedSubviews) {
-//         props.setRemoveClippedSubviews(true);
-//       }
-//     },
-//   }),
-//   withHandlers({
-//     onMapLayout: (props) => () => {
-//       if (!props.isMounted) {
-//         props.setIsMounted(true);
-//         props.fixCoordinates();
-//       }
-//     },
-//     onSnapToItem: (props) => (slideIndex) => {
-//       props.handleClippedSubviews();
-
-//       const item = R.path(['items', slideIndex], props);
-//       if (!item) return;
-
-//       const region = {
-//         latitude: item.geolocation.lat,
-//         longitude: item.geolocation.lng,
-//         latitudeDelta: ZOOMED_DELTA,
-//         longitudeDelta: ZOOMED_DELTA,
-//       };
-
-//       props.getMapViewRef.animateToRegion(region);
-//     },
-//   }),
-// );
-
-// export default enhancer(MapBox);
 export default observer(MapBox);
