@@ -350,7 +350,7 @@ class SharetribeSdkService {
         'provider',
         'provider.profileImage',
         'listing',
-        'listing.images',
+        // 'listing.images',
         'booking',
         // 'reviews',
         // 'reviews.author',
@@ -477,6 +477,12 @@ class SharetribeSdkService {
 
   createStripeAccount(query) {
     return this.sdk.stripeAccount.create(query, {
+      expand: true,
+    });
+  }
+
+  retrievePerson(query) {
+    return this.sdk.stripeAccount.retrievePerson(...query, {
       expand: true,
     });
   }

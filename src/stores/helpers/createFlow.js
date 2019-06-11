@@ -6,7 +6,7 @@ import {
   getRoot,
   getEnv,
 } from 'mobx-state-tree';
-import _ from 'lodash';
+// import _ from 'lodash';
 
 // TODO: Change ErrorModel
 const ErrorModel = types.model({

@@ -386,6 +386,8 @@ export default hoistStatics(
     lifecycle({
       async componentDidMount() {
         if (this.props.isEditing) {
+          await this.props.product.getOwnFields.run();
+
           const entries = R.pathOr(
             [],
             ['availabilityPlan', 'entries'],
