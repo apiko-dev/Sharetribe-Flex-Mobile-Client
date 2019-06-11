@@ -65,6 +65,7 @@ const styles = StyleSheet.create({
   },
   buttonRent: {
     padding: dimensions.indent / 2,
+    paddingHorizontal: 0,
   },
   buttonRentContainer: {
     flex: 1,

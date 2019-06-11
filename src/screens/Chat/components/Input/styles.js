@@ -20,7 +20,9 @@ const styles = StyleSheet.create({
   },
   send: {
     textAlignVertical: 'center',
-    margin: dimensions.smallIndent,
+    margin: dimensions.indent,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 

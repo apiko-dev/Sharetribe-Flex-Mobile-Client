@@ -6,7 +6,7 @@ import {
 } from 'recompose';
 import { inject } from 'mobx-react';
 import R from 'ramda';
-import { NavigationService } from '../../services';
+import { NavigationService, AlertService } from '../../services';
 import RequestToRentPaymentScreenView from './RequestToRentPaymentScreenView';
 import { withParamsToProps, withModal } from '../../utils/enhancers';
 import { payments, dates } from '../../utils';
@@ -21,7 +21,7 @@ export default hoistStatics(
     withParamsToProps('endRent'),
     withParamsToProps('currentTransaction'),
 
-    inject(({ transaction }, { currentTransaction }) => ({
+    inject(({ transaction }, { currentTransaction, product }) => ({
       transactionStore: transaction,
       initiateTransaction: transaction.initiateTransaction,
       initiateOrderAfterEnquiry:
@@ -43,6 +43,7 @@ export default hoistStatics(
           currentTransaction,
         ),
       currentTransaction,
+      getAvailableDays: product.getAvailableDays,
     })),
     withStateHandlers(
       {
@@ -122,8 +123,13 @@ export default hoistStatics(
           props.onChange('isVisibleModal', false);
           NavigationService.navigateToChat({ transaction });
         },
-        gotoProduct: () => {
+        gotoProduct: async () => {
           const { product } = props;
+          try {
+            await props.getAvailableDays.run(product.id);
+          } catch (error) {
+            AlertService.showSomethingWentWrong();
+          }
           NavigationService.navigateToProduct({ product });
           props.onChange('isVisibleModal', false);
         },
