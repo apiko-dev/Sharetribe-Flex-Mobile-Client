@@ -43,20 +43,7 @@ export default hoistStatics(
           ['initiateOrderAfterEnquiry', 'isError'],
           currentTransaction,
         ),
-      // isErrorSpec:
-      //   transaction.initiateTransaction.isError ||
-      //   R.pathOr(
-      //     false,
-      //     ['initiateOrderAfterEnquiry', 'isError'],
-      //     currentTransaction,
-      //   ),
       currentTransaction,
-      // errorMessage: R.pathOr(
-      //   false,
-      //   ['initiateTransaction', 'errorMessage'],
-      //   transaction,
-      // ),
-      // errorMessage: transaction.initiateTransaction.errorMessage,
       getAvailableDays: product.getAvailableDays,
     })),
     withStateHandlers(
@@ -125,7 +112,6 @@ export default hoistStatics(
             });
           }
         } catch (err) {
-          // throw new Error(err);
           console.log(err);
         }
       },
@@ -163,8 +149,6 @@ export default hoistStatics(
         },
         isLoading: props.isLoading,
         isError: props.isError,
-        // isErrorSpec: props.isErrorSpec,
-        // errorMessage: props.errorMessage,
       }),
       RequestSentModal,
     ),

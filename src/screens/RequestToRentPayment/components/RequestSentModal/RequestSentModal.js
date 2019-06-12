@@ -16,14 +16,12 @@ const RequestSentModal = ({
   gotoProduct,
   isError,
   goToChat,
-  // errorMessage,
 }) => {
   const modalContentComponent = () => {
     if (isError) {
       return (
         <ErrorModal
           navigationToRequestToRent={navigationToRequestToRent}
-          // errorMessage={errorMessage}
         />
       );
     }

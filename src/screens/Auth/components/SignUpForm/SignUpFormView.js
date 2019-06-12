@@ -3,29 +3,19 @@ import { View } from 'react-native';
 import T from 'prop-types';
 import s from './styles';
 import {
-  InputForm,
   Button,
   TextTouchable,
   Text,
   Form,
-  FormContainer,
   FormInput,
 } from '../../../../components';
 import i18n from '../../../../i18n';
 import { SignUpSchema } from '../../../../validators/schemes';
 
 const SignUpForm = ({
-  // email,
-  // password,
-  // firstName,
-  // lastName,
-  // onChange,
-  // activeField,
-  // isValidFields,
   signUp,
   isSigningUp,
   onChangeTabIndex,
-  //
   formRef,
 }) => (
   <View style={s.container}>
@@ -37,13 +27,9 @@ const SignUpForm = ({
         enableReinitialize
         validationSchema={SignUpSchema}
         ref={formRef}
-        // onSubmit={(values, actions) => {
-        //   debugger;
-        //   signUp(values);
-        // }}
         onSubmit={signUp}
       >
-        {({ isValid }) => (
+        {({ handleSubmit, isValid }) => (
           <React.Fragment>
             <FormInput.Field
               placeholder={i18n.t('settings.email')}
@@ -81,7 +67,7 @@ const SignUpForm = ({
                 primary
                 containerStyle={s.buttonContainer}
                 disabled={!isValid}
-                onPress={() => signUp()}
+                onPress={handleSubmit}
                 isLoading={isSigningUp}
                 title={i18n.t('auth.createAccount')}
               />
@@ -108,15 +94,9 @@ const SignUpForm = ({
 
 SignUpForm.propTypes = {
   onChangeTabIndex: T.func,
-  email: T.string,
-  password: T.string,
-  firstName: T.string,
-  lastName: T.string,
-  onChange: T.func.isRequired,
-  activeField: T.string,
-  isValidFields: T.bool,
   signUp: T.func,
   isSigningUp: T.bool,
+  formRef: T.any,
 };
 
 export default SignUpForm;

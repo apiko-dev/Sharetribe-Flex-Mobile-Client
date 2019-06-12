@@ -235,7 +235,7 @@ function getOwnFields(flow, store) {
       });
 
       const snapshot = processJsonApi(res.data.data);
-      Object.assign(store, snapshot);
+      store.updateStore(snapshot);
 
       flow.success();
     } catch (err) {
