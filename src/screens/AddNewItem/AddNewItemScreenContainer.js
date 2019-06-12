@@ -6,6 +6,7 @@ import {
   withPropsOnChange,
   lifecycle,
 } from 'recompose';
+import { Keyboard } from 'react-native';
 import R from 'ramda';
 import ImagePicker from 'react-native-image-crop-picker';
 import { inject } from 'mobx-react';
@@ -193,6 +194,7 @@ export default hoistStatics(
       },
 
       createListing: (props) => async () => {
+        Keyboard.dismiss();
         try {
           await props.listings.createListing.run({
             images: props.photos,
@@ -215,7 +217,6 @@ export default hoistStatics(
           const content = props.userInterface.shouldShowVerifyModal
             ? i18n.t('stripeVerifyInstructions.message')
             : i18n.t('alerts.createListingSuccess.message');
-
           AlertService.showAlert(title, content, [
             {
               text: i18n.t('common.ok'),
@@ -234,6 +235,7 @@ export default hoistStatics(
       },
 
       updateProduct: (props) => async () => {
+        Keyboard.dismiss();
         try {
           await props.product.update.run({
             id: props.id,
