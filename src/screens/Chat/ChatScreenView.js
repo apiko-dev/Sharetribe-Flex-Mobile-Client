@@ -11,11 +11,14 @@ import {
   Loader,
   Text,
   TextTouchable,
+  NavigationButton,
 } from '../../components';
 import { transitionStatuses } from '../../constants';
 import i18n from '../../i18n';
 import { isAndroid } from '../../utils';
 import s from './styles';
+import { NavigationService } from '../../services';
+import screens from '../../navigation/screens';
 
 const getConfirmationStatus = (transaction) => {
   switch (transaction) {
@@ -134,9 +137,28 @@ function ChatScreen({
   );
 }
 
-ChatScreen.navigationOptions = ({ navigation }) => ({
-  title: navigation.getParam('userName'),
-});
+ChatScreen.navigationOptions = ({ navigation }) => {
+  const product = navigation.getParam('product');
+  const isShow = navigation.getParam('fromRequest');
+
+  return {
+    title: navigation.getParam('userName'),
+    headerLeft: isShow ? (
+      <NavigationButton
+        goBackTo
+        name="back"
+        onPress={() =>
+          NavigationService.navigateToProduct(screens.Product, {
+            product,
+          })
+        }
+        tintColor={colors.text.white}
+      />
+    ) : (
+      <NavigationButton goBack tintColor={colors.text.white} />
+    ),
+  };
+};
 
 ChatScreen.propTypes = {
   isShowDetails: T.bool,

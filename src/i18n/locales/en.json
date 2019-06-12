@@ -421,5 +421,10 @@
     "spend": "Spend",
     "earnings": "Earnings"
 
+  },
+  "PrivacyPolicies": {
+    "name": "Sharetribe Flex",
+    "title": "PrivacyPolicies"
+
   }
 }

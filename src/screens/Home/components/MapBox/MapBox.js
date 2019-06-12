@@ -4,6 +4,7 @@ import R from 'ramda';
 import { View } from 'react-native';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import { compose, withHandlers, withState } from 'recompose';
+import { observer } from 'mobx-react/custom';
 import s from './styles';
 import { Carousel } from './components';
 import CarouselItem from '../CarouselItem/CarouselItem';
@@ -69,62 +70,78 @@ const MapBox = ({
   onMapLayout,
   selectedMarkerIndex,
   onPressMarker,
+  data,
+  listings,
+  sectionList,
+  listingsFilter,
+  isRefreshing,
+  isLoading,
   ...props
-}) => (
-  <View style={s.flex}>
-    <MapView
-      initialRegion={findInitialRegion(
-        markers,
-        currentWidth,
-        currentHeight,
-      )}
-      style={s.flex}
-      ref={setMapViewRef}
-      onLayout={onMapLayout}
-      provider={PROVIDER_GOOGLE}
-    >
-      {markers.map((marker) => (
-        <MapView.Marker
-          onCalloutPress={() => onCalloutPress(marker)}
-          key={marker.key}
-          coordinate={marker.coordinate}
-          title={marker.title}
-          description={marker.description}
+}) => {
+  let filterItem = sectionList
+    .map((i) => listingsFilter(listings, i))
+    .flat();
+  if (data.length > 0) {
+    filterItem = data;
+  }
+  return (
+    <View style={s.flex}>
+      <MapView
+        initialRegion={findInitialRegion(
+          markers,
+          currentWidth,
+          currentHeight,
+        )}
+        style={s.flex}
+        ref={setMapViewRef}
+        onLayout={onMapLayout}
+        provider={PROVIDER_GOOGLE}
+      >
+        {markers.map((marker) => (
+          <MapView.Marker
+            onCalloutPress={() => onCalloutPress(marker)}
+            key={marker.key}
+            coordinate={marker.coordinate}
+            title={marker.title}
+            description={marker.description}
+          />
+        ))}
+      </MapView>
+      <View style={s.cardsContainer}>
+        <Carousel
+          removeClippedSubviews={removeClippedSubviews}
+          onSnapToItem={onSnapToItem}
+          keyExtractor={R.prop('id')}
+          data={filterItem}
+          renderItem={({ item }) => (
+            <CarouselItem item={item} isLoading={isLoading} />
+          )}
+          initialNumToRender={10}
+          sliderWidth={currentWidth}
+          itemWidth={getItemWidth(currentWidth)}
+          inactiveSlideOpacity={1}
+          onEndReachedThreshold={0.3}
+          // Use this with pagination listings, it adds empty card in the end to fetch new product
+          // onEndReached={() => {
+          //   if (!props.isLoadingMore && !props.loadingMoreError) {
+          //     props.fetchMore();
+          //   }
+          // }}
+          // showFooter={props.isLoadingMore || !!props.loadingMoreError}
+          // footerComponent={
+          //   <Carousel.PlaceholderCard
+          //     width={getItemWidth(currentWidth)}
+          //     showSpinner={props.isLoadingMore}
+          //     loadingError={props.loadingMoreError}
+          //     loadingErrorCaption={props.loadingMoreErrorCaption}
+          //     onRetry={props.fetchMore}
+          //   />
+          // }
         />
-      ))}
-    </MapView>
-    <View style={s.cardsContainer}>
-      <Carousel
-        removeClippedSubviews={removeClippedSubviews}
-        onSnapToItem={onSnapToItem}
-        keyExtractor={R.prop('id')}
-        data={items}
-        renderItem={({ item }) => <CarouselItem item={item} />}
-        initialNumToRender={10}
-        sliderWidth={currentWidth}
-        itemWidth={getItemWidth(currentWidth)}
-        inactiveSlideOpacity={1}
-        onEndReachedThreshold={0.3}
-        // Use this with pagination listings, it adds empty card in the end to fetch new product
-        // onEndReached={() => {
-        //   if (!props.isLoadingMore && !props.loadingMoreError) {
-        //     props.fetchMore();
-        //   }
-        // }}
-        // showFooter={props.isLoadingMore || !!props.loadingMoreError}
-        // footerComponent={
-        //   <Carousel.PlaceholderCard
-        //     width={getItemWidth(currentWidth)}
-        //     showSpinner={props.isLoadingMore}
-        //     loadingError={props.loadingMoreError}
-        //     loadingErrorCaption={props.loadingMoreErrorCaption}
-        //     onRetry={props.fetchMore}
-        //   />
-        // }
-      />
+      </View>
     </View>
-  </View>
-);
+  );
+};
 
 MapBox.propTypes = {
   markers: T.array,
@@ -138,62 +155,12 @@ MapBox.propTypes = {
   onMapLayout: T.func,
   removeClippedSubviews: T.bool,
   items: T.array,
+  data: T.array,
+  listings: T.array,
+  sectionList: T.array,
+  listingsFilter: T.func,
+  isRefreshing: T.bool,
+  isLoading: T.bool,
 };
 
-const enhancer = compose(
-  withState('getMapViewRef', 'setMapViewRef', React.createRef()),
-  withState('isMounted', 'setIsMounted', false),
-  withState(
-    'removeClippedSubviews',
-    'setRemoveClippedSubviews',
-    false,
-  ),
-  withHandlers({
-    fixCoordinates: (props) => () => {
-      if (!props.getMapViewRef || props.markers.length < 1) {
-        return;
-      }
-
-      const { latitude, longitude } = props.markers[0].coordinate;
-
-      const region = {
-        latitude,
-        longitude,
-        latitudeDelta: ZOOMED_DELTA,
-        longitudeDelta: ZOOMED_DELTA,
-      };
-
-      props.getMapViewRef.animateToRegion(region);
-    },
-    handleClippedSubviews: (props) => () => {
-      if (!props.removeClippedSubviews) {
-        props.setRemoveClippedSubviews(true);
-      }
-    },
-  }),
-  withHandlers({
-    onMapLayout: (props) => () => {
-      if (!props.isMounted) {
-        props.setIsMounted(true);
-        props.fixCoordinates();
-      }
-    },
-    onSnapToItem: (props) => (slideIndex) => {
-      props.handleClippedSubviews();
-
-      const item = R.path(['items', slideIndex], props);
-      if (!item) return;
-
-      const region = {
-        latitude: item.geolocation.lat,
-        longitude: item.geolocation.lng,
-        latitudeDelta: ZOOMED_DELTA,
-        longitudeDelta: ZOOMED_DELTA,
-      };
-
-      props.getMapViewRef.animateToRegion(region);
-    },
-  }),
-);
-
-export default enhancer(MapBox);
+export default observer(MapBox);

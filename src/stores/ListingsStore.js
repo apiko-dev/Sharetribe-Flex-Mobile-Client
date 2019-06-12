@@ -88,7 +88,7 @@ export const Product = t
   })
 
   .actions((store) => ({
-    update(snapshot) {
+    updateStore(snapshot) {
       Object.assign(store, snapshot);
     },
   }))
@@ -151,6 +151,10 @@ export const Product = t
     setTransactionId({ uuid }) {
       store.transactionId = uuid;
     },
+
+    updateStore(snapshot) {
+      Object.assign(store, snapshot);
+    },
   }));
 
 function getAvailableDays(flow, store) {
@@ -172,7 +176,7 @@ function getAvailableDays(flow, store) {
         end,
       );
 
-      store.update(data);
+      store.updateStore(data);
 
       flow.success();
     } catch (err) {
@@ -210,9 +214,9 @@ function updateProduct(flow, store) {
       const entities = normalizedIncluded(res.data.included);
 
       getRoot(store).entities.merge(entities);
-      Object.assign(store, snapshot);
+      store.updateStore(snapshot);
 
-      yield getRoot(store).listings.getAvailableDays.run(store.id);
+      yield store.getAvailableDays.run(store.id);
       flow.success();
     } catch (err) {
       flow.failed(err, true);
@@ -231,7 +235,7 @@ function getOwnFields(flow, store) {
       });
 
       const snapshot = processJsonApi(res.data.data);
-      Object.assign(store, snapshot);
+      store.updateStore(snapshot);
 
       flow.success();
     } catch (err) {

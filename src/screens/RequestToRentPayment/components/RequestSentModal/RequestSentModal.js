@@ -2,6 +2,7 @@ import React from 'react';
 import { View } from 'react-native';
 import Modal from 'react-native-modal';
 import T from 'prop-types';
+import { observer } from 'mobx-react/custom';
 import { IconFonts, Loader } from '../../../../components';
 import s from './styles';
 import { colors } from '../../../../styles';
@@ -66,4 +67,4 @@ RequestSentModal.propTypes = {
   isError: T.bool,
 };
 
-export default RequestSentModal;
+export default observer(RequestSentModal);

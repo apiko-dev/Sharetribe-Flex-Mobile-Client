@@ -185,6 +185,9 @@ export default hoistStatics(
           data.newPassword === data.replyPassword
         ) {
           changePassword(data);
+          data.newPassword = '';
+          data.replyPassword = '';
+          data.currentPassword = '';
         }
       },
     }),
@@ -207,8 +210,7 @@ export default hoistStatics(
         };
 
         const isLoading =
-          isUpdatingProfile || isChangingEmail || isChangingPassword;
-
+          isChangingPassword || isUpdatingProfile || isChangingEmail;
         return {
           initialValues,
           isLoading,

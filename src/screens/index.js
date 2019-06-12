@@ -43,6 +43,9 @@ export {
   default as CardListScreen,
 } from './CardList/CardListScreenContainer';
 export { default as HelpScreen } from './Help/HelpScreen';
+export {
+  default as PrivacyPoliciesScreen,
+} from './PrivacyPolicies/PrivacyPolicies';
 export { default as InboxScreen } from './Inbox/InboxScreenContainer';
 export { default as ChatScreen } from './Chat/ChatScreenContainer';
 export {

@@ -56,6 +56,7 @@ export default hoistStatics(
       reviewsCountUser:
         product.relationships.author.reviews.reviewsCount,
       ratingsForListing: product.reviews.ratings,
+      isAuthorized: stores.auth.isAuthorized,
     })),
 
     withStateHandlers(

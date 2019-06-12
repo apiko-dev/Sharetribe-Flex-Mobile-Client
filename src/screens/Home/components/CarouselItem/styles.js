@@ -7,6 +7,14 @@ export default StyleSheet.create({
     borderRadius: 10,
     marginBottom: dimensions.indent,
   },
+  containerLoader: {
+    height: dimensions.indent * 10,
+    borderRadius: 10,
+    marginBottom: dimensions.indent,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: colors.mapView.backgroundColor,
+  },
   imageContainer: {
     flex: 0.6,
     borderTopLeftRadius: dimensions.borderRadius * 2,

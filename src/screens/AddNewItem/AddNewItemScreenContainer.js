@@ -6,6 +6,7 @@ import {
   withPropsOnChange,
   lifecycle,
 } from 'recompose';
+import { Keyboard } from 'react-native';
 import R from 'ramda';
 import ImagePicker from 'react-native-image-crop-picker';
 import { inject } from 'mobx-react';
@@ -63,13 +64,13 @@ export default hoistStatics(
         const getPublic = getPublicData(props);
 
         return {
-          id: getPublic('id'),
+          id: R.pathOr('', ['product', 'id'], props),
           photos: getImages(props.product),
           title: R.pathOr('', ['product', 'title'], props),
           category: getPublic('category'),
           subCategory: getPublic('subCategory'),
-          brand: getPublic('subCategory'),
-          level: getPublic('subCategory'),
+          brand: getPublic('brand'),
+          level: getPublic('level'),
           description: R.pathOr(
             '',
             ['product', 'description'],
@@ -193,6 +194,7 @@ export default hoistStatics(
       },
 
       createListing: (props) => async () => {
+        Keyboard.dismiss();
         try {
           await props.listings.createListing.run({
             images: props.photos,
@@ -215,7 +217,6 @@ export default hoistStatics(
           const content = props.userInterface.shouldShowVerifyModal
             ? i18n.t('stripeVerifyInstructions.message')
             : i18n.t('alerts.createListingSuccess.message');
-
           AlertService.showAlert(title, content, [
             {
               text: i18n.t('common.ok'),
@@ -234,6 +235,7 @@ export default hoistStatics(
       },
 
       updateProduct: (props) => async () => {
+        Keyboard.dismiss();
         try {
           await props.product.update.run({
             id: props.id,
@@ -296,6 +298,10 @@ export default hoistStatics(
             ['data', 'result', 'geometry', 'location'],
             res,
           );
+          const text = R.path(
+            ['data', 'result', 'formatted_address'],
+            res,
+          );
 
           if (typeof location === 'undefined') {
             throw new Error(
@@ -304,16 +310,18 @@ export default hoistStatics(
           }
 
           props.setLocation(location);
+          props.onChange('location', text);
         } catch (err) {
           props.onChange('isErrorPlaceDetails', true);
           console.log(err.message);
         } finally {
           props.onChange('isLoadingPlaceDetails', false);
+          props.onChange('isErrorPlaceDetails', false);
         }
       },
-      // repeatRequestLocation:
     }),
 
+    // to reduce the number of requests
     withDebounce('getPredictions', 300),
 
     withHandlers({

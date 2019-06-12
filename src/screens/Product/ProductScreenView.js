@@ -61,6 +61,7 @@ const ProductScreen = ({
   reviews,
   reviewsCountUser,
   ratingsForListing,
+  isAuthorized,
 }) => (
   <ScrollView style={s.container} bounces={false}>
     <View style={s.carouselContainer}>
@@ -169,7 +170,7 @@ const ProductScreen = ({
         </Tab>
       </TabView>
     </View>
-    {!product.canEdit && (
+    {!product.canEdit && isAuthorized && (
       <Footer
         phone={phoneNumber}
         onCall={onCall}
@@ -220,5 +221,6 @@ ProductScreen.propTypes = {
   reviewsCountUser: T.number,
   reviews: T.array,
   ratingsForListing: T.array,
+  isAuthorized: T.bool,
 };
 export default observer(ProductScreen);

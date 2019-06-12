@@ -58,6 +58,10 @@ const HomeScreen = ({
             selectedMarkerIndex={selectedMarkerIndex}
             onPressMarker={onPressMarker}
             onCalloutPress={onCalloutPress}
+            category={category}
+            subCategory={subCategory}
+            search={search}
+            isRefreshing={isRefreshing}
           />
         </Tab>
       </TabView>

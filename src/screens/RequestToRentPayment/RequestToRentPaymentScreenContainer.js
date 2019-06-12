@@ -5,6 +5,7 @@ import {
   withStateHandlers,
 } from 'recompose';
 import { inject } from 'mobx-react';
+import { Keyboard } from 'react-native';
 import R from 'ramda';
 import { NavigationService, AlertService } from '../../services';
 import RequestToRentPaymentScreenView from './RequestToRentPaymentScreenView';
@@ -68,7 +69,7 @@ export default hoistStatics(
       }) => async (values) => {
         try {
           console.log('onRequest: ', startRent, endRent);
-
+          Keyboard.dismiss();
           const {
             cardNumber,
             monthExpiration,
@@ -121,7 +122,11 @@ export default hoistStatics(
         goToChat: () => {
           const transaction = props.transactionStore.list.latest;
           props.onChange('isVisibleModal', false);
-          NavigationService.navigateToChat({ transaction });
+          NavigationService.navigateToChat({
+            transaction,
+            fromRequest: true,
+            product: props.product,
+          });
         },
         gotoProduct: async () => {
           const { product } = props;

@@ -74,7 +74,6 @@ export default hoistStatics(
       props.navigation.setParams({
         userName,
       });
-
     }),
     withStateHandlers(
       {

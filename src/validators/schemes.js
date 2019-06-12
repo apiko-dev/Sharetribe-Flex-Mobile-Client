@@ -88,6 +88,27 @@ export const ProfileSchema = Yup.object().shape({
   }),
 });
 
+export const SignUpSchema = Yup.object().shape({
+  firstName: Yup.string()
+    .trim()
+    .min(1)
+    .max(100)
+    .required(i18n.t('errors.requireFirstName')),
+  lastName: Yup.string()
+    .trim()
+    .min(1)
+    .max(100)
+    .required(i18n.t('errors.requireLastName')),
+  email: Yup.string()
+    .trim()
+    .matches(regExp.emailRegexp, i18n.t('errors.incorrectEmail'))
+    .required(i18n.t('errors.incorrectEmail')),
+  password: Yup.string()
+    .trim()
+    .min(8)
+    .required(i18n.t('errors.passwordMustBe')),
+});
+
 export const PaymentSchema = Yup.object().shape({
   cardNumber: Yup.string()
     .trim()

@@ -12,7 +12,7 @@ const NavigationButton = ({
   onPress,
   tintColor,
   right,
-  goBack,
+  goBack = false,
   circled,
 }) => (
   <Touchable

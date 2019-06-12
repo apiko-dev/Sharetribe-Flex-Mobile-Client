@@ -103,7 +103,11 @@ const ListView = React.memo(
                 isRefreshing={isRefreshing}
                 fetchAllListings={fetchAllListings}
                 headerTitle={categoryItem}
-                headerTitleTextTouchable={i18n.t('home.seeAll')}
+                headerTitleTextTouchable={
+                  listingsFilter(listings, categoryItem).length > 2
+                    ? i18n.t('home.seeAll')
+                    : null
+                }
                 headerOnPressTextTouchable={() =>
                   chooseCategory(
                     category || categoryItem,

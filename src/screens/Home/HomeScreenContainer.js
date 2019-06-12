@@ -38,6 +38,7 @@ export default hoistStatics(
       listings: stores.listings,
       markers: arrCoordinates(stores.listings.list.asArray),
       products: stores.listings.list.asArray,
+      // searchListings: stores.listings.searchListings.asArray,
     })),
 
     defaultProps({
@@ -150,5 +151,7 @@ export default hoistStatics(
         value: props.search,
       });
     }),
+
+
   ),
 )(HomeScreenComponent);

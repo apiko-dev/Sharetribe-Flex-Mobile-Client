@@ -9,19 +9,26 @@ import {
   Text,
   ShadowContainer,
   Touchable,
+  ScreenLoader,
 } from '../../../../components';
 import i18n from '../../../../i18n';
 import { NavigationService } from '../../../../services';
 
 const placeholderImage = require('../../../../assets/png/Group.png');
 
-function CarouselItem({ item }) {
+function CarouselItem({ item, isLoading }) {
   const image = R.pathOr(
     placeholderImage,
     ['relationships', 'getImages', [0], 'getTitleImage'],
     item,
   );
-
+  if (isLoading) {
+    return (
+      <View style={s.containerLoader}>
+        <ScreenLoader />
+      </View>
+    );
+  }
   return (
     <ShadowContainer>
       <Touchable
@@ -70,6 +77,7 @@ function CarouselItem({ item }) {
 
 CarouselItem.propTypes = {
   item: T.object,
+  isLoading: T.bool,
 };
 
 export default observer(CarouselItem);

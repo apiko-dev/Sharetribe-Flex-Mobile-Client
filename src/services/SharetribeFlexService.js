@@ -107,15 +107,22 @@ class SharetribeSdkService {
 
   updateProfile(query) {
     return this.sdk.currentUser.updateProfile(query, {
+      expand: true,
       include: ['profileImage'],
     });
   }
 
   updateAvatar(avatarId) {
     const profileImageId = new types.UUID(avatarId);
-    return this.sdk.currentUser.updateProfile({
-      profileImageId,
-    });
+    return this.sdk.currentUser.updateProfile(
+      {
+        profileImageId,
+      },
+      {
+        expand: true,
+        include: ['profileImage'],
+      },
+    );
   }
 
   getOwnListing({ id, include }) {
@@ -236,6 +243,37 @@ class SharetribeSdkService {
     );
   }
 
+  initiateSpeculativelyTransaction({
+    listingId,
+    startRent,
+    endRent,
+    cardToken,
+  }) {
+    return this.sdk.transactions.initiateSpeculative(
+      {
+        processAlias: 'preauth-with-nightly-booking/insta-reviews',
+        transition: 'transition/request',
+        params: {
+          listingId,
+          bookingStart: new Date(startRent),
+          bookingEnd: new Date(endRent),
+          cardToken,
+        },
+      },
+      {
+        expand: true,
+        include: [
+          'customer',
+          'customer.profileImage',
+          'provider',
+          'provider.profileImage',
+          'listing',
+          'booking',
+        ],
+      },
+    );
+  }
+
   initiateMessageTransaction(listId) {
     console.log('run service... ');
     return this.sdk.transactions.initiate(
@@ -312,7 +350,7 @@ class SharetribeSdkService {
         'provider',
         'provider.profileImage',
         'listing',
-        'listing.images',
+        // 'listing.images',
         'booking',
         // 'reviews',
         // 'reviews.author',
@@ -321,6 +359,16 @@ class SharetribeSdkService {
       ...params,
     });
   }
+
+  // fetchCountIncomingTransaction(params) {
+  //   return this.sdk.transactions.query({
+  //     only: 'sale',
+  //     lastTransitions: [
+  //       'transition/request',
+  //       'transition/request-after-enquiry',
+  //     ],
+  //   });
+  // }
 
   transactionsShow({ transactionId }) {
     return this.sdk.transactions.show({
@@ -429,6 +477,12 @@ class SharetribeSdkService {
 
   createStripeAccount(query) {
     return this.sdk.stripeAccount.create(query, {
+      expand: true,
+    });
+  }
+
+  retrievePerson(query) {
+    return this.sdk.stripeAccount.retrievePerson(...query, {
       expand: true,
     });
   }

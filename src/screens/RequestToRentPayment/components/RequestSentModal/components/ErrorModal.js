@@ -1,6 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import T from 'prop-types';
+import { observer } from 'mobx-react/custom';
 import { Text, Button, IconFonts } from '../../../../../components';
 import s from '../styles';
 import i18n from '../../../../../i18n';
@@ -33,4 +34,4 @@ RootModal.propTypes = {
   navigationToRequestToRent: T.func,
 };
 
-export default RootModal;
+export default observer(RootModal);
