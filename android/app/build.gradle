@@ -107,8 +107,8 @@ android {
         applicationId "com.apiko.marketplace"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 3
-        versionName "0.3.0"
+        versionCode 4
+        versionName "0.4.0"
         vectorDrawables.useSupportLibrary = true
         // allow it to build the app with tipsi-stripe
         multiDexEnabled true
