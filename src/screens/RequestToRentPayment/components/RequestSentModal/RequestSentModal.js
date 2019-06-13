@@ -16,12 +16,15 @@ const RequestSentModal = ({
   gotoProduct,
   isError,
   goToChat,
+  errorMessage,
 }) => {
   const modalContentComponent = () => {
     if (isError) {
       return (
         <ErrorModal
           navigationToRequestToRent={navigationToRequestToRent}
+          errorMessage={errorMessage}
+          gotoProduct={gotoProduct}
         />
       );
     }
@@ -65,6 +68,7 @@ RequestSentModal.propTypes = {
   goToChat: T.func,
   isLoading: T.bool,
   isError: T.bool,
+  errorMessage: T.string,
 };
 
 export default observer(RequestSentModal);
