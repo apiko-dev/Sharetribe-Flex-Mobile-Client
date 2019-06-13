@@ -82,6 +82,7 @@ export default hoistStatics(
             props,
           ).toString(),
           location: getPublic('location'),
+          defaultLocation: '',
           geolocation: R.pathOr(
             {},
             ['product', 'geolocation'],
@@ -150,6 +151,44 @@ export default hoistStatics(
     ),
 
     withHandlers({
+      setGeolocation: (props) => async (item) => {
+        try {
+          props.onChange('isErrorPlaceDetails', false);
+          props.onChange('isLoadingPlaceDetails', true);
+
+          const res = await GoogleApi.getPlaceDetails({
+            placeid: R.pathOr(props.placeid, ['place_id'], item),
+            language: 'eng',
+          });
+
+          const location = R.path(
+            ['data', 'result', 'geometry', 'location'],
+            res,
+          );
+          const text = R.path(
+            ['data', 'result', 'formatted_address'],
+            res,
+          );
+
+          if (typeof location === 'undefined') {
+            throw new Error(
+              'Cannot get location from google autocomplete',
+            );
+          }
+
+          props.setLocation(location);
+          props.onChange('defaultLocation', text);
+          props.onChange('location', text);
+        } catch (err) {
+          console.log(err.message);
+        } finally {
+          props.onChange('isErrorPlaceDetails', true);
+          props.onChange('isLoadingPlaceDetails', false);
+          props.onChange('isErrorPlaceDetails', false);
+        }
+      },
+    }),
+    withHandlers({
       addPhotoByCamera: (props) => async () => {
         try {
           if (await PermissionService.getCameraPermission()) {
@@ -195,7 +234,13 @@ export default hoistStatics(
 
       createListing: (props) => async () => {
         Keyboard.dismiss();
+
         try {
+          if (props.defaultLocation !== props.location) {
+            props.onChange('isErrorPlaceDetails', true);
+            throw new Error();
+          }
+
           await props.listings.createListing.run({
             images: props.photos,
             title: props.title,
@@ -226,17 +271,26 @@ export default hoistStatics(
               },
             },
           ]);
+          props.onChange('defaultLocation', '');
         } catch (err) {
-          AlertService.showAlert(
-            i18n.t('alerts.createListingError.title'),
-            i18n.t('alerts.createListingError.message'),
-          );
+          if (props.isErrorPlaceDetails) {
+            AlertService.showAlert(
+              i18n.t('alerts.createListingError.title'),
+              i18n.t('alerts.createListingError.message'),
+            );
+          }
         }
       },
 
       updateProduct: (props) => async () => {
         Keyboard.dismiss();
+
         try {
+          if (props.defaultLocation !== props.location) {
+            props.onChange('isErrorPlaceDetails', true);
+            throw new Error();
+          }
+
           await props.product.update.run({
             id: props.id,
             images: props.photos,
@@ -261,6 +315,7 @@ export default hoistStatics(
               },
             ],
           );
+          props.onChange('defaultLocation', '');
         } catch (err) {
           props.onChange('isErrorPlaceDetails', true);
           console.log(err);
@@ -281,42 +336,6 @@ export default hoistStatics(
           props.onChange('locationList', res.data.predictions);
         } catch (error) {
           props.onChange('locationList', []);
-        }
-      },
-
-      setGeolocation: (props) => async (item) => {
-        try {
-          props.onChange('isErrorPlaceDetails', false);
-          props.onChange('isLoadingPlaceDetails', true);
-
-          const res = await GoogleApi.getPlaceDetails({
-            placeid: R.pathOr(props.placeid, ['place_id'], item),
-            language: 'eng',
-          });
-
-          const location = R.path(
-            ['data', 'result', 'geometry', 'location'],
-            res,
-          );
-          const text = R.path(
-            ['data', 'result', 'formatted_address'],
-            res,
-          );
-
-          if (typeof location === 'undefined') {
-            throw new Error(
-              'Cannot get location from google autocomplete',
-            );
-          }
-
-          props.setLocation(location);
-          props.onChange('location', text);
-        } catch (err) {
-          props.onChange('isErrorPlaceDetails', true);
-          console.log(err.message);
-        } finally {
-          props.onChange('isLoadingPlaceDetails', false);
-          props.onChange('isErrorPlaceDetails', false);
         }
       },
     }),
