@@ -188,7 +188,7 @@ class GoogleAutocompleteApi {
       )
         .then((response) => {
           if (response.data.error_message) {
-            res(detailsResponse);
+            return res(detailsResponse);
           }
           res(response);
         })

@@ -42,9 +42,10 @@ export default StyleSheet.create({
     marginBottom: dimensions.indent * 3.1,
   },
   buttonResultContainer: {
-    marginTop: dimensions.indent * 3.1,
+    marginTop: dimensions.indent * 1.5,
     marginLeft: dimensions.indent * 1.5,
     marginRight: dimensions.indent * 1.5,
+    marginBottom: dimensions.indent,
   },
   alignCenter: {
     justifyContent: 'center',
