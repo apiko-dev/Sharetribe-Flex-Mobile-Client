@@ -4,7 +4,6 @@ import {
   branch,
   renderComponent,
   defaultProps,
-  withPropsOnChange,
 } from 'recompose';
 import { inject } from 'mobx-react';
 import ListView from './ListView';
@@ -47,22 +46,4 @@ export default compose(
           : categoryItem && i.publicData.category === categoryItem,
       ),
   }),
-
-  withPropsOnChange(
-    ['category', 'subCategory', 'search'],
-    (props) => ({
-      // Filter by sub category
-      data: props.listings.filter(
-        (i) => i.publicData.subCategory === props.subCategory && i,
-      ),
-
-      // Form section list by category
-      // When we have selected category we form section list by subcategory
-      sectionList: props.category
-        ? categories[
-            categories.findIndex((i) => i.title === props.category)
-          ].data
-        : categories.map((i) => i.title),
-    }),
-  ),
 )(ListView);

@@ -25,49 +25,76 @@ const HomeScreen = ({
   selectedMarkerIndex,
   onPressMarker,
   onCalloutPress,
-}) => (
-  <View style={s.container}>
-    <TabBar
-      goToCategory={goToCategory}
-      category={category}
-      subCategory={subCategory}
-      selectedTabIndex={selectedTabIndex}
-      onChangeTabIndex={onChangeTabIndex}
-    />
-    <View style={s.tabView}>
-      <TabView
+  //
+  // filterItem,
+  sectionList,
+  data,
+  listingsFilter,
+  listings,
+  //
+}) => {
+  let filterItem = sectionList
+    .map((i) => listingsFilter(listings.list.asArray, i))
+    .flat();
+
+  // if (data.length > 0) {
+  //   filterItem = data;
+  //   return filterItem;
+  // }
+  return (
+    <View style={s.container}>
+      <TabBar
+        goToCategory={goToCategory}
+        category={category}
+        subCategory={subCategory}
         selectedTabIndex={selectedTabIndex}
-        layoutWidth={dimensions.width}
-      >
-        <Tab>
-          <ListView
-            category={category}
-            subCategory={subCategory}
-            search={search}
-            chooseCategory={chooseCategory}
-            fetchAllListings={fetchAllListings}
-            isRefreshing={isRefreshing}
-          />
-        </Tab>
-        <Tab lazy>
-          <MapBox
-            markers={markers}
-            items={products}
-            currentWidth={width}
-            currentHeight={200}
-            selectedMarkerIndex={selectedMarkerIndex}
-            onPressMarker={onPressMarker}
-            onCalloutPress={onCalloutPress}
-            category={category}
-            subCategory={subCategory}
-            search={search}
-            isRefreshing={isRefreshing}
-          />
-        </Tab>
-      </TabView>
+        onChangeTabIndex={onChangeTabIndex}
+      />
+      <View style={s.tabView}>
+        <TabView
+          selectedTabIndex={selectedTabIndex}
+          layoutWidth={dimensions.width}
+        >
+          <Tab>
+            <ListView
+              category={category}
+              subCategory={subCategory}
+              search={search}
+              chooseCategory={chooseCategory}
+              fetchAllListings={fetchAllListings}
+              isRefreshing={isRefreshing}
+              //
+              filterItem={filterItem}
+              sectionList={sectionList}
+              data={data}
+              // listingsFilter={listingsFilter}
+            />
+          </Tab>
+          <Tab lazy>
+            <MapBox
+              markers={markers}
+              items={products}
+              currentWidth={width}
+              currentHeight={200}
+              selectedMarkerIndex={selectedMarkerIndex}
+              onPressMarker={onPressMarker}
+              onCalloutPress={onCalloutPress}
+              category={category}
+              subCategory={subCategory}
+              search={search}
+              isRefreshing={isRefreshing}
+              //
+              filterItem={filterItem}
+              sectionList={sectionList}
+              data={data}
+              // listingsFilter={listingsFilter}
+            />
+          </Tab>
+        </TabView>
+      </View>
     </View>
-  </View>
-);
+  );
+};
 
 HomeScreen.navigationOptions = ({ navigation }) => ({
   headerLeft: <DrawerButton />,

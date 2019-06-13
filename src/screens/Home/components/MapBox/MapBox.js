@@ -76,14 +76,15 @@ const MapBox = ({
   listingsFilter,
   isRefreshing,
   isLoading,
+  //
+  filterItem,
   ...props
 }) => {
-  let filterItem = sectionList
-    .map((i) => listingsFilter(listings, i))
-    .flat();
+  let newFilterItem = filterItem;
   if (data.length > 0) {
-    filterItem = data;
+    newFilterItem = data;
   }
+
   return (
     <View style={s.flex}>
       <MapView
@@ -112,7 +113,8 @@ const MapBox = ({
           removeClippedSubviews={removeClippedSubviews}
           onSnapToItem={onSnapToItem}
           keyExtractor={R.prop('id')}
-          data={filterItem}
+          // data={data}
+          data={newFilterItem}
           renderItem={({ item }) => (
             <CarouselItem item={item} isLoading={isLoading} />
           )}

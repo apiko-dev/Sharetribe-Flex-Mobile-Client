@@ -153,6 +153,9 @@
     "goToChat": "Go to chat",
     "requestSent": "Request sent",
     "waitForConfirmation": "Wait for confirmation",
+    "verificationError": "Current user has not verified the account, you can not rent this product",
+    "sorry": "Sorry",
+    "goToProduct": "Go to product"
   },
   "payoutPreferences": {
     "payoutPreferences": "Payout Preferences",

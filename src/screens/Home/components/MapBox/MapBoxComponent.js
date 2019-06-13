@@ -1,5 +1,6 @@
 import React from 'react';
 import R from 'ramda';
+import uuid from 'uuid/v4';
 
 import {
   compose,
@@ -7,6 +8,7 @@ import {
   withState,
   withPropsOnChange,
   defaultProps,
+
 } from 'recompose';
 
 import { inject } from 'mobx-react';
@@ -14,6 +16,22 @@ import MapBox from './MapBox';
 import { categories } from '../../../../constants';
 
 const ZOOMED_DELTA = 0.015;
+
+const arrCoordinates = (value) => {
+  const markers = value.reduce((acc, current) => {
+    const body = {
+      coordinate: {
+        latitude: current.geolocation.lat,
+        longitude: current.geolocation.lng,
+      },
+      cost: `${current.price.amount}`,
+      key: uuid(),
+    };
+    acc.push(body);
+    return acc;
+  }, []);
+  return markers;
+};
 
 const enhancer = compose(
   inject((store, props) => ({
@@ -80,37 +98,6 @@ const enhancer = compose(
       props.getMapViewRef.animateToRegion(region);
     },
   }),
-
-  withHandlers({
-    // Filter products by category or if we've selected category
-    // filter by category and sub category
-    listingsFilter: (props) => (listings, categoryItem) =>
-      listings.filter((i) =>
-        props.category
-          ? categoryItem &&
-            i.publicData.category === props.category &&
-            i.publicData.subCategory === categoryItem
-          : categoryItem && i.publicData.category === categoryItem,
-      ),
-  }),
-
-  withPropsOnChange(
-    ['category', 'subCategory', 'search'],
-    (props) => ({
-      // Filter by sub category
-      data: props.listings.filter(
-        (i) => i.publicData.subCategory === props.subCategory && i,
-      ),
-
-      // Form section list by category
-      // When we have selected category we form section list by subcategory
-      sectionList: props.category
-        ? categories[
-            categories.findIndex((i) => i.title === props.category)
-          ].data
-        : categories.map((i) => i.title),
-    }),
-  ),
 );
 
 export default enhancer(MapBox);
