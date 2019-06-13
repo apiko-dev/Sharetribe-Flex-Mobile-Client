@@ -152,13 +152,13 @@ const SettingsScreen = ({
                   placeholder={i18n.t('settings.newPassword')}
                   containerStyle={s.inputContainer}
                   name="newPassword"
-                  secureTextEntry
+                  inputType="password"
                   autoCapitalize="none"
                 />
                 <FormInput.Field
                   placeholder={i18n.t('settings.retypeNewPassword')}
                   name="replyPassword"
-                  secureTextEntry
+                  inputType="password"
                   autoCapitalize="none"
                 />
               </FormContainer>
