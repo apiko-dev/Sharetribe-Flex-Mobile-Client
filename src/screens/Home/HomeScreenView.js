@@ -28,10 +28,10 @@ const HomeScreen = ({
   sectionList,
   data,
   listingsFilter,
-  listings,
+  listingsAsArr,
 }) => {
   const filterItem = sectionList
-    .map((i) => listingsFilter(listings.list.asArray, i))
+    .map((i) => listingsFilter(listingsAsArr, i))
     .flat();
 
   return (
@@ -110,9 +110,9 @@ HomeScreen.propTypes = {
   selectedMarkerIndex: T.number,
   onPressMarker: T.func,
   onCalloutPress: T.func,
-  listingsFilter: T.array,
+  listingsFilter: T.func,
   data: T.array,
-  listings: T.array,
+  listingsAsArr: T.array,
   sectionList: T.array,
 };
 

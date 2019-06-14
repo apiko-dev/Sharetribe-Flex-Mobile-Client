@@ -38,6 +38,7 @@ export default hoistStatics(
   compose(
     inject((stores) => ({
       listings: stores.listings,
+      listingsAsArr: stores.listings.list.asArray,
       products: stores.listings.list.asArray,
     })),
 
