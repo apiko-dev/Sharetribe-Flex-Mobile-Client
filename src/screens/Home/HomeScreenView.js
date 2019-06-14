@@ -25,22 +25,15 @@ const HomeScreen = ({
   selectedMarkerIndex,
   onPressMarker,
   onCalloutPress,
-  //
-  // filterItem,
   sectionList,
   data,
   listingsFilter,
   listings,
-  //
 }) => {
-  let filterItem = sectionList
+  const filterItem = sectionList
     .map((i) => listingsFilter(listings.list.asArray, i))
     .flat();
 
-  // if (data.length > 0) {
-  //   filterItem = data;
-  //   return filterItem;
-  // }
   return (
     <View style={s.container}>
       <TabBar
@@ -63,11 +56,8 @@ const HomeScreen = ({
               chooseCategory={chooseCategory}
               fetchAllListings={fetchAllListings}
               isRefreshing={isRefreshing}
-              //
-              filterItem={filterItem}
               sectionList={sectionList}
               data={data}
-              // listingsFilter={listingsFilter}
             />
           </Tab>
           <Tab lazy>
@@ -83,11 +73,9 @@ const HomeScreen = ({
               subCategory={subCategory}
               search={search}
               isRefreshing={isRefreshing}
-              //
               filterItem={filterItem}
               sectionList={sectionList}
               data={data}
-              // listingsFilter={listingsFilter}
             />
           </Tab>
         </TabView>
@@ -122,6 +110,10 @@ HomeScreen.propTypes = {
   selectedMarkerIndex: T.number,
   onPressMarker: T.func,
   onCalloutPress: T.func,
+  listingsFilter: T.array,
+  data: T.array,
+  listings: T.array,
+  sectionList: T.array,
 };
 
 export default observer(HomeScreen);

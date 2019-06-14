@@ -3,14 +3,12 @@ import T from 'prop-types';
 import R from 'ramda';
 import { View } from 'react-native';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
-import { compose, withHandlers, withState } from 'recompose';
 import { observer } from 'mobx-react/custom';
 import s from './styles';
 import { Carousel } from './components';
 import CarouselItem from '../CarouselItem/CarouselItem';
 
 const LATITUDE_DELTA = 0.0222;
-const ZOOMED_DELTA = 0.015;
 
 const findInitialRegion = (markers, currentWidth, currentHeight) => {
   if (markers.length === 1) {
@@ -73,10 +71,8 @@ const MapBox = ({
   data,
   listings,
   sectionList,
-  listingsFilter,
   isRefreshing,
   isLoading,
-  //
   filterItem,
   ...props
 }) => {
@@ -113,7 +109,6 @@ const MapBox = ({
           removeClippedSubviews={removeClippedSubviews}
           onSnapToItem={onSnapToItem}
           keyExtractor={R.prop('id')}
-          // data={data}
           data={newFilterItem}
           renderItem={({ item }) => (
             <CarouselItem item={item} isLoading={isLoading} />
@@ -160,7 +155,7 @@ MapBox.propTypes = {
   data: T.array,
   listings: T.array,
   sectionList: T.array,
-  listingsFilter: T.func,
+  filterItem: T.array,
   isRefreshing: T.bool,
   isLoading: T.bool,
 };

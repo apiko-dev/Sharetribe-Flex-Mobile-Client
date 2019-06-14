@@ -1,14 +1,10 @@
 import React from 'react';
 import R from 'ramda';
-import uuid from 'uuid/v4';
-
 import {
   compose,
   withHandlers,
   withState,
-  withPropsOnChange,
   defaultProps,
-
 } from 'recompose';
 
 import { inject } from 'mobx-react';
@@ -16,22 +12,6 @@ import MapBox from './MapBox';
 import { categories } from '../../../../constants';
 
 const ZOOMED_DELTA = 0.015;
-
-const arrCoordinates = (value) => {
-  const markers = value.reduce((acc, current) => {
-    const body = {
-      coordinate: {
-        latitude: current.geolocation.lat,
-        longitude: current.geolocation.lng,
-      },
-      cost: `${current.price.amount}`,
-      key: uuid(),
-    };
-    acc.push(body);
-    return acc;
-  }, []);
-  return markers;
-};
 
 const enhancer = compose(
   inject((store, props) => ({

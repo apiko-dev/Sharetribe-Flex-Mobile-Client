@@ -38,9 +38,7 @@ export default hoistStatics(
   compose(
     inject((stores) => ({
       listings: stores.listings,
-      // markers: arrCoordinates(stores.listings.list.asArray),
       products: stores.listings.list.asArray,
-      // searchListings: stores.listings.searchListings.asArray,
     })),
 
     defaultProps({
@@ -155,8 +153,6 @@ export default hoistStatics(
       });
     }),
 
-    // //////////////////////////////
-
     withHandlers({
       // Filter products by category or if we've selected category
       // filter by category and sub category
@@ -197,13 +193,17 @@ export default hoistStatics(
       }),
     ),
     withProps((props) => {
-      const markers = arrCoordinates(
+      let markers = arrCoordinates(
         props.sectionList
           .map((i) =>
             props.listingsFilter(props.listings.list.asArray, i),
           )
           .flat(),
       );
+
+      if (props.data.length > 0) {
+        markers = arrCoordinates(props.data);
+      }
       return { markers };
     }),
   ),
