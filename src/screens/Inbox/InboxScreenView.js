@@ -44,6 +44,7 @@ function InboxScreen({
 
 InboxScreen.navigationOptions = () => ({
   headerLeft: <DrawerButton />,
+  title: i18n.t('inbox.inbox'),
 });
 
 InboxScreen.propTypes = {

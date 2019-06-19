@@ -53,8 +53,8 @@ export default hoistStatics(
         const contactInitialValues = {
           email: user.email,
           phone:
-            (user.profile.protectedData &&
-              user.profile.protectedData.phoneNumber) ||
+            (user.profile.publicData &&
+              user.profile.publicData.phoneNumber) ||
             '',
           currentPasswordForEmail: '',
         };

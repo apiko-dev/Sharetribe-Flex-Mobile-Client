@@ -162,7 +162,7 @@ const SettingsScreen = ({
                       validationSchema={PasswordSchema}
                       ref={passwordFormRef}
                       initialValues={passwordInitialValues}
-                      isInitialValid={false}
+                      isInitialValid
                     >
                       {(passwordForm) => (
                         <React.Fragment>

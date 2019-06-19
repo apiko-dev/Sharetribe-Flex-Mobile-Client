@@ -312,6 +312,7 @@
   },
 
   "inbox": {
+    "inbox": "Inbox",
     "bookingBreakdown": "Booking breakdown",
     "pricePerDay": "Price per day",
     "day": "day",
