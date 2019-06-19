@@ -146,6 +146,7 @@ export default {
   },
   productScreen: {
     white: '#FFF',
+    black: '#000',
   },
   profileScreen: {
     backgroundColorTop: '#FFF',
