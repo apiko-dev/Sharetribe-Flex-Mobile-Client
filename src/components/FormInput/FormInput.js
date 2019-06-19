@@ -26,6 +26,7 @@ const FormInput = ({
   infoMessage,
   active,
   secureTextEntry,
+  validateOnTouched = true,
   ...props
 }) => {
   const [secureTextEntryStatus, setSecureTextEntryStatus] = useState(
@@ -87,7 +88,13 @@ const FormInput = ({
         isShowingFormInfo={infoStatus}
         active={active}
       />
-      <FormError showError={isError && !active} error={error} />
+      <FormError
+        showError={
+          (validateOnTouched ? isError : isError || !!error) &&
+          !active
+        }
+        error={error}
+      />
       <FormInfo
         message={infoMessage}
         showInfo={infoStatus}
@@ -169,6 +176,7 @@ FormInput.propTypes = {
   value: T.oneOfType([T.string, T.object]),
   placeholder: T.string,
   isError: T.bool,
+  validateOnTouched: T.bool,
   active: T.bool,
   secureTextEntry: T.bool,
   error: T.any,

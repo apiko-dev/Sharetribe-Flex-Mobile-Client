@@ -19,7 +19,11 @@ import {
 import { EmailVerifiedMessage } from './components';
 import i18n from '../../i18n';
 import { colors } from '../../styles';
-import { ProfileSchema } from '../../validators/schemes';
+import {
+  ProfileSchema,
+  ContactSchema,
+  PasswordSchema,
+} from '../../validators/schemes';
 import { actionSheetSettingsOptions } from '../../constants/options';
 
 const SettingsScreen = ({
@@ -29,9 +33,13 @@ const SettingsScreen = ({
   addPhoto,
   user,
   isChangingAvatar,
-  initialValues,
   isLoading,
   formRef,
+  contactFormRef,
+  passwordFormRef,
+  profileInitialValues,
+  contactInitialValues,
+  passwordInitialValues,
 }) => (
   <SafeAreaView style={s.safeAreaViewContainer}>
     <KeyboardAwareScrollView
@@ -43,11 +51,10 @@ const SettingsScreen = ({
           enableReinitialize
           validationSchema={ProfileSchema}
           ref={formRef}
-          initialValues={initialValues}
-          isInitialValid={false}
-          onSubmit={onSave}
+          initialValues={profileInitialValues}
+          isInitialValid
         >
-          {({ handleSubmit, handleReset, isValid }) => (
+          {(profileForm) => (
             <React.Fragment>
               <FormContainer
                 headerTitle={i18n.t('settings.profileSettings')}
@@ -103,82 +110,142 @@ const SettingsScreen = ({
                 />
               </FormContainer>
 
-              <FormContainer
-                headerTitle={i18n.t('settings.contactDetails')}
+              <Form
+                enableReinitialize
+                validationSchema={ContactSchema}
+                ref={contactFormRef}
+                initialValues={contactInitialValues}
+                isInitialValid
               >
-                <FormInput.Field
-                  placeholder={i18n.t('settings.currentPassword')}
-                  containerStyle={s.inputContainer}
-                  name="currentPasswordForEmail"
-                  inputType="password"
-                  autoCapitalize="none"
-                />
-                <View style={s.inputContainer}>
-                  <FormInput.Field
-                    placeholder={i18n.t('settings.email')}
-                    name="email"
-                    autoCapitalize="none"
-                    keyboardType="email-address"
-                    maxLength={100}
-                  />
-                  {!user.emailVerified && (
-                    <EmailVerifiedMessage
-                      resendVerificationEmail={
-                        resendVerificationEmail
-                      }
-                    />
-                  )}
-                </View>
+                {(contactDetailsForm) => (
+                  <React.Fragment>
+                    <FormContainer
+                      headerTitle={i18n.t('settings.contactDetails')}
+                    >
+                      <FormInput.Field
+                        placeholder={i18n.t(
+                          'settings.currentPassword',
+                        )}
+                        containerStyle={s.inputContainer}
+                        name="currentPasswordForEmail"
+                        inputType="password"
+                        autoCapitalize="none"
+                      />
+                      <View style={s.inputContainer}>
+                        <FormInput.Field
+                          placeholder={i18n.t('settings.email')}
+                          name="email"
+                          autoCapitalize="none"
+                          keyboardType="email-address"
+                          maxLength={100}
+                        />
+                        {!user.emailVerified && (
+                          <EmailVerifiedMessage
+                            resendVerificationEmail={
+                              resendVerificationEmail
+                            }
+                          />
+                        )}
+                      </View>
 
-                <FormInput.Field
-                  placeholder={i18n.t('settings.phoneNumber')}
-                  name="phone"
-                  keyboardType="phone-pad"
-                  autoCapitalize="none"
-                />
-              </FormContainer>
+                      <FormInput.Field
+                        placeholder={i18n.t('settings.phoneNumber')}
+                        name="phone"
+                        keyboardType="phone-pad"
+                        autoCapitalize="none"
+                      />
+                    </FormContainer>
 
-              <FormContainer
-                headerTitle={i18n.t('settings.passwordSettings')}
-              >
-                <FormInput.Field
-                  placeholder={i18n.t('settings.currentPassword')}
-                  containerStyle={s.inputContainer}
-                  name="currentPassword"
-                  inputType="password"
-                  autoCapitalize="none"
-                />
-                <FormInput.Field
-                  placeholder={i18n.t('settings.newPassword')}
-                  containerStyle={s.inputContainer}
-                  name="newPassword"
-                  inputType="password"
-                  autoCapitalize="none"
-                />
-                <FormInput.Field
-                  placeholder={i18n.t('settings.retypeNewPassword')}
-                  name="replyPassword"
-                  inputType="password"
-                  autoCapitalize="none"
-                />
-              </FormContainer>
-              <FormContainer>
-                <View style={s.buttonsFormContainer}>
-                  <Button
-                    containerStyle={s.buttonContainer}
-                    title={i18n.t('common.cancel')}
-                    onPress={handleReset}
-                  />
-                  <Button
-                    containerStyle={s.buttonContainer}
-                    title={i18n.t('common.save')}
-                    primary
-                    onPress={handleSubmit}
-                    isLoading={isLoading}
-                    disabled={!isValid || isLoading}
-                  />
-                </View>
-              </FormContainer>
+                    <Form
+                      validateOnChange
+                      enableReinitialize
+                      validationSchema={PasswordSchema}
+                      ref={passwordFormRef}
+                      initialValues={passwordInitialValues}
+                      isInitialValid={false}
+                    >
+                      {(passwordForm) => (
+                        <React.Fragment>
+                          <FormContainer
+                            headerTitle={i18n.t(
+                              'settings.passwordSettings',
+                            )}
+                          >
+                            <FormInput.Field
+                              placeholder={i18n.t(
+                                'settings.currentPassword',
+                              )}
+                              containerStyle={s.inputContainer}
+                              name="currentPassword"
+                              inputType="password"
+                              validateOnTouched={false}
+                              autoCapitalize="none"
+                            />
+                            <FormInput.Field
+                              placeholder={i18n.t(
+                                'settings.newPassword',
+                              )}
+                              containerStyle={s.inputContainer}
+                              name="newPassword"
+                              inputType="password"
+                              validateOnTouched={false}
+                              autoCapitalize="none"
+                            />
+                            <FormInput.Field
+                              placeholder={i18n.t(
+                                'settings.retypeNewPassword',
+                              )}
+                              name="replyPassword"
+                              inputType="password"
+                              validateOnTouched={false}
+                              autoCapitalize="none"
+                            />
+                          </FormContainer>
+                          <FormContainer>
+                            <View style={s.buttonsFormContainer}>
+                              <Button
+                                containerStyle={s.buttonContainer}
+                                title={i18n.t('common.cancel')}
+                                onPress={() => {
+                                  passwordForm.handleReset();
+                                  contactDetailsForm.handleReset();
+                                  profileForm.handleReset();
+                                }}
+                              />
+                              <Button
+                                containerStyle={s.buttonContainer}
+                                title={i18n.t('common.save')}
+                                primary
+                                onPress={() =>
+                                  onSave({
+                                    ...passwordForm.values,
+                                    ...contactDetailsForm.values,
+                                    ...profileForm.values,
+                                  })
+                                }
+                                isLoading={isLoading}
+                                disabled={
+                                  isLoading ||
+                                  !(
+                                    profileForm.dirty ||
+                                    contactDetailsForm.dirty ||
+                                    passwordForm.dirty
+                                  ) ||
+                                  !(
+                                    profileForm.isValid &&
+                                    contactDetailsForm.isValid &&
+                                    passwordForm.isValid
+                                  )
+                                }
+                              />
+                            </View>
+                          </FormContainer>
+                        </React.Fragment>
+                      )}
+                    </Form>
+                  </React.Fragment>
+                )}
+              </Form>
             </React.Fragment>
           )}
         </Form>
@@ -213,8 +280,12 @@ SettingsScreen.propTypes = {
   user: T.object,
   isChangingAvatar: T.bool,
   isLoading: T.bool,
-  initialValues: T.object,
+  profileInitialValues: T.object,
+  contactInitialValues: T.object,
+  passwordInitialValues: T.object,
   formRef: T.any,
+  contactFormRef: T.any,
+  passwordFormRef: T.any,
 };
 
 export default observer(SettingsScreen);

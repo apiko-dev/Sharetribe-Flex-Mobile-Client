@@ -116,7 +116,9 @@
     "choosePhotosFromLibrary": "Choose photos from library",
     "makeNewPhoto": "Make new photo by camera",
     "verifyEmailSent": "Email with verify link sent. Check your email",
-    "verifyEmail": "Verify email"
+    "verifyEmail": "Verify email",
+    "errorChangeEmail": "Wrong email",
+    "errorChangeEmailDetails": " Your current password is invalid"
   },
   "profile": {
     "profile": "Profile",
