@@ -8,6 +8,7 @@ import {
 } from 'recompose';
 import ImagePicker from 'react-native-image-crop-picker';
 import { inject } from 'mobx-react';
+import { Keyboard } from 'react-native';
 import uuid from 'uuid/v4';
 import {
   PermissionService,
@@ -209,6 +210,7 @@ export default hoistStatics(
         contactFormRef,
         passwordFormRef,
       }) => async (data) => {
+        Keyboard.dismiss();
         if (
           data.firstName !== user.profile.firstName ||
           data.lastName !== user.profile.lastName ||

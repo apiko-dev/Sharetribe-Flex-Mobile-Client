@@ -38,8 +38,8 @@ export default hoistStatics(
       },
     ),
     lifecycle({
-      componentDidMount() {
-        this.props.fetchTransactions.run({
+      async componentDidMount() {
+        await this.props.fetchTransactions.run({
           lastTransitions: ['transition/accept'],
           perPage: 100,
           page: 1,
