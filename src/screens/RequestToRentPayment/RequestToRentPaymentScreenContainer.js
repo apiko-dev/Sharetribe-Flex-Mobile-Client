@@ -6,6 +6,7 @@ import {
 } from 'recompose';
 import { inject } from 'mobx-react';
 import { Keyboard } from 'react-native';
+import { observer } from 'mobx-react/custom';
 import R from 'ramda';
 import { NavigationService, AlertService } from '../../services';
 import RequestToRentPaymentScreenView from './RequestToRentPaymentScreenView';
@@ -51,6 +52,7 @@ export default hoistStatics(
       ),
       getAvailableDays: product.getAvailableDays,
     })),
+    observer,
     withStateHandlers(
       {
         isVisibleModal: false,
@@ -71,6 +73,7 @@ export default hoistStatics(
         startRent,
         endRent,
         onChange,
+        ...props,
       }) => async (values) => {
         try {
           console.log('onRequest: ', startRent, endRent);
@@ -89,7 +92,7 @@ export default hoistStatics(
 
           onChange('isVisibleModal', true);
           if (
-            currentTransaction.lastTransitions ===
+            currentTransaction.lastTransition ===
             transitionStatuses.ENQUIRE
           ) {
             await initiateOrderAfterEnquiry.run({

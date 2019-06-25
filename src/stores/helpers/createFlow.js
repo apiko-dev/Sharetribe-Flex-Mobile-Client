@@ -13,7 +13,6 @@ const ErrorModel = types.model({
   // eslint-disable-line
   message: '',
   status: types.maybeNull(types.number),
-  reason: types.maybeNull(types.string),
 });
 
 function createFlow(flowDefinition) {
@@ -25,15 +24,12 @@ function createFlow(flowDefinition) {
     })
     .views((store) => ({
       get errorMessage() {
-        if (store.error === false) {
-          return false;
-        }
 
         return _.get(store, 'error.message', null);
       },
 
       get isError() {
-        return Boolean(store.error);
+        return !!store.error;
       },
 
       get Api() {
@@ -51,19 +47,13 @@ function createFlow(flowDefinition) {
         store.error = null;
       },
 
-      error(err) {
-        store.inProgress = false;
-        store.error = err;
-      },
-
       failed(err, throwError) {
         // eslint-disable-line
         store.inProgress = false;
 
         store.error = {
-          message: _.get(err, 'response.data.message', err.message),
-          status: _.get(err, 'response.status', null),
-          reason: _.get(err, 'response.data.reason', null),
+          message: _.get(err, 'message', 'some error'),
+          status: _.get(err, 'status', null),
         };
 
         if (throwError) {
@@ -74,7 +64,7 @@ function createFlow(flowDefinition) {
       run: flow(flowDefinition(store, getParent(store))),
 
       cleanError() {
-        store.error = false;
+        store.error = null;
       },
     }));
 
