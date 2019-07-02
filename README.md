@@ -1,5 +1,5 @@
 Play Market: https://play.google.com/store/apps/details?id=com.apiko.marketplace
-App Store: https://testflight.apple.com/join/Sg4yog8s
+App Store: https://testflight.apple.com/join/ojohySGb
 
 Sharetribe Flex mobile client for service and rental marketplace development. It provides customizable features for booking services or products in any industry:
 
