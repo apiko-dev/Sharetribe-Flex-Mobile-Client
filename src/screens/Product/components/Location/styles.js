@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.location.background,
     alignItems: 'center',
     justifyContent: 'center',
+    padding: dimensions.smallIndent,
   },
 });
 

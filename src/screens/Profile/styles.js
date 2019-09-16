@@ -27,7 +27,4 @@ export default StyleSheet.create({
     marginTop: dimensions.indent * 0.4,
     marginBottom: dimensions.indent * 0.4,
   },
-  containerTabView: {
-    marginTop: StatusBar.currentHeight,
-  },
 });

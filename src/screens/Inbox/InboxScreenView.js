@@ -1,25 +1,21 @@
+/* eslint-disable react/jsx-wrap-multilines  */
 import React from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, RefreshControl } from 'react-native';
 import T from 'prop-types';
 import { observer } from 'mobx-react/custom';
 
 import i18n from '../../i18n';
 import { Message } from './components';
-import {
-  DrawerButton,
-  ScreenLoader,
-  EmptyFlatList,
-} from '../../components';
+import { DrawerButton, EmptyFlatList } from '../../components';
 import s from './styles';
+import { colors } from '../../styles';
 
 function InboxScreen({
   transactions,
   fetchMoreTransactions,
-  isLoading,
+  isRefreshing,
+  firstFetchTransactions,
 }) {
-  if (isLoading) {
-    return <ScreenLoader />;
-  }
   return (
     <FlatList
       data={transactions}
@@ -35,18 +31,27 @@ function InboxScreen({
       ListEmptyComponent={() => (
         <EmptyFlatList message={i18n.t('home.emptyList')} />
       )}
+      refreshControl={
+        <RefreshControl
+          refreshing={isRefreshing}
+          onRefresh={firstFetchTransactions}
+          tintColor={colors.loader.secondary}
+        />
+      }
     />
   );
 }
 
 InboxScreen.navigationOptions = () => ({
   headerLeft: <DrawerButton />,
+  title: i18n.t('inbox.inbox'),
 });
 
 InboxScreen.propTypes = {
   transactions: T.array,
   fetchMoreTransactions: T.func,
-  isLoading: T.bool,
+  isRefreshing: T.bool,
+  firstFetchTransactions: T.func,
 };
 
 export default observer(InboxScreen);

@@ -6,6 +6,7 @@ import {
   withHandlers,
   defaultProps,
   withPropsOnChange,
+  withProps,
 } from 'recompose';
 import { inject } from 'mobx-react';
 import uuid from 'uuid/v4';
@@ -15,6 +16,7 @@ import { categories as categoriesConstants } from '../../constants';
 import { withDebounce } from '../../utils/enhancers';
 
 const categories = categoriesConstants.map((item) => item.title);
+const fullCategories = categoriesConstants;
 
 const arrCoordinates = (value) => {
   const markers = value.reduce((acc, current) => {
@@ -36,13 +38,13 @@ export default hoistStatics(
   compose(
     inject((stores) => ({
       listings: stores.listings,
-      markers: arrCoordinates(stores.listings.list.asArray),
+      listingsAsArr: stores.listings.list.asArray,
       products: stores.listings.list.asArray,
-      // searchListings: stores.listings.searchListings.asArray,
     })),
 
     defaultProps({
       categories: categoriesConstants,
+      fullCategories,
     }),
 
     withStateHandlers(
@@ -152,6 +154,58 @@ export default hoistStatics(
       });
     }),
 
+    withHandlers({
+      // Filter products by category or if we've selected category
+      // filter by category and sub category
+      listingsFilter: (props) => (listings, categoryItem) =>
+        listings.filter((i) =>
+          props.category
+            ? categoryItem &&
+              i.publicData.category === props.category &&
+              i.publicData.subCategory === categoryItem
+            : categoryItem && i.publicData.category === categoryItem,
+        ),
+    }),
 
+    withHandlers({
+      sort: (props) => () =>
+        props.sectionList.map((i) =>
+          props.listingsFilter(props.listings, i),
+        ),
+    }),
+
+    withPropsOnChange(
+      ['category', 'subCategory', 'search'],
+      (props) => ({
+        // Filter by sub category
+        data: props.listings.list.asArray.filter(
+          (i) => i.publicData.subCategory === props.subCategory && i,
+        ),
+
+        // Form section list by category
+        // When we have selected category we form section list by subcategory
+        sectionList: props.category
+          ? fullCategories[
+              fullCategories.findIndex(
+                (i) => i.title === props.category,
+              )
+            ].data
+          : fullCategories.map((i) => i.title),
+      }),
+    ),
+    withProps((props) => {
+      let markers = arrCoordinates(
+        props.sectionList
+          .map((i) =>
+            props.listingsFilter(props.listings.list.asArray, i),
+          )
+          .flat(),
+      );
+
+      if (props.data.length > 0) {
+        markers = arrCoordinates(props.data);
+      }
+      return { markers };
+    }),
   ),
 )(HomeScreenComponent);

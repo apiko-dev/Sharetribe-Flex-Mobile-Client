@@ -44,6 +44,11 @@ export default hoistStatics(
           currentTransaction,
         ),
       currentTransaction,
+      errorMessage: R.pathOr(
+        false,
+        ['initiateTransaction', 'errorMessage'],
+        transaction,
+      ),
       getAvailableDays: product.getAvailableDays,
     })),
     withStateHandlers(
@@ -149,6 +154,7 @@ export default hoistStatics(
         },
         isLoading: props.isLoading,
         isError: props.isError,
+        errorMessage: props.errorMessage,
       }),
       RequestSentModal,
     ),

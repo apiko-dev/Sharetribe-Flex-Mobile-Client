@@ -25,49 +25,64 @@ const HomeScreen = ({
   selectedMarkerIndex,
   onPressMarker,
   onCalloutPress,
-}) => (
-  <View style={s.container}>
-    <TabBar
-      goToCategory={goToCategory}
-      category={category}
-      subCategory={subCategory}
-      selectedTabIndex={selectedTabIndex}
-      onChangeTabIndex={onChangeTabIndex}
-    />
-    <View style={s.tabView}>
-      <TabView
+  sectionList,
+  data,
+  listingsFilter,
+  listingsAsArr,
+}) => {
+  const filterItem = sectionList
+    .map((i) => listingsFilter(listingsAsArr, i))
+    .flat();
+
+  return (
+    <View style={s.container}>
+      <TabBar
+        goToCategory={goToCategory}
+        category={category}
+        subCategory={subCategory}
         selectedTabIndex={selectedTabIndex}
-        layoutWidth={dimensions.width}
-      >
-        <Tab>
-          <ListView
-            category={category}
-            subCategory={subCategory}
-            search={search}
-            chooseCategory={chooseCategory}
-            fetchAllListings={fetchAllListings}
-            isRefreshing={isRefreshing}
-          />
-        </Tab>
-        <Tab lazy>
-          <MapBox
-            markers={markers}
-            items={products}
-            currentWidth={width}
-            currentHeight={200}
-            selectedMarkerIndex={selectedMarkerIndex}
-            onPressMarker={onPressMarker}
-            onCalloutPress={onCalloutPress}
-            category={category}
-            subCategory={subCategory}
-            search={search}
-            isRefreshing={isRefreshing}
-          />
-        </Tab>
-      </TabView>
+        onChangeTabIndex={onChangeTabIndex}
+      />
+      <View style={s.tabView}>
+        <TabView
+          selectedTabIndex={selectedTabIndex}
+          layoutWidth={dimensions.width}
+        >
+          <Tab>
+            <ListView
+              category={category}
+              subCategory={subCategory}
+              search={search}
+              chooseCategory={chooseCategory}
+              fetchAllListings={fetchAllListings}
+              isRefreshing={isRefreshing}
+              sectionList={sectionList}
+              data={data}
+            />
+          </Tab>
+          <Tab lazy>
+            <MapBox
+              markers={markers}
+              items={products}
+              currentWidth={width}
+              currentHeight={200}
+              selectedMarkerIndex={selectedMarkerIndex}
+              onPressMarker={onPressMarker}
+              onCalloutPress={onCalloutPress}
+              category={category}
+              subCategory={subCategory}
+              search={search}
+              isRefreshing={isRefreshing}
+              filterItem={filterItem}
+              sectionList={sectionList}
+              data={data}
+            />
+          </Tab>
+        </TabView>
+      </View>
     </View>
-  </View>
-);
+  );
+};
 
 HomeScreen.navigationOptions = ({ navigation }) => ({
   headerLeft: <DrawerButton />,
@@ -95,6 +110,10 @@ HomeScreen.propTypes = {
   selectedMarkerIndex: T.number,
   onPressMarker: T.func,
   onCalloutPress: T.func,
+  listingsFilter: T.func,
+  data: T.array,
+  listingsAsArr: T.array,
+  sectionList: T.array,
 };
 
 export default observer(HomeScreen);

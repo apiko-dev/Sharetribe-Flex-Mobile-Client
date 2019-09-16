@@ -116,7 +116,9 @@
     "choosePhotosFromLibrary": "Choose photos from library",
     "makeNewPhoto": "Make new photo by camera",
     "verifyEmailSent": "Email with verify link sent. Check your email",
-    "verifyEmail": "Verify email"
+    "verifyEmail": "Verify email",
+    "errorChangeEmail": "Wrong email",
+    "errorChangeEmailDetails": " Your current password is invalid"
   },
   "profile": {
     "profile": "Profile",
@@ -153,6 +155,9 @@
     "goToChat": "Go to chat",
     "requestSent": "Request sent",
     "waitForConfirmation": "Wait for confirmation",
+    "verificationError": "Current user has not verified the account, you can not rent this product",
+    "sorry": "Sorry",
+    "goToProduct": "Go to product"
   },
   "payoutPreferences": {
     "payoutPreferences": "Payout Preferences",
@@ -307,6 +312,7 @@
   },
 
   "inbox": {
+    "inbox": "Inbox",
     "bookingBreakdown": "Booking breakdown",
     "pricePerDay": "Price per day",
     "day": "day",

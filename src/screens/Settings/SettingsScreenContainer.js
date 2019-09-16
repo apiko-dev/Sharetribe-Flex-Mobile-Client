@@ -8,6 +8,7 @@ import {
 } from 'recompose';
 import ImagePicker from 'react-native-image-crop-picker';
 import { inject } from 'mobx-react';
+import { Keyboard } from 'react-native';
 import uuid from 'uuid/v4';
 import {
   PermissionService,
@@ -34,7 +35,46 @@ export default hoistStatics(
 
     defaultProps({
       formRef: React.createRef(),
+      contactFormRef: React.createRef(),
+      passwordFormRef: React.createRef(),
     }),
+
+    withProps(
+      ({
+        user,
+        isUpdatingProfile,
+        isChangingEmail,
+        isChangingPassword,
+      }) => {
+        const profileInitialValues = {
+          firstName: user.profile.firstName,
+          lastName: user.profile.lastName,
+          bio: user.profile.bio || '',
+        };
+        const contactInitialValues = {
+          email: user.email,
+          phone:
+            (user.profile.publicData &&
+              user.profile.publicData.phoneNumber) ||
+            '',
+          currentPasswordForEmail: '',
+        };
+        const passwordInitialValues = {
+          newPassword: '',
+          currentPassword: '',
+          replyPassword: '',
+        };
+
+        const isLoading =
+          isChangingPassword || isUpdatingProfile || isChangingEmail;
+        return {
+          profileInitialValues,
+          contactInitialValues,
+          passwordInitialValues,
+          isLoading,
+        };
+      },
+    ),
 
     withHandlers({
       goToMyProfile: ({ user }) => () =>
@@ -102,7 +142,10 @@ export default hoistStatics(
               i18n.t('errors.incorrectPassword'),
             );
           } else {
-            AlertService.showSomethingWentWrong();
+            AlertService.showAlert(
+              i18n.t('settings.errorChangeEmail'),
+              i18n.t('settings.errorChangeEmailDetails'),
+            );
           }
         }
       },
@@ -164,7 +207,10 @@ export default hoistStatics(
         updateProfile,
         changeEmail,
         changePassword,
+        contactFormRef,
+        passwordFormRef,
       }) => async (data) => {
+        Keyboard.dismiss();
         if (
           data.firstName !== user.profile.firstName ||
           data.lastName !== user.profile.lastName ||
@@ -176,6 +222,7 @@ export default hoistStatics(
 
         if (data.email !== user.email) {
           changeEmail(data);
+          contactFormRef.resetForm();
         }
 
         if (
@@ -185,37 +232,9 @@ export default hoistStatics(
           data.newPassword === data.replyPassword
         ) {
           changePassword(data);
-          data.newPassword = '';
-          data.replyPassword = '';
-          data.currentPassword = '';
+          passwordFormRef.resetForm();
         }
       },
     }),
-
-    withProps(
-      ({
-        user,
-        isUpdatingProfile,
-        isChangingEmail,
-        isChangingPassword,
-      }) => {
-        const initialValues = {
-          firstName: user.profile.firstName,
-          lastName: user.profile.lastName,
-          bio: user.profile.bio,
-          email: user.email,
-          phone:
-            user.profile.protectedData &&
-            user.profile.protectedData.phoneNumber,
-        };
-
-        const isLoading =
-          isChangingPassword || isUpdatingProfile || isChangingEmail;
-        return {
-          initialValues,
-          isLoading,
-        };
-      },
-    ),
   ),
 )(SettingsScreenView);

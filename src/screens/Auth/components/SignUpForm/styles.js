@@ -63,4 +63,10 @@ export default StyleSheet.create({
   alignCenter: {
     justifyContent: 'center',
   },
+  marginBottom: {
+    marginBottom: dimensions.smallIndent,
+  },
+  borderRadius: {
+    borderRadius: 10,
+  },
 });

@@ -33,6 +33,7 @@ export default StyleSheet.create({
     },
     shadowOpacity: 0.3,
     shadowRadius: 4.7,
+    borderRadius: 10,
   },
   tabViewWrapper: {
     flex: 1,

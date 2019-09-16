@@ -78,7 +78,7 @@ export default hoistStatics(
 
           if (props.user.isViewer) {
             await props.fetchOwnListings.run();
-
+            props.onChange('isRefreshing', false);
             return;
           }
 

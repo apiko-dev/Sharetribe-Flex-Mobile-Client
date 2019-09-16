@@ -51,6 +51,12 @@ export const ProfileSchema = Yup.object().shape({
     .min(1)
     .max(100)
     .required(i18n.t('errors.requireLastName')),
+  bio: Yup.string()
+    .trim()
+    .min(1, i18n.t('errors.passwordMustBe')),
+});
+
+export const ContactSchema = Yup.object().shape({
   currentPasswordForEmail: Yup.string().min(
     8,
     i18n.t('errors.passwordMustBe'),
@@ -62,31 +68,64 @@ export const ProfileSchema = Yup.object().shape({
   phone: Yup.string()
     .trim()
     .phoneNumber(i18n.t('errors.incorrectPhone')),
-  currentPassword: Yup.string()
-    .trim()
-    .min(8, i18n.t('errors.passwordMustBe')),
-  newPassword: Yup.string().when('currentPassword', {
-    is: (val) => !!val,
-    then: Yup.string()
-      .trim()
-      .min(8, i18n.t('errors.passwordMustBe'))
-      .max(256, i18n.t('errors.passwordMustBe'))
-      .required(i18n.t('errors.passwordMustBe')),
-    otherwise: Yup.string().min(0),
-  }),
-  replyPassword: Yup.string().when('currentPassword', {
-    is: (val) => !!val,
-    then: Yup.string()
-      .min(8)
-      .max(256)
-      .oneOf(
-        [Yup.ref('newPassword')],
-        i18n.t('errors.confirmPassword'),
-      )
-      .required(i18n.t('errors.confirmPassword')),
-    otherwise: Yup.string().min(0),
-  }),
 });
+
+const { string, shape, object } = Yup;
+
+export const PasswordSchema = Yup.object().shape(
+  {
+    currentPassword: Yup.string().when(
+      ['newPassword', 'replyPassword'],
+      {
+        is: (newPassword, replyPassword) => {
+          return (
+            !(typeof newPassword === 'undefined') ||
+            !(typeof replyPassword === 'undefined')
+          );
+        },
+        then: Yup.string()
+          .trim()
+          .min(8, i18n.t('errors.passwordMustBe'))
+          .max(256, i18n.t('errors.passwordMustBe'))
+          .required(i18n.t('errors.passwordMustBe')),
+        otherwise: Yup.string()
+          .trim()
+          .min(8, i18n.t('errors.passwordMustBe'))
+          .max(256, i18n.t('errors.passwordMustBe')),
+      },
+    ),
+    newPassword: string().when(['currentPassword'], {
+      is: (val) => !!val,
+      then: string()
+        .min(8, i18n.t('errors.passwordMustBe'))
+        .max(256, i18n.t('errors.passwordMustBe'))
+        .required(i18n.t('errors.passwordMustBe')),
+      otherwise: string()
+        .min(8, i18n.t('errors.passwordMustBe'))
+        .max(256, i18n.t('errors.passwordMustBe')),
+    }),
+    replyPassword: string().when(['currentPassword'], {
+      is: (val) => !!val,
+      then: string()
+        .min(8, i18n.t('errors.passwordMustBe'))
+        .max(256, i18n.t('errors.passwordMustBe'))
+        .oneOf(
+          [Yup.ref('newPassword')],
+          i18n.t('errors.confirmPassword'),
+        )
+        .required(i18n.t('errors.passwordMustBe')),
+      otherwise: string()
+        .min(8, i18n.t('errors.passwordMustBe'))
+        .max(256, i18n.t('errors.passwordMustBe')),
+    }),
+  },
+
+  [
+    ['currentPassword', 'newPassword'],
+    ['currentPassword', 'replyPassword'],
+  ],
+);
+
 
 export const SignUpSchema = Yup.object().shape({
   firstName: Yup.string()
