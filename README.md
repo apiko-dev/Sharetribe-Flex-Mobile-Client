@@ -1,42 +1,29 @@
-Play Market: https://play.google.com/store/apps/details?id=com.apiko.marketplace
-App Store: https://testflight.apple.com/join/ojohySGb
+An open source native mobile client for creating your own mobile online marketplace app, built on top of the [Sharetribe Flex](https://www.sharetribe.com/flex/) API. Built with React Native. Works with both iOS and Android.
+Sharetribe Flex is an API-first marketplace solution that provides customizable features for rental or service bookings in any industry: availability calendar and scheduling, search, messaging and notifications, manging users and listings, admin panel for monitoring users, listings, reviews, and messages, online payment, etc.
 
-Sharetribe Flex mobile client for service and rental marketplace development. It provides customizable features for booking services or products in any industry:
+## Try out an example mobile app built with the template
 
-Availability calendar and scheduling
-Search
-Messaging and notifications
-Users and listings
-Admin panel for monitoring users, listings, reviews, and messages
-Online payment
+- iOS: download with TestFlight https://testflight.apple.com/join/ojohySGb
+- Android: download from play market https://play.google.com/store/apps/details?id=com.apiko.marketplace 
 
- There is no way to implement:
-- pagination on the home screen
-- search
-- can’t delete profile picture
-- counting near inbox
-- validation users for payment(must verify user from admin panel)
-- rating that takes into account all the ratings
-- deep Link for Restore Password is not recognized as link in Gmail.
-- error thrown when we in image picker click on one photo to see it but choose another photo in settings screen. (only on ios 12)
- 
 
-Features:
-- create profile user and login/logout
-- sort all product by category/subcategory
-- publish ad 
-- edit advertisement
-- edit profile
-- leave feedback on the product with rating
-- map with location all advertisement/category/subcategory
-- scroll items in map. Items have own location which varies during swipe
-- request to rent item 
+## Features of the template:
 
-in advertisement 
-- add photos
-- description with label, location, set day of the week for rent
-- set location of ad
-- edit advertisement
+- Signup, login, create a user profile
+- Edit profile
+- Publish a listing
+- Edit a listing
+- View a list of all products and filter it by category and subcategory
+- Display a map to show where the products are located
+- Messaging between users
+- Request to book a listing
+- Leave a five star rating and a text review of a product after booking it
 
+## Data that is added for each listing
+
+- Listing title, description and daily price
+- Geolocation
+- Photos
+- When is the listing available for renting
 
 Created using https://www.sharetribe.com/flex/
