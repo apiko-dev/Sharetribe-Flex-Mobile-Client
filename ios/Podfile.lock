@@ -142,7 +142,7 @@ DEPENDENCIES:
   - yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - boost-for-react-native
     - Google-Maps-iOS-Utils
     - GoogleMaps
@@ -218,4 +218,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 17b29ad1a1e410aa1dda5310a2f9574c16a56760
 
-COCOAPODS: 1.6.1
+COCOAPODS: 1.8.4
