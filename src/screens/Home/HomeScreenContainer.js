@@ -8,6 +8,7 @@ import {
   withPropsOnChange,
   withProps,
 } from 'recompose';
+import R from 'ramda';
 import { inject } from 'mobx-react';
 import uuid from 'uuid/v4';
 import HomeScreenComponent from './HomeScreenView';
@@ -195,11 +196,11 @@ export default hoistStatics(
     ),
     withProps((props) => {
       let markers = arrCoordinates(
-        props.sectionList
-          .map((i) =>
+        R.flatten(
+          props.sectionList.map((i) =>
             props.listingsFilter(props.listings.list.asArray, i),
-          )
-          .flat(),
+          ),
+        ),
       );
 
       if (props.data.length > 0) {

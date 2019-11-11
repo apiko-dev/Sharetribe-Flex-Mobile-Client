@@ -2,6 +2,7 @@ import React from 'react';
 import { View } from 'react-native';
 import T from 'prop-types';
 import { TabView, Tab } from 'react-native-easy-tabs';
+import R from 'ramda';
 import { observer } from 'mobx-react/custom';
 import s from './styles';
 import { DrawerButton } from '../../components';
@@ -30,9 +31,9 @@ const HomeScreen = ({
   listingsFilter,
   listingsAsArr,
 }) => {
-  const filterItem = sectionList
-    .map((i) => listingsFilter(listingsAsArr, i))
-    .flat();
+  const filterItem = R.flatten(
+    sectionList.map((i) => listingsFilter(listingsAsArr, i)),
+  );
 
   return (
     <View style={s.container}>
