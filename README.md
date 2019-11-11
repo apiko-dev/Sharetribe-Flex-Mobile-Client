@@ -3,7 +3,7 @@ Sharetribe Flex is an API-first marketplace solution that provides customizable 
 
 ## Try out an example mobile app built with the template
 
-- iOS: download with TestFlight https://testflight.apple.com/join/uMs1GtAg
+- iOS: download with TestFlight https://testflight.apple.com/join/QMAngVOo
 - Android: download from play market https://play.google.com/store/apps/details?id=com.apiko.marketplace 
 
 

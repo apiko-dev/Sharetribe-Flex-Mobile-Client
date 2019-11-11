@@ -393,7 +393,7 @@ function searchListings(flow, store) {
       flow.start();
 
       const res = yield store.Api.fetchListings({
-        pub_title: title,
+        keywords: title,
         include: ['images', 'author', 'author.profileImage'],
       });
 
