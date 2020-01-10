@@ -27,3 +27,5 @@ Sharetribe Flex is an API-first marketplace solution that provides customizable 
 - When is the listing available for renting
 
 Created using https://www.sharetribe.com/flex/
+
+How to build Sharetribe Flex Mobile Client https://github.com/apiko-dev/Sharetribe-Flex-Mobile-Client/blob/master/doc/BUILD.md
