@@ -28,4 +28,4 @@ Sharetribe Flex is an API-first marketplace solution that provides customizable 
 
 Created using https://www.sharetribe.com/flex/
 
-How to build Sharetribe Flex Mobile Client 
+How to build Sharetribe Flex Mobile Client https://github.com/apiko-dev/Sharetribe-Flex-Mobile-Client/blob/master/doc/BUILD.md
