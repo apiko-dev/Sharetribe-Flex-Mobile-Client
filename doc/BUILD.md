@@ -12,7 +12,6 @@ export default {
   SENTRY_DNS:
     'Your sentry DNS URL',
   STRIPE_API_KEY: 'Your Stripe publish key',
-  STRIPE_SECRET_KEY: 'Your Stripe secret key',
   STRIPE_CLIENT_ID: 'Your Stripe client key',
 }
 ```
